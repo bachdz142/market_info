@@ -9,8 +9,9 @@ from tqdm import tqdm
 
 load_dotenv()
 
-from agent.graph import build_graph
+from agent.graph import build_extract_graph, build_graph
 from agent.logging_config import setup_logging
+from agent.sources import SOURCES
 from agent.store import append_topic_csv, append_topic_jsonl
 from agent.topics import TOPICS
 
@@ -35,74 +36,96 @@ def health() -> dict:
     return {"status": "ok"}
 
 
+def _run_item(graph, item: dict, index: int, total: int, extra_state: dict = None) -> dict:
+    """Run one topic or source through its graph, catching errors so one
+    failure doesn't crash the whole /trigger request."""
+    item_start = time.perf_counter()
+    thread_id = f"{item['id']}-{uuid.uuid4()}"
+    state = {
+        "query": item["prompt"],
+        "gate_passed": False,
+        "gate_reason": None,
+        "search_results": None,
+        "result": None,
+        "token_usage": None,
+        "url": None,
+    }
+    if extra_state:
+        state.update(extra_state)
+
+    try:
+        final_state = graph.invoke(state, config={"configurable": {"thread_id": thread_id}})
+        item_result = {
+            "id": item["id"],
+            "kind": item["kind"],
+            "gate_passed": final_state.get("gate_passed"),
+            "gate_reason": final_state.get("gate_reason"),
+            "result": final_state.get("result"),
+            "token_usage": final_state.get("token_usage"),
+            "error": None,
+        }
+    except Exception as exc:
+        logger.exception("[%d/%d] %s raised an error", index, total, item["id"])
+        item_result = {
+            "id": item["id"],
+            "kind": item["kind"],
+            "gate_passed": None,
+            "gate_reason": None,
+            "result": None,
+            "token_usage": None,
+            "error": str(exc),
+        }
+
+    item_result["topic_seconds"] = round(time.perf_counter() - item_start, 2)
+    logger.info(
+        "[%d/%d] %s done in %ss (gate_passed=%s, error=%s)",
+        index, total, item["id"], item_result["topic_seconds"],
+        item_result["gate_passed"], item_result["error"],
+    )
+    return item_result
+
+
 @app.post("/trigger")
 def trigger() -> dict:
-    graph = build_graph()
+    search_graph = build_graph()
+    extract_graph = build_extract_graph()
     triggered_at = datetime.now(timezone.utc).isoformat()
     start = time.perf_counter()
+    total = len(TOPICS) + len(SOURCES)
 
-    logger.info("Trigger started: %d topics", len(TOPICS))
-    topic_results = []
-    pbar = tqdm(total=len(TOPICS), desc="Trigger", unit="topic")
-    for i, topic in enumerate(TOPICS, start=1):
+    logger.info("Trigger started: %d topics, %d sources", len(TOPICS), len(SOURCES))
+    all_results = []
+    pbar = tqdm(total=total, desc="Trigger", unit="item")
+    index = 0
+
+    for topic in TOPICS:
+        index += 1
         pbar.set_postfix_str(topic["id"])
-        topic_start = time.perf_counter()
-        thread_id = f"{topic['id']}-{uuid.uuid4()}"
-
-        try:
-            final_state = graph.invoke(
-                {
-                    "query": topic["prompt"],
-                    "gate_passed": False,
-                    "gate_reason": None,
-                    "search_results": None,
-                    "result": None,
-                    "token_usage": None,
-                },
-                config={"configurable": {"thread_id": thread_id}},
-            )
-            topic_result = {
-                "id": topic["id"],
-                "kind": topic["kind"],
-                "gate_passed": final_state.get("gate_passed"),
-                "gate_reason": final_state.get("gate_reason"),
-                "result": final_state.get("result"),
-                "token_usage": final_state.get("token_usage"),
-                "error": None,
-            }
-        except Exception as exc:
-            logger.exception("[%d/%d] %s raised an error", i, len(TOPICS), topic["id"])
-            topic_result = {
-                "id": topic["id"],
-                "kind": topic["kind"],
-                "gate_passed": None,
-                "gate_reason": None,
-                "result": None,
-                "token_usage": None,
-                "error": str(exc),
-            }
-
-        topic_result["topic_seconds"] = round(time.perf_counter() - topic_start, 2)
-        logger.info(
-            "[%d/%d] %s done in %ss (gate_passed=%s, error=%s)",
-            i, len(TOPICS), topic["id"], topic_result["topic_seconds"],
-            topic_result["gate_passed"], topic_result["error"],
-        )
-
-        # Save immediately — if a later topic crashes or the process dies,
+        result = _run_item(search_graph, topic, index, total)
+        # Save immediately — if a later item crashes or the process dies,
         # everything completed so far (and already paid for in tokens) is kept.
-        append_topic_jsonl(triggered_at, topic_result)
-        append_topic_csv(triggered_at, topic_result)
-        topic_results.append(topic_result)
+        append_topic_jsonl(triggered_at, result)
+        append_topic_csv(triggered_at, result)
+        all_results.append(result)
         pbar.update(1)
+        if index < total:
+            time.sleep(TOPIC_DELAY_SECONDS)
 
-        if i < len(TOPICS):
+    for source in SOURCES:
+        index += 1
+        pbar.set_postfix_str(source["id"])
+        result = _run_item(extract_graph, source, index, total, extra_state={"url": source["url"]})
+        append_topic_jsonl(triggered_at, result)
+        append_topic_csv(triggered_at, result)
+        all_results.append(result)
+        pbar.update(1)
+        if index < total:
             time.sleep(TOPIC_DELAY_SECONDS)
 
     pbar.close()
     run_seconds = round(time.perf_counter() - start, 2)
     logger.info("Trigger finished in %ss", run_seconds)
-    return {"triggered_at": triggered_at, "run_seconds": run_seconds, "topics": topic_results}
+    return {"triggered_at": triggered_at, "run_seconds": run_seconds, "topics": all_results}
 
 
 if __name__ == "__main__":

@@ -6,7 +6,7 @@ from typing import Optional, TypedDict
 
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_groq import ChatGroq
-from langchain_tavily import TavilySearch
+from langchain_tavily import TavilyExtract, TavilySearch
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, StateGraph
 
@@ -33,6 +33,7 @@ class AgentState(TypedDict):
     search_results: Optional[str]
     result: Optional[dict]
     token_usage: Optional[dict]
+    url: Optional[str]
 
 
 def _build_model() -> ChatGroq:
@@ -50,6 +51,15 @@ def _search_node(state: AgentState) -> dict:
     results = tool.invoke({"query": state["query"]})
     elapsed = round(time.perf_counter() - start, 2)
     logger.info("Search done in %ss for query: %s", elapsed, state["query"][:80])
+    return {"search_results": str(results)}
+
+
+def _extract_node(state: AgentState) -> dict:
+    start = time.perf_counter()
+    tool = TavilyExtract()
+    results = tool.invoke({"urls": [state["url"]]})
+    elapsed = round(time.perf_counter() - start, 2)
+    logger.info("Extract done in %ss for url: %s", elapsed, state["url"])
     return {"search_results": str(results)}
 
 
@@ -103,6 +113,26 @@ def build_graph():
         "checkpoint_gate", _route_after_gate, {"search": "search", END: END}
     )
     graph.add_edge("search", "structure")
+    graph.add_edge("structure", END)
+
+    return graph.compile(checkpointer=MemorySaver())
+
+
+def build_extract_graph():
+    """Same shape as build_graph(), but fetches a known URL (TavilyExtract)
+    instead of running an open-ended search — for official/structured
+    sources where the fact reliably lives at one stable page."""
+    graph = StateGraph(AgentState)
+
+    graph.add_node("checkpoint_gate", checkpoint_gate)
+    graph.add_node("extract", _extract_node)
+    graph.add_node("structure", _structure_node)
+
+    graph.add_edge(START, "checkpoint_gate")
+    graph.add_conditional_edges(
+        "checkpoint_gate", _route_after_gate, {"search": "extract", END: END}
+    )
+    graph.add_edge("extract", "structure")
     graph.add_edge("structure", END)
 
     return graph.compile(checkpointer=MemorySaver())
