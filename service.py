@@ -1,7 +1,9 @@
 import logging
 import time
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+
+VIETNAM_TZ = timezone(timedelta(hours=7))
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
@@ -9,15 +11,16 @@ from tqdm import tqdm
 
 load_dotenv()
 
-from agent.graph import build_extract_graph, build_graph
+from agent.graph import build_crawl_graph, build_graph, build_multi_pdf_graph
 from agent.logging_config import setup_logging
 from agent.sources import SOURCES
-from agent.store import append_topic_csv, append_topic_jsonl
+from agent.store import append_raw_content, append_topic_csv, append_topic_jsonl
 from agent.topics import TOPICS
 
-# TEMP: testing the incremental-save + rate-limit fix on a smaller batch first.
-# Revert (delete this line) once verified.
-TOPICS = TOPICS[-10:]
+# TEMP: Tavily search disabled for now to avoid spending search credits —
+# /trigger only runs the free SOURCES/crawler flow. Revert (delete this
+# line) to bring the search-based topics back.
+TOPICS = []
 
 setup_logging()
 logger = logging.getLogger(__name__)
@@ -49,6 +52,7 @@ def _run_item(graph, item: dict, index: int, total: int, extra_state: dict = Non
         "result": None,
         "token_usage": None,
         "url": None,
+        "pdf_texts": None,
     }
     if extra_state:
         state.update(extra_state)
@@ -62,6 +66,7 @@ def _run_item(graph, item: dict, index: int, total: int, extra_state: dict = Non
             "gate_reason": final_state.get("gate_reason"),
             "result": final_state.get("result"),
             "token_usage": final_state.get("token_usage"),
+            "raw_content": final_state.get("search_results"),
             "error": None,
         }
     except Exception as exc:
@@ -73,6 +78,7 @@ def _run_item(graph, item: dict, index: int, total: int, extra_state: dict = Non
             "gate_reason": None,
             "result": None,
             "token_usage": None,
+            "raw_content": None,
             "error": str(exc),
         }
 
@@ -88,12 +94,14 @@ def _run_item(graph, item: dict, index: int, total: int, extra_state: dict = Non
 @app.post("/trigger")
 def trigger() -> dict:
     search_graph = build_graph()
-    extract_graph = build_extract_graph()
-    triggered_at = datetime.now(timezone.utc).isoformat()
+    crawl_graph = build_crawl_graph()
+    multi_pdf_graph = build_multi_pdf_graph()
+    run_id = str(uuid.uuid4())
+    triggered_at = datetime.now(VIETNAM_TZ).isoformat()
     start = time.perf_counter()
     total = len(TOPICS) + len(SOURCES)
 
-    logger.info("Trigger started: %d topics, %d sources", len(TOPICS), len(SOURCES))
+    logger.info("Trigger started (run_id=%s): %d topics, %d sources", run_id, len(TOPICS), len(SOURCES))
     all_results = []
     pbar = tqdm(total=total, desc="Trigger", unit="item")
     index = 0
@@ -104,8 +112,9 @@ def trigger() -> dict:
         result = _run_item(search_graph, topic, index, total)
         # Save immediately — if a later item crashes or the process dies,
         # everything completed so far (and already paid for in tokens) is kept.
-        append_topic_jsonl(triggered_at, result)
-        append_topic_csv(triggered_at, result)
+        append_topic_jsonl(triggered_at, run_id, result)
+        append_topic_csv(triggered_at, run_id, result)
+        append_raw_content(triggered_at, run_id, result)
         all_results.append(result)
         pbar.update(1)
         if index < total:
@@ -114,9 +123,11 @@ def trigger() -> dict:
     for source in SOURCES:
         index += 1
         pbar.set_postfix_str(source["id"])
-        result = _run_item(extract_graph, source, index, total, extra_state={"url": source["url"]})
-        append_topic_jsonl(triggered_at, result)
-        append_topic_csv(triggered_at, result)
+        graph = multi_pdf_graph if source.get("multi_pdf") else crawl_graph
+        result = _run_item(graph, source, index, total, extra_state={"url": source["url"]})
+        append_topic_jsonl(triggered_at, run_id, result)
+        append_topic_csv(triggered_at, run_id, result)
+        append_raw_content(triggered_at, run_id, result)
         all_results.append(result)
         pbar.update(1)
         if index < total:
@@ -125,7 +136,7 @@ def trigger() -> dict:
     pbar.close()
     run_seconds = round(time.perf_counter() - start, 2)
     logger.info("Trigger finished in %ss", run_seconds)
-    return {"triggered_at": triggered_at, "run_seconds": run_seconds, "topics": all_results}
+    return {"run_id": run_id, "triggered_at": triggered_at, "run_seconds": run_seconds, "topics": all_results}
 
 
 if __name__ == "__main__":

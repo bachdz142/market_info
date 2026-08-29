@@ -130,3 +130,56 @@ Still deferred, separate scope: a true deterministic *data* fetch (a real rates/
 4. Confirm `data/signals.jsonl` gained exactly one new line matching that response
 5. `curl http://127.0.0.1:8000/health` → ok
 6. Confirm `main.py` still works unchanged for a manual one-off query (regression check)
+
+## Revision: Web Crawler for JS-Heavy Sources
+
+### Why
+
+`agent/sources.py` (added in a later revision, not yet documented here — see note below) only supports `TavilyExtract`, a paid API that fetches+cleans a URL. That covers official sources like SBV's rate pages and GSO's CPI page, but one confirmed counter-example exists: `customs.gov.vn` was tested live and `TavilyExtract` genuinely cannot read it — it's JavaScript-rendered with no content in the raw HTML. `enhance.md` (repo root) is the user's own consolidated research notes on solving this generically: a tiered crawling toolchain (cheap static fetch first, real headless browser only when needed) plus a per-site config system for sites needing precise extraction.
+
+### Decisions confirmed
+
+- **Full system per `enhance.md`**, not a one-off fix — `agent/crawler.py` with `SITE_CONFIGS`, `trafilatura` as the generic-extraction baseline, Playwright as the JS-rendering fallback.
+- **Playwright over Selenium** — no existing Selenium infra to justify it, and Playwright's cleaner API fits better (per `enhance.md` §1). This supersedes the earlier "no Selenium" framing from the URL-extraction revision — the actual fallback choice made was Playwright.
+- **Install Playwright + a real Chromium binary** — the heaviest dependency this project has added; required either way to handle JS-heavy sites.
+- **`TavilyExtract` retired, not kept alongside the crawler** — `agent/crawler.py`'s tiered design (static fetch + Playwright fallback) is a strict superset of what `TavilyExtract` does for a known URL, and does it for free instead of costing Tavily credits. `build_extract_graph()`/`_extract_node()` (shipped in the URL-extraction revision) are removed as dead code once every `SOURCES` entry routes through the crawler instead. Trade-off accepted: Tavily's managed infra handles proxy rotation/anti-bot evasion the plain crawler doesn't — hasn't mattered for the 3 current sources (plain government pages), but could for a future site that actively blocks scrapers. The pattern is simple enough to re-add per-site later if needed.
+
+**Explicitly out of scope** (escalation tiers `enhance.md` itself says aren't needed yet): Scrapy/scraping-frameworks, scraping-as-a-service, login walls/CAPTCHA/pagination handling, page-fetch caching, automated robots.txt/ToS checking (stays a manual per-site step).
+
+### Architecture
+
+```
+ agent/sources.py entry: {"id", "kind", "url", "prompt"}  (unchanged shape)
+        │
+        ▼
+ build_crawl_graph(): checkpoint_gate → crawl (agent/crawler.py) → structure
+                                              │
+                                              ▼
+                          crawl(url): static fetch + trafilatura (cheap, default)
+                          → escalate to Playwright only if SITE_CONFIGS says needs_js,
+                            or the static path yields too little content
+```
+
+Every source goes through the same graph — `SITE_CONFIGS` inside `agent/crawler.py` decides static-vs-JS per site, so `service.py`'s `/trigger` loop needs no per-source branching.
+
+### Files
+
+**New:** `agent/crawler.py` — `crawl(url)`, `SITE_CONFIGS` (per-site `needs_js`/`wait_selector`/`content_selector` overrides), `_fetch_static`/`_fetch_js`/`_apply_selector` helpers.
+
+**Modified:**
+- `agent/graph.py` — remove `TavilyExtract` import, `_extract_node`, `build_extract_graph()`; add `_crawl_node`, `build_crawl_graph()`.
+- `service.py` — `SOURCES` loop uses `build_crawl_graph()` for every entry, no branching.
+- `requirements.txt` — add `playwright`, `trafilatura`, `beautifulsoup4`, `lxml`.
+
+**Not changed:** `agent/sources.py` — no `method` field needed after all.
+
+### Verification
+
+1. Import/build sanity check (free): `build_crawl_graph()` compiles; `agent.crawler` imports cleanly.
+2. Cheap check: `crawl()` against a plain static page (e.g. Wikipedia) confirms the static+trafilatura path works before touching Playwright.
+3. Live check against `customs.gov.vn` (the confirmed JS-heavy case) — confirms the Playwright fallback returns real text instead of an empty shell.
+4. `customs.gov.vn` is not added as a permanent `SOURCES` entry until its actual extraction prompt is decided — it wasn't part of the original topic list.
+
+### Doc note
+
+`MVP0_PLAN.md` was not updated for the two revisions between "Trigger-Based Execution" and this one (logging/token-tracking, and URL-based extraction via `agent/sources.py`/`TavilyExtract`) — only `DEVELOPMENT_PLAN.md` tracked those. See `CHANGELOG.md` for the full dated history including those gaps.

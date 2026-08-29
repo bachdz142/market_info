@@ -1,12 +1,12 @@
 import logging
 import os
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Optional, TypedDict
 
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_groq import ChatGroq
-from langchain_tavily import TavilyExtract, TavilySearch
+from langchain_tavily import TavilySearch
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, StateGraph
 
@@ -15,6 +15,15 @@ from agent.schema import MarketSignalBatch
 
 logger = logging.getLogger(__name__)
 
+VIETNAM_TZ = timezone(timedelta(hours=7))
+
+SIGNAL_TYPE_INSTRUCTION = (
+    "signal_type must be exactly one of these five values — never invent a "
+    "new one: \"price_change\", \"demand_shift\", \"competitor_activity\", "
+    "\"availability\", \"other\". A rate or price moving up or down is "
+    "\"price_change\", even if it's an interest rate, not a product price."
+)
+
 STRUCTURE_SYSTEM_PROMPT = (
     "You are the Market Insight Agent. Your sole job is to extract raw, "
     "factual market signals (pricing changes, demand shifts, competitor "
@@ -22,8 +31,14 @@ STRUCTURE_SYSTEM_PROMPT = (
     "interpret, categorize, score, or recommend — that is handled by a "
     "downstream agent. Report only what the search results support, and "
     "cite source URLs where possible. If nothing relevant was found, "
-    "return an empty signals list."
+    "return an empty signals list. " + SIGNAL_TYPE_INSTRUCTION
 )
+
+# Pacing between the multiple LLM calls in _structure_multi_node — Groq's
+# free tier caps tokens-per-minute; firing several structure calls back to
+# back for one source would trigger the same rate limit the /trigger loop's
+# own TOPIC_DELAY_SECONDS pacing protects against between different items.
+MULTI_CALL_DELAY_SECONDS = 30
 
 
 class AgentState(TypedDict):
@@ -34,6 +49,7 @@ class AgentState(TypedDict):
     result: Optional[dict]
     token_usage: Optional[dict]
     url: Optional[str]
+    pdf_texts: Optional[list]
 
 
 def _build_model() -> ChatGroq:
@@ -54,24 +70,38 @@ def _search_node(state: AgentState) -> dict:
     return {"search_results": str(results)}
 
 
-def _extract_node(state: AgentState) -> dict:
+def _crawl_node(state: AgentState) -> dict:
     start = time.perf_counter()
-    tool = TavilyExtract()
-    results = tool.invoke({"urls": [state["url"]]})
+    from agent.crawler import crawl
+
+    text = crawl(state["url"])
     elapsed = round(time.perf_counter() - start, 2)
-    logger.info("Extract done in %ss for url: %s", elapsed, state["url"])
-    return {"search_results": str(results)}
+    logger.info("Crawl done in %ss for url: %s", elapsed, state["url"])
+    return {"search_results": text}
 
 
-def _structure_node(state: AgentState) -> dict:
+def _crawl_multi_node(state: AgentState) -> dict:
     start = time.perf_counter()
+    from agent.crawler import crawl_parts
+
+    list_text, pdf_texts = crawl_parts(state["url"])
+    elapsed = round(time.perf_counter() - start, 2)
+    logger.info(
+        "Multi-crawl done in %ss for url: %s (%d documents)", elapsed, state["url"], len(pdf_texts)
+    )
+    return {"search_results": list_text, "pdf_texts": pdf_texts}
+
+
+def _structure_one(query: str, label: str, text: str, system_prompt: str = STRUCTURE_SYSTEM_PROMPT):
+    """One structure LLM call over one chunk of raw text. Returns
+    (MarketSignalBatch, usage_dict_or_None)."""
+    start = time.perf_counter()
+    logger.info("Raw content fed to LLM for query: %s\n%s", query[:80], text)
     model = _build_model().with_structured_output(MarketSignalBatch, include_raw=True)
     response = model.invoke(
         [
-            SystemMessage(content=STRUCTURE_SYSTEM_PROMPT),
-            HumanMessage(
-                content=f"Query: {state['query']}\n\nSearch results:\n{state['search_results']}"
-            ),
+            SystemMessage(content=system_prompt),
+            HumanMessage(content=f"Query: {query}\n\n{label}:\n{text}"),
         ]
     )
     elapsed = round(time.perf_counter() - start, 2)
@@ -81,24 +111,91 @@ def _structure_node(state: AgentState) -> dict:
     usage = getattr(raw, "usage_metadata", None) if raw is not None else None
 
     logger.info(
-        "Structure LLM call done in %ss for query: %s | tokens: %s",
-        elapsed,
-        state["query"][:80],
-        usage,
+        "Structure LLM call done in %ss for query: %s | tokens: %s", elapsed, query[:80], usage
     )
 
     if batch is None:
         logger.warning(
             "Structured output parsing failed for query: %s | error: %s",
-            state["query"][:80],
+            query[:80],
             response.get("parsing_error"),
         )
-        batch = MarketSignalBatch(query=state["query"], signals=[], generated_at="")
+        batch = MarketSignalBatch(query=query, signals=[], generated_at="")
 
+    return batch, usage
+
+
+def _finalize_payload(query: str, batch: MarketSignalBatch, url: Optional[str] = None) -> dict:
     payload = batch.model_dump()
-    payload["query"] = state["query"]
-    payload["generated_at"] = datetime.now(timezone.utc).isoformat()
+    payload["query"] = query
+    payload["generated_at"] = datetime.now(VIETNAM_TZ).isoformat()
+
+    # For crawl-based sources with one known URL, every signal unambiguously
+    # came from it — fill it in deterministically rather than relying on
+    # the LLM to guess a URL it was never shown.
+    if url:
+        for signal in payload["signals"]:
+            signal["source_url"] = url
+    return payload
+
+
+def _structure_node(state: AgentState) -> dict:
+    batch, usage = _structure_one(state["query"], "Search results", state["search_results"])
+    payload = _finalize_payload(state["query"], batch, state.get("url"))
     return {"result": payload, "token_usage": usage}
+
+
+def _structure_multi_node(state: AgentState) -> dict:
+    """For sources with several PDFs fetched separately (agent/crawler.py's
+    crawl_parts): structure each document on its own call — small enough to
+    stay well under Groq's per-request token ceiling — then merge the
+    per-document batches deterministically (no LLM call; see comment below
+    on why an LLM synthesis step doesn't actually solve this). Paced with
+    MULTI_CALL_DELAY_SECONDS between the per-document calls to stay under
+    the tokens-per-minute rate limit across this node's own multiple calls."""
+    query = state["query"]
+    pdf_texts = state.get("pdf_texts") or []
+    total_usage = {"input_tokens": 0, "output_tokens": 0, "total_tokens": 0}
+
+    def _add_usage(usage):
+        if usage:
+            for k in total_usage:
+                total_usage[k] += usage.get(k, 0)
+
+    if not pdf_texts:
+        # No PDFs found — fall back to structuring the list/page text alone.
+        batch, usage = _structure_one(query, "Content", state["search_results"])
+        _add_usage(usage)
+        return {"result": _finalize_payload(query, batch, state.get("url")), "token_usage": total_usage}
+
+    batches = []
+    for i, text in enumerate(pdf_texts, start=1):
+        batch, usage = _structure_one(query, f"Report {i} of {len(pdf_texts)} content", text)
+        batches.append(batch)
+        _add_usage(usage)
+        logger.info("Per-document structure call %d/%d done", i, len(pdf_texts))
+        if i < len(pdf_texts):
+            time.sleep(MULTI_CALL_DELAY_SECONDS)
+
+    # Combine deterministically — no LLM call. Each per-document batch
+    # already succeeded and is valid structured data; merging is just
+    # concatenation (+ dedup on exact-duplicate summaries). An LLM
+    # "synthesis" call here was tried first but just moved the same
+    # token-ceiling problem up a level: combining ~20+ already-extracted
+    # signals into one output is itself often too large for one call.
+    seen_summaries = set()
+    merged_signals = []
+    for batch in batches:
+        for signal in batch.signals:
+            if signal.summary not in seen_summaries:
+                seen_summaries.add(signal.summary)
+                merged_signals.append(signal)
+    final_batch = MarketSignalBatch(query=query, signals=merged_signals, generated_at="")
+
+    return {
+        "result": _finalize_payload(query, final_batch, state.get("url")),
+        "token_usage": total_usage,
+    }
 
 
 def build_graph():
@@ -118,21 +215,44 @@ def build_graph():
     return graph.compile(checkpointer=MemorySaver())
 
 
-def build_extract_graph():
-    """Same shape as build_graph(), but fetches a known URL (TavilyExtract)
-    instead of running an open-ended search — for official/structured
-    sources where the fact reliably lives at one stable page."""
+def build_crawl_graph():
+    """Same shape as build_graph(), but fetches a known URL (agent/crawler.py:
+    static fetch + trafilatura, falling back to Playwright for JS-heavy
+    sites) instead of running an open-ended search — for official/
+    structured sources where the fact reliably lives at one stable page."""
     graph = StateGraph(AgentState)
 
     graph.add_node("checkpoint_gate", checkpoint_gate)
-    graph.add_node("extract", _extract_node)
+    graph.add_node("crawl", _crawl_node)
     graph.add_node("structure", _structure_node)
 
     graph.add_edge(START, "checkpoint_gate")
     graph.add_conditional_edges(
-        "checkpoint_gate", _route_after_gate, {"search": "extract", END: END}
+        "checkpoint_gate", _route_after_gate, {"search": "crawl", END: END}
     )
-    graph.add_edge("extract", "structure")
+    graph.add_edge("crawl", "structure")
     graph.add_edge("structure", END)
+
+    return graph.compile(checkpointer=MemorySaver())
+
+
+def build_multi_pdf_graph():
+    """Same shape as build_crawl_graph(), but for sources with several
+    documents (agent/crawler.py's SITE_CONFIGS pdf_link_limit > 1) that
+    would otherwise blow Groq's per-request token ceiling if combined into
+    one structure call. Fetches each document separately, structures each
+    on its own call, then synthesizes one final result."""
+    graph = StateGraph(AgentState)
+
+    graph.add_node("checkpoint_gate", checkpoint_gate)
+    graph.add_node("crawl_multi", _crawl_multi_node)
+    graph.add_node("structure_multi", _structure_multi_node)
+
+    graph.add_edge(START, "checkpoint_gate")
+    graph.add_conditional_edges(
+        "checkpoint_gate", _route_after_gate, {"search": "crawl_multi", END: END}
+    )
+    graph.add_edge("crawl_multi", "structure_multi")
+    graph.add_edge("structure_multi", END)
 
     return graph.compile(checkpointer=MemorySaver())
