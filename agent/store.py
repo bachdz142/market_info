@@ -1,6 +1,7 @@
 import csv
 import json
 import logging
+import threading
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -30,11 +31,22 @@ CSV_HEADERS = [
     "source_url",
     "observed_at",
     "confidence",
+    "source_code",
+    "reference_period",
+    "data_basis",
+    "actual_proxy_forecast",
+    "forecast_org",
     "query",
     "generated_at",
 ]
 
 RAW_CONTENT_CSV_HEADERS = ["run_id", "triggered_at", "id", "kind", "raw_content"]
+
+# Guards the check-then-rename in _prepare_csv: without it, two concurrent
+# callers can both see a stale header, both decide to archive, and race on
+# the rename/rewrite — corrupting the file. One process-wide lock is enough
+# since all writers run in this process (service.py's /trigger loop).
+_csv_prepare_lock = threading.Lock()
 
 
 def _prepare_csv(path: Path, headers: list) -> None:
@@ -42,20 +54,21 @@ def _prepare_csv(path: Path, headers: list) -> None:
     already exists with a different header (schema changed since it was
     created), archive the old file under a timestamped name instead of
     silently appending rows that would misalign against the stale header."""
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    with _csv_prepare_lock:
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
 
-    if path.exists():
-        with path.open("r", newline="") as f:
-            existing_header = next(csv.reader(f), None)
-        if existing_header == headers:
-            return
-        timestamp = datetime.now(VIETNAM_TZ).strftime("%Y%m%dT%H%M%S")
-        archive_path = path.with_name(f"{path.stem}.{timestamp}{path.suffix}")
-        path.rename(archive_path)
-        logger.warning("%s schema changed — archived old file to %s", path.name, archive_path)
+        if path.exists():
+            with path.open("r", newline="") as f:
+                existing_header = next(csv.reader(f), None)
+            if existing_header == headers:
+                return
+            timestamp = datetime.now(VIETNAM_TZ).strftime("%Y%m%dT%H%M%S")
+            archive_path = path.with_name(f"{path.stem}.{timestamp}{path.suffix}")
+            path.rename(archive_path)
+            logger.warning("%s schema changed — archived old file to %s", path.name, archive_path)
 
-    with path.open("w", newline="") as f:
-        csv.writer(f).writerow(headers)
+        with path.open("w", newline="") as f:
+            csv.writer(f).writerow(headers)
 
 
 def append_topic_jsonl(triggered_at: str, run_id: str, topic_result: dict) -> None:
@@ -98,7 +111,7 @@ def append_topic_csv(triggered_at: str, run_id: str, topic_result: dict) -> None
             writer.writerow(
                 common
                 + [
-                    "", "", "", "", "",
+                    "", "", "", "", "", "", "", "", "", "",
                     (result or {}).get("query", ""),
                     (result or {}).get("generated_at", ""),
                 ]
@@ -114,6 +127,11 @@ def append_topic_csv(triggered_at: str, run_id: str, topic_result: dict) -> None
                     signal.get("source_url", ""),
                     signal.get("observed_at", ""),
                     signal.get("confidence", ""),
+                    signal.get("source_code", ""),
+                    signal.get("reference_period", ""),
+                    signal.get("data_basis", ""),
+                    signal.get("actual_proxy_forecast", ""),
+                    signal.get("forecast_org", "") or "",
                     result.get("query", ""),
                     result.get("generated_at", ""),
                 ]

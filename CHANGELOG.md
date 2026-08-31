@@ -5,19 +5,52 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
-## Unreleased — Web crawler for JS-heavy sources
+## Unreleased — crawl4ai migration + Layer 1 quant benchmarks
 
-- Added `agent/crawler.py`: tiered fetch — plain HTTP + `trafilatura`
-  generic extraction by default, falling back to Playwright (headless
-  Chromium) for JS-rendered sites, with per-site `SITE_CONFIGS` overrides.
-- Added `build_crawl_graph()` in `agent/graph.py` as a third fetch mode
-  alongside search (`TavilySearch`) and extract (`TavilyExtract`).
-- `agent/sources.py` entries gained a `method` field (`"extract"` |
-  `"crawl"`) so `service.py` routes each source to the right graph.
-- New dependencies: `playwright`, `trafilatura`, `beautifulsoup4`, `lxml`.
-- `customs.gov.vn` confirmed (via live test) to need real JS rendering —
-  the motivating case for this revision; not yet added as a permanent
-  source pending a decided extraction prompt.
+Supersedes the previous "Web crawler for JS-heavy sources" entry below
+before it ever shipped — `agent/crawler.py`'s tiered fetch stack was
+replaced with `crawl4ai` rather than built on `requests`/`trafilatura`/
+direct Playwright/`pypdf`. See `docs/adr/0002-crawl4ai-adopted-
+unconditionally.md` (supersedes `docs/adr/0001-...`) and
+`.scratch/layer-1-quant-benchmarks/spec.md`.
+
+- Rewrote `agent/crawler.py` on `crawl4ai`: `AsyncHTTPCrawlerStrategy` for
+  static pages, `crawl4ai`'s default Playwright-based strategy for
+  JS-heavy ones, `PDFCrawlerStrategy`/`PDFContentScrapingStrategy` for
+  PDFs — `crawl()`/`crawl_parts()`'s public shape kept the same
+  (`crawl_parts()` now returns each PDF's own URL alongside its text).
+  Kept `beautifulsoup4`/`lxml` for CSS-selector extraction, per `crawl4ai`'s
+  own recommendation.
+- Fixed 4 bugs while rewriting the same code: merged multi-PDF signals now
+  carry their own document's URL instead of the listing page's; one failed
+  PDF fetch no longer discards the rest of a source's results;
+  `raw_content` now includes every fetched document's text, not just the
+  listing page (`service.py`'s `_combined_raw_content`); `agent/store.py`'s
+  `_prepare_csv` is now thread-safe under concurrent schema changes.
+- Found and fixed a real environment bug: this machine's from-source
+  Homebrew Python 3.11 build never wires OpenSSL to a trust store, and
+  `aiohttp` (which `crawl4ai` uses) caches its default verified SSL
+  context as a module-level global at `aiohttp`'s own import time — so
+  setting `SSL_CERT_FILE` anywhere after `langchain_groq`/
+  `langchain_tavily` import `aiohttp` is too late. Fixed by setting it as
+  the first lines of `service.py` and in a new root `conftest.py`.
+- Extended `MarketSignal` (`agent/schema.py`) with `source_code`,
+  `reference_period`, `data_basis`, `actual_proxy_forecast`,
+  `forecast_org` — the mandatory audit metadata `source_plan_mvp0.md`
+  requires for Layer 1 (quant bank benchmarks). `agent/store.py`'s CSV
+  output gained matching columns.
+- Added 2 new live-verified Layer 1 sources: `sbv_portal_statistics`,
+  `iav_bancassurance`. The 5 bank investor-relations pages (Techcombank,
+  Vietcombank, BIDV, MBBank, ACB) and Vietstock's per-ticker document
+  aggregator were investigated but not added — each needs its own
+  content/PDF-link selector, not yet nailed down (see `agent/sources.py`).
+- Added the project's first automated test suite (`tests/`, `pytest`), at
+  the direct-graph-invocation seam agreed in the Layer 1 spec.
+- `requirements.txt`: added `crawl4ai`, `pytest`; removed `requests`
+  (crawl4ai's own), `trafilatura`, `pypdf` (crawl4ai now covers PDF fetch
+  too).
+- Project-wide Python upgrade to 3.11 (from 3.9) — `crawl4ai` needs 3.10+
+  in practice despite claiming `>=3.9`.
 
 ## v0.4 — URL-based extraction for official sources
 

@@ -24,6 +24,27 @@ SIGNAL_TYPE_INSTRUCTION = (
     "\"price_change\", even if it's an interest rate, not a product price."
 )
 
+METADATA_INSTRUCTION = (
+    "Every signal also needs this metadata: "
+    "source_code is a short identifier for where the figure came from — a "
+    "bank ticker (TCB, VCB, BID, MBB, ACB), or SBV/IAV/VIETSTOCK/GSO, or "
+    "another short code appropriate to the source; infer it from the "
+    "content or the query if it isn't stated outright. "
+    "reference_period is the period the DATA ITSELF covers (e.g. \"Q2 "
+    "2026\", \"FY2025\") — this is distinct from observed_at, which is when "
+    "the figure was reported or observed; use \"unknown\" only if the "
+    "content gives no period at all. "
+    "data_basis is \"standalone\" or \"consolidated\" for bank financial-"
+    "statement figures, or \"not_applicable\" for anything else (rates, "
+    "macro indicators, non-financial-statement data). "
+    "actual_proxy_forecast is \"actual\" for a disclosed/reported value, "
+    "\"proxy\" for a stand-in estimate drawn from related data, or "
+    "\"forecast\" for an explicit projection. "
+    "forecast_org is the organization that produced the forecast — set it "
+    "ONLY when actual_proxy_forecast is \"forecast\"; leave it unset "
+    "otherwise."
+)
+
 STRUCTURE_SYSTEM_PROMPT = (
     "You are the Market Insight Agent. Your sole job is to extract raw, "
     "factual market signals (pricing changes, demand shifts, competitor "
@@ -31,7 +52,7 @@ STRUCTURE_SYSTEM_PROMPT = (
     "interpret, categorize, score, or recommend — that is handled by a "
     "downstream agent. Report only what the search results support, and "
     "cite source URLs where possible. If nothing relevant was found, "
-    "return an empty signals list. " + SIGNAL_TYPE_INSTRUCTION
+    "return an empty signals list. " + SIGNAL_TYPE_INSTRUCTION + " " + METADATA_INSTRUCTION
 )
 
 # Pacing between the multiple LLM calls in _structure_multi_node — Groq's
@@ -84,12 +105,15 @@ def _crawl_multi_node(state: AgentState) -> dict:
     start = time.perf_counter()
     from agent.crawler import crawl_parts
 
-    list_text, pdf_texts = crawl_parts(state["url"])
+    list_text, documents = crawl_parts(state["url"])
     elapsed = round(time.perf_counter() - start, 2)
     logger.info(
-        "Multi-crawl done in %ss for url: %s (%d documents)", elapsed, state["url"], len(pdf_texts)
+        "Multi-crawl done in %ss for url: %s (%d documents)", elapsed, state["url"], len(documents)
     )
-    return {"search_results": list_text, "pdf_texts": pdf_texts}
+    # documents is [(pdf_url, pdf_text), ...] — each PDF's own URL travels
+    # alongside its text so _structure_multi_node can stamp signals with
+    # their real provenance instead of the listing page's URL.
+    return {"search_results": list_text, "pdf_texts": documents}
 
 
 def _structure_one(query: str, label: str, text: str, system_prompt: str = STRUCTURE_SYSTEM_PROMPT):
@@ -154,7 +178,7 @@ def _structure_multi_node(state: AgentState) -> dict:
     MULTI_CALL_DELAY_SECONDS between the per-document calls to stay under
     the tokens-per-minute rate limit across this node's own multiple calls."""
     query = state["query"]
-    pdf_texts = state.get("pdf_texts") or []
+    documents = state.get("pdf_texts") or []  # [(pdf_url, pdf_text), ...]
     total_usage = {"input_tokens": 0, "output_tokens": 0, "total_tokens": 0}
 
     def _add_usage(usage):
@@ -162,19 +186,25 @@ def _structure_multi_node(state: AgentState) -> dict:
             for k in total_usage:
                 total_usage[k] += usage.get(k, 0)
 
-    if not pdf_texts:
+    if not documents:
         # No PDFs found — fall back to structuring the list/page text alone.
         batch, usage = _structure_one(query, "Content", state["search_results"])
         _add_usage(usage)
         return {"result": _finalize_payload(query, batch, state.get("url")), "token_usage": total_usage}
 
     batches = []
-    for i, text in enumerate(pdf_texts, start=1):
-        batch, usage = _structure_one(query, f"Report {i} of {len(pdf_texts)} content", text)
+    for i, (pdf_url, text) in enumerate(documents, start=1):
+        batch, usage = _structure_one(query, f"Report {i} of {len(documents)} content", text)
+        # Stamp each signal with the document it actually came from — not
+        # the listing page's URL — before merging (bug fix: previously
+        # _finalize_payload stamped every merged signal with the listing
+        # page's URL regardless of which PDF it was extracted from).
+        for signal in batch.signals:
+            signal.source_url = pdf_url
         batches.append(batch)
         _add_usage(usage)
-        logger.info("Per-document structure call %d/%d done", i, len(pdf_texts))
-        if i < len(pdf_texts):
+        logger.info("Per-document structure call %d/%d done", i, len(documents))
+        if i < len(documents):
             time.sleep(MULTI_CALL_DELAY_SECONDS)
 
     # Combine deterministically — no LLM call. Each per-document batch
@@ -192,8 +222,10 @@ def _structure_multi_node(state: AgentState) -> dict:
                 merged_signals.append(signal)
     final_batch = MarketSignalBatch(query=query, signals=merged_signals, generated_at="")
 
+    # url=None here: signals already carry their own per-document URL above,
+    # and _finalize_payload only overwrites source_url when a url is given.
     return {
-        "result": _finalize_payload(query, final_batch, state.get("url")),
+        "result": _finalize_payload(query, final_batch, None),
         "token_usage": total_usage,
     }
 
@@ -217,9 +249,10 @@ def build_graph():
 
 def build_crawl_graph():
     """Same shape as build_graph(), but fetches a known URL (agent/crawler.py:
-    static fetch + trafilatura, falling back to Playwright for JS-heavy
-    sites) instead of running an open-ended search — for official/
-    structured sources where the fact reliably lives at one stable page."""
+    crawl4ai's lightweight HTTP strategy, falling back to its Playwright-based
+    strategy for JS-heavy sites) instead of running an open-ended search —
+    for official/structured sources where the fact reliably lives at one
+    stable page."""
     graph = StateGraph(AgentState)
 
     graph.add_node("checkpoint_gate", checkpoint_gate)

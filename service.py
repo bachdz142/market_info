@@ -1,7 +1,10 @@
+import agent.ssl_bootstrap  # noqa: F401  — must import-run before anything below (see that module's docstring)
+
 import logging
 import time
 import uuid
 from datetime import datetime, timedelta, timezone
+from typing import Optional
 
 VIETNAM_TZ = timezone(timedelta(hours=7))
 
@@ -39,6 +42,21 @@ def health() -> dict:
     return {"status": "ok"}
 
 
+def _combined_raw_content(final_state: dict) -> Optional[str]:
+    """The listing/page text alone (final_state["search_results"]) is
+    incomplete for multi-PDF sources — it drops every per-document PDF text
+    that _crawl_multi_node fetched. Combine it with each document's own
+    text (labeled by its URL) so raw_content.csv captures everything that
+    was actually fed to the LLM."""
+    parts = []
+    search_results = final_state.get("search_results")
+    if search_results:
+        parts.append(search_results)
+    for pdf_url, pdf_text in final_state.get("pdf_texts") or []:
+        parts.append(f"--- {pdf_url} ---\n{pdf_text}")
+    return "\n\n".join(parts) if parts else None
+
+
 def _run_item(graph, item: dict, index: int, total: int, extra_state: dict = None) -> dict:
     """Run one topic or source through its graph, catching errors so one
     failure doesn't crash the whole /trigger request."""
@@ -66,7 +84,7 @@ def _run_item(graph, item: dict, index: int, total: int, extra_state: dict = Non
             "gate_reason": final_state.get("gate_reason"),
             "result": final_state.get("result"),
             "token_usage": final_state.get("token_usage"),
-            "raw_content": final_state.get("search_results"),
+            "raw_content": _combined_raw_content(final_state),
             "error": None,
         }
     except Exception as exc:

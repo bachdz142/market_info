@@ -5,8 +5,9 @@ python-dotenv>=1.0
 fastapi>=0.115
 uvicorn[standard]>=0.30
 tqdm>=4.66
-playwright>=1.40
-trafilatura>=1.6
+playwright==1.60.0  # pinned: newer releases (1.62+) dropped macOS 13 support
+crawl4ai>=0.9
+certifi>=2024.0  # load-bearing for the SSL_CERT_FILE fix (see agent/ssl_bootstrap.py) — declare explicitly, don't rely on it arriving transitively via crawl4ai/requests
 beautifulsoup4>=4.12
 lxml>=5.0
-pypdf>=5.0
+pytest>=8.0
