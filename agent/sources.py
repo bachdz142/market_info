@@ -550,4 +550,34 @@ SOURCES = [
             "where stated. source_code for these signals is \"VCB\"."
         ),
     },
+    {
+        "id": "acb_fee_schedule",
+        "kind": "quant",
+        "role": "citable",
+        # Same AJAX-gap as ACB's promotions page, needed its own separate
+        # network capture (the promo API pattern didn't transfer) — see
+        # agent/crawler.py's _fetch_acb_fee_schedule_text(). Category
+        # "Summary of fee schedule" holds 11 real fee documents, one per
+        # product line (cards, accounts, cash transactions, etc.); this
+        # picks whichever was most recently updated rather than hardcoding
+        # one, so the source adapts as ACB updates different schedules over
+        # time. Same two-locale quirk as promotions: the real PDF only
+        # shows up via the Vietnamese-locale detail endpoint. Confirmed
+        # live on two different picks across this session: a segmented
+        # credit-card fee table (Visa Infinite Privilege through ACB
+        # Express tiers) and a real account-services fee list (statements,
+        # balance confirmations, savings-book loss, inheritance
+        # processing) — both genuine, dated, real VND figures.
+        "url": "https://acb.com.vn/en/forms-and-fee-schedules-for-individual-customers",
+        "chunked": True,
+        "prompt": (
+            "Extract concrete fee amounts and conditions from ACB's "
+            "fee-schedule document below — service fees, segmented by card "
+            "or account tier where the table distinguishes them, including "
+            "which service each figure applies to and the effective date "
+            "if stated. data_basis is \"not_applicable\" — these are fee "
+            "figures, not financial-statement data. source_code for these "
+            "signals is \"ACB\"."
+        ),
+    },
 ]

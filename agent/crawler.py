@@ -350,6 +350,57 @@ async def _fetch_acb_promotions_text() -> str:
     return "\n\n".join(parts)
 
 
+# ACB's fee-schedule page (Layer 2, /en/forms-and-fee-schedules-for-
+# individual-customers) has the same AJAX-gap as its promotions page above
+# — confirmed live it needed its own separate network capture, since the
+# API pattern that worked for promotions (map/posts?type=uu-dai) doesn't
+# apply here. The real call found: the standard "posts" endpoint filtered
+# by search[type:like]=bieu-mau-bieu-phi (no category_id needed — dropping
+# it returns all 60 fee/form documents across every category in one call).
+# Category 631 ("Summary of fee schedule") holds the actual consolidated
+# fee-schedule documents (11 of them, one per product line — cards,
+# accounts, cash transactions, etc.). Same two-locale quirk as promotions:
+# the English-locale detail endpoint has featured_image: null; the real PDF
+# only shows up via the Vietnamese-locale detail endpoint. Confirmed live:
+# a genuine, current, segmented fee table (Visa Infinite Privilege through
+# ACB Express card tiers). Picks whichever product line was most recently
+# updated rather than hardcoding one, so this stays current as ACB updates
+# different fee schedules over time.
+ACB_FEE_SCHEDULE_URL = "https://acb.com.vn/en/forms-and-fee-schedules-for-individual-customers"
+ACB_FEE_LIST_API = (
+    "https://acb.com.vn/api/en/front/v1/posts"
+    "?limit=all&search[type:like]=bieu-mau-bieu-phi&search[categories.category_id:in]=631"
+)
+ACB_FEE_DETAIL_VI_API = "https://acb.com.vn/api/vi/front/v1/posts/{post_id}"
+
+
+async def _fetch_acb_fee_schedule_text() -> str:
+    _throttle(_domain(ACB_FEE_LIST_API))
+    async with AsyncWebCrawler(crawler_strategy=AsyncHTTPCrawlerStrategy()) as crawler:
+        result = await crawler.arun(url=ACB_FEE_LIST_API, config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS))
+        if not result.success:
+            raise RuntimeError(f"Failed to fetch ACB fee-schedule list: {result.error_message}")
+
+        posts = json.loads(result.html).get("data", [])
+        posts.sort(key=lambda p: p.get("updated_at") or "", reverse=True)
+        if not posts:
+            raise ValueError("No ACB fee-schedule posts found")
+
+        detail_url = ACB_FEE_DETAIL_VI_API.format(post_id=posts[0]["id"])
+        _throttle(_domain(detail_url))
+        detail_result = await crawler.arun(url=detail_url, config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS))
+        if not detail_result.success:
+            raise RuntimeError(f"Failed to fetch ACB fee-schedule detail: {detail_result.error_message}")
+
+        data = json.loads(detail_result.html).get("data", {})
+        pdf_url = (data.get("featured_image") or {}).get("path")
+        if not pdf_url:
+            raise ValueError("ACB's most-recently-updated fee-schedule post has no attached PDF")
+
+    async with AsyncWebCrawler(crawler_strategy=PDFCrawlerStrategy()) as crawler:
+        return await _fetch_pdf_text(crawler, pdf_url)
+
+
 # VPBank's news and fee/document listing pages (Layer 2) share the same
 # AJAX-gap as ACB's above — the page shell/title renders, the real listing
 # never does. Confirmed live (2026-09-01) via real Playwright network
@@ -575,6 +626,8 @@ async def _crawl_async(url: str) -> str:
         return await _fetch_acb_statement_text()
     if url == ACB_PROMOTIONS_URL:
         return await _fetch_acb_promotions_text()
+    if url == ACB_FEE_SCHEDULE_URL:
+        return await _fetch_acb_fee_schedule_text()
     if url == VPBANK_NEWS_URL:
         return await _fetch_api_json_text(VPBANK_NEWS_API)
     if url == VPBANK_FEE_URL:

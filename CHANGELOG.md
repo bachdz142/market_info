@@ -5,6 +5,31 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — ACB fee schedule solved on a second pass
+
+- Added `acb_fee_schedule`. The real fee page turned out not to be the
+  earlier guessed `/en/fees` (a generic empty-search shell that returns
+  the same content regardless of path) but
+  `/en/forms-and-fee-schedules-for-individual-customers`, found via ACB's
+  own homepage navigation. Needed its own separate network capture — the
+  `map/posts?type=uu-dai` pattern that solved promotions doesn't apply
+  here.
+- The real call found: the standard `posts` endpoint filtered by
+  `search[type:like]=bieu-mau-bieu-phi` (dropping `category_id` entirely
+  returns all 60 fee/form documents across every category in one call).
+  Category 631 ("Summary of fee schedule") holds the 11 real consolidated
+  fee documents, one per product line.
+- Same two-locale quirk as ACB's promotions: the English-locale detail
+  endpoint has `featured_image: null`; the real PDF only appears via the
+  Vietnamese-locale detail endpoint.
+- `_fetch_acb_fee_schedule_text()` picks whichever product line was most
+  recently updated rather than hardcoding one slug, so the source stays
+  current as ACB updates different schedules over time — confirmed live
+  on two different picks across this session (credit-card fees, then
+  account-services fees after ACB's own data changed mid-session), both
+  genuine and dated.
+- Fetch-only verified via `crawl_chunked()`, zero LLM cost.
+
 ## Unreleased — Layer 2 news/fee pass concluded: MBBank blocked by design, ACB fee still open
 
 - Re-confirmed live that MBBank's Layer 2 pages are blocked the same way
