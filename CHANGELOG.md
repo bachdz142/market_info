@@ -5,6 +5,31 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — Layer 2 news/fee pass concluded: MBBank blocked by design, ACB fee still open
+
+- Re-confirmed live that MBBank's Layer 2 pages are blocked the same way
+  as Layer 1: every path on `mbbank.com.vn` returns the identical "0
+  chars visible" WAF block — comprehensive and site-wide, not a
+  JS-rendering gap the network-capture technique (which solved ACB/
+  VPBank) could ever help with, since the page never loads enough to
+  fire any JS. Per the source plan's explicit rule for Akamai-walled
+  sites, not attempting evasion — same treatment as Vietcombank's own
+  walled investor-relations portal. Vietstock's static-CDN mirror (the
+  Layer 1 workaround for MBBank's financial statement) doesn't help
+  here — it only has financial-statement PDFs, not news/promo/fee
+  content.
+- Checked ACB's fee/pricing page: the `map/*` API technique that solved
+  its promotions page doesn't transfer (guessed fee-related `type`
+  values all returned HTTP 422; network capture showed no fee-specific
+  API call at all). Likely no single consolidated fee-schedule listing
+  exists on this site — pricing appears scattered per-product page.
+  Left genuinely open, not blocked by a wall — just not found within
+  this pass's effort.
+- Net for this Layer 2 news/fee pass: 6 of 10 candidate sources solved
+  (BIDV news+fee, ACB promotions, VPBank news+fee, VCB promotions); 1
+  needs OCR (VCB fee), 1 is a genuine wall (MBBank, both), 1 remains open
+  (ACB fee).
+
 ## Unreleased — VCB promotions via sitemap discovery (a genuinely different fix than ACB/VPBank)
 
 - Added `vcb_promotions` (`vietcombank.com.vn/KHCN/.../KHCN---Danh-sach-uu-dai`).
