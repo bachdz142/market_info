@@ -5,6 +5,29 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — VPBank Layer 2 sources via the same network-capture technique
+
+- Added `vpbank_news` (`vpbank.com.vn/tin-tuc`) and `vpbank_fee_documents`
+  (`vpbank.com.vn/tai-lieu-bieu-mau`). Same AJAX-listing gap as ACB's
+  promotions page, solved the same way: real Playwright network capture
+  found both pages call VPBank's own `uiux-api`, which returns real JSON
+  directly — simpler than ACB's case, no separate per-item detail fetch
+  needed.
+- The fee-documents API needed a real correction after the first capture:
+  the captured call had drilled into "Biểu mẫu" (Forms) > individual-
+  customer — the page's own default tab, not "Biểu phí" (Fee Schedule),
+  a genuinely separate sibling category found via VPBank's own
+  `category/children` endpoint. Using the top-level fee-schedule path
+  (not one customer segment) returns real, dated fee documents across
+  segments (individual, business households, SME, large corporate) in one
+  call.
+- That API only returns document titles/dates/segment, not the actual fee
+  figures inside each linked PDF — not fetched this pass (a light-effort
+  call for this round), prompt scoped to explicitly not fabricate amounts.
+- `agent/crawler.py`: `_fetch_api_json_text()`, a small shared helper
+  (unlike ACB's bespoke multi-step function) since both VPBank endpoints
+  just need a single API call with no per-item detail fetch.
+
 ## Unreleased — ACB promotions via real network-capture API discovery
 
 - Added `acb_promotions` (`acb.com.vn/en/promotions`). Same class of

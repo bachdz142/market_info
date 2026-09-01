@@ -477,4 +477,51 @@ SOURCES = [
             "stated. source_code for these signals is \"ACB\"."
         ),
     },
+    {
+        "id": "vpbank_news",
+        "kind": "qualitative",
+        "role": "citable",
+        # Same AJAX-gap as ACB's promotions page above — solved the same
+        # way, via real Playwright network capture (2026-09-01): the page
+        # calls VPBank's own "uiux-api", returning real JSON directly (no
+        # separate detail-fetch step needed, unlike ACB's two-step case).
+        # Confirmed live: real, dated press releases.
+        "url": "https://www.vpbank.com.vn/tin-tuc",
+        "prompt": (
+            "Extract concrete news/press-release items from the content "
+            "below — product launches, digital-banking initiatives, "
+            "partnerships, or events, including each item's date and a "
+            "brief summary. source_code for these signals is \"VPB\"."
+        ),
+    },
+    {
+        "id": "vpbank_fee_documents",
+        "kind": "qualitative",
+        "role": "citable",
+        # Same technique as vpbank_news above. Note: "tai-lieu-bieu-mau"
+        # (Documents & Forms) has "Biểu phí" (Fee Schedule) as a *separate
+        # sibling* category from "Biểu mẫu" (Forms) — the first network
+        # capture drilled into Forms > individual-customer (the page's own
+        # default tab), the wrong one; confirmed via the category/children
+        # endpoint that fee schedules live at a different path. Using the
+        # top-level "bieu-phi" path (not one customer segment) returns real,
+        # dated fee-schedule documents across segments (individual,
+        # business households, SME, large corporate) in one call. This API
+        # only returns document titles/dates/segment, not the figures
+        # inside each linked PDF — deliberately not also fetching those PDFs
+        # for this pass (matching the light-effort call for this round of
+        # Layer 2 sources); the prompt is scoped to match what's actually
+        # available.
+        "url": "https://www.vpbank.com.vn/tai-lieu-bieu-mau",
+        "prompt": (
+            "The content below lists VPBank's fee-schedule documents by "
+            "customer segment — titles, publish dates, and which segment "
+            "each applies to — but NOT the fee figures inside those "
+            "documents. Extract which segments had a fee schedule "
+            "published or updated, the document title, and the effective/"
+            "publish date, as a signal that a fee schedule changed — do "
+            "NOT invent specific fee amounts, since none are present here. "
+            "source_code for these signals is \"VPB\"."
+        ),
+    },
 ]
