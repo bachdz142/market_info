@@ -80,6 +80,24 @@ def test_accepts_clean_vietnamese_content():
     assert result["reason"] is None
 
 
+def test_accepts_content_with_many_cdn_image_urls():
+    """Regression guard for a real false positive (2026-09-01,
+    bidv.com.vn/bidv/tin-tuc): markdown image URLs with UUID/hash CDN
+    paths mix lowercase letters and digits just like real OCR corruption
+    does, but they're URL noise, not prose — must not count toward the
+    corrupted-token ratio."""
+    text = (
+        "![](https://bidv.com.vn/wps/wcm/connect/e6039a2a-a43f-4860-bbdb-cefbb2c3a3a7/"
+        "Phat%2Bmai%2Btai%2Bsan.jpg?MOD=AJPERES&CACHEID=ROOTWORKSPACE-e6039a2a-a43f-4860-bbdb-cefbb2c3a3a7-mtpiRLd)\n\n"
+        "BIDV Thủ Thiêm thông báo thu giữ tài sản bảo đảm của Ông NGÔ KHẢI MINH- Bà TRẦN NGỌC THÚY\n"
+        "Đăng tải ngày 30/07/2026\n"
+        "Ngân hàng TMCP Đầu tư và Phát triển Việt Nam – Chi nhánh Thủ Thiêm thông báo thu giữ tài "
+        "sản để xử lý thu hồi nợ theo quy định."
+    )
+    result = check_content_usable(text)
+    assert result["usable"] is True
+
+
 def test_accepts_legit_financial_period_codes():
     """Regression guard: Q2/H1/FY2025/9M2025/3M26 mix letters and digits but
     must never be flagged as corrupted — this is exactly the false-positive

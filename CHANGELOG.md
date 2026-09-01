@@ -5,6 +5,45 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — Layer 2 (first sources) + 3 real bugs found and fixed
+
+- Added `bidv_card_promotions` (`bidvinfo.com.vn`, BIDV's dedicated news/
+  media portal — a different domain from `bidv.com.vn`) and
+  `bidv_personal_fee_schedule` (`bidv.com.vn/vn/ca-nhan/cong-cu-tien-ich/
+  bieu-phi`) — the first 2 of Layer 2's ~10 bank news/fee sources
+  (`source_plan_mvp0.md` §4). Fetch-only development throughout — zero
+  Groq/LLM calls spent verifying either, only `crawl()`/`crawl_chunked()`
+  + `check_content_usable()`.
+- VPBank, Vietcombank, ACB, and MBBank's Layer 2 pages remain unsolved —
+  documented per-bank in `DEVELOPMENT_PLAN.md`'s new v0.10 section, not
+  silently dropped. Several share a real AJAX-loaded-listing gap (the
+  page shell renders, the actual list never does, even with crawl4ai's JS
+  strategy) — the same category of problem ACB's Layer 1 fetch solved by
+  finding the underlying JSON API instead of the rendered page. Not yet
+  attempted for these.
+- Fixed a real bug in `agent/content_gate.py`: the corrupted-token
+  heuristic was tripped by UUID/hash fragments in markdown CDN image URLs
+  (`e6039a2a-a43f-4860-bbdb...`), nearly rejecting a completely legitimate
+  BIDV news article (ratio 0.054, just over the 0.05 threshold) for URL
+  noise, not real corruption. Fixed by stripping URLs before computing
+  the ratio; added a regression test using the real triggering content.
+- Fixed a real bug in `agent/crawler.py`: `_crawl_async` special-cased ACB
+  and MBBank by domain alone (`_domain(url) == "acb.com.vn"`), so *any*
+  URL on those domains got silently hijacked into fetching Layer 1's
+  financial statement instead of the actually-requested page — confirmed
+  live (a sitemap request to both domains returned financial-statement
+  content). Fixed by keying both routes to the exact Layer 1 source URL
+  instead of the domain.
+- Fixed the same class of bug one level up: `SITE_CONFIGS` was keyed by
+  domain only, so a second source on an already-configured domain (BIDV's
+  new fee-schedule page, same domain as its Layer 1 financial-statements
+  page) would have silently gotten the wrong selector. Added
+  `_resolve_site_config(url)`: URL match takes precedence over domain
+  match, which falls back to `DEFAULT_CONFIG`. BIDV's existing Layer 1
+  `SITE_CONFIGS` entry re-keyed from the bare domain to its specific URL.
+- `tests/test_content_gate.py`: 12/12 passing (added a regression test
+  for the CDN-URL false positive).
+
 ## Unreleased — Content-usability gate
 
 - Added `agent/content_gate.py`: `check_content_usable()`, a deterministic,

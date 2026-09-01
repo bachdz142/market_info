@@ -24,6 +24,7 @@ that interprets and acts on them.
 | v0.7 — LLM provider fallback chain (Groq → Gemini → Mistral → OpenRouter) | ✅ Done |
 | v0.8 — Layer 3 journals + Layer 4 macro/gov sources (first Layer 2-4 increment) | 🚧 Partial — 5 of 6 sources usable; `sbv_legal_directives_official` fetches and passes tests but its documents are scan-only (same category as BIDV/Vietcombank), needs OCR |
 | v0.9 — Content-usability gate | ✅ Done |
+| v0.10 — Layer 2 (CVP/offerings), first sources + 3 real bugs found and fixed | 🚧 Partial — 2 of 10 bank news/fee sources solved (both BIDV); VPBank/VCB/ACB/MBBank still open, all need solving per user direction (not deferred) |
 
 ## Known temporary state (fix before a real full run)
 
@@ -262,6 +263,29 @@ Phase 2 of the three-phase Layer 2-4 direction set earlier this session (fetch/s
 - Deliberately did **not** re-run the full LLM-inclusive `tests/test_sources.py` suite to "prove" this works end-to-end in production — per this session's own established direction (don't spend real Groq/LLM calls verifying fetch-layer work by default), the offline tests plus the real-data validation above were treated as sufficient.
 - Explicitly out of scope for this pass (see spec's Out of Scope): a nav-boilerplate/selector-mismatch heuristic, a language-aware/dictionary-based corrupted-text check, and any LLM-based self-critique or reflection step — the last one was specifically considered and rejected, since it would reintroduce the exact LLM-cost problem this gate exists to avoid.
 - Phase 3 of the Layer 2-4 direction (fixing the structuring prompts for better consolidation/summarization/insight) remains a separate, not-yet-started effort.
+
+## v0.10 — Layer 2 (CVP/offerings/segment sales models) (🚧 partial)
+
+First real work on Layer 2 (`source_plan_mvp0.md` §4) — bank news/promotions pages and fee/T&C pages, 5 banks (VCB, BIDV, MBB, ACB, VPBank). Fetch-only development throughout, per the fetch-dev-no-llm-by-default direction set earlier — no Groq/LLM calls spent verifying any of this, only `agent.crawler.crawl()`/`crawl_chunked()` + `agent.content_gate.check_content_usable()`, both free.
+
+- [x] **`bidv_card_promotions`** — solved via `bidvinfo.com.vn` (BIDV's dedicated news/media portal, a different domain from `bidv.com.vn`), "Khuyến mãi thẻ" section. Real, dated card-partner offers (Trip.com, Agoda discounts). No `SITE_CONFIGS` entry needed.
+- [x] **`bidv_personal_fee_schedule`** — solved via `bidv.com.vn/vn/ca-nhan/cong-cu-tien-ich/bieu-phi`, a mega-menu page (114K+ chars unscoped) with a real, dated, 12-PDF fee-schedule index buried in one small accordion container. Scoped selector + `pdf_link_limit: 1` picks the newest (the other 11 are mostly older versions of the same card-fee document). Confirmed live: a genuine fee table segmented by customer tier (regular retail vs. Premier/Private).
+- [ ] **VPBank** (news + fee) — both pages have the real page shell/title but the actual listing is AJAX-loaded and never resolves, even with crawl4ai's JS strategy. Not yet solved.
+- [ ] **Vietcombank** (news + fee) — fee page's table is an embedded image (no extractable text at all, a different problem than AJAX-loading); promo page URL never located within the domain that actually works (`www.vietcombank.com.vn`, distinct from the Akamai-walled `portal.vietcombank.com.vn`). Not yet solved.
+- [ ] **ACB** (news/promo) — listing widget explicitly renders "Không có sản phẩm" (no products) — same AJAX-gap as VPBank. Fee page not yet individually re-checked. Not yet solved.
+- [ ] **MBBank** (news + fee) — own site is Akamai-blocked site-wide (already known from Layer 1); not yet attempted via the Vietstock aggregator fallback for anything beyond the Layer 1 financial statement. Not yet solved.
+- [x] **3 real bugs found and fixed while doing this work** (none were regressions from this session's own earlier changes — all pre-existing, surfaced by touching this code for the first time since Layer 1):
+  1. **Content gate false positive on CDN image URLs** — `agent/content_gate.py`'s corrupted-token heuristic was tripped by UUID/hash fragments in markdown image URLs (`e6039a2a-a43f-4860-bbdb...`), nearly rejecting a completely legitimate BIDV news article (ratio 0.054, just over the 0.05 threshold) for URL noise, not real text corruption. Fixed by stripping URLs before computing the ratio; added a regression test using the real triggering content.
+  2. **ACB/MBBank domain-wide routing hijack** — `agent/crawler.py`'s `_crawl_async` checked `_domain(url) == "acb.com.vn"` (and similarly for MBBank's Vietstock fallback) rather than the specific Layer 1 URL, so *any* other URL on those two domains got silently redirected to the Layer 1 financial-statement fetch instead of the actually-requested page. Confirmed live: a sitemap request to both domains returned financial-statement content instead of the sitemap. Fixed by keying both special-cased routes to the exact Layer 1 source URL (`ACB_FINANCIAL_STATEMENTS_URL`, `MBBANK_FINANCIAL_STATEMENTS_URL`) instead of the domain.
+  3. **`SITE_CONFIGS` domain-only keying** — the general selector-lookup mechanism (`SITE_CONFIGS.get(_domain(url), DEFAULT_CONFIG)`) had the same class of bug as #2, one level up: any second source added on an already-configured domain (BIDV's new fee-schedule page, same domain as its Layer 1 financial-statements page) would silently get the *wrong* selector. Fixed with `_resolve_site_config(url)`: checks for an exact-URL-keyed entry first, falls back to domain, then to `DEFAULT_CONFIG`. BIDV's existing Layer 1 entry re-keyed from `"bidv.com.vn"` to its specific URL as part of this fix.
+
+### Verification
+- [x] Import/build sanity check — all 3 graphs compile cleanly, `SOURCES` imports with both new entries (15 total sources).
+- [x] Both new BIDV sources' full fetch → chunk → content-gate pipeline verified live, fetch-only (zero LLM cost): `bidv_card_promotions` — 3/3 chunks pass; `bidv_personal_fee_schedule` — 5/5 chunks pass.
+- [x] The `SITE_CONFIGS` fix verified directly: BIDV's Layer 1 URL and new fee-schedule URL now resolve to their own distinct selectors; an unconfigured `bidv.com.vn` URL correctly falls through to `DEFAULT_CONFIG`.
+- [x] The ACB/MBBank routing fix verified directly: a non-financial-statement URL on each domain now fetches normally (confirmed MBBank's homepage correctly surfaces its real, already-known Akamai block instead of being silently masked by the old hijack).
+- [x] `tests/test_content_gate.py`: 12/12 passing (11 + 1 new regression test for the CDN-URL false positive).
+- [ ] Full LLM-inclusive `pytest tests/test_sources.py` **not** run for the 2 new sources, per the fetch-dev-no-llm-by-default direction — fetch-only verification was treated as sufficient; real LLM verification deferred to whenever a full-pipeline check is actually wanted.
 
 ## Maintenance fixes
 

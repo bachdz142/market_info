@@ -389,4 +389,70 @@ SOURCES = [
             "interpretation. source_code for these signals is \"TCTC\"."
         ),
     },
+    # --- Layer 2 (CVP/offerings/segment sales models, source_plan_mvp0.md
+    # §4) — bank news/promotions + fee/T&C pages, 5 banks + VPBank. Much
+    # tougher domain than Layer 1's IR pages: 4 of 5 candidates hit real
+    # dead ends within a light-effort pass — VPBank (both pages: real page
+    # shells exist but the actual listing is AJAX-loaded and never resolves,
+    # even with crawl4ai's JS strategy), Vietcombank (fee page's actual
+    # table is an embedded image, no extractable text; promo page URL never
+    # located), ACB (promotions page's listing widget explicitly says "no
+    # products" — same AJAX-gap as VPBank), MBBank (its own site is
+    # Akamai-blocked site-wide, already known from Layer 1). Only BIDV
+    # solved so far, and non-obviously — see below. Still open: an
+    # ACB-style network-capture/API-discovery pass on the AJAX-gapped ones,
+    # not yet attempted for Layer 2.
+    {
+        "id": "bidv_card_promotions",
+        "kind": "qualitative",
+        "role": "citable",
+        # bidvinfo.com.vn is BIDV's dedicated news/media portal — a
+        # different domain from bidv.com.vn (the transactional site) and
+        # from bidvinfo's own homepage/general-news pages, which weren't
+        # tried. The "Khuyến mãi thẻ" (Card Promotions) sub-section is
+        # cleanly on-topic (confirmed live: real, dated card-partner offers
+        # — Trip.com, Agoda discounts — not just nav). No SITE_CONFIGS entry
+        # needed: DEFAULT_CONFIG's static fetch already returns real content
+        # without a selector, unlike bidv.com.vn's own pages.
+        "url": "https://bidvinfo.com.vn/chinh-sach-va-san-pham/khuyen-mai-the",
+        "chunked": True,
+        "prompt": (
+            "Extract concrete card promotions and partner offers from the "
+            "content below — the specific card product, the partner/"
+            "merchant involved, the discount or benefit amount, and the "
+            "promotion's validity period if stated. source_code for these "
+            "signals is \"BID\"."
+        ),
+    },
+    {
+        "id": "bidv_personal_fee_schedule",
+        "kind": "quant",
+        "role": "citable",
+        # Same domain as the existing Layer 1 bidv_financial_statements
+        # source but a different page needing its own selector — this is
+        # exactly why agent/crawler.py's SITE_CONFIGS is now URL-keyed for
+        # bidv.com.vn (see _resolve_site_config()), not domain-keyed; a
+        # domain-wide lookup would have applied Layer 1's selector here by
+        # mistake. This listing page itself is a full-site mega-menu
+        # (114K+ chars unscoped) with the real fee-schedule PDF list buried
+        # inside one small accordion container — SITE_CONFIGS scopes to
+        # that container and takes just the newest (first) PDF; the other
+        # 11 linked PDFs are mostly older versions of the same card-fee
+        # schedule, not distinct categories. Confirmed live: a genuine,
+        # extractable fee table segmented by customer tier (regular retail
+        # vs. Premier/Private).
+        "url": "https://bidv.com.vn/vn/ca-nhan/cong-cu-tien-ich/bieu-phi",
+        "chunked": True,
+        "prompt": (
+            "Extract concrete fee amounts and conditions from BIDV's "
+            "personal-customer fee schedule below — service fees (card "
+            "issuance, annual fees, transaction fees, etc.), segmented by "
+            "customer tier where the table distinguishes them (e.g. regular "
+            "retail vs. Premier/Private banking), including which service "
+            "each figure applies to and the effective date stated in the "
+            "document. data_basis is \"not_applicable\" — these are fee "
+            "figures, not financial-statement data. source_code for these "
+            "signals is \"BID\"."
+        ),
+    },
 ]

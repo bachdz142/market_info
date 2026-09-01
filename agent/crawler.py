@@ -109,7 +109,12 @@ SITE_CONFIGS = {
     # every document title/date repeated 6 times). Scoping to just
     # ".tab-pane.active" (the current year) gives the same real content
     # once: confirmed live, 713 chars, 4 consolidated links instead of 24.
-    "bidv.com.vn": {
+    # Keyed by this specific URL, not the bare "bidv.com.vn" domain — BIDV
+    # now has a second source on this domain (the Layer 2 fee-schedule page
+    # below) needing a completely different selector. See
+    # _resolve_site_config()'s own comment for why URL-keyed entries exist
+    # alongside domain-keyed ones.
+    "https://bidv.com.vn/vn/quan-he-nha-dau-tu/bao-cao-va-tai-lieu/": {
         "needs_js": True,
         "wait_selector": None,
         "content_selector": "#pills-taichinh .tab-pane.active",
@@ -161,6 +166,22 @@ SITE_CONFIGS = {
         "pdf_link_selector": None,
         "pdf_link_limit": 1,
     },
+    # Layer 2 fee-schedule source, same domain as BIDV's Layer 1 source
+    # above but a different page needing its own selector — why this entry
+    # is keyed by URL, not domain. #accordionPanelsStayOpenExample scopes
+    # past BIDV's full-site mega-menu (114K+ chars unscoped) down to just
+    # the fee-schedule PDF list (982 chars, 12 real dated PDFs). Confirmed
+    # live: the first (newest) PDF alone is a genuine, extractable fee
+    # table (~41K chars, segmented by customer tier) — pdf_link_limit=1
+    # picks that one; the other 11 are mostly older versions of the same
+    # card-fee schedule, not distinct categories worth also fetching.
+    "https://bidv.com.vn/vn/ca-nhan/cong-cu-tien-ich/bieu-phi": {
+        "needs_js": True,
+        "wait_selector": None,
+        "content_selector": "#accordionPanelsStayOpenExample",
+        "pdf_link_selector": "a[href*='.pdf']",
+        "pdf_link_limit": 1,
+    },
 }
 DEFAULT_CONFIG = {
     "needs_js": False,
@@ -169,6 +190,21 @@ DEFAULT_CONFIG = {
     "pdf_link_selector": None,
     "pdf_link_limit": 1,
 }
+
+
+def _resolve_site_config(url: str) -> dict:
+    """SITE_CONFIGS entries are keyed by either a specific URL (when a
+    domain hosts multiple sources needing different selectors — e.g.
+    bidv.com.vn's Layer 1 financial-statements page vs. its Layer 2
+    fee-schedule page) or a bare domain (the common case: one distinct
+    fetch pattern per site). URL match takes precedence over domain match,
+    which falls back to DEFAULT_CONFIG. Using domain alone everywhere would
+    let a second source on an already-configured domain silently reuse the
+    wrong selector — confirmed live as a real bug (2026-09-01, building
+    Layer 2) before this function existed."""
+    if url in SITE_CONFIGS:
+        return SITE_CONFIGS[url]
+    return SITE_CONFIGS.get(_domain(url), DEFAULT_CONFIG)
 
 
 def _domain(url: str) -> str:
@@ -223,6 +259,14 @@ ACB_DOCUMENTS_API = (
     "https://acb.com.vn/api/en/front/v1/posts"
     "?search[categories.category_id:in]=1656&search[is_active:in]=1&page=1&limit=20"
 )
+
+# _crawl_async keys this special-cased fetch to this *specific* URL, not
+# acb.com.vn as a whole — a domain-wide check would hijack every other page
+# on the domain, not just Layer 1's financial-statements page. Confirmed
+# live (2026-09-01, building Layer 2) that this was a real bug: fetching
+# acb.com.vn's sitemap.xml through a domain-keyed check returned ACB's
+# financial statement instead of the sitemap.
+ACB_FINANCIAL_STATEMENTS_URL = "https://acb.com.vn/en/investors/financial-statements"
 
 
 async def _fetch_acb_statement_text() -> str:
@@ -342,7 +386,7 @@ async def _fetch_selected_pdfs(url: str, node: Any, config: dict) -> List[Tuple[
 
 
 async def _crawl_parts_async(url: str) -> Tuple[str, List[Tuple[str, str]]]:
-    config = SITE_CONFIGS.get(_domain(url), DEFAULT_CONFIG)
+    config = _resolve_site_config(url)
     html, generic_text = await _fetch_html(url, config["needs_js"], config["wait_selector"])
 
     selected = _select_content(html, config)
@@ -367,20 +411,25 @@ def crawl_parts(url: str) -> Tuple[str, List[Tuple[str, str]]]:
 # Banks whose own IR site is unreachable (Akamai-blocked — see
 # agent/sources.py's Layer 1 comment) but whose filed statement happens to
 # have a real text layer on Vietstock's static CDN. Keyed by the bank's own
-# domain (used as the source's citation URL in agent/sources.py) so this
-# stays a drop-in fetch-path override, not a separate source type.
+# *specific* financial-statement URL (used as the source's citation URL in
+# agent/sources.py), not the domain as a whole — a domain-wide key would
+# hijack every other page on that domain, not just this one. Confirmed live
+# (2026-09-01, building Layer 2): fetching mbbank.com.vn's sitemap.xml
+# through a domain-keyed check returned MBB's financial statement instead
+# of the sitemap, since the domain matched regardless of path.
+MBBANK_FINANCIAL_STATEMENTS_URL = "https://mbbank.com.vn/Investor/thong-bao-nha-dau-tu"
 VIETSTOCK_FALLBACK_TICKERS = {
-    "mbbank.com.vn": "MBB",
+    MBBANK_FINANCIAL_STATEMENTS_URL: "MBB",
 }
 
 
 async def _crawl_async(url: str) -> str:
-    if _domain(url) == "acb.com.vn":
+    if url == ACB_FINANCIAL_STATEMENTS_URL:
         return await _fetch_acb_statement_text()
-    if _domain(url) in VIETSTOCK_FALLBACK_TICKERS:
-        return await _fetch_vietstock_statement_text(VIETSTOCK_FALLBACK_TICKERS[_domain(url)])
+    if url in VIETSTOCK_FALLBACK_TICKERS:
+        return await _fetch_vietstock_statement_text(VIETSTOCK_FALLBACK_TICKERS[url])
 
-    config = SITE_CONFIGS.get(_domain(url), DEFAULT_CONFIG)
+    config = _resolve_site_config(url)
 
     if config["needs_js"]:
         html, generic_text = await _fetch_html(url, needs_js=True, wait_selector=config["wait_selector"])

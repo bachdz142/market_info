@@ -39,7 +39,20 @@ BLOCK_PAGE_MARKERS = [
 MAX_CORRUPTED_TOKEN_RATIO = 0.05
 
 
+URL_RE = re.compile(r"https?://\S+")
+
+
 def _corrupted_token_ratio(text: str) -> float:
+    # Strip URLs first: markdown image/link syntax embeds full URLs
+    # (`![](https://.../wps/wcm/connect/e6039a2a-a43f-.../file.jpg?...)`),
+    # and CDN paths are full of UUID/hash fragments that mix lowercase
+    # letters and digits exactly like real OCR corruption does — but
+    # they're URL noise, not prose. Confirmed live (2026-09-01,
+    # bidv.com.vn/bidv/tin-tuc): a genuine, clean, dated news article
+    # scored 0.054 (just over threshold, a false rejection) purely from
+    # its embedded image URLs; the same text scored 0.003 with URLs
+    # stripped.
+    text = URL_RE.sub(" ", text)
     tokens = re.findall(r"\b\w+\b", text)
     if not tokens:
         return 0.0
