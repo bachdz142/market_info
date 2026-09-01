@@ -298,6 +298,56 @@ async def _fetch_acb_statement_text() -> str:
         return await _fetch_pdf_text(crawler, pdf_url)
 
 
+# ACB's /en/promotions page (Layer 2) has the exact same problem as its
+# financial-statements page: the rendered listing widget explicitly shows
+# "No products" — the real content loads via API calls the static/JS fetch
+# never captures. Confirmed live (2026-09-01) via real Playwright network
+# capture (not a guess): the page calls
+# /api/en/front/v1/map/categories?type=uu-dai (a category index, not used
+# here) and /api/en/front/v1/map/posts?type=uu-dai (the real promo-post id
+# list). Two-step fetch, unlike the single-call financial-statements case:
+# the list endpoint only returns id/slug, and the English-locale detail
+# endpoint (/api/en/front/v1/posts/{id}) returns null title/description for
+# these Vietnamese-locale posts — the real content only comes back from the
+# /api/vi/... detail endpoint, matching each post's own "locale": "vi" field.
+ACB_PROMOTIONS_URL = "https://acb.com.vn/en/promotions"
+ACB_PROMOTIONS_LIST_API = "https://acb.com.vn/api/en/front/v1/map/posts?type=uu-dai&limit=20"
+ACB_PROMOTIONS_DETAIL_API = "https://acb.com.vn/api/vi/front/v1/posts/{post_id}"
+# Keeps the eventual structuring call reasonably sized — the list endpoint
+# doesn't expose dates to sort by, so this just takes the first N as given.
+ACB_PROMOTIONS_LIMIT = 8
+
+
+async def _fetch_acb_promotions_text() -> str:
+    _throttle(_domain(ACB_PROMOTIONS_LIST_API))
+    async with AsyncWebCrawler(crawler_strategy=AsyncHTTPCrawlerStrategy()) as crawler:
+        result = await crawler.arun(url=ACB_PROMOTIONS_LIST_API, config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS))
+        if not result.success:
+            raise RuntimeError(f"Failed to fetch ACB promotions list: {result.error_message}")
+
+        items = json.loads(result.html).get("data", [])[:ACB_PROMOTIONS_LIMIT]
+        parts = []
+        for item in items:
+            detail_url = ACB_PROMOTIONS_DETAIL_API.format(post_id=item["id"])
+            _throttle(_domain(detail_url))
+            detail_result = await crawler.arun(url=detail_url, config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS))
+            if not detail_result.success:
+                logger.info("Failed to fetch ACB promotion detail %s, skipping", detail_url)
+                continue
+            data = json.loads(detail_result.html).get("data", {})
+            title = data.get("title") or ""
+            if not title:
+                continue
+            desc = data.get("short_description") or ""
+            start = data.get("published_start") or ""
+            end = data.get("published_end") or ""
+            parts.append(f"{title}\n{desc}\nValid: {start} to {end}")
+
+    if not parts:
+        raise ValueError("No ACB promotions found with real content")
+    return "\n\n".join(parts)
+
+
 # Vietstock's static CDN serves each bank's filed financial statement at a
 # direct, predictable URL — confirmed live to sit outside whatever wall
 # blocks finance.vietstock.vn's JS-rendered document table (never rendered
@@ -426,6 +476,8 @@ VIETSTOCK_FALLBACK_TICKERS = {
 async def _crawl_async(url: str) -> str:
     if url == ACB_FINANCIAL_STATEMENTS_URL:
         return await _fetch_acb_statement_text()
+    if url == ACB_PROMOTIONS_URL:
+        return await _fetch_acb_promotions_text()
     if url in VIETSTOCK_FALLBACK_TICKERS:
         return await _fetch_vietstock_statement_text(VIETSTOCK_FALLBACK_TICKERS[url])
 

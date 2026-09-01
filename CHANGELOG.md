@@ -5,6 +5,27 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — ACB promotions via real network-capture API discovery
+
+- Added `acb_promotions` (`acb.com.vn/en/promotions`). Same class of
+  problem as ACB's Layer 1 financial-statements page: the rendered
+  listing explicitly said "Không có sản phẩm" (no products) — same
+  AJAX-gap VPBank also hit. Solved this time with real Playwright network
+  capture (not a guess): the page calls a two-step API —
+  `map/posts?type=uu-dai` lists promo ids, then each id's actual content
+  only comes back from the **Vietnamese-locale** detail endpoint
+  (`/api/vi/front/v1/posts/{id}`) — the English-locale endpoint returns
+  null title/description for these Vietnamese-only posts, which is why
+  earlier guesses at the existing `posts?search[categories.category_id]`
+  pattern (Layer 1's approach) never found it.
+- `agent/crawler.py`: `_fetch_acb_promotions_text()`, a new custom
+  multi-step fetch function (list then per-item detail), mirroring the
+  style of the existing `_fetch_acb_statement_text()`. Routed via the
+  same exact-URL-keyed pattern used for the ACB/MBBank fix above.
+- Confirmed live: 8 real, current promotions (0-fee transfers, cashback
+  offers, savings-rate boosts), several with explicit validity date
+  ranges — fetch-only verified, zero LLM cost.
+
 ## Unreleased — Layer 2 (first sources) + 3 real bugs found and fixed
 
 - Added `bidv_card_promotions` (`bidvinfo.com.vn`, BIDV's dedicated news/

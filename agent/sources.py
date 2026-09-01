@@ -455,4 +455,26 @@ SOURCES = [
             "signals is \"BID\"."
         ),
     },
+    {
+        "id": "acb_promotions",
+        "kind": "qualitative",
+        "role": "citable",
+        # Same class of problem as ACB's Layer 1 financial-statements page:
+        # the rendered listing explicitly says "No products" — the real
+        # content loads via API calls the static/JS fetch never captures.
+        # Solved via real Playwright network capture (2026-09-01), not a
+        # guess — see agent/crawler.py's _fetch_acb_promotions_text() for
+        # the two-step API (a promo-id list, then each item's real content
+        # from the Vietnamese-locale detail endpoint — the English one
+        # returns nulls for these Vietnamese-only posts). Confirmed live: 8
+        # real, current promotions (0-fee transfers, cashback offers,
+        # savings-rate boosts), several with explicit validity date ranges.
+        "url": "https://acb.com.vn/en/promotions",
+        "prompt": (
+            "Extract concrete promotional offers from the content below — "
+            "the specific offer or campaign, the product it applies to, the "
+            "benefit or discount amount, and the validity dates where "
+            "stated. source_code for these signals is \"ACB\"."
+        ),
+    },
 ]
