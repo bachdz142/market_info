@@ -3,7 +3,9 @@ import agent.ssl_bootstrap  # noqa: F401  — must import-run before crawl4ai/ai
 import asyncio
 import json
 import logging
+import re
 import time
+import urllib.request
 from datetime import datetime
 from typing import Any, Iterator, List, Optional, Tuple
 from urllib.parse import urljoin, urlparse
@@ -384,6 +386,65 @@ async def _fetch_api_json_text(api_url: str) -> str:
     return text
 
 
+# Vietcombank's promotions listing page is a different kind of problem than
+# ACB/VPBank's AJAX-gap: its homepage showed *zero* fetch/XHR calls under
+# JS-injection capture (confirmed live, 2026-09-01) — this site is mostly
+# server-rendered, not a client-side SPA, so the listing's real links are
+# most likely populated via a WebCenter/Liferay-style portlet postback, not
+# a plain client-side call this technique can see. But individual promo
+# article pages ARE real and fully extractable (confirmed live: detailed,
+# dated promo terms with real VND figures) — the sitemap is the discovery
+# mechanism instead of the listing page, using its real <lastmod> dates to
+# pick the most recent few. crawl4ai's own fetch fails on this specific
+# sitemap's XML encoding declaration ("Unicode strings with encoding
+# declaration are not supported"); raw urllib works fine and is used only
+# for this one bootstrap step — every actual promo page fetch still goes
+# through crawl4ai normally.
+VCB_PROMOTIONS_URL = "https://www.vietcombank.com.vn/KHCN/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai"
+VCB_SITEMAP_URL = "https://www.vietcombank.com.vn/sitemap.xml"
+VCB_PROMOTIONS_LIMIT = 3
+VCB_PROMOTION_RE = re.compile(
+    r"<url>\s*<loc>(https?://www\.vietcombank\.com\.vn/KHCN/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai/[^<]+)</loc>\s*<lastmod>([^<]+)</lastmod>"
+)
+
+
+def _vcb_promotion_urls() -> List[str]:
+    req = urllib.request.Request(VCB_SITEMAP_URL, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        raw = resp.read().decode("utf-8", errors="replace")
+    pairs = VCB_PROMOTION_RE.findall(raw)
+    pairs.sort(key=lambda pair: pair[1], reverse=True)
+    # The sitemap lists these as plain http:// — confirmed live that
+    # fetching over http specifically (not https) trips a genuine
+    # net::ERR_HTTP2_PROTOCOL_ERROR against this domain, so normalize to
+    # https first.
+    return [url.replace("http://", "https://", 1) for url, _ in pairs[:VCB_PROMOTIONS_LIMIT]]
+
+
+async def _fetch_vcb_promotions_text() -> str:
+    urls = _vcb_promotion_urls()
+    if not urls:
+        raise ValueError("No VCB promotion URLs found in sitemap")
+
+    parts = []
+    async with AsyncWebCrawler() as crawler:
+        for url in urls:
+            _throttle(_domain(url))
+            result = await crawler.arun(url=url, config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS))
+            if not result.success:
+                logger.info("Failed to fetch VCB promotion %s, skipping", url)
+                continue
+            soup = BeautifulSoup(result.html, "lxml")
+            node = soup.select_one(".promotion-detail__container")
+            text = node.get_text(separator="\n", strip=True) if node else (result.markdown or "")
+            if text:
+                parts.append(f"--- {url} ---\n{text}")
+
+    if not parts:
+        raise ValueError("No VCB promotions had usable content")
+    return "\n\n".join(parts)
+
+
 # Vietstock's static CDN serves each bank's filed financial statement at a
 # direct, predictable URL — confirmed live to sit outside whatever wall
 # blocks finance.vietstock.vn's JS-rendered document table (never rendered
@@ -518,6 +579,8 @@ async def _crawl_async(url: str) -> str:
         return await _fetch_api_json_text(VPBANK_NEWS_API)
     if url == VPBANK_FEE_URL:
         return await _fetch_api_json_text(VPBANK_FEE_API)
+    if url == VCB_PROMOTIONS_URL:
+        return await _fetch_vcb_promotions_text()
     if url in VIETSTOCK_FALLBACK_TICKERS:
         return await _fetch_vietstock_statement_text(VIETSTOCK_FALLBACK_TICKERS[url])
 

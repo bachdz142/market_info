@@ -5,6 +5,30 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — VCB promotions via sitemap discovery (a genuinely different fix than ACB/VPBank)
+
+- Added `vcb_promotions` (`vietcombank.com.vn/KHCN/.../KHCN---Danh-sach-uu-dai`).
+  A different problem than ACB/VPBank's AJAX-gap: VCB's homepage showed
+  zero fetch/XHR calls under the same JS-injection capture technique —
+  mostly server-rendered, not a client-side SPA, so the listing's real
+  links are likely populated via a WebCenter/Liferay-style portlet
+  postback that technique can't see.
+- Solved differently: individual promo article pages ARE real and fully
+  extractable (confirmed live: detailed, dated terms with real VND
+  figures). The sitemap — using its real `<lastmod>` dates — picks the 3
+  most recent, since the listing page itself never surfaces them.
+  `crawl4ai` itself fails to parse this specific sitemap's XML encoding
+  declaration; raw `urllib` is used for just that one bootstrap fetch,
+  every actual promo page still goes through `crawl4ai` normally.
+- A real bug caught and fixed along the way: the sitemap lists these URLs
+  as plain `http://`, and fetching over `http` (not `https`) specifically
+  trips a genuine `net::ERR_HTTP2_PROTOCOL_ERROR` against this domain —
+  normalized to `https://` before fetching.
+- VCB's separate fee-schedule page is explicitly NOT solved by this or
+  any other crawling technique — its fee table is an embedded image, not
+  JS-gapped content. Documented as needing OCR, same category as BIDV's/
+  VCB's own Layer 1 scan-only filings.
+
 ## Unreleased — VPBank Layer 2 sources via the same network-capture technique
 
 - Added `vpbank_news` (`vpbank.com.vn/tin-tuc`) and `vpbank_fee_documents`

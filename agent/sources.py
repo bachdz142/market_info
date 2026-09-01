@@ -524,4 +524,30 @@ SOURCES = [
             "source_code for these signals is \"VPB\"."
         ),
     },
+    {
+        "id": "vcb_promotions",
+        "kind": "qualitative",
+        "role": "citable",
+        # Different problem than ACB/VPBank's AJAX-gap: VCB's homepage
+        # showed zero fetch/XHR calls under JS-injection capture (confirmed
+        # live, 2026-09-01) — mostly server-rendered, not a client-side SPA,
+        # so the listing's real links are likely populated via a
+        # WebCenter/Liferay-style portlet postback this technique can't see.
+        # Individual promo article pages ARE real and fully extractable
+        # (confirmed live: detailed, dated terms with real VND figures) —
+        # see agent/crawler.py's _fetch_vcb_promotions_text(): uses the
+        # sitemap's real <lastmod> dates to pick the 3 most recent, since
+        # the listing page itself never surfaces them. VCB's separate fee
+        # schedule page is NOT solved this way — its fee table is an
+        # embedded image, not JS-gapped content, so no amount of crawling
+        # fixes it; needs OCR (same category as BIDV's/VCB's own Layer 1
+        # scan-only filings).
+        "url": "https://www.vietcombank.com.vn/KHCN/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai",
+        "prompt": (
+            "Extract concrete promotional offers from the content below — "
+            "the specific offer or campaign, the product/card it applies "
+            "to, the benefit or discount amount, and the validity dates "
+            "where stated. source_code for these signals is \"VCB\"."
+        ),
+    },
 ]
