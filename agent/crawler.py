@@ -496,6 +496,89 @@ async def _fetch_vcb_promotions_text() -> str:
     return "\n\n".join(parts)
 
 
+# MBBank's own site (mbbank.com.vn, bare domain) is Akamai-blocked
+# comprehensively — every path returns the identical near-empty block,
+# confirmed live and already documented for Layer 1. But the "www."
+# subdomain is NOT behind the same wall (confirmed live, 2026-09-01) —
+# this isn't evasion, just a different, legitimately-reachable subdomain
+# the bank itself owns and publishes on. Both pages below are Angular-
+# templated and need JS rendering, but a plain CSS `wait_for` (the
+# SITE_CONFIGS mechanism everywhere else in this file) proved unreliable
+# here: confirmed live it matched after only 1 of 7 real links had
+# rendered on one run, 4 of 7 on another — a race, not a fluke. A
+# JS-predicate wait (poll until a real link count threshold is met, not
+# just "one exists") is reliable instead, which is why these two sources
+# use bespoke fetch functions rather than a SITE_CONFIGS entry (the
+# generic `_fetch_html`/SITE_CONFIGS path only supports `css:` waits).
+MBBANK_FEE_URL = "https://www.mbbank.com.vn/Fee"
+MBBANK_FEE_WAIT_JS = "js:() => document.querySelectorAll(\"a[href*='.pdf']\").length > 10"
+# #rate-info4 is "BIỂU PHÍ DỊCH VỤ ÁP DỤNG ĐỐI VỚI KHCN & KHÁCH HÀNG HỘ
+# KINH DOANH" (individual + business-household customers) — one of ~10
+# numbered sections on this page (KHCN, SME, CIB, FI, cards, app, etc.);
+# picked as the single most broadly-relevant section rather than fetching
+# all of them, matching the light-effort call for this pass. Confirmed
+# live: a genuine, current, itemized fee table (account/deposit/treasury
+# fees with real VND amounts).
+MBBANK_FEE_CONTENT_SELECTOR = "#rate-info4"
+MBBANK_FEE_PDF_SELECTOR = "a[href*='.pdf']"
+
+MBBANK_NEWS_URL = "https://www.mbbank.com.vn/news/tin-tuc"
+# Scoping the wait condition to the container itself (not just "does a
+# matching link exist anywhere on the page") was necessary — confirmed
+# live that a page-wide wait condition raced with this container's own
+# content still being empty (3 separate runs: 1 of 7 links wide, then 4 of
+# 7, then the container itself came back with 0 chars despite the
+# page-wide condition passing). Scoped to the container, 3/3 runs reliable.
+MBBANK_NEWS_WAIT_JS = "js:() => document.querySelectorAll(\".col-sm-9 a[href*='/chi-tiet/']\").length > 3"
+MBBANK_NEWS_CONTENT_SELECTOR = ".col-sm-9"
+
+
+async def _fetch_mbbank_fee_text() -> str:
+    _throttle(_domain(MBBANK_FEE_URL))
+    async with AsyncWebCrawler() as crawler:
+        result = await crawler.arun(
+            url=MBBANK_FEE_URL,
+            config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS, wait_for=MBBANK_FEE_WAIT_JS, page_timeout=30000),
+        )
+        if not result.success:
+            raise RuntimeError(f"Failed to fetch MBBank fee page: {result.error_message}")
+
+        soup = BeautifulSoup(result.html, "lxml")
+        node = soup.select_one(MBBANK_FEE_CONTENT_SELECTOR)
+        if node is None:
+            raise ValueError("MBBank fee page's expected content section not found")
+
+        links = [a for a in node.select(MBBANK_FEE_PDF_SELECTOR) if a.get("href")][:1]
+        if not links:
+            raise ValueError("No fee-schedule PDF link found in MBBank's fee section")
+        pdf_url = urljoin(MBBANK_FEE_URL, links[0]["href"])
+        list_text = node.get_text(separator="\n", strip=True)
+
+    async with AsyncWebCrawler(crawler_strategy=PDFCrawlerStrategy()) as crawler:
+        pdf_text = await _fetch_pdf_text(crawler, pdf_url)
+    return f"{list_text}\n\n--- {pdf_url} ---\n{pdf_text}"
+
+
+async def _fetch_mbbank_news_text() -> str:
+    _throttle(_domain(MBBANK_NEWS_URL))
+    async with AsyncWebCrawler() as crawler:
+        result = await crawler.arun(
+            url=MBBANK_NEWS_URL,
+            config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS, wait_for=MBBANK_NEWS_WAIT_JS, page_timeout=30000),
+        )
+    if not result.success:
+        raise RuntimeError(f"Failed to fetch MBBank news page: {result.error_message}")
+
+    soup = BeautifulSoup(result.html, "lxml")
+    node = soup.select_one(MBBANK_NEWS_CONTENT_SELECTOR)
+    if node is None:
+        raise ValueError("MBBank news page's expected content section not found")
+    text = node.get_text(separator="\n", strip=True)
+    if not text:
+        raise ValueError("MBBank news section had no usable content")
+    return text
+
+
 # Vietstock's static CDN serves each bank's filed financial statement at a
 # direct, predictable URL — confirmed live to sit outside whatever wall
 # blocks finance.vietstock.vn's JS-rendered document table (never rendered
@@ -634,6 +717,10 @@ async def _crawl_async(url: str) -> str:
         return await _fetch_api_json_text(VPBANK_FEE_API)
     if url == VCB_PROMOTIONS_URL:
         return await _fetch_vcb_promotions_text()
+    if url == MBBANK_FEE_URL:
+        return await _fetch_mbbank_fee_text()
+    if url == MBBANK_NEWS_URL:
+        return await _fetch_mbbank_news_text()
     if url in VIETSTOCK_FALLBACK_TICKERS:
         return await _fetch_vietstock_statement_text(VIETSTOCK_FALLBACK_TICKERS[url])
 

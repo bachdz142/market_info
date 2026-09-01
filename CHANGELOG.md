@@ -5,6 +5,38 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — MBBank Layer 2 sources solved after all (reopened from blocked-by-design)
+
+- Added `mbbank_fee_schedule` and `mbbank_news`, reopening what was
+  previously documented as blocked-by-design. The bare `mbbank.com.vn`
+  domain genuinely is Akamai-walled site-wide (re-confirmed live: every
+  path returns the identical "0 chars visible" block) — but the **`www.`
+  subdomain is not behind the same wall** (confirmed live). This is a
+  different, legitimately-reachable host the bank itself owns and
+  publishes on, not evasion of the wall on the bare domain — the same
+  distinction that made Layer 1's Vietstock-mirror fix for MBBank
+  acceptable under the spec's own rules.
+- Both pages (`/Fee`, `/news/tin-tuc`) are Angular-templated and needed a
+  JS-predicate wait condition rather than the plain CSS wait every other
+  `SITE_CONFIGS` entry uses — confirmed live that a plain CSS wait raced
+  unreliably here (one run returned 1 of 7 real links, another 4 of 7).
+- The news page needed a further fix: even a page-wide JS-predicate wait
+  (matching if a link exists *anywhere*) raced with the target
+  container's own content still settling (confirmed live: container came
+  back with 0 chars despite the page-wide condition passing). Scoping the
+  wait condition to the container itself resolved it — verified reliable
+  across 3 separate runs before finalizing.
+- `agent/crawler.py`: `_fetch_mbbank_fee_text()` and
+  `_fetch_mbbank_news_text()`, bespoke fetch functions (matching this
+  project's existing pattern for tricky sites) since the generic
+  `SITE_CONFIGS`/`_fetch_html` path only supports plain CSS waits.
+- Confirmed live: a genuine, current, itemized fee table (account/
+  deposit/treasury fees, real VND amounts) and real, dated news items (a
+  minigame results announcement, a CSR sustainability partnership,
+  procurement notices). Fetch-only verified end to end, zero LLM cost.
+- Net for the Layer 2 news/fee pass: **9 of 10 sources now solved** — only
+  VCB's fee page remains, still blocked on OCR (unrelated to this fix).
+
 ## Unreleased — ACB fee schedule solved on a second pass
 
 - Added `acb_fee_schedule`. The real fee page turned out not to be the

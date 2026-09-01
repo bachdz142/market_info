@@ -580,4 +580,57 @@ SOURCES = [
             "signals is \"ACB\"."
         ),
     },
+    {
+        "id": "mbbank_fee_schedule",
+        "kind": "quant",
+        "role": "citable",
+        # MBBank's own site (mbbank.com.vn, bare domain) is Akamai-blocked
+        # comprehensively — every path returns the identical near-empty
+        # block, confirmed live and already documented for Layer 1. The
+        # "www." subdomain is NOT behind the same wall (confirmed live,
+        # 2026-09-01) — not evasion, just a different, legitimately-
+        # reachable subdomain the bank itself owns and publishes on. See
+        # agent/crawler.py's _fetch_mbbank_fee_text(): a plain CSS wait
+        # condition proved unreliable on this page (confirmed live, a real
+        # race between "a link exists" and the container's full content
+        # settling), so this uses a JS-predicate wait instead. Scoped to
+        # the "individual + business-household customer" section (one of
+        # ~10 segments on this page — KHCN, SME, CIB, FI, cards, app —
+        # picked as the single most broadly-relevant one for this pass).
+        # Confirmed live: a genuine, current, itemized fee table
+        # (account/deposit/treasury fees with real VND amounts).
+        "url": "https://www.mbbank.com.vn/Fee",
+        "chunked": True,
+        "prompt": (
+            "Extract concrete fee amounts and conditions from MBBank's "
+            "fee-schedule document below — service fees for accounts, "
+            "deposits, and treasury services, including which service each "
+            "figure applies to. data_basis is \"not_applicable\" — these "
+            "are fee figures, not financial-statement data. source_code "
+            "for these signals is \"MBB\"."
+        ),
+    },
+    {
+        "id": "mbbank_news",
+        "kind": "qualitative",
+        "role": "citable",
+        # Same www.mbbank.com.vn discovery as mbbank_fee_schedule above —
+        # see that source's comment for why this subdomain works when the
+        # bare domain doesn't. See agent/crawler.py's
+        # _fetch_mbbank_news_text(): needed the same JS-predicate wait
+        # fix, additionally scoped to the target container itself (not
+        # just "does a matching link exist on the page anywhere") since
+        # even the page-wide version raced with this container's own
+        # content settling — confirmed live across several runs before
+        # landing on a reliable condition. Confirmed live: real, dated
+        # news items (a minigame results announcement, a CSR sustainability
+        # partnership, procurement notices).
+        "url": "https://www.mbbank.com.vn/news/tin-tuc",
+        "prompt": (
+            "Extract concrete news items from the content below — product/"
+            "service announcements, partnerships, campaigns, or corporate "
+            "news, including each item's title. source_code for these "
+            "signals is \"MBB\"."
+        ),
+    },
 ]
