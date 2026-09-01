@@ -5,3 +5,4 @@ __pycache__/
 .env
 .idea/
 #data/
+data/fetch_preview/

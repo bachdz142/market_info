@@ -8,6 +8,7 @@ from langchain_tavily import TavilySearch
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, StateGraph
 
+from agent.content_gate import check_content_usable
 from agent.gate import checkpoint_gate
 from agent.llm_fallback import build_structuring_model, log_provider_call
 from agent.schema import MarketSignalBatch
@@ -96,6 +97,53 @@ def _crawl_node(state: AgentState) -> dict:
     elapsed = round(time.perf_counter() - start, 2)
     logger.info("Crawl done in %ss for url: %s", elapsed, state["url"])
     return {"search_results": text}
+
+
+def _content_gate_node(state: AgentState) -> dict:
+    """Runs after a single-fetch crawl, before the structuring LLM call —
+    rejects unusable content (near-empty, a WAF block page, a scan with a
+    broken OCR layer) for free, before any model spend. Reuses gate_passed/
+    gate_reason rather than a separate field pair: the rest of the pipeline
+    (service.py's reporting, the CSV schema) already knows how to surface a
+    gate rejection, and the reason text itself says which gate rejected it."""
+    result = check_content_usable(state.get("search_results") or "")
+    if not result["usable"]:
+        logger.warning("Content gate rejected %s: %s", state.get("url"), result["reason"])
+        return {"gate_passed": False, "gate_reason": f"Content gate: {result['reason']}"}
+    return {}
+
+
+def _content_gate_multi_node(state: AgentState) -> dict:
+    """Same purpose as _content_gate_node, but per-document: one bad PDF
+    among several shouldn't discard the rest (same principle as the
+    existing partial-PDF-failure handling in agent/crawler.py). Drops each
+    unusable piece individually; only rejects the whole item if nothing
+    usable survives — including the list/page text _structure_multi_node
+    would otherwise fall back to."""
+    documents = state.get("pdf_texts") or []
+    kept = []
+    for piece_url, piece_text in documents:
+        result = check_content_usable(piece_text)
+        if result["usable"]:
+            kept.append((piece_url, piece_text))
+        else:
+            logger.warning("Content gate dropped a piece from %s: %s", piece_url, result["reason"])
+
+    if not kept:
+        list_result = check_content_usable(state.get("search_results") or "")
+        if not list_result["usable"]:
+            logger.warning("Content gate rejected %s: %s", state.get("url"), list_result["reason"])
+            return {
+                "gate_passed": False,
+                "gate_reason": f"Content gate: {list_result['reason']}",
+                "pdf_texts": [],
+            }
+
+    return {"pdf_texts": kept}
+
+
+def _route_after_content_gate(state: AgentState) -> str:
+    return "continue" if state.get("gate_passed") else END
 
 
 def _crawl_multi_node(state: AgentState) -> dict:
@@ -286,18 +334,24 @@ def build_crawl_graph():
     crawl4ai's lightweight HTTP strategy, falling back to its Playwright-based
     strategy for JS-heavy sites) instead of running an open-ended search —
     for official/structured sources where the fact reliably lives at one
-    stable page."""
+    stable page. A content_gate stage sits between the fetch and the
+    structuring call, rejecting unusable content (near-empty, a WAF block
+    page, a scan with a broken OCR layer) for free before any LLM spend."""
     graph = StateGraph(AgentState)
 
     graph.add_node("checkpoint_gate", checkpoint_gate)
     graph.add_node("crawl", _crawl_node)
+    graph.add_node("content_gate", _content_gate_node)
     graph.add_node("structure", _structure_node)
 
     graph.add_edge(START, "checkpoint_gate")
     graph.add_conditional_edges(
         "checkpoint_gate", _route_after_gate, {"search": "crawl", END: END}
     )
-    graph.add_edge("crawl", "structure")
+    graph.add_edge("crawl", "content_gate")
+    graph.add_conditional_edges(
+        "content_gate", _route_after_content_gate, {"continue": "structure", END: END}
+    )
     graph.add_edge("structure", END)
 
     return graph.compile(checkpointer=MemorySaver())
@@ -310,18 +364,25 @@ def build_multi_pdf_graph():
     pdf_link_limit > 1, source config's "multi_pdf": True) or one oversized
     document/page split into chunks (source config's "chunked": True).
     Fetches/splits into pieces, structures each on its own call, then
-    merges into one final result."""
+    merges into one final result. A content_gate_multi stage drops each
+    unusable piece individually before structuring (one bad PDF shouldn't
+    block the rest), only rejecting the whole item if nothing usable
+    survives."""
     graph = StateGraph(AgentState)
 
     graph.add_node("checkpoint_gate", checkpoint_gate)
     graph.add_node("crawl_multi", _crawl_multi_node)
+    graph.add_node("content_gate_multi", _content_gate_multi_node)
     graph.add_node("structure_multi", _structure_multi_node)
 
     graph.add_edge(START, "checkpoint_gate")
     graph.add_conditional_edges(
         "checkpoint_gate", _route_after_gate, {"search": "crawl_multi", END: END}
     )
-    graph.add_edge("crawl_multi", "structure_multi")
+    graph.add_edge("crawl_multi", "content_gate_multi")
+    graph.add_conditional_edges(
+        "content_gate_multi", _route_after_content_gate, {"continue": "structure_multi", END: END}
+    )
     graph.add_edge("structure_multi", END)
 
     return graph.compile(checkpointer=MemorySaver())

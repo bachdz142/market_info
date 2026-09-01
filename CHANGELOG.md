@@ -5,6 +5,50 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — Content-usability gate
+
+- Added `agent/content_gate.py`: `check_content_usable()`, a deterministic,
+  LLM-free check run after every fetch and before any structuring call.
+  Motivated by two real failures hit while building the Layer 3/4 sources
+  above: a WAF/security-appliance block page served with HTTP 200, and a
+  scanned PDF with a broken OCR/font-encoding layer
+  (`sbv_legal_directives_official`'s "CT 02_2026.pdf") — both would have
+  cleared every existing check and been spent on a real Groq call.
+- Three checks: near-empty content, a small set of known block-page
+  fingerprint strings (captured live), and a corrupted-token-ratio
+  heuristic — the fraction of tokens mixing a lowercase letter with a
+  digit. Validated live: real garbled OCR text scores 0.23, real clean
+  fetched content scores 0.0-0.006 (normal markdown-conversion noise), and
+  this project's own legitimate financial period codes (Q2, H1, FY2025,
+  9M2025, 3M26) score 0.0 and are never misclassified, since they're
+  always upper-case-led — the heuristic is deliberately language-agnostic,
+  not a Vietnamese-diacritic check, since several sources are
+  English-language.
+- `agent/graph.py`: two new nodes (`content_gate`/`content_gate_multi`)
+  wired between fetch and structure in both `build_crawl_graph()` and
+  `build_multi_pdf_graph()`. Multi-document sources are checked
+  per-document — one bad PDF doesn't block the good ones, same principle
+  as the existing partial-PDF-failure handling — only rejecting the whole
+  item if nothing usable survives, including the fallback listing text.
+- Rejections reuse the existing `gate_passed`/`gate_reason` fields
+  (prefixed `"Content gate: ..."`) rather than a new field pair — no
+  changes needed to `service.py`, the CSV schema, or existing tests.
+- Added `tests/test_content_gate.py` (11 tests): this project's first
+  fully offline/mock-free test file, using real captured fixtures (the
+  actual garbled PDF excerpt, the actual WAF block page, real clean
+  content) rather than invented text, plus a regression guard for the
+  financial-period-code false-positive risk.
+- Validated against real data post-hoc: ran the gate against the actual
+  previously-captured `sbv_legal_directives_official` fetch output —
+  correctly rejected 2 of its 3 real PDFs as scan-corrupted, independently
+  reproducing what the user found by manually opening the PDFs, at zero
+  LLM cost.
+- New `CONTEXT.md` entry distinguishing the existing checkpoint gate
+  (query validation) from this new content gate (fetched-content
+  validation) — two different concepts sharing one field pair by
+  deliberate choice, not by accident.
+- Full spec: `.scratch/content-usability-gate/spec.md`.
+
 ## Unreleased — Layer 3 journals + Layer 4 macro/gov sources
 
 - Added 6 new sources to `agent/sources.py`, all `role: "citable"`, live-

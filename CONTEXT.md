@@ -23,6 +23,10 @@ _Avoid_: opinion source
 Spot-checked means only reachability and rough content volume were confirmed — a quick fetch, eyeballed once. Live-verified means the source passed a real end-to-end run through the production pipeline (fetch → structure → mandatory-metadata check), per the standing rule that only a live-`crawl()`-confirmed URL may enter `SOURCES`. A spot-check is not evidence a source will keep working — confirmed concretely when a domain spot-checked as having no anti-bot walls later returned a real block on a follow-up check.
 _Avoid_: verified, tested, confirmed (without saying which kind)
 
+**Checkpoint gate** vs **content gate**:
+Two distinct, sequential validation stages a pipeline item passes through — never conflate them. The checkpoint gate validates the *query* before any fetch happens (empty, too long). The content gate validates *fetched content* after a fetch "succeeds" but before it's spent on an LLM structuring call (near-empty, a WAF block page, a scan with a broken OCR layer) — content gate rejections are reported through the same `gate_passed`/`gate_reason` fields as the checkpoint gate, distinguished only by a `"Content gate: ..."` prefix in the reason text, not a separate field.
+_Avoid_: "the gate" (ambiguous which one), validation gate
+
 **Watchlist document**:
 A specific, named legal/regulatory document (identified by its own reference number, e.g. "Circular 08/2026/TT-NHNN") that Layer 4 tracks by direct lookup rather than by reading a source's general page content — distinct from an ordinary Layer 4 source, which is fetched and read as-is with no specific document identity known in advance.
 _Avoid_: tracked document, monitored circular
