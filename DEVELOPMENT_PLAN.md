@@ -19,14 +19,15 @@ that interprets and acts on them.
 | v0.3 — Logging + token tracking | ✅ Done |
 | v0.4 — URL-based extraction (official sources) | ✅ Done |
 | v0.5 — Web crawler (`crawl4ai`, not the originally-planned `trafilatura` design) | ✅ Done |
-| v0.6 — Layer 1 quant bank benchmarks (`source_plan_mvp0.md`) | 🚧 Partial — 2 of ~9 new sources verified |
-| Live end-to-end `/trigger` run (real spend) | ⬜ Not run |
+| v0.6 — Layer 1 quant bank benchmarks (`source_plan_mvp0.md`) | 🚧 Partial — 5 of 9 new sources actually usable (3/5 banks + SBV + IAV; BIDV downgraded — fetch works but every filing checked is scan-only, no usable data) |
+| Live end-to-end `/trigger` run (real spend) | ✅ Run for real — mostly hit Groq's daily quota mid-run (expected, see below), but confirmed the full pipeline (fetch → structure → persist, including the schema-migration and raw-content-preservation fixes) working end-to-end with real output in `data/signals.csv` |
+| v0.7 — LLM provider fallback chain (Groq → Gemini → Mistral → OpenRouter) | ✅ Done |
 
 ## Known temporary state (fix before a real full run)
 
-- **`service.py` currently limits `TOPICS` to the last 10 entries** (a `# TEMP` line testing the incremental-save/rate-limit fix on a smaller batch) — out of 21 real topics, only 10 run. Delete that one line once you're ready for a full run.
+- **`service.py` currently limits `TOPICS` to the last 10 entries** (a `# TEMP` line testing the incremental-save/rate-limit fix on a smaller batch) — out of 21 real topics, only 10 run. Delete that one line once you're ready for a full run. (Moot right now: `TOPICS = []` is separately hardcoded to `[]` a few lines below, disabling this entirely — see that line's own comment.)
   - *Plain terms: right now a real trigger only checks 10 of the 21 topics on the list, on purpose, to keep test runs cheap. Someone needs to remove that limit before the real thing runs for real.*
-- **`GROQ_API_KEY` in `.env` is expired** (`groq.AuthenticationError: 401 — expired_api_key`) — blocks every LLM-dependent check: the new pytest suite's source tests, and live-verifying any further Layer 1 sources. Rotate the key before continuing v0.6 work.
+- **Groq's free-tier daily quota (200,000 tokens/day) is easy to exhaust** — hit twice on 2026-08-31 from this session's own testing (two full pytest runs + a live `/trigger` run). No longer a hard stop: v0.7's LLM fallback chain (Groq → Gemini → Mistral → OpenRouter) now falls through automatically when this happens — confirmed live, including once for an unrelated Groq `403` (a VPN issue, not Groq itself).
 
 ---
 
@@ -161,17 +162,53 @@ Full design in `MVP0_PLAN.md`'s matching revision section. Short version: `custo
 - [x] `agent/store.py` — CSV output gained matching columns.
 - [x] `agent/sources.py` — added `role` field (`citable`/`aggregator`, orthogonal to the existing `kind`) to all entries.
 - [x] 2 new Layer 1 sources added, live-verified: `sbv_portal_statistics`, `iav_bancassurance`.
-- [ ] **5 bank investor-relations pages** (Techcombank, Vietcombank, BIDV, MBBank, ACB) — investigated, not added. Each bank's real figures live behind linked PDF reports; each site's CMS needs its own `content_selector`/`pdf_link_selector` (the same kind of per-site discovery `sbv.gov.vn`'s press-release source needed). Not yet nailed down for any of the 5.
-- [ ] **Vietstock aggregator** (per-ticker document pages, ×5 banks) — investigated, not added. Document table didn't render even after 60s with JS-rendering enabled; may be gated behind login/anti-bot rather than just needing a longer wait. Possible dead end — worth a fresh look before sinking more time in.
+- [x] **Techcombank** (`techcombank_vas_statements`) — solved: JS-rendered document list (`SITE_CONFIGS["techcombank.com"]`), targets the "-searchable" (OCR'd) PDF twin over the scanned original.
+- [x] **BIDV** (`bidv_financial_statements`) — solved: Angular-templated tab content, needs full JS render every time (a static fetch non-deterministically returns the unrendered template shell).
+- [x] **ACB** (`acb_financial_statements`) — solved differently: its "Download" controls have no `href`/`onclick` at all — not an anti-bot problem, a React app whose PDF link only exists after a JS click fires an API call. Network-capturing a simulated click found that call is a plain, unauthenticated JSON API (`acb.com.vn/api/en/front/v1/posts`) — `agent/crawler.py`'s `_fetch_acb_statement_text` calls it directly instead of simulating a click.
+- [x] **MBBank** (`mbb_financial_statements`) — solved via a fallback: own site is Akamai-blocked, but its filed statement is mirrored on Vietstock's static CDN (`static2.vietstock.vn`, a genuine Aggregator source per spec §2) outside whatever blocks both the bank's own site and Vietstock's own JS document table. `agent/crawler.py`'s `VIETSTOCK_FALLBACK_TICKERS`/`_fetch_vietstock_statement_text`.
+- [ ] **Vietcombank** — closed, not added. Own site: real Akamai wall (same category as `dttktt.sbv.gov.vn`; per spec §8, route to manual ingestion, don't attempt evasion). Vietstock static-CDN fallback: file exists but is a 55-page scan with zero extractable text (confirmed on 2 different quarters) — a separate, also-closed dead end.
+- [ ] **Vietstock's own JS-rendered document table** (`finance.vietstock.vn/{ticker}/tai-tai-lieu.htm`) — never solved directly; superseded for MBBank by the static-CDN fallback above, which is a different, unrelated mechanism.
 - [ ] `dttktt.sbv.gov.vn` — confirmed bot-blocked (both independently and per the spec); intentionally excluded, manual-only.
-- [x] `tests/` (new) — first automated test suite for this project (`pytest`), at the direct-graph-invocation seam. `test_sources.py` (one test per Layer 1 source), `test_bug_fixes.py` (targeted tests for the 4 bugs above — 3 of 4 are pure/offline and passing; the network+LLM ones are blocked, see below).
+- [x] `tests/` (new) — first automated test suite for this project (`pytest`), at the direct-graph-invocation seam. `test_sources.py` (one test per Layer 1 source), `test_bug_fixes.py` (targeted tests for the bugs above).
+- [x] **Bug #5 (found live)**: `graph.invoke()` runs crawl→structure as one atomic call — when structuring failed (confirmed live via a real Groq daily-quota 429) after crawling already fetched real content, `service.py`'s `_run_item` was throwing that content away along with the exception. Fixed: recovers the checkpointed crawl output via `graph.get_state()` instead. Regression test added (`test_run_item_preserves_raw_content_when_structuring_fails`, deterministic via a monkeypatched structure step — no LLM cost).
+- [x] **Bug #6 (found live)**: BIDV's `content_selector` (`#pills-taichinh`) contained 6 nested year-tab panes all present in the DOM at once, and BIDV's site shows the same document set under every one — the raw fetched content was the same listing repeated 6x (4,313 chars for what should have been 713). Fixed: scoped to `#pills-taichinh .tab-pane.active` (just the current year). Confirmed live: 11,099 → 7,523 chars, same real data, no duplication.
+- [x] **BIDV downgraded from "working" to "fetch works, data unusable"**: user-reported ("holy shit from page 3 onward it is scanned") and confirmed by page-by-page inspection — the "reviewed" filing is a 56-page PDF with real text on only pages 1-2 (a cover letter); a second, plainer Q2 2026 filing checked is a 36-page PDF with **zero** extractable text on any page. BIDV appears to scan all its regulatory filings as signed paper documents. No OCR built (see Further Notes) — BIDV is effectively in the same practical category as Vietcombank now: reachable, but not usable without OCR.
 
 ### Verification
 - [x] Import/build sanity check
-- [x] `pytest` collection — all 7 tests collected with no import errors
-- [x] 3 of 7 tests run and pass: `crawl_parts` PDF-failure resilience (real network, no LLM), `raw_content` combining (pure function), `_prepare_csv` thread-safety under 20 concurrent threads (pure function)
-- [ ] **Blocked on `GROQ_API_KEY`**: the remaining 4 tests (one per Layer 1 source + the multi-PDF source-URL bug test) need a live LLM call and fail with `groq.AuthenticationError: expired_api_key`. Rerun once the key is rotated.
-- [ ] Full `/trigger` run limited to Layer 1 sources — not yet run (same blocker)
+- [x] Full `pytest` suite: **11/11 passing** (4 bug-fix tests + one per Layer 1 source, all live network + live Groq calls, run twice for real)
+- [x] Live `/trigger` run against the real running service — confirmed the full pipeline end-to-end: fetch → structure → persist, including the CSV schema-migration (old file auto-archived, new file has the extended header) and the new raw-content-preservation fix, both observed working in the actual `data/signals.csv`/`data/raw_content.csv` output, not just in tests
+- [x] `sbv_press_releases_official` flagged as **not actually part of `source_plan_mvp0.md`'s Layer 1** — it's a pre-existing source from before the spec existed (closest match is Layer 4 §6.1's "SBV legal documents and directives," a different page and a different layer). Kept running since it already works, but doesn't check a Layer 1 box.
+
+### Further Notes
+- **OCR — user (Bach) is implementing.** BIDV and VCB's Vietstock-mirror both need OCR to be usable (BIDV: scan-only filings, confirmed on 2 of them; VCB: same, on its Vietstock static-CDN mirror). Options laid out earlier: local/free (Tesseract — real setup risk on this machine, real accuracy risk on financial tables/Vietnamese diacritics) vs. cloud/paid (Google Document AI / AWS Textract / Azure — roughly $0.015–$0.15/page). No vision-capable model available on Groq to skip OCR entirely (checked live — Groq's current lineup is text/audio only). **Decision (2026-09-01): the user is building/wiring in an OCR-capable model themselves** rather than this agent picking a path — once that lands, BIDV and VCB's Vietstock mirror should both be re-checked as candidate Layer 1 sources.
+- **BIDV in `agent/sources.py` — still an open call.** Left wired in as-is for now (fetch works, LLM sees only a 2-page cover letter, no real financial data) pending the OCR work above; revisit whether to pull it from `SOURCES` entirely or tighten its prompt once OCR lands and it's clear whether BIDV becomes usable that way.
+- **Layer 2-3-4 reachability spot-checked**, not properly tested. `chinhphu.vn`, `tapchinganhang.gov.vn`, `tapchitaichinh.vn`, `vnba.org.vn`, `thuvienphapluat.vn`, `luatvietnam.vn` all reachable immediately, real substantial content (40K–200K+ chars), zero anti-bot walls — a genuinely good sign that government/journal sites are far less protected than bank sites. Layer 2 (bank news/promo pages — same domains as the Akamai-blocked Layer 1 IR pages) and the rest of Layer 3/4 are untested.
+
+---
+
+## v0.7 — LLM provider fallback chain (✅ done)
+
+Groq's free-tier daily quota was hit repeatedly this session, and separately a `403 Access denied` (traced to a VPN, not a real Groq issue) also knocked it out mid-session — both real demonstrations of the actual problem this solves. The structuring step now falls through Groq → Gemini → Mistral → OpenRouter instead of hard-depending on one provider.
+
+- [x] `agent/llm_fallback.py` (new) — `build_structuring_model()`: Groq → Gemini → Mistral → OpenRouter via LangChain's `.with_fallbacks()`. Drop-in for `agent/graph.py`'s `_structure_one()` (its only caller) — no extraction node needed any changes.
+- [x] `ExtractionValidationError` — a "successful" call whose output fails schema validation (`parsed is None`) now also triggers the next provider, not just HTTP/rate-limit exceptions. Required since providers differ in how strictly they honor JSON/tool-calling mode.
+- [x] `data/llm_provider_calls.csv` (new) — logs which provider/model actually served (or attempted) each structuring call, for tracing quality shifts between providers later.
+- [x] Real per-provider findings from live testing (not just picking from docs/descriptions):
+  - `gemini-2.5-flash` (originally planned) is dead — 404, Google's API points at `gemini-3.6-flash`.
+  - `mistral-small-2603` (the exact pinned version requested) — works as-is.
+  - OpenRouter free tier: 3 candidates tested, 2 failed differently (`minimax/minimax-m2.7:free` wraps JSON in markdown fences; `inclusionai/ling-3.0-flash-fin:free`'s backing provider rejects structured-output requests outright) before `nvidia/nemotron-3-super-120b-a12b:free` worked — but only with `method="json_mode"` plus the schema spelled out directly in the prompt (confirmed live: `json_mode` alone still returned `parsed=None`).
+  - Every provider now has a 30s timeout + no internal retries — an OpenRouter free-tier model sat with zero output for 4+ minutes with no timeout set.
+- [x] `tests/test_llm_fallback.py` (new) — deterministic cascade/validation tests using fake chat models (no real API calls); each real provider was separately live-verified by hand first.
+- [x] Fixed a stale pre-existing script, `test_llm.py` (repo root, predates the `tests/` convention) — referenced the now-removed `_build_model()`; updated to use `build_structuring_model()`.
+- [x] `requirements.txt`: added `langchain-google-genai`, `langchain-mistralai`, `langchain-openai`.
+- [x] `.env`: fixed — 3 new keys were present but unparseable (`KEY: value` instead of `KEY=value`, plus `GOOGLE_API_KEY`/`OPEN_ROUTER_API_KEY` named differently than what was actually there). Now `GEMINI_API_KEY`, `MISTRAL_API_KEY`, `OPENROUTER_API_KEY` all load correctly.
+
+### Verification
+- [x] Import/build sanity check
+- [x] All 4 providers live-verified individually before being trusted in the chain
+- [x] Full cascade verified for real, not just simulated: Groq was genuinely down (VPN-related 403) during testing, and `_structure_one()` correctly fell through to Gemini, which served the call — logged correctly in `data/llm_provider_calls.csv`
+- [x] `pytest tests/test_llm_fallback.py tests/test_bug_fixes.py`: **11/11 passing**
 
 ---
 

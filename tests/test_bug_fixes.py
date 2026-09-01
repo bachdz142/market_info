@@ -1,8 +1,13 @@
-"""Targeted tests for the four bugs folded into the crawl4ai migration
-(see .scratch/layer-1-quant-benchmarks/spec.md, Implementation Decisions).
+"""Targeted tests for the bugs folded into the crawl4ai migration (see
+.scratch/layer-1-quant-benchmarks/spec.md, Implementation Decisions).
 Bugs #1/#2 are exercised at the graph/crawler seam (real network); bugs
 #3/#4 live in pure data-shaping code (service.py/store.py) and are tested
-directly with no network involved.
+directly with no network involved. Bug #5 (found live, post-migration) is
+tested with a real crawl but a monkeypatched structure step, so the
+failure is deterministic rather than depending on actually hitting a rate
+limit — this tests our own resilience code, not crawl4ai/the LLM's real
+behavior, which is a different thing than the "no mocking" call made for
+the source-content tests in test_sources.py.
 """
 
 import csv
@@ -10,9 +15,12 @@ import threading
 import uuid
 from pathlib import Path
 
+import agent.graph
+import service
 from agent import store
 from agent.crawler import crawl_parts
-from agent.graph import build_multi_pdf_graph
+from agent.graph import build_crawl_graph, build_multi_pdf_graph
+from agent.sources import SOURCES
 from service import _combined_raw_content
 
 SBV_PRESS_RELEASE_URL = "https://sbv.gov.vn/en/press-release"
@@ -117,3 +125,30 @@ def test_prepare_csv_thread_safe_under_concurrent_schema_change(tmp_path, monkey
     # would either lose it or produce a corrupted/duplicated mix.
     archives = list(tmp_path.glob("signals.*.csv"))
     assert len(archives) == 1
+
+
+def test_run_item_preserves_raw_content_when_structuring_fails(monkeypatch):
+    """Bug #5 (found live, post-migration): graph.invoke() runs
+    crawl -> structure as one atomic call. When the structure step raises
+    (confirmed live with a real Groq daily-quota 429) after the crawl step
+    already fetched real content, service._run_item used to lose that
+    content entirely along with the exception — thrown away even though
+    fetching it was the expensive part. It must now recover the
+    checkpointed crawl output instead."""
+
+    def _boom(*args, **kwargs):
+        raise RuntimeError("simulated structure failure")
+
+    monkeypatch.setattr(agent.graph, "_structure_one", _boom)
+
+    source = next(s for s in SOURCES if s["id"] == "bidv_financial_statements")
+    graph = build_crawl_graph()
+    result = service._run_item(
+        graph, source, 1, 1, extra_state={"url": source["url"], "chunked": False}
+    )
+
+    assert result["error"] is not None
+    assert "simulated structure failure" in result["error"]
+    assert result["result"] is None
+    assert result["raw_content"]
+    assert len(result["raw_content"]) > 1000

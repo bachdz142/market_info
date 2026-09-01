@@ -26,7 +26,8 @@ REQUIRED_METADATA_FIELDS = ["source_code", "reference_period", "data_basis", "ac
 
 
 def _run_source(source: dict) -> dict:
-    graph = build_multi_pdf_graph() if source.get("multi_pdf") else build_crawl_graph()
+    uses_multi_graph = source.get("multi_pdf") or source.get("chunked")
+    graph = build_multi_pdf_graph() if uses_multi_graph else build_crawl_graph()
     state = {
         "query": source["prompt"],
         "gate_passed": False,
@@ -36,6 +37,7 @@ def _run_source(source: dict) -> dict:
         "token_usage": None,
         "url": source["url"],
         "pdf_texts": None,
+        "chunked": source.get("chunked", False),
     }
     return graph.invoke(state, config={"configurable": {"thread_id": f"{source['id']}-{uuid.uuid4()}"}})
 

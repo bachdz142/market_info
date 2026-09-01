@@ -1,6 +1,9 @@
 langgraph>=0.2
 langchain-groq>=0.2
 langchain-tavily>=0.1
+langchain-google-genai>=2.0  # Gemini, LLM fallback chain
+langchain-mistralai>=0.2     # Mistral, LLM fallback chain
+langchain-openai>=0.2        # OpenRouter via its OpenAI-compatible endpoint, LLM fallback chain
 python-dotenv>=1.0
 fastapi>=0.115
 uvicorn[standard]>=0.30

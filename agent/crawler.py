@@ -1,9 +1,11 @@
 import agent.ssl_bootstrap  # noqa: F401  — must import-run before crawl4ai/aiohttp below (see that module's docstring)
 
 import asyncio
+import json
 import logging
 import time
-from typing import Any, List, Optional, Tuple
+from datetime import datetime
+from typing import Any, Iterator, List, Optional, Tuple
 from urllib.parse import urljoin, urlparse
 
 from bs4 import BeautifulSoup
@@ -74,6 +76,46 @@ SITE_CONFIGS = {
         "pdf_link_selector": "a.doc-icon",
         "pdf_link_limit": 3,
     },
+    # The document list (AEM "list-view-documents" component) is empty in
+    # the raw static HTML — it's populated client-side, so this needs the
+    # full browser strategy even though the page itself isn't otherwise
+    # JS-heavy. Each statement is published as two files, a scanned PDF and
+    # a "-searchable" OCR'd twin with a real text layer; pdf_link_selector
+    # targets only the searchable one so PDFContentScrapingStrategy gets
+    # extractable text instead of a scanned image. Confirmed live: newest
+    # quarter's consolidated VAS statement is always first in the list.
+    "techcombank.com": {
+        "needs_js": True,
+        "wait_selector": None,
+        "content_selector": ".list-view-documents",
+        "pdf_link_selector": "a[href*='searchable']",
+        "pdf_link_limit": 1,
+    },
+    # Bootstrap tabs (year × category), populated via Angular templating
+    # ({{item.title}} bindings) — the static fetch is non-deterministic:
+    # sometimes returns a cache-warmed, already-rendered page, sometimes
+    # the raw unrendered template shell. needs_js:True forces the full
+    # render every time. #pills-taichinh is the "Báo cáo tài chính"
+    # (Financial Reports) tab. Vietnamese filenames encode report type:
+    # "BCTC+HN" = hợp nhất (consolidated), "BCTC+RL" = riêng (separate/
+    # standalone) — selector targets the consolidated one. Confirmed live:
+    # newest-first ordering.
+    #
+    # #pills-taichinh itself contains 6 nested year-tab panes (2026, 2025,
+    # 2024, 2023, 2022, "Khác"), all present in the DOM at once (only
+    # CSS-hidden for inactive years) — and BIDV's own site shows the same
+    # document set under every one of them. Selecting the bare container
+    # pulled all 6 copies (confirmed live: 4,313 chars, 6x duplicated —
+    # every document title/date repeated 6 times). Scoping to just
+    # ".tab-pane.active" (the current year) gives the same real content
+    # once: confirmed live, 713 chars, 4 consolidated links instead of 24.
+    "bidv.com.vn": {
+        "needs_js": True,
+        "wait_selector": None,
+        "content_selector": "#pills-taichinh .tab-pane.active",
+        "pdf_link_selector": "a[href*='BCTC+HN']",
+        "pdf_link_limit": 1,
+    },
 }
 DEFAULT_CONFIG = {
     "needs_js": False,
@@ -122,6 +164,95 @@ async def _fetch_pdf_text(crawler: AsyncWebCrawler, url: str) -> str:
             f"extraction ({len(text)} chars) — likely blocked or rate-limited."
         )
     return text
+
+
+# ACB's financial-statements page has no PDF links anywhere in its
+# rendered DOM at all — the "Download" controls are plain <div>/<span>
+# elements with no href and no inline onclick; the actual URL only exists
+# after a JS click handler fires. Confirmed live (network capture of a
+# simulated click) that the click just calls this same public, unauthenticated
+# JSON API the page itself loads on render — going straight to the API is
+# simpler and more stable than click-simulation + network-response capture.
+# category_id=1656 is "Financial Statements 2026"; results are newest-first.
+ACB_DOCUMENTS_API = (
+    "https://acb.com.vn/api/en/front/v1/posts"
+    "?search[categories.category_id:in]=1656&search[is_active:in]=1&page=1&limit=20"
+)
+
+
+async def _fetch_acb_statement_text() -> str:
+    _throttle(_domain(ACB_DOCUMENTS_API))
+    async with AsyncWebCrawler(crawler_strategy=AsyncHTTPCrawlerStrategy()) as crawler:
+        result = await crawler.arun(url=ACB_DOCUMENTS_API, config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS))
+    if not result.success:
+        raise RuntimeError(f"Failed to fetch ACB documents API: {result.error_message}")
+
+    posts = json.loads(result.html).get("data", [])
+    # Picks the newest consolidated ("hợp nhất") statement in its
+    # searchable (OCR'd, extractable-text) form — the "signed" twin is a
+    # scanned image with no usable text layer, same reasoning as
+    # Techcombank's SITE_CONFIGS entry.
+    match = next(
+        (
+            post for post in posts
+            if "consolidated" in post.get("title", "").lower()
+            and "searchable" in (post.get("featured_image") or {}).get("filename", "").lower()
+        ),
+        None,
+    )
+    if not match:
+        raise ValueError("No consolidated searchable statement found in ACB's documents API response")
+
+    pdf_url = match["featured_image"]["path"]
+    logger.info("Fetching ACB PDF -> %s", pdf_url)
+    async with AsyncWebCrawler(crawler_strategy=PDFCrawlerStrategy()) as crawler:
+        return await _fetch_pdf_text(crawler, pdf_url)
+
+
+# Vietstock's static CDN serves each bank's filed financial statement at a
+# direct, predictable URL — confirmed live to sit outside whatever wall
+# blocks finance.vietstock.vn's JS-rendered document table (never rendered
+# even after 60s) AND outside the Akamai walls on Vietcombank/MBBank's own
+# sites. Used as a genuine Aggregator source per source_plan_mvp0.md §2
+# ("the source recorded in metadata is the bank's original document, not
+# the aggregator site") for banks whose own IR site is unreachable — not a
+# bot-evasion technique, just a different, less-protected official mirror
+# of the same filing.
+#
+# Not every filing has a text layer: confirmed live that VCB's Q2 2026
+# copy here is a 55-page scan with zero extractable text, while MBB's is
+# real, extractable Vietnamese text. That's a per-document limitation
+# (surfaces as _fetch_pdf_text's existing near-empty-content check), not
+# something this function can fix — MBB is wired in below; VCB is not,
+# since its only available copy right now genuinely has nothing to
+# extract.
+def _vietstock_statement_candidates(ticker: str) -> Iterator[str]:
+    """Yields candidate PDF URLs for ticker's consolidated quarterly
+    statement, most-recent-quarter first, walking back a few quarters.
+    Reports lag their period-end by ~20-40 days, so "today's calendar
+    quarter" is rarely the latest one actually filed."""
+    now = datetime.now()
+    year, quarter = now.year, (now.month - 1) // 3 + 1
+    for _ in range(4):
+        yield (
+            f"https://static2.vietstock.vn/data/HOSE/{year}/BCTC/VN/"
+            f"QUY%20{quarter}/{ticker}_Baocaotaichinh_Q{quarter}_{year}_Hopnhat.pdf"
+        )
+        quarter -= 1
+        if quarter == 0:
+            quarter, year = 4, year - 1
+
+
+async def _fetch_vietstock_statement_text(ticker: str) -> str:
+    last_error: Optional[Exception] = None
+    async with AsyncWebCrawler(crawler_strategy=PDFCrawlerStrategy()) as crawler:
+        for url in _vietstock_statement_candidates(ticker):
+            try:
+                return await _fetch_pdf_text(crawler, url)
+            except Exception as exc:
+                logger.info("No usable statement at %s (%s), trying an earlier quarter", url, exc)
+                last_error = exc
+    raise last_error or RuntimeError(f"No Vietstock statement found for {ticker}")
 
 
 def _select_content(html: str, config: dict) -> Optional[Tuple[Any, str]]:
@@ -188,7 +319,22 @@ def crawl_parts(url: str) -> Tuple[str, List[Tuple[str, str]]]:
     return asyncio.run(_crawl_parts_async(url))
 
 
+# Banks whose own IR site is unreachable (Akamai-blocked — see
+# agent/sources.py's Layer 1 comment) but whose filed statement happens to
+# have a real text layer on Vietstock's static CDN. Keyed by the bank's own
+# domain (used as the source's citation URL in agent/sources.py) so this
+# stays a drop-in fetch-path override, not a separate source type.
+VIETSTOCK_FALLBACK_TICKERS = {
+    "mbbank.com.vn": "MBB",
+}
+
+
 async def _crawl_async(url: str) -> str:
+    if _domain(url) == "acb.com.vn":
+        return await _fetch_acb_statement_text()
+    if _domain(url) in VIETSTOCK_FALLBACK_TICKERS:
+        return await _fetch_vietstock_statement_text(VIETSTOCK_FALLBACK_TICKERS[_domain(url)])
+
     config = SITE_CONFIGS.get(_domain(url), DEFAULT_CONFIG)
 
     if config["needs_js"]:
@@ -217,3 +363,55 @@ def crawl(url: str) -> str:
     real headless browser only when SITE_CONFIGS says the site needs JS, or
     the cheap path comes back with suspiciously little content."""
     return asyncio.run(_crawl_async(url))
+
+
+# Groq's free tier caps a single request at 8,000 tokens/minute — confirmed
+# live that a source's full fetched text can exceed that on its own (a
+# large financial-statement PDF, or just a dense listing page), not just
+# when several documents are combined. ~3.3 chars/token is a safe rough
+# ratio for this mixed English/Vietnamese content (measured against real
+# 413 responses); 12,000 chars leaves headroom for the system prompt and
+# the model's own output tokens within the same per-minute budget.
+MAX_CHUNK_CHARS = 12000
+
+
+def _chunk_text(text: str, max_chars: int) -> List[str]:
+    """Split text into <= max_chars pieces, preferring a paragraph or
+    sentence boundary near the cut point so a chunk doesn't split a table
+    row or sentence in half."""
+    if len(text) <= max_chars:
+        return [text] if text else []
+
+    chunks = []
+    start = 0
+    while start < len(text):
+        end = start + max_chars
+        if end >= len(text):
+            chunks.append(text[start:].strip())
+            break
+        cut = text.rfind("\n\n", start, end)
+        if cut <= start:
+            cut = text.rfind(". ", start, end)
+        if cut <= start:
+            cut = end
+        else:
+            cut += 1  # keep the boundary character with the chunk before it
+        chunks.append(text[start:cut].strip())
+        start = cut
+    return [c for c in chunks if c]
+
+
+async def _crawl_chunked_async(url: str) -> Tuple[str, List[Tuple[str, str]]]:
+    text = await _crawl_async(url)
+    return "", [(url, chunk) for chunk in _chunk_text(text, MAX_CHUNK_CHARS)]
+
+
+def crawl_chunked(url: str) -> Tuple[str, List[Tuple[str, str]]]:
+    """Like crawl_parts(), but for a single-document source whose fetched
+    text is too large for one Groq structure call: splits crawl()'s output
+    into <= MAX_CHUNK_CHARS pieces instead of fetching several distinct
+    PDFs. Returns ("", [(url, chunk), ...]) — the same shape as
+    crawl_parts(), so it reuses build_multi_pdf_graph()'s per-piece
+    structuring + deterministic merge unchanged; every chunk shares the
+    source's one real URL since they're all pieces of the same document."""
+    return asyncio.run(_crawl_chunked_async(url))

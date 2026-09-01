@@ -1,16 +1,15 @@
 import logging
-import os
 import time
 from datetime import datetime, timedelta, timezone
 from typing import Optional, TypedDict
 
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_groq import ChatGroq
 from langchain_tavily import TavilySearch
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, StateGraph
 
 from agent.gate import checkpoint_gate
+from agent.llm_fallback import build_structuring_model, log_provider_call
 from agent.schema import MarketSignalBatch
 
 logger = logging.getLogger(__name__)
@@ -71,11 +70,9 @@ class AgentState(TypedDict):
     token_usage: Optional[dict]
     url: Optional[str]
     pdf_texts: Optional[list]
+    chunked: Optional[bool]
 
 
-def _build_model() -> ChatGroq:
-    model_name = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
-    return ChatGroq(model=model_name, temperature=0)
 
 
 def _route_after_gate(state: AgentState) -> str:
@@ -103,9 +100,15 @@ def _crawl_node(state: AgentState) -> dict:
 
 def _crawl_multi_node(state: AgentState) -> dict:
     start = time.perf_counter()
-    from agent.crawler import crawl_parts
+    from agent.crawler import crawl_chunked, crawl_parts
 
-    list_text, documents = crawl_parts(state["url"])
+    # Two different reasons a source ends up needing several structure
+    # calls instead of one: multiple distinct PDFs (crawl_parts) vs. one
+    # document/page whose own text is too large for a single Groq call
+    # (crawl_chunked) — both return the same (list_text, [(url, text), ...])
+    # shape, so the rest of this flow doesn't need to know which it is.
+    fetch = crawl_chunked if state.get("chunked") else crawl_parts
+    list_text, documents = fetch(state["url"])
     elapsed = round(time.perf_counter() - start, 2)
     logger.info(
         "Multi-crawl done in %ss for url: %s (%d documents)", elapsed, state["url"], len(documents)
@@ -117,28 +120,42 @@ def _crawl_multi_node(state: AgentState) -> dict:
 
 
 def _structure_one(query: str, label: str, text: str, system_prompt: str = STRUCTURE_SYSTEM_PROMPT):
-    """One structure LLM call over one chunk of raw text. Returns
-    (MarketSignalBatch, usage_dict_or_None)."""
+    """One structure LLM call over one chunk of raw text, via the
+    Groq -> Gemini -> Mistral -> OpenRouter fallback chain (see
+    agent/llm_fallback.py). Returns (MarketSignalBatch, usage_dict_or_None)."""
     start = time.perf_counter()
     logger.info("Raw content fed to LLM for query: %s\n%s", query[:80], text)
-    model = _build_model().with_structured_output(MarketSignalBatch, include_raw=True)
-    response = model.invoke(
-        [
-            SystemMessage(content=system_prompt),
-            HumanMessage(content=f"Query: {query}\n\n{label}:\n{text}"),
-        ]
-    )
+    model = build_structuring_model()
+    messages = [
+        SystemMessage(content=system_prompt),
+        HumanMessage(content=f"Query: {query}\n\n{label}:\n{text}"),
+    ]
+    try:
+        response = model.invoke(messages)
+    except Exception as exc:
+        elapsed = round(time.perf_counter() - start, 2)
+        logger.error("All providers failed for query: %s (%ss) | %s", query[:80], elapsed, exc)
+        log_provider_call(provider="none", model="none", success=False, query=query, error=str(exc))
+        raise
+
     elapsed = round(time.perf_counter() - start, 2)
 
     raw = response.get("raw")
     batch: Optional[MarketSignalBatch] = response.get("parsed")
     usage = getattr(raw, "usage_metadata", None) if raw is not None else None
+    provider = response.get("_provider", "unknown")
+    model_name = response.get("_model", "unknown")
 
     logger.info(
-        "Structure LLM call done in %ss for query: %s | tokens: %s", elapsed, query[:80], usage
+        "Structure LLM call done in %ss for query: %s | provider: %s/%s | tokens: %s",
+        elapsed, query[:80], provider, model_name, usage,
     )
+    log_provider_call(provider=provider, model=model_name, success=True, query=query)
 
     if batch is None:
+        # Shouldn't happen — _validated() in llm_fallback.py already raises
+        # rather than returning parsed=None — but stay defensive in case a
+        # provider's response slips through some edge case.
         logger.warning(
             "Structured output parsing failed for query: %s | error: %s",
             query[:80],
@@ -170,15 +187,17 @@ def _structure_node(state: AgentState) -> dict:
 
 
 def _structure_multi_node(state: AgentState) -> dict:
-    """For sources with several PDFs fetched separately (agent/crawler.py's
-    crawl_parts): structure each document on its own call — small enough to
-    stay well under Groq's per-request token ceiling — then merge the
-    per-document batches deterministically (no LLM call; see comment below
-    on why an LLM synthesis step doesn't actually solve this). Paced with
-    MULTI_CALL_DELAY_SECONDS between the per-document calls to stay under
-    the tokens-per-minute rate limit across this node's own multiple calls."""
+    """For sources whose content arrives as several pieces — either several
+    distinct PDFs (agent/crawler.py's crawl_parts) or one oversized
+    document/page split into chunks (crawl_chunked) — structure each piece
+    on its own call, small enough to stay well under Groq's per-request
+    token ceiling, then merge the per-piece batches deterministically (no
+    LLM call; see comment below on why an LLM synthesis step doesn't
+    actually solve this). Paced with MULTI_CALL_DELAY_SECONDS between the
+    per-piece calls to stay under the tokens-per-minute rate limit across
+    this node's own multiple calls."""
     query = state["query"]
-    documents = state.get("pdf_texts") or []  # [(pdf_url, pdf_text), ...]
+    documents = state.get("pdf_texts") or []  # [(url, piece_text), ...]
     total_usage = {"input_tokens": 0, "output_tokens": 0, "total_tokens": 0}
 
     def _add_usage(usage):
@@ -193,17 +212,32 @@ def _structure_multi_node(state: AgentState) -> dict:
         return {"result": _finalize_payload(query, batch, state.get("url")), "token_usage": total_usage}
 
     batches = []
-    for i, (pdf_url, text) in enumerate(documents, start=1):
-        batch, usage = _structure_one(query, f"Report {i} of {len(documents)} content", text)
+    for i, (piece_url, text) in enumerate(documents, start=1):
+        try:
+            batch, usage = _structure_one(query, f"Content piece {i} of {len(documents)}", text)
+        except Exception:
+            # A single piece's LLM call can fail outright (confirmed live:
+            # Groq's gpt-oss-120b occasionally emits a malformed tool call
+            # on a large batch of chunks, raising groq.BadRequestError
+            # rather than just returning an unparseable response — that
+            # softer case is already handled inside _structure_one). Skip
+            # this piece rather than losing every other piece's
+            # already-obtained results — same partial-failure principle as
+            # the PDF-fetch resilience above.
+            logger.exception("Structure call failed for piece %d/%d, skipping", i, len(documents))
+            if i < len(documents):
+                time.sleep(MULTI_CALL_DELAY_SECONDS)
+            continue
+
         # Stamp each signal with the document it actually came from — not
         # the listing page's URL — before merging (bug fix: previously
         # _finalize_payload stamped every merged signal with the listing
         # page's URL regardless of which PDF it was extracted from).
         for signal in batch.signals:
-            signal.source_url = pdf_url
+            signal.source_url = piece_url
         batches.append(batch)
         _add_usage(usage)
-        logger.info("Per-document structure call %d/%d done", i, len(documents))
+        logger.info("Per-piece structure call %d/%d done", i, len(documents))
         if i < len(documents):
             time.sleep(MULTI_CALL_DELAY_SECONDS)
 
@@ -270,11 +304,13 @@ def build_crawl_graph():
 
 
 def build_multi_pdf_graph():
-    """Same shape as build_crawl_graph(), but for sources with several
-    documents (agent/crawler.py's SITE_CONFIGS pdf_link_limit > 1) that
-    would otherwise blow Groq's per-request token ceiling if combined into
-    one structure call. Fetches each document separately, structures each
-    on its own call, then synthesizes one final result."""
+    """Same shape as build_crawl_graph(), but for sources whose content
+    would blow Groq's per-request token ceiling as a single structure call
+    — either several documents (agent/crawler.py's SITE_CONFIGS
+    pdf_link_limit > 1, source config's "multi_pdf": True) or one oversized
+    document/page split into chunks (source config's "chunked": True).
+    Fetches/splits into pieces, structures each on its own call, then
+    merges into one final result."""
     graph = StateGraph(AgentState)
 
     graph.add_node("checkpoint_gate", checkpoint_gate)

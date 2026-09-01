@@ -71,12 +71,14 @@ def _run_item(graph, item: dict, index: int, total: int, extra_state: dict = Non
         "token_usage": None,
         "url": None,
         "pdf_texts": None,
+        "chunked": False,
     }
     if extra_state:
         state.update(extra_state)
 
+    config = {"configurable": {"thread_id": thread_id}}
     try:
-        final_state = graph.invoke(state, config={"configurable": {"thread_id": thread_id}})
+        final_state = graph.invoke(state, config=config)
         item_result = {
             "id": item["id"],
             "kind": item["kind"],
@@ -89,14 +91,25 @@ def _run_item(graph, item: dict, index: int, total: int, extra_state: dict = Non
         }
     except Exception as exc:
         logger.exception("[%d/%d] %s raised an error", index, total, item["id"])
+        # graph.invoke() runs crawl -> structure as one atomic call: if the
+        # structure step raises (e.g. a Groq rate limit) after the crawl
+        # step already fetched real content, that content would otherwise
+        # be thrown away along with the exception. The compiled graph's
+        # checkpointer persists state after every node completes, so pull
+        # back whatever the crawl step actually produced before the
+        # failure, rather than losing it.
+        try:
+            last_state = graph.get_state(config).values
+        except Exception:
+            last_state = {}
         item_result = {
             "id": item["id"],
             "kind": item["kind"],
-            "gate_passed": None,
-            "gate_reason": None,
+            "gate_passed": last_state.get("gate_passed"),
+            "gate_reason": last_state.get("gate_reason"),
             "result": None,
             "token_usage": None,
-            "raw_content": None,
+            "raw_content": _combined_raw_content(last_state),
             "error": str(exc),
         }
 
@@ -141,8 +154,15 @@ def trigger() -> dict:
     for source in SOURCES:
         index += 1
         pbar.set_postfix_str(source["id"])
-        graph = multi_pdf_graph if source.get("multi_pdf") else crawl_graph
-        result = _run_item(graph, source, index, total, extra_state={"url": source["url"]})
+        # "multi_pdf" (several distinct PDFs) and "chunked" (one document
+        # too large for a single call) both need the per-piece structure +
+        # merge flow — see agent/graph.py's build_multi_pdf_graph().
+        uses_multi_graph = source.get("multi_pdf") or source.get("chunked")
+        graph = multi_pdf_graph if uses_multi_graph else crawl_graph
+        result = _run_item(
+            graph, source, index, total,
+            extra_state={"url": source["url"], "chunked": source.get("chunked", False)},
+        )
         append_topic_jsonl(triggered_at, run_id, result)
         append_topic_csv(triggered_at, run_id, result)
         append_raw_content(triggered_at, run_id, result)
