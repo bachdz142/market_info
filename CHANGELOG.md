@@ -5,6 +5,44 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — Layer 3 journals + Layer 4 macro/gov sources
+
+- Added 6 new sources to `agent/sources.py`, all `role: "citable"`, live-
+  verified against real network + real LLM structuring calls — the first
+  slice of the still-open Layer 2-4 work (Layer 1 shipped the 5 quant
+  banks + SBV + IAV; Layers 2-4 were deferred, not dropped). Scope decided
+  through a grilling session that also produced a new root `CONTEXT.md`
+  (Layer/Role/Tier 1-2/spot-checked-vs-live-verified/watchlist-document
+  vocabulary) and `.scratch/layer-3-4-easy-wins/spec.md`.
+- `vietnam_cpi_official` revived from a commented-out pre-Layer-1 entry —
+  the domain assumed stale (`gso.gov.vn`) turned out unreachable
+  (`ECONNREFUSED`), while the old `nso.gov.vn/en/cpi/` URL is live right
+  now with real, current CPI data.
+- `chinhphu_legal_documents_official` (`vanban.chinhphu.vn`),
+  `vnba_banking_news` (`vnba.org.vn`), `banking_review_journal`
+  (`tapchinganhang.gov.vn`), and `finance_review_journal`
+  (`tapchitaichinh.vn`) added, each needing its own `SITE_CONFIGS` entry
+  (`agent/crawler.py`) for content-selector scoping past nav/weather-widget
+  boilerplate; `tapchinganhang.gov.vn` additionally needs the full-browser
+  strategy forced on, since its static path returns a genuine HTTP 410.
+- A prior spot-check (this file's own v0.6 notes) claimed `tapchitaichinh.vn`
+  had zero anti-bot walls; a different fetcher used during this pass's
+  design phase got a real 403 on the same domain — but `crawl4ai` itself
+  was confirmed live to get through fine, so the source was kept rather
+  than dropped on a signal from a different fetch mechanism.
+- `sbv_legal_directives_official` reuses `SITE_CONFIGS["sbv.gov.vn"]`
+  unchanged (same domain as the existing `sbv_press_releases_official`).
+  The first guessed URL (`/en/legal-documents`) was an empty nav shell;
+  `/en/văn-bản-quản-lý-hành-chính` is the real one. Shares this domain's
+  known WAF flakiness — one live check got real content immediately
+  followed by a genuine WAF rejection page on the next call. Also carries
+  green-credit figures in its prompt (alongside `banking_review_journal`,
+  per the source plan's own dual-sourcing) rather than becoming a 7th
+  source.
+- No `agent/schema.py` changes — every field this slice needs already
+  existed from Layer 1.
+- Full `pytest tests/` stays green: 11 existing + 6 new = 17/17.
+
 ## Unreleased — LLM provider fallback chain
 
 - Added `agent/llm_fallback.py`: the structuring step's model call is now

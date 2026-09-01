@@ -22,6 +22,7 @@ that interprets and acts on them.
 | v0.6 — Layer 1 quant bank benchmarks (`source_plan_mvp0.md`) | 🚧 Partial — 5 of 9 new sources actually usable (3/5 banks + SBV + IAV; BIDV downgraded — fetch works but every filing checked is scan-only, no usable data) |
 | Live end-to-end `/trigger` run (real spend) | ✅ Run for real — mostly hit Groq's daily quota mid-run (expected, see below), but confirmed the full pipeline (fetch → structure → persist, including the schema-migration and raw-content-preservation fixes) working end-to-end with real output in `data/signals.csv` |
 | v0.7 — LLM provider fallback chain (Groq → Gemini → Mistral → OpenRouter) | ✅ Done |
+| v0.8 — Layer 3 journals + Layer 4 macro/gov sources (first Layer 2-4 increment) | ✅ Done — all 6 sources live-verified and passing |
 
 ## Known temporary state (fix before a real full run)
 
@@ -211,6 +212,33 @@ Groq's free-tier daily quota was hit repeatedly this session, and separately a `
 - [x] `pytest tests/test_llm_fallback.py tests/test_bug_fixes.py`: **11/11 passing**
 
 ---
+
+## v0.8 — Layer 3 journals + Layer 4 macro/gov sources (✅ done)
+
+First slice of the still-open Layer 2-4 work (Layer 1 covered `source_plan_mvp0.md`'s 5 quant banks + SBV + IAV; Layers 2-4 were deferred, not dropped). Scoped down via a grilling session to the lowest-risk slice: Layer 4 in full (Tier 1 Citable only) plus Layer 3's two journals — see `.scratch/layer-3-4-easy-wins/spec.md` for the full spec and the new root `CONTEXT.md` for the vocabulary that session produced (Layer/Role/Tier 1-2/spot-checked vs. live-verified/watchlist document).
+
+- [x] `agent/sources.py` — 6 new sources added, all `role: "citable"`, all live-verified (`pytest tests/test_sources.py -k <id>`, real network + real LLM structuring call):
+  - **`vietnam_cpi_official`** — revived from a commented-out pre-Layer-1 entry. The domain assumed stale (`gso.gov.vn`, per an earlier reorg note in this file) turned out to be unreachable (`ECONNREFUSED`, no response), while the old `nso.gov.vn/en/cpi/` URL is live right now with real, current CPI releases.
+  - **`chinhphu_legal_documents_official`** — `vanban.chinhphu.vn`, scoped past ~80% nav/weather-widget boilerplate to the real government document-list container.
+  - **`vnba_banking_news`** — `vnba.org.vn`, real open-banking/AI-in-banking content confirmed, static fetch (no JS needed).
+  - **`banking_review_journal`** — `tapchinganhang.gov.vn` (no `www.` — that vhost is separately misconfigured, a distinct issue from any anti-bot concern). Needs a full browser fetch: the static path returns a genuine HTTP 410, not a block.
+  - **`finance_review_journal`** — `tapchitaichinh.vn`. A prior spot-check (this file, below) claimed zero anti-bot walls; a different fetcher later got a real 403, but `crawl4ai` itself was confirmed live to get through fine on the static path — the 403 didn't carry over.
+  - **`sbv_legal_directives_official`** — reuses `SITE_CONFIGS["sbv.gov.vn"]` unchanged (same domain as `sbv_press_releases_official`). The `/en/legal-documents` URL guessed first was an empty nav shell (not used); `/en/văn-bản-quản-lý-hành-chính` is the real one — confirmed live with a genuine document list plus one successfully-fetched PDF. Also carries green-credit figures in its prompt (folded in alongside `banking_review_journal`, per the spec's own dual-sourcing) rather than becoming a 7th source.
+- [x] `agent/crawler.py` — 4 new `SITE_CONFIGS` entries (`vanban.chinhphu.vn`, `vnba.org.vn`, `tapchinganhang.gov.vn`, `tapchitaichinh.vn`) for content-selector scoping and, for `tapchinganhang.gov.vn`, forcing the full-browser strategy past a static-path 410.
+- [x] No `agent/schema.py` changes — every field this slice needs (`source_code`, `reference_period`, `data_basis`, `actual_proxy_forecast`, `forecast_org`) already existed from Layer 1; `data_basis` is `"not_applicable"` for all six (none are bank financial-statement figures).
+- [x] `CONTEXT.md` (new) — Layer/Role/Tier 1-2/spot-checked-vs-live-verified/watchlist-document vocabulary, written during the design session that produced this increment.
+
+### Verification
+- [x] Each of the 6 sources individually live-verified (`pytest tests/test_sources.py -k <id>`) before being trusted.
+- [x] Full `pytest tests/` run — all green (11 existing + 6 new = 17/17).
+
+### Further Notes
+- **SBV directives shares its domain's known WAF flakiness** with `sbv_press_releases_official` — one live check got real content immediately followed by a genuine WAF rejection page on the very next call. Not a new problem, same documented behavior this domain has always had.
+- **Explicitly deferred, not dropped** (see `.scratch/layer-3-4-easy-wins/spec.md`'s Out of Scope for the full reasoning):
+  - Layer 2 entirely (bank news/promo pages, fee/T&C pages, app-store release notes).
+  - Layer 3's bank annual reports/AGM docs and the 4 securities firms' research PDFs (Tier 2).
+  - Thư viện Pháp luật / LuatVietnam document-by-reference lookups for the 9 named watchlist documents (Circular 08/2026, Official Letter 4551, Circular 52/2018, Decree 94/2025, Resolution 57-NQ/TW, Decision 21/2025, Circular 17/2022, Resolution 110/2025, Law 109/2025) — needs a one-time manual URL-discovery pass per document.
+  - Consumer research (Cimigo/Decision Lab/Q&Me, Tier 2) — needs a new `[Opinion]`/`[Fact]` schema distinction (R-F04/R-F07) not yet built into `agent/schema.py`.
 
 ## Maintenance fixes
 

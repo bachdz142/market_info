@@ -116,6 +116,51 @@ SITE_CONFIGS = {
         "pdf_link_selector": "a[href*='BCTC+HN']",
         "pdf_link_limit": 1,
     },
+    # vanban.chinhphu.vn's homepage is ~80% nav/weather-widget boilerplate —
+    # .document-content scopes to the real government document-list
+    # container. Confirmed live: static fetch already returns real, current
+    # content, no JS needed.
+    "vanban.chinhphu.vn": {
+        "needs_js": False,
+        "wait_selector": None,
+        "content_selector": ".document-content",
+        "pdf_link_selector": None,
+        "pdf_link_limit": 1,
+    },
+    # .main-content scopes past VNBA's nav/sidebar. Confirmed live: static
+    # fetch works fine, real dated content.
+    "vnba.org.vn": {
+        "needs_js": False,
+        "wait_selector": None,
+        "content_selector": ".main-content",
+        "pdf_link_selector": None,
+        "pdf_link_limit": 1,
+    },
+    # Confirmed live: this domain's static HTTP response is a genuine 410
+    # (not an anti-bot block) — needs_js forces the full browser strategy,
+    # which returns real, current content. .col-left.f-collumn.row-g25
+    # scopes to the real article list, skipping nav/sidebar chrome. IMPORTANT:
+    # the "www." vhost is separately broken ("Chưa cài đặt Site Domain" — a
+    # misconfigured host, not a block) — sources must use the bare domain.
+    "tapchinganhang.gov.vn": {
+        "needs_js": True,
+        "wait_selector": None,
+        "content_selector": ".col-left.f-collumn.row-g25",
+        "pdf_link_selector": None,
+        "pdf_link_limit": 1,
+    },
+    # A prior spot-check (DEVELOPMENT_PLAN.md v0.6) claimed zero anti-bot
+    # walls here; a different fetcher (not crawl4ai) later got a real 403 —
+    # confirmed live that crawl4ai itself gets through fine on the static
+    # path. .siteCenter.flex-0 scopes past the weather-widget nav to the
+    # real article list.
+    "tapchitaichinh.vn": {
+        "needs_js": False,
+        "wait_selector": None,
+        "content_selector": ".siteCenter.flex-0",
+        "pdf_link_selector": None,
+        "pdf_link_limit": 1,
+    },
 }
 DEFAULT_CONFIG = {
     "needs_js": False,

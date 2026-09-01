@@ -43,17 +43,26 @@ SOURCES = [
     #         "including the date it applies to."
     #     ),
     # },
-    # {
-    #     "id": "vietnam_cpi_official",
-    #     "kind": "quant",
-    #     "url": "https://www.nso.gov.vn/en/cpi/",
-    #     "prompt": (
-    #         "Extract the most recent Vietnam Consumer Price Index (CPI) report "
-    #         "from this page: the month-on-month change, the change compared to "
-    #         "December of the previous year, and the year-on-year change, plus "
-    #         "the reference period and date of issue."
-    #     ),
-    # },
+    # Revived for Layer 4 (source_plan_mvp0.md §6.3) — this domain (formerly
+    # nso.gov.vn, GSO's predecessor site) was assumed stale by a prior note
+    # in DEVELOPMENT_PLAN.md (GSO reorganized under the Ministry of Finance),
+    # but confirmed live during Layer 3/4 recon that gso.gov.vn itself is
+    # unreachable (ECONNREFUSED, no response at all) while this URL is live
+    # right now with real, current CPI releases — the domain assumed
+    # superseded turned out to be the one still actually serving.
+    {
+        "id": "vietnam_cpi_official",
+        "kind": "quant",
+        "role": "citable",
+        "url": "https://www.nso.gov.vn/en/cpi/",
+        "prompt": (
+            "Extract the most recent Vietnam Consumer Price Index (CPI) report "
+            "from this page: the month-on-month change, the change compared to "
+            "December of the previous year, and the year-on-year change, plus "
+            "the reference period and date of issue. source_code for these "
+            "signals is \"GSO\"."
+        ),
+    },
     {
         "id": "sbv_press_releases_official",
         "kind": "qualitative",
@@ -242,6 +251,142 @@ SOURCES = [
             "NOT report per-bank or per-insurer figures even if the text "
             "mentions specific companies; only total-market numbers are in "
             "scope here. source_code for these signals is \"IAV\"."
+        ),
+    },
+    # --- Layer 3 journals + Layer 4 macro/gov (source_plan_mvp0.md §5, §6) ---
+    # First slice of the still-open Layer 2-4 work — see
+    # .scratch/layer-3-4-easy-wins/spec.md for the full spec and CONTEXT.md
+    # for the Layer/Role/Tier/spot-checked-vs-live-verified vocabulary this
+    # slice was designed against. Chosen first because every domain here was
+    # either already reachability spot-checked (DEVELOPMENT_PLAN.md v0.6) or,
+    # in tapchitaichinh.vn's case, a follow-up check contradicted that
+    # spot-check (got a real 403) but crawl4ai itself was confirmed live to
+    # get through fine — a different fetcher/UA than whatever hit the 403.
+    {
+        "id": "sbv_legal_directives_official",
+        "kind": "qualitative",
+        "role": "citable",
+        # Reuses SITE_CONFIGS["sbv.gov.vn"] unchanged (same domain as
+        # sbv_press_releases_official) — confirmed live that "ul.doc-list"
+        # correctly matches this page's real document list (unlike
+        # /en/legal-documents, which was tried first and found to be an
+        # empty nav shell — not used). Same WAF flakiness as the
+        # press-release source: one live check got real content (a document
+        # list plus one successful PDF fetch, "Quyết định 1382" on office
+        # space standards) immediately followed by a genuine WAF rejection
+        # page on the next call — "multi_pdf" is set for the same reason the
+        # press-release source needs it (pdf_link_limit=3 on this domain can
+        # return several substantial PDFs).
+        "url": "https://sbv.gov.vn/en/văn-bản-quản-lý-hành-chính",
+        "multi_pdf": True,
+        "prompt": (
+            "Extract concrete regulatory content from SBV's administrative "
+            "documents and directives listed below — circulars, decisions, "
+            "and directives relevant to banking operations, credit policy, "
+            "or digital transformation — including each document's "
+            "reference number, date, and what it covers. Also extract any "
+            "green-credit figures (outstanding balance, or references to "
+            "green-taxonomy or environmental-risk regulations) if present, "
+            "since SBV's own official statements are a valid green-credit "
+            "source per source_plan_mvp0.md §6.4. Do not fabricate specific "
+            "named documents (e.g. a particular circular or official "
+            "letter) if they aren't actually present in the content below — "
+            "only report what's genuinely there. source_code for these "
+            "signals is \"SBV\"."
+        ),
+    },
+    {
+        "id": "chinhphu_legal_documents_official",
+        "kind": "qualitative",
+        "role": "citable",
+        # vanban.chinhphu.vn's homepage is ~80% nav/weather-widget
+        # boilerplate — content_selector scopes to the real document-list
+        # container. Confirmed live: real, current (28/08/2026) government
+        # document feed, ~9.6K chars once scoped, well under the chunking
+        # threshold.
+        "url": "https://vanban.chinhphu.vn",
+        "prompt": (
+            "Extract concrete government decrees, resolutions, and official "
+            "documents from the list below that are relevant to fintech, "
+            "digital economy, national data policy, banking, or "
+            "e-identification (for example, topics like a fintech sandbox "
+            "regulation, a national data law, or an e-identification "
+            "scheme) — including each document's reference number, date "
+            "issued, and a summary of what it covers. This is a general feed "
+            "of all government documents, so most entries will be unrelated "
+            "(personnel appointments, infrastructure projects, etc.) — skip "
+            "those and only report genuinely relevant ones; if none are "
+            "relevant, return an empty signals list rather than reporting "
+            "unrelated documents. source_code for these signals is "
+            "\"CHINHPHU\"."
+        ),
+    },
+    {
+        "id": "vnba_banking_news",
+        "kind": "qualitative",
+        "role": "citable",
+        # .main-content scopes past VNBA's nav/sidebar. Confirmed live: real,
+        # dated (24/08/2026) content, ~4.6K chars, static fetch works fine
+        # (no JS needed).
+        "url": "https://vnba.org.vn",
+        "prompt": (
+            "Extract concrete open-banking, AI-in-banking, or "
+            "fintech-policy developments reported by VNBA (Vietnam Banks "
+            "Association) from the content below — announcements, industry "
+            "positions, or training programs on topics like open banking, "
+            "data governance, or fintech-sandbox regulation — including the "
+            "date reported. This page also carries general bank news and "
+            "internal-association items (personnel, internal training "
+            "logistics) — skip those and only report genuine open-banking/"
+            "AI/fintech-policy content; if none is present, return an empty "
+            "signals list. source_code for these signals is \"VNBA\"."
+        ),
+    },
+    {
+        "id": "banking_review_journal",
+        "kind": "qualitative",
+        "role": "citable",
+        # tapchinganhang.gov.vn needs a full browser fetch: its static HTTP
+        # response is a genuine 410, but a full render works fine and
+        # returns real, current (01/09/2026) content. IMPORTANT: no "www."
+        # prefix — that vhost is a distinct, unrelated misconfiguration
+        # ("Chưa cài đặt Site Domain", not an anti-bot block), confirmed
+        # live. .col-left.f-collumn.row-g25 scopes to the real article
+        # list, ~9K chars, under the chunking threshold.
+        "url": "https://tapchinganhang.gov.vn",
+        "prompt": (
+            "Extract concrete monetary-policy analysis, banking-sector "
+            "commentary, or credit-risk/CASA-related research findings from "
+            "the Banking Review Journal articles below, including each "
+            "article's date and its main finding. Also extract any "
+            "green-credit figures or references to green-taxonomy/"
+            "environmental-risk regulation if present, since this journal "
+            "is a valid green-credit source alongside SBV's own statements "
+            "per source_plan_mvp0.md §6.4. Report only what the articles "
+            "themselves state as fact — do not add your own interpretation "
+            "or recommendation. source_code for these signals is \"TCNH\"."
+        ),
+    },
+    {
+        "id": "finance_review_journal",
+        "kind": "qualitative",
+        "role": "citable",
+        # A prior spot-check (DEVELOPMENT_PLAN.md v0.6) claimed this domain
+        # had zero anti-bot walls; a follow-up check during Layer 3/4 recon
+        # got a real 403 — but that check used a different fetcher, and
+        # crawl4ai itself was confirmed live to get through fine (both
+        # static and JS strategies work). .siteCenter.flex-0 scopes past the
+        # weather-widget nav to the real article list, ~10.7K chars, under
+        # the chunking threshold.
+        "url": "https://tapchitaichinh.vn",
+        "prompt": (
+            "Extract concrete economic/finance/banking policy analysis from "
+            "the Finance Review Journal articles below — budget figures, "
+            "banking-sector capital-raising activity, stock-market "
+            "developments, or other concrete financial figures/events "
+            "reported, including each item's date. Report only what the "
+            "articles themselves state as fact, not your own "
+            "interpretation. source_code for these signals is \"TCTC\"."
         ),
     },
 ]
