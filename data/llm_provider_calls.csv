@@ -60,3 +60,8 @@ timestamp,provider,model,success,query_preview,error
 2026-09-01T18:36:58.412828+07:00,openrouter,nvidia/nemotron-3-super-120b-a12b:free,True,Extract concrete market signals from the full press release content below — spec,
 2026-09-02T17:49:50.364229+07:00,groq,openai/gpt-oss-120b,True,Extract concrete regulatory content from SBV's administrative documents and dire,
 2026-09-02T17:52:01.950824+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,
+2026-09-02T18:09:13.606093+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,
+2026-09-02T18:10:32.220197+07:00,groq,openai/gpt-oss-120b,True,Extract concrete regulatory content from SBV's administrative documents and dire,
+2026-09-02T18:11:37.669204+07:00,groq,openai/gpt-oss-120b,True,Extract concrete regulatory content from SBV's administrative documents and dire,
+2026-09-02T19:10:40.419442+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,
+2026-09-02T19:11:14.838715+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,

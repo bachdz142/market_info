@@ -20830,3 +20830,142 @@ Traceback (most recent call last):
 groq.RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m0hpewc9efk8bh39pdvjjbgq` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 198883, Requested 4390. Please try again in 23m33.936s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
 2026-08-31 18:42:28,308 INFO __main__: [7/7] iav_bancassurance done in 63.22s (gate_passed=True, error=None)
 2026-08-31 18:42:28,324 INFO __main__: Trigger finished in 1575.74s
+2026-09-02 18:10:08,000 INFO agent.gate: Gate passed: Extract concrete regulatory content from SBV's administrative documents and dire
+2026-09-02 18:10:09,859 INFO agent.crawler: Fetching PDF for https://sbv.gov.vn/en/văn-bản-quản-lý-hành-chính -> https://sbv.gov.vn/documents/20117/10477593/qd_1382_2606.signed.pdf.pdf/a4bcd797-4a92-2ef2-776b-ffba8e0c2da6
+2026-09-02 18:10:09,860 INFO agent.crawler: Throttling request to sbv.gov.vn, waiting 4.2s
+2026-09-02 18:10:14,325 WARNING pypdf._reader: invalid pdf header: b'<html'
+2026-09-02 18:10:14,326 WARNING pypdf._reader: EOF marker not found
+2026-09-02 18:10:14,326 ERROR crawl4ai.processors.pdf.processor: Failed to process PDF: Stream has ended unexpectedly
+2026-09-02 18:10:14,336 ERROR agent.crawler: Failed to fetch PDF https://sbv.gov.vn/documents/20117/10477593/qd_1382_2606.signed.pdf.pdf/a4bcd797-4a92-2ef2-776b-ffba8e0c2da6, skipping
+Traceback (most recent call last):
+  File "/Users/dangngocbach/PycharmProjects/Market insight test/agent/crawler.py", line 915, in _fetch_selected_pdfs
+    pdf_text = await _fetch_pdf_text(crawler, pdf_url)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dangngocbach/PycharmProjects/Market insight test/agent/crawler.py", line 305, in _fetch_pdf_text
+    raise ValueError(
+ValueError: Expected real PDF content from https://sbv.gov.vn/documents/20117/10477593/qd_1382_2606.signed.pdf.pdf/a4bcd797-4a92-2ef2-776b-ffba8e0c2da6 but got near-empty extraction (0 chars) — likely blocked or rate-limited.
+2026-09-02 18:10:14,339 INFO agent.crawler: Fetching PDF for https://sbv.gov.vn/en/văn-bản-quản-lý-hành-chính -> https://sbv.gov.vn/documents/20117/10152765/Van ban het hieu luc SBV.pdf/96ef6135-fb79-0f46-ab57-c8879be59349
+2026-09-02 18:10:14,339 INFO agent.crawler: Throttling request to sbv.gov.vn, waiting 4.7s
+2026-09-02 18:10:19,207 WARNING pypdf._reader: invalid pdf header: b'<html'
+2026-09-02 18:10:19,207 WARNING pypdf._reader: EOF marker not found
+2026-09-02 18:10:19,208 ERROR crawl4ai.processors.pdf.processor: Failed to process PDF: Stream has ended unexpectedly
+2026-09-02 18:10:19,216 ERROR agent.crawler: Failed to fetch PDF https://sbv.gov.vn/documents/20117/10152765/Van ban het hieu luc SBV.pdf/96ef6135-fb79-0f46-ab57-c8879be59349, skipping
+Traceback (most recent call last):
+  File "/Users/dangngocbach/PycharmProjects/Market insight test/agent/crawler.py", line 915, in _fetch_selected_pdfs
+    pdf_text = await _fetch_pdf_text(crawler, pdf_url)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dangngocbach/PycharmProjects/Market insight test/agent/crawler.py", line 305, in _fetch_pdf_text
+    raise ValueError(
+ValueError: Expected real PDF content from https://sbv.gov.vn/documents/20117/10152765/Van ban het hieu luc SBV.pdf/96ef6135-fb79-0f46-ab57-c8879be59349 but got near-empty extraction (0 chars) — likely blocked or rate-limited.
+2026-09-02 18:10:19,217 INFO agent.crawler: Fetching PDF for https://sbv.gov.vn/en/văn-bản-quản-lý-hành-chính -> https://sbv.gov.vn/documents/20117/4344163/CT 02_2026.pdf/077d4b6e-d2c8-9ffb-89ee-c3444f6d20e3
+2026-09-02 18:10:19,217 INFO agent.crawler: Throttling request to sbv.gov.vn, waiting 4.9s
+2026-09-02 18:10:24,433 WARNING pypdf._reader: invalid pdf header: b'<html'
+2026-09-02 18:10:24,434 WARNING pypdf._reader: EOF marker not found
+2026-09-02 18:10:24,434 ERROR crawl4ai.processors.pdf.processor: Failed to process PDF: Stream has ended unexpectedly
+2026-09-02 18:10:24,439 ERROR agent.crawler: Failed to fetch PDF https://sbv.gov.vn/documents/20117/4344163/CT 02_2026.pdf/077d4b6e-d2c8-9ffb-89ee-c3444f6d20e3, skipping
+Traceback (most recent call last):
+  File "/Users/dangngocbach/PycharmProjects/Market insight test/agent/crawler.py", line 915, in _fetch_selected_pdfs
+    pdf_text = await _fetch_pdf_text(crawler, pdf_url)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dangngocbach/PycharmProjects/Market insight test/agent/crawler.py", line 305, in _fetch_pdf_text
+    raise ValueError(
+ValueError: Expected real PDF content from https://sbv.gov.vn/documents/20117/4344163/CT 02_2026.pdf/077d4b6e-d2c8-9ffb-89ee-c3444f6d20e3 but got near-empty extraction (0 chars) — likely blocked or rate-limited.
+2026-09-02 18:10:24,441 INFO agent.graph: Multi-crawl done in 16.44s for url: https://sbv.gov.vn/en/văn-bản-quản-lý-hành-chính (0 documents)
+2026-09-02 18:10:24,692 INFO agent.graph: Raw content fed to LLM for query: Extract concrete regulatory content from SBV's administrative documents and dire
+Quy định tiêu chuẩn, định mức sử dụng diện tích làm việc của các chức danh và diện tích sử dụng chung Nhà làm việc của Ngân hàng Nhà nước Việt Nam
+(26/06/2026)
+Quyết định số 138/QĐ-NHNN ngày 30/01/2026 công bố Danh mục VBQPPL hết hiệu lực, ngưng hiệu lực toàn bộ hoặc một phần thuộc lĩnh vực quản lý nhà nước của NHNN năm 2025
+(02/04/2026)
+Ngân hàng Nhà nước Việt Nam ban hành Quy chế hoạt động của Hệ thống thông tin thông tin giải quyết thủ tục hành chính kèm theo Quyết định số 630/QĐ-NHNN ngày 31/03/2025
+(01/04/2026)
+Quyết định số 630/QĐ-NHNN
+Mẫu đề nghị
+Chỉ thị số 02/CT-NHNN ngày 09/01/2026 về việc đẩy mạnh chuyển đổi số và bảo đảm an ninh, an toàn thông tin trong hoạt động ngân hàng năm 2026
+(27/01/2026)
+Chỉ thị số 01/CT-NHNN ngày 09/01/2026 về tổ chức thực hiện các nhiệm vụ trọng tâm của ngành Ngân hàng trong năm 2026
+(27/01/2026)
+Quyết định số 02/QĐ-NHNN ngày 05/01/2026 về việc miễn nhiệm giám định viên tư pháp trong lĩnh vực tiền tệ và ngân hàng
+(09/01/2026)
+Quyết định số 4107/QĐ-NHNN ngày 31/12/2025 ban hành Chương trình xây dựng thông tư năm 2026 của NHNN
+(05/01/2026)
+Quyết định số 4106/QĐ-NHNN ngày 31/12/2025 về việc điều chỉnh Chương trình xây dựng thông tư năm 2025 của NHNN (lần 4)
+(02/01/2026)
+Quyết định số 4086/QĐ-NHNN ngày 31/12/2025 về việc ban hành Chương trình hành động của ngành Ngân hàng về tiết kiệm, chống lãnh phí năm 2026
+(31/12/2025)
+Quyết định số 4098/QĐ-NHNN ngày 31/12/2025 ban hành Kế hoạch hành động thực hiện Chương trình phát triển Chính phủ số của NHNN
+(31/12/2025)
+2026-09-02 18:10:32,169 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 18:10:32,219 INFO agent.graph: Structure LLM call done in 7.53s for query: Extract concrete regulatory content from SBV's administrative documents and dire | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 1620, 'output_tokens': 2567, 'total_tokens': 4187, 'output_token_details': {'reasoning': 1079}}
+2026-09-02 18:10:32,226 INFO service: [1/1] sbv_legal_directives_official done in 24.24s (gate_passed=True, error=None)
+2026-09-02 18:11:14,617 INFO agent.gate: Gate passed: Extract concrete regulatory content from SBV's administrative documents and dire
+2026-09-02 18:11:16,096 INFO agent.crawler: Fetching PDF for https://sbv.gov.vn/en/văn-bản-quản-lý-hành-chính -> https://sbv.gov.vn/documents/20117/10477593/qd_1382_2606.signed.pdf.pdf/a4bcd797-4a92-2ef2-776b-ffba8e0c2da6
+2026-09-02 18:11:16,097 INFO agent.crawler: Throttling request to sbv.gov.vn, waiting 4.4s
+2026-09-02 18:11:20,714 WARNING pypdf._reader: invalid pdf header: b'<html'
+2026-09-02 18:11:20,715 WARNING pypdf._reader: EOF marker not found
+2026-09-02 18:11:20,715 ERROR crawl4ai.processors.pdf.processor: Failed to process PDF: Stream has ended unexpectedly
+2026-09-02 18:11:20,727 ERROR agent.crawler: Failed to fetch PDF https://sbv.gov.vn/documents/20117/10477593/qd_1382_2606.signed.pdf.pdf/a4bcd797-4a92-2ef2-776b-ffba8e0c2da6, skipping
+Traceback (most recent call last):
+  File "/Users/dangngocbach/PycharmProjects/Market insight test/agent/crawler.py", line 915, in _fetch_selected_pdfs
+    pdf_text = await _fetch_pdf_text(crawler, pdf_url)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dangngocbach/PycharmProjects/Market insight test/agent/crawler.py", line 305, in _fetch_pdf_text
+    raise ValueError(
+ValueError: Expected real PDF content from https://sbv.gov.vn/documents/20117/10477593/qd_1382_2606.signed.pdf.pdf/a4bcd797-4a92-2ef2-776b-ffba8e0c2da6 but got near-empty extraction (0 chars) — likely blocked or rate-limited.
+2026-09-02 18:11:20,731 INFO agent.crawler: Fetching PDF for https://sbv.gov.vn/en/văn-bản-quản-lý-hành-chính -> https://sbv.gov.vn/documents/20117/10152765/Van ban het hieu luc SBV.pdf/96ef6135-fb79-0f46-ab57-c8879be59349
+2026-09-02 18:11:20,731 INFO agent.crawler: Throttling request to sbv.gov.vn, waiting 4.7s
+2026-09-02 18:11:25,592 WARNING pypdf._reader: invalid pdf header: b'<html'
+2026-09-02 18:11:25,593 WARNING pypdf._reader: EOF marker not found
+2026-09-02 18:11:25,593 ERROR crawl4ai.processors.pdf.processor: Failed to process PDF: Stream has ended unexpectedly
+2026-09-02 18:11:25,598 ERROR agent.crawler: Failed to fetch PDF https://sbv.gov.vn/documents/20117/10152765/Van ban het hieu luc SBV.pdf/96ef6135-fb79-0f46-ab57-c8879be59349, skipping
+Traceback (most recent call last):
+  File "/Users/dangngocbach/PycharmProjects/Market insight test/agent/crawler.py", line 915, in _fetch_selected_pdfs
+    pdf_text = await _fetch_pdf_text(crawler, pdf_url)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dangngocbach/PycharmProjects/Market insight test/agent/crawler.py", line 305, in _fetch_pdf_text
+    raise ValueError(
+ValueError: Expected real PDF content from https://sbv.gov.vn/documents/20117/10152765/Van ban het hieu luc SBV.pdf/96ef6135-fb79-0f46-ab57-c8879be59349 but got near-empty extraction (0 chars) — likely blocked or rate-limited.
+2026-09-02 18:11:25,598 INFO agent.crawler: Fetching PDF for https://sbv.gov.vn/en/văn-bản-quản-lý-hành-chính -> https://sbv.gov.vn/documents/20117/4344163/CT 02_2026.pdf/077d4b6e-d2c8-9ffb-89ee-c3444f6d20e3
+2026-09-02 18:11:25,598 INFO agent.crawler: Throttling request to sbv.gov.vn, waiting 4.9s
+2026-09-02 18:11:30,552 WARNING pypdf._reader: invalid pdf header: b'<html'
+2026-09-02 18:11:30,552 WARNING pypdf._reader: EOF marker not found
+2026-09-02 18:11:30,552 ERROR crawl4ai.processors.pdf.processor: Failed to process PDF: Stream has ended unexpectedly
+2026-09-02 18:11:30,557 ERROR agent.crawler: Failed to fetch PDF https://sbv.gov.vn/documents/20117/4344163/CT 02_2026.pdf/077d4b6e-d2c8-9ffb-89ee-c3444f6d20e3, skipping
+Traceback (most recent call last):
+  File "/Users/dangngocbach/PycharmProjects/Market insight test/agent/crawler.py", line 915, in _fetch_selected_pdfs
+    pdf_text = await _fetch_pdf_text(crawler, pdf_url)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/dangngocbach/PycharmProjects/Market insight test/agent/crawler.py", line 305, in _fetch_pdf_text
+    raise ValueError(
+ValueError: Expected real PDF content from https://sbv.gov.vn/documents/20117/4344163/CT 02_2026.pdf/077d4b6e-d2c8-9ffb-89ee-c3444f6d20e3 but got near-empty extraction (0 chars) — likely blocked or rate-limited.
+2026-09-02 18:11:30,558 INFO agent.graph: Multi-crawl done in 15.94s for url: https://sbv.gov.vn/en/văn-bản-quản-lý-hành-chính (0 documents)
+2026-09-02 18:11:30,805 INFO agent.graph: Raw content fed to LLM for query: Extract concrete regulatory content from SBV's administrative documents and dire
+Quy định tiêu chuẩn, định mức sử dụng diện tích làm việc của các chức danh và diện tích sử dụng chung Nhà làm việc của Ngân hàng Nhà nước Việt Nam
+(26/06/2026)
+Quyết định số 138/QĐ-NHNN ngày 30/01/2026 công bố Danh mục VBQPPL hết hiệu lực, ngưng hiệu lực toàn bộ hoặc một phần thuộc lĩnh vực quản lý nhà nước của NHNN năm 2025
+(02/04/2026)
+Ngân hàng Nhà nước Việt Nam ban hành Quy chế hoạt động của Hệ thống thông tin thông tin giải quyết thủ tục hành chính kèm theo Quyết định số 630/QĐ-NHNN ngày 31/03/2025
+(01/04/2026)
+Quyết định số 630/QĐ-NHNN
+Mẫu đề nghị
+Chỉ thị số 02/CT-NHNN ngày 09/01/2026 về việc đẩy mạnh chuyển đổi số và bảo đảm an ninh, an toàn thông tin trong hoạt động ngân hàng năm 2026
+(27/01/2026)
+Chỉ thị số 01/CT-NHNN ngày 09/01/2026 về tổ chức thực hiện các nhiệm vụ trọng tâm của ngành Ngân hàng trong năm 2026
+(27/01/2026)
+Quyết định số 02/QĐ-NHNN ngày 05/01/2026 về việc miễn nhiệm giám định viên tư pháp trong lĩnh vực tiền tệ và ngân hàng
+(09/01/2026)
+Quyết định số 4107/QĐ-NHNN ngày 31/12/2025 ban hành Chương trình xây dựng thông tư năm 2026 của NHNN
+(05/01/2026)
+Quyết định số 4106/QĐ-NHNN ngày 31/12/2025 về việc điều chỉnh Chương trình xây dựng thông tư năm 2025 của NHNN (lần 4)
+(02/01/2026)
+Quyết định số 4086/QĐ-NHNN ngày 31/12/2025 về việc ban hành Chương trình hành động của ngành Ngân hàng về tiết kiệm, chống lãnh phí năm 2026
+(31/12/2025)
+Quyết định số 4098/QĐ-NHNN ngày 31/12/2025 ban hành Kế hoạch hành động thực hiện Chương trình phát triển Chính phủ số của NHNN
+(31/12/2025)
+2026-09-02 18:11:37,635 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 18:11:37,668 INFO agent.graph: Structure LLM call done in 6.86s for query: Extract concrete regulatory content from SBV's administrative documents and dire | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 1620, 'output_tokens': 2502, 'total_tokens': 4122, 'output_token_details': {'reasoning': 1060}}
+2026-09-02 18:11:37,675 INFO service: [1/1] sbv_legal_directives_official done in 23.06s (gate_passed=True, error=None)
+2026-09-02 18:13:45,902 INFO agent.gate: Gate passed: Extract concrete regulatory content from SBV's administrative documents and dire
+2026-09-02 18:13:46,978 INFO agent.graph: Multi-crawl done in 1.07s for url: https://sbv.gov.vn/en/văn-bản-quản-lý-hành-chính (0 documents)
+2026-09-02 18:13:47,329 WARNING agent.content_gate: Content gate rejected: Content matches a known block-page marker: 'the requested url was rejected'.
+2026-09-02 18:13:47,329 WARNING agent.graph: Content gate rejected https://sbv.gov.vn/en/văn-bản-quản-lý-hành-chính: Content matches a known block-page marker: 'the requested url was rejected'.
+2026-09-02 18:13:47,331 INFO service: [1/1] sbv_legal_directives_official done in 1.43s (gate_passed=False, error=None)

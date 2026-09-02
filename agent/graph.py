@@ -76,6 +76,7 @@ class AgentState(TypedDict):
     pdf_texts: Optional[list]
     chunked: Optional[bool]
     tier: Optional[str]
+    source_id: Optional[str]
 
 
 
@@ -123,13 +124,40 @@ def _content_gate_multi_node(state: AgentState) -> dict:
     existing partial-PDF-failure handling in agent/crawler.py). Drops each
     unusable piece individually; only rejects the whole item if nothing
     usable survives — including the list/page text _structure_multi_node
-    would otherwise fall back to."""
+    would otherwise fall back to.
+
+    A piece rejected specifically with code "scan" gets one more chance
+    before being dropped: agent/ocr.py's ensure_ocr_text() (real, billed
+    Mistral OCR, cached per document — see that function's docstring)
+    re-fetches and OCRs it, and the result is re-checked through the same
+    gate. Only "scan" gets this treatment — "near_empty"/"block_page"
+    pieces aren't scans OCR could fix, they're WAF pages or genuine fetch
+    failures, so they're dropped exactly as before. This only runs here
+    (the multi-PDF path): pdf_texts already carries each document's real
+    PDF URL; the single-fetch path (_content_gate_node) doesn't have that
+    URL available yet — see agent/ocr.py's module docstring."""
+    from agent.ocr import ensure_ocr_text
+
+    source_id = state.get("source_id") or (state.get("query") or "")[:40]
     documents = state.get("pdf_texts") or []
     kept = []
     for piece_url, piece_text in documents:
         result = check_content_usable(piece_text)
         if result["usable"]:
             kept.append((piece_url, piece_text))
+            continue
+
+        if result["code"] == "scan":
+            ocr_text = ensure_ocr_text(source_id, piece_url)
+            recheck = check_content_usable(ocr_text or "")
+            if recheck["usable"]:
+                logger.info("OCR fallback recovered a usable piece from %s", piece_url)
+                kept.append((piece_url, ocr_text))
+                continue
+            logger.warning(
+                "OCR fallback for %s did not produce usable content (%s) — dropping this piece",
+                piece_url, recheck["reason"] if ocr_text else "OCR itself failed",
+            )
         else:
             logger.warning("Content gate dropped a piece from %s: %s", piece_url, result["reason"])
 

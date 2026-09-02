@@ -70,23 +70,30 @@ def _corrupted_token_ratio(text: str) -> float:
 def check_content_usable(text: str) -> dict:
     """Deterministic, LLM-free check that fetched content is real and
     structurable — no model call, so this can run on every fetch for free.
-    Returns {"usable": bool, "reason": Optional[str]}, mirroring
-    agent/gate.py's checkpoint_gate return shape for the same reason: a
-    uniform gate/reason pair the rest of the pipeline already knows how to
-    report."""
+    Returns {"usable": bool, "reason": Optional[str], "code": Optional[str]},
+    mirroring agent/gate.py's checkpoint_gate return shape for "usable"/
+    "reason". "code" is the machine-readable reason ("near_empty",
+    "block_page", "scan", or None when usable) — added so agent/graph.py's
+    automatic OCR fallback (see agent/ocr.py's ensure_ocr_text()) can key
+    off a stable value instead of string-matching "reason"'s human prose.
+    Only "scan" is safe to auto-OCR: it's the one rejection validated
+    against a real scanned document (sbv_legal_directives_official's
+    "CT 02_2026.pdf"); "near_empty" and "block_page" both fire for reasons
+    OCR can't fix (a WAF rejection page, a genuine fetch failure) and would
+    just waste a real, billed OCR job."""
     stripped = (text or "").strip()
 
     if len(stripped) < MIN_USABLE_CHARS:
         reason = f"Near-empty content ({len(stripped)} chars)."
         logger.warning("Content gate rejected: %s", reason)
-        return {"usable": False, "reason": reason}
+        return {"usable": False, "reason": reason, "code": "near_empty"}
 
     lowered = stripped.lower()
     for marker in BLOCK_PAGE_MARKERS:
         if marker in lowered:
             reason = f"Content matches a known block-page marker: {marker!r}."
             logger.warning("Content gate rejected: %s", reason)
-            return {"usable": False, "reason": reason}
+            return {"usable": False, "reason": reason, "code": "block_page"}
 
     ratio = _corrupted_token_ratio(stripped)
     if ratio > MAX_CORRUPTED_TOKEN_RATIO:
@@ -95,6 +102,6 @@ def check_content_usable(text: str) -> dict:
             "(likely a scan with a broken OCR/font-encoding layer)."
         )
         logger.warning("Content gate rejected: %s", reason)
-        return {"usable": False, "reason": reason}
+        return {"usable": False, "reason": reason, "code": "scan"}
 
-    return {"usable": True, "reason": None}
+    return {"usable": True, "reason": None, "code": None}

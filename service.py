@@ -73,6 +73,7 @@ def _run_item(graph, item: dict, index: int, total: int, extra_state: dict = Non
         "pdf_texts": None,
         "chunked": False,
         "tier": None,
+        "source_id": None,
     }
     if extra_state:
         state.update(extra_state)
@@ -166,6 +167,7 @@ def trigger() -> dict:
                 "url": source["url"],
                 "chunked": source.get("chunked", False),
                 "tier": source.get("tier", "tier_1"),
+                "source_id": source["id"],
             },
         )
         append_topic_jsonl(triggered_at, run_id, result)

@@ -5,6 +5,36 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — Automatic OCR fallback in the live graph
+
+- Reverses the earlier "consume-only, never auto-submit" OCR decision,
+  per explicit user direction. `agent/content_gate.py`'s
+  `check_content_usable()` gains a machine-readable `"code"` field
+  (`near_empty`/`block_page`/`scan`/`None`); `agent/graph.py`'s
+  `_content_gate_multi_node` now gives a `"scan"`-coded piece one more
+  chance via `agent/ocr.py`'s new `ensure_ocr_text()` before dropping it
+  — real, billed Mistral OCR, run automatically, no CLI step. Guarded by
+  a per-document cache (`data/ocr_cache/`, tracked in git) so the same
+  PDF is never OCR'd twice across repeated `/trigger` runs.
+- Scoped to the multi-PDF path only (`sbv_legal_directives_official`,
+  `sbv_press_releases_official`) — the single-fetch path (BIDV, etc.)
+  needs a separate `agent/crawler.py` refactor to expose each source's
+  resolved PDF URL first; not done this pass, flagged directly.
+- Real bug found and fixed live: the new raw-bytes downloader rejected
+  sbv.gov.vn's actual document URLs (`InvalidURL`) — their paths carry a
+  literal unescaped space, not percent-encoding. Fixed with
+  `urllib.parse.quote()`.
+- `tests/test_content_gate.py`'s existing multi-node tests now mock
+  `agent.ocr.ensure_ocr_text` (previously an accidental unmocked real
+  HTTP call on every offline test run) + 2 new tests for the recovery
+  path itself. 24/24 passing.
+- Live end-to-end run attempted 3x against the real source; sbv.gov.vn's
+  already-documented WAF flakiness blocked every attempt before OCR
+  could fire — did confirm live that `"block_page"` rejections correctly
+  never trigger OCR (only `"scan"` does). Full recovery logic covered by
+  the new offline tests; live confirmation pending a future `/trigger`
+  run.
+
 ## Unreleased — OCR result -> structured signal wiring
 
 - Added `agent/graph.py`'s `build_ocr_structure_graph()`: a minimal

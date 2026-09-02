@@ -10,6 +10,7 @@ development (2026-09-01), not invented samples — see agent/content_gate.py's
 own comments for where each came from.
 """
 
+import agent.ocr
 from agent.content_gate import check_content_usable
 from agent.graph import _content_gate_multi_node, _content_gate_node
 
@@ -137,7 +138,13 @@ def test_content_gate_node_rejects_bad_content():
     assert update["gate_reason"].startswith("Content gate:")
 
 
-def test_content_gate_multi_node_drops_only_the_bad_piece():
+def test_content_gate_multi_node_drops_only_the_bad_piece(monkeypatch):
+    # ensure_ocr_text() hits a real network call + real, billed Mistral
+    # spend when it actually recovers something — stubbed to None (OCR
+    # attempted, nothing recovered) so this test stays what its name says:
+    # the drop-the-bad-piece behavior, isolated from the OCR fallback
+    # itself (covered separately below).
+    monkeypatch.setattr(agent.ocr, "ensure_ocr_text", lambda source_id, url: None)
     state = {
         "pdf_texts": [
             ("https://example.com/good.pdf", CLEAN_VIETNAMESE_TEXT),
@@ -151,7 +158,8 @@ def test_content_gate_multi_node_drops_only_the_bad_piece():
     assert "gate_passed" not in update  # untouched — the item overall still succeeds
 
 
-def test_content_gate_multi_node_falls_back_to_usable_list_text():
+def test_content_gate_multi_node_falls_back_to_usable_list_text(monkeypatch):
+    monkeypatch.setattr(agent.ocr, "ensure_ocr_text", lambda source_id, url: None)
     state = {
         "pdf_texts": [("https://example.com/scan.pdf", GARBLED_SCAN_EXCERPT * 2)],
         "search_results": CLEAN_VIETNAMESE_TEXT,
@@ -162,11 +170,45 @@ def test_content_gate_multi_node_falls_back_to_usable_list_text():
     assert "gate_passed" not in update  # list text is usable, so the item still proceeds
 
 
-def test_content_gate_multi_node_rejects_when_nothing_survives():
+def test_content_gate_multi_node_rejects_when_nothing_survives(monkeypatch):
+    monkeypatch.setattr(agent.ocr, "ensure_ocr_text", lambda source_id, url: None)
     state = {
         "pdf_texts": [("https://example.com/scan.pdf", GARBLED_SCAN_EXCERPT * 2)],
         "search_results": BLOCK_PAGE_TEXT,
         "url": "https://example.com",
+    }
+    update = _content_gate_multi_node(state)
+    assert update["gate_passed"] is False
+    assert update["pdf_texts"] == []
+
+
+def test_content_gate_multi_node_recovers_a_scan_via_ocr_fallback(monkeypatch):
+    """The new automatic-OCR path: a "scan"-coded piece isn't dropped
+    outright — ensure_ocr_text() gets one shot at recovering it first, and
+    a genuinely usable result is kept (with the OCR text replacing the
+    original garbled extraction), same as any other good piece."""
+    monkeypatch.setattr(agent.ocr, "ensure_ocr_text", lambda source_id, url: CLEAN_VIETNAMESE_TEXT)
+    state = {
+        "pdf_texts": [("https://example.com/scan.pdf", GARBLED_SCAN_EXCERPT * 2)],
+        "search_results": "",
+        "url": "https://example.com",
+        "source_id": "sbv_legal_directives_official",
+    }
+    update = _content_gate_multi_node(state)
+    assert update["pdf_texts"] == [("https://example.com/scan.pdf", CLEAN_VIETNAMESE_TEXT)]
+    assert "gate_passed" not in update
+
+
+def test_content_gate_multi_node_drops_piece_when_ocr_recovery_is_still_unusable(monkeypatch):
+    """A piece must not be trusted just because OCR ran — if the OCR
+    result itself still fails content_gate (e.g. came back empty), it's
+    dropped exactly like an OCR call that failed outright."""
+    monkeypatch.setattr(agent.ocr, "ensure_ocr_text", lambda source_id, url: "")
+    state = {
+        "pdf_texts": [("https://example.com/scan.pdf", GARBLED_SCAN_EXCERPT * 2)],
+        "search_results": BLOCK_PAGE_TEXT,
+        "url": "https://example.com",
+        "source_id": "sbv_legal_directives_official",
     }
     update = _content_gate_multi_node(state)
     assert update["gate_passed"] is False

@@ -18,32 +18,62 @@ Import note: `mistralai` 2.9.4's top-level package has no __init__.py
 Mistral` fails; the real client class lives at `mistralai.client.Mistral`.
 
 Runs in BATCH mode, not sync: a scanned bank statement can be 50+ pages,
-and this isn't a real-time path — per the user's own framing, a job is
-submitted, queued, and its result picked up later, not awaited inline in
-the same request that found the scan. Batch API pricing is roughly $2 per
-1,000 pages for the current OCR model (mistral.ai/pricing, checked live
-2026-09-02) — half of sync pricing, and the whole reason to use batch
-here even for jobs that could technically run sync.
+so this blocks (poll loop, real wall-clock minutes) rather than being a
+fire-and-forget async job — acceptable because it only ever runs inside
+service.py's already-long, already-paced /trigger loop, never on a
+latency-sensitive path. Batch API pricing is roughly $2 per 1,000 pages
+for the current OCR model (mistral.ai/pricing, checked live 2026-09-02) —
+half of sync pricing, and the whole reason to use batch here even for
+jobs that could technically run sync.
 
 See ocr_preview.py for a CLI that runs this against one local PDF file
-end to end (submit + poll + fetch), to validate real output quality
-before this gets wired into the live crawl -> content_gate -> structure
-graph as an automatic fallback.
+end to end (submit + poll + fetch) — the way real output quality was
+first validated, and still the only way to test one document manually
+without going through a full /trigger run.
+
+Auto-wired into the live graph (2026-09-02, per explicit user direction —
+originally deferred, deliberately reversed): agent/graph.py's
+_content_gate_multi_node calls ensure_ocr_text() below whenever
+check_content_usable() flags a piece with code "scan" — the one rejection
+reason validated against a real scanned document. Real, billed Mistral
+spend happens automatically now; ensure_ocr_text()'s local cache
+(data/ocr_cache/) is the only thing standing between that and re-paying
+for the same PDF on every single /trigger run, so it is load-bearing, not
+an optimization. Scope: only the multi-PDF path (build_multi_pdf_graph)
+is wired — its pdf_texts state already carries each document's exact PDF
+URL. The single-fetch path (build_crawl_graph, e.g. BIDV's Layer 1
+filings) does NOT get this fallback yet: its per-site fetch functions in
+agent/crawler.py (one per bank/page) return only extracted text, not the
+resolved PDF URL they fetched it from — threading that through is a
+separate, not-yet-done plumbing change across every one of those
+functions, not a content_gate/ocr.py change.
 """
 
+import hashlib
 import json
 import logging
 import os
+import tempfile
 import time
+import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Optional
+from urllib.parse import quote
 
 from mistralai.client import Mistral
 
 from agent.store import append_ocr_job
 
 logger = logging.getLogger(__name__)
+
+# Recovered OCR text, cached by (source_id, pdf_url) — the only thing
+# preventing ensure_ocr_text() from re-submitting (and re-paying for) the
+# same document on every /trigger run. Flat files, same append-nothing-
+# just-write pattern as the rest of this project's data/ storage; content
+# rather than a log, since callers need the actual markdown back, not just
+# a record that a job happened (see data/ocr_jobs.jsonl for that).
+OCR_CACHE_DIR = Path(__file__).resolve().parent.parent / "data" / "ocr_cache"
 
 VIETNAM_TZ = timezone(timedelta(hours=7))
 
@@ -240,3 +270,74 @@ def run_ocr_sync(
         }
     )
     return result["markdown"]
+
+
+def _cache_path(source_id: str, pdf_url: str) -> Path:
+    # Hash the URL rather than sanitizing it into a filename directly —
+    # several of these URLs carry Vietnamese diacritics/percent-encoding
+    # (e.g. sbv.gov.vn's document paths) that would need their own
+    # escaping logic for no real benefit; a short hash is unambiguous and
+    # filesystem-safe regardless of what the URL looks like.
+    digest = hashlib.sha1(pdf_url.encode("utf-8")).hexdigest()[:12]
+    return OCR_CACHE_DIR / f"{source_id}_{digest}.md"
+
+
+def _download_pdf_bytes(url: str) -> bytes:
+    """Re-downloads a PDF's raw bytes for OCR submission. crawl4ai's own
+    PDF strategy (the normal fetch path) only returns extracted text, not
+    the source file, so a document content_gate flags as a scan needs a
+    fresh direct download before it can be handed to Mistral. Same urllib
+    + browser User-Agent pattern as agent/crawler.py's
+    _fetch_ssi_report_text() — confirmed there that a plain browser UA
+    avoids at least one PDF-downloader-specific block crawl4ai's own PDF
+    strategy hit on a different host."""
+    # Real bug found live (2026-09-02): sbv.gov.vn's document URLs come
+    # back from the page with a literal, unescaped space in the path
+    # (".../CT 02_2026.pdf/..."), not percent-encoded — urllib.request
+    # rejects that outright ("URL can't contain control characters").
+    # quote()'s default safe set already protects "/" and ":"; adding "%"
+    # too so a URL that's already partially percent-encoded elsewhere
+    # (e.g. a query string) doesn't get double-encoded.
+    safe_url = quote(url, safe=":/%?=&#")
+    req = urllib.request.Request(safe_url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return resp.read()
+
+
+def ensure_ocr_text(source_id: str, pdf_url: str) -> Optional[str]:
+    """Automatic OCR fallback, called from agent/graph.py's
+    _content_gate_multi_node only when check_content_usable() has already
+    flagged a piece with code "scan" (see that function's own docstring
+    for why only "scan" is safe to auto-OCR, not "near_empty"/
+    "block_page"). Real, billed Mistral spend happens here — guarded by a
+    local cache keyed on (source_id, pdf_url) so the SAME document is
+    never OCR'd twice across repeated /trigger runs; only a document seen
+    for the first time (or whose cache file was deleted) actually costs
+    money. Never raises: a failed download or OCR job just means this
+    piece stays dropped, exactly as it was before this fallback existed,
+    rather than crashing the whole item mid-/trigger."""
+    cache_file = _cache_path(source_id, pdf_url)
+    if cache_file.is_file():
+        logger.info("OCR cache hit for %s (%s)", source_id, pdf_url)
+        return cache_file.read_text()
+
+    logger.info(
+        "content_gate flagged a scan for %s (%s) -- submitting a real, billed OCR batch job",
+        source_id, pdf_url,
+    )
+    try:
+        pdf_bytes = _download_pdf_bytes(pdf_url)
+        with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
+            f.write(pdf_bytes)
+            tmp_path = Path(f.name)
+        try:
+            markdown = run_ocr_sync(tmp_path, source_id)
+        finally:
+            tmp_path.unlink(missing_ok=True)
+    except Exception:
+        logger.exception("Automatic OCR fallback failed for %s (%s)", source_id, pdf_url)
+        return None
+
+    OCR_CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache_file.write_text(markdown)
+    return markdown
