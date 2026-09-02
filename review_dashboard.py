@@ -333,7 +333,12 @@ def _toc_html(raw_by_id: dict, signals_by_id: dict) -> str:
             f" <span class='toccount'>({len(sources_in_layer)})</span></a>"
             f"<ul class='tocsrc'>{''.join(src_links)}</ul></li>"
         )
-    return f"<nav class='toc'><strong>Contents</strong><ul class='toclayers'>{''.join(items)}</ul></nav>"
+    return (
+        f"<nav class='toc' id='toc'>"
+        f"<div class='toc-head'><strong>Contents</strong>"
+        f"<button type='button' class='toc-toggle' onclick='toggleToc()'>Hide</button></div>"
+        f"<ul class='toclayers'>{''.join(items)}</ul></nav>"
+    )
 
 
 def build() -> str:
@@ -393,7 +398,14 @@ section.notrun {{ background:#fafafa; opacity:.7; }}
 .showmore:hover {{ background:#e4e7eb; }}
 .layout {{ display:flex; align-items:flex-start; gap:1.5rem; }}
 .toc {{ position:sticky; top:1rem; flex:0 0 230px; max-height:calc(100vh - 2rem); overflow-y:auto; background:#fff; border:1px solid #ddd; border-radius:6px; padding:.7rem .9rem; font-size:.8rem; }}
-.toc strong {{ display:block; margin-bottom:.5rem; font-size:.85rem; }}
+.toc-head {{ display:flex; align-items:center; justify-content:space-between; gap:.5rem; margin-bottom:.5rem; }}
+.toc strong {{ font-size:.85rem; }}
+.toc-toggle {{ font-size:.68rem; padding:.15rem .5rem; border:1px solid #ddd; border-radius:4px; background:#eef1f4; cursor:pointer; color:#444; white-space:nowrap; }}
+.toc-toggle:hover {{ background:#e4e7eb; }}
+.toc.collapsed {{ flex-basis:auto; }}
+.toc.collapsed .toc-head {{ margin-bottom:0; }}
+.toc.collapsed strong {{ display:none; }}
+.toc.collapsed ul.toclayers {{ display:none; }}
 .toc ul {{ list-style:none; margin:0; padding:0; }}
 .toc ul.toclayers > li {{ margin-bottom:.7rem; }}
 .toc a.toclayer {{ font-weight:600; color:#1a1f24; text-decoration:none; }}
@@ -427,6 +439,12 @@ function selectRun(sid, idx) {{
   section.querySelectorAll('.runpanel').forEach(p => {{
     p.hidden = p.dataset.idx !== String(idx);
   }});
+}}
+function toggleToc() {{
+  const toc = document.getElementById('toc');
+  const btn = toc.querySelector('.toc-toggle');
+  const collapsed = toc.classList.toggle('collapsed');
+  btn.textContent = collapsed ? '☰ Contents' : 'Hide';
 }}
 function toggleSignals(btn) {{
   const table = btn.previousElementSibling;
