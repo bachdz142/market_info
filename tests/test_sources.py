@@ -22,7 +22,7 @@ from agent.sources import SOURCES
 # tokens-per-minute limit the same way an unpaced /trigger run would.
 INTER_SOURCE_DELAY_SECONDS = 15
 
-REQUIRED_METADATA_FIELDS = ["source_code", "reference_period", "data_basis", "actual_proxy_forecast"]
+REQUIRED_METADATA_FIELDS = ["source_code", "reference_period", "data_basis", "actual_proxy_forecast", "fact_or_opinion"]
 
 
 def _run_source(source: dict) -> dict:
@@ -38,6 +38,7 @@ def _run_source(source: dict) -> dict:
         "url": source["url"],
         "pdf_texts": None,
         "chunked": source.get("chunked", False),
+        "tier": source.get("tier", "tier_1"),
     }
     return graph.invoke(state, config={"configurable": {"thread_id": f"{source['id']}-{uuid.uuid4()}"}})
 
@@ -71,4 +72,8 @@ def test_source_produces_structured_signals_with_mandatory_metadata(source):
         else:
             assert not signal.get("forecast_org"), (
                 f"{source['id']}: non-forecast signal has forecast_org set: {signal}"
+            )
+        if source.get("tier", "tier_1") == "tier_1":
+            assert signal.get("fact_or_opinion") == "fact", (
+                f"{source['id']}: tier_1 source signal not forced to fact: {signal}"
             )

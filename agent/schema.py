@@ -14,6 +14,7 @@ Confidence = Literal["low", "medium", "high"]
 
 DataBasis = Literal["standalone", "consolidated", "not_applicable"]
 ActualProxyForecast = Literal["actual", "proxy", "forecast"]
+FactOrOpinion = Literal["fact", "opinion"]
 
 
 class MarketSignal(BaseModel):
@@ -27,6 +28,7 @@ class MarketSignal(BaseModel):
     data_basis: DataBasis = Field(description="Whether the figure is standalone, consolidated, or not_applicable (e.g. for non-financial-statement data).")
     actual_proxy_forecast: ActualProxyForecast = Field(description="Whether the figure is an actual disclosed value, a proxy, or a forecast.")
     forecast_org: Optional[str] = Field(default=None, description="The organization that produced the forecast. Required when actual_proxy_forecast is 'forecast', otherwise omitted.")
+    fact_or_opinion: FactOrOpinion = Field(description="Whether this signal is a directly disclosed/reported fact, or an analyst's opinion/interpretation (per source_plan_mvp0.md's Tier 2 rule R-F07). Signals from a Tier 1 (official-disclosure) source are forced to 'fact' downstream regardless of what's produced here.")
 
 
 class MarketSignalBatch(BaseModel):

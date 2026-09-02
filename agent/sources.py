@@ -14,6 +14,15 @@
 # formatting, a compliance-checking module) is future work, not an
 # oversight — see .scratch/layer-1-quant-benchmarks/spec.md.
 #
+# "tier" (tier_1/tier_2, per source_plan_mvp0.md's Tier 1/Tier 2 distinction
+# within Citable) IS read at runtime — agent/graph.py's _finalize_payload
+# forces every signal's fact_or_opinion to "fact" when tier is "tier_1".
+# Only ever set explicitly to "tier_2" on a source whose content is
+# genuinely analyst opinion/interpretation rather than raw disclosure
+# (matching "chunked"'s own set-only-when-true convention below); every
+# other source defaults to "tier_1" via .get("tier", "tier_1") and needs no
+# explicit key — see .scratch/tier2-fact-opinion-field/spec.md.
+#
 # Note: ids below are suffixed "_official" because agent/topics.py already
 # has search-based quant topics covering the same facts (sbv_policy_rate,
 # usdvnd_rate, vietnam_cpi) — both run in the same /trigger call for now,

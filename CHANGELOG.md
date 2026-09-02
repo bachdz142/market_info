@@ -5,6 +5,37 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — Tier 2 [Fact]/[Opinion] schema field
+
+- Added `MarketSignal.fact_or_opinion: Literal["fact", "opinion"]`
+  (required) and an optional `"tier"` key on source configs
+  (`"tier_1"`/`"tier_2"`, defaulting to `"tier_1"`), implementing rule
+  R-F07 ahead of either Tier 2 source row (securities-firm research,
+  consumer research) actually being built. R-F04 (forecast tagging)
+  was already fully covered by the existing `actual_proxy_forecast`/
+  `forecast_org` fields.
+- `agent/graph.py`'s `_finalize_payload` forces every signal's
+  `fact_or_opinion` to `"fact"` when a request's `tier` is `"tier_1"` —
+  the same "known metadata beats the model's guess" principle already
+  used there for `source_url`. Only exactly `"tier_1"` triggers the
+  override; unset (`None`, e.g. `agent/topics.py`'s search-based
+  queries) and `"tier_2"` both leave the model's own per-signal
+  judgment untouched, since a Tier 2 document can genuinely mix fact
+  and opinion in one place.
+- Zero changes needed to any of the 32 existing sources — `tier`
+  defaults to `"tier_1"` via `.get("tier", "tier_1")`, matching
+  `chunked`'s own set-only-when-true convention.
+- New `tests/test_tier_fact_opinion.py`, fully offline (`_finalize_
+  payload` is pure data-shaping code, no network/LLM needed).
+- Bug found by `/code-review` and fixed: `agent/store.py`'s
+  `CSV_HEADERS`/`append_topic_csv()` were never updated, so
+  `fact_or_opinion` was silently dropped from the flattened
+  `data/signals.csv` (still present in `signals.jsonl`). Fixed, with
+  a new offline regression test round-tripping a synthetic result
+  through `append_topic_csv()`.
+- Designed via `/grill-with-docs` + `/to-spec` —
+  `.scratch/tier2-fact-opinion-field/spec.md`.
+
 ## Unreleased — Layer 4 legal-document watchlist added via LuatVietnam (9 documents)
 
 - Added 9 new sources for the 9 named documents across `source_plan_mvp0.md`

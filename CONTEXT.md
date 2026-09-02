@@ -16,7 +16,7 @@ The mandatory classification every source carries, per `source_plan_mvp0.md` §2
 _Avoid_: source type, category
 
 **Tier 1 / Tier 2** (within Citable):
-A Citable source is Tier 1 by default — official, non-opinion disclosure. Tier 2 marks a Citable source whose content is opinion/analysis rather than raw disclosure (securities-firm research, consumer surveys) — every figure from a Tier 2 source must be tagged `[Opinion]` vs `[Fact]` (rules R-F04/R-F07), a distinction not yet represented in `agent/schema.py`.
+A Citable source is Tier 1 by default — official, non-opinion disclosure. Tier 2 marks a Citable source whose content is opinion/analysis rather than raw disclosure (securities-firm research, consumer surveys) — every figure from a Tier 2 source must be tagged `[Opinion]` vs `[Fact]` per rule R-F07 (R-F04, the separate forecast-tagging rule, was already covered by `actual_proxy_forecast`/`forecast_org`). Represented in code as `MarketSignal.fact_or_opinion` (`"fact"`/`"opinion"`) plus an optional `tier` key on a source config (`"tier_1"`/`"tier_2"`, defaulting to `"tier_1"`) — a `tier_1` source's signals are forced to `"fact"` regardless of what the model produces; a `tier_2` source's own prompt is responsible for guiding the model's per-signal judgment, since one document can genuinely mix both.
 _Avoid_: opinion source
 
 **Spot-checked** vs **live-verified**:

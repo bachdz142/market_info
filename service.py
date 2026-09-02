@@ -72,6 +72,7 @@ def _run_item(graph, item: dict, index: int, total: int, extra_state: dict = Non
         "url": None,
         "pdf_texts": None,
         "chunked": False,
+        "tier": None,
     }
     if extra_state:
         state.update(extra_state)
@@ -161,7 +162,11 @@ def trigger() -> dict:
         graph = multi_pdf_graph if uses_multi_graph else crawl_graph
         result = _run_item(
             graph, source, index, total,
-            extra_state={"url": source["url"], "chunked": source.get("chunked", False)},
+            extra_state={
+                "url": source["url"],
+                "chunked": source.get("chunked", False),
+                "tier": source.get("tier", "tier_1"),
+            },
         )
         append_topic_jsonl(triggered_at, run_id, result)
         append_topic_csv(triggered_at, run_id, result)

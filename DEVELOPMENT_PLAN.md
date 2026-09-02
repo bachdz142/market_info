@@ -310,6 +310,29 @@ First real work on the "Thư viện Pháp luật / LuatVietnam" aggregator row (
 - Annual reports/AGM documents (Layer 3, 5 banks) remains open — parked mid-discovery (Techcombank's PDF found, chapter-boundary slicing not yet solved; VCB's real annual-report link found behind a non-deterministic AJAX tab, not yet reliably re-extracted) in favor of this smaller slice. Resume there next if picked back up.
 - Still open per the Layer 3/4 source plan: securities-firm research + consumer research (both Tier 2, blocked on a `[Opinion]`/`[Fact]` schema field not yet built), app-store release notes (6 apps), Phase 3 (structuring-prompt quality).
 
+## v0.12 — Tier 2 `[Fact]`/`[Opinion]` schema field (✅ done)
+
+Prep work, not a new source: makes `agent/schema.py` and the graph ready for R-F07 (every Tier 2 figure tagged `[Opinion]` vs `[Fact]`) before either of the two Tier 2 rows in `source_plan_mvp0.md` (securities-firm research §5, consumer research §6.3) gets built — so neither of those future efforts has to invent this plumbing itself. Designed via `/grill-with-docs` + `/to-spec` (`.scratch/tier2-fact-opinion-field/spec.md`); R-F04, the separate forecast-tagging rule, turned out to already be fully covered by the existing `actual_proxy_forecast`/`forecast_org` fields — nothing to do there.
+
+- [x] `agent/schema.py` — new required `MarketSignal.fact_or_opinion: Literal["fact", "opinion"]` field. No `"not_applicable"` case needed (unlike `data_basis`) since every signal is unambiguously one or the other.
+- [x] `agent/sources.py` — new optional `"tier"` key per source (`"tier_1"`/`"tier_2"`), documented in the file's own top-of-file convention note alongside `"role"`. Left unset (implicit `"tier_1"`) on all 32 existing sources, matching `"chunked"`'s own set-only-when-true convention — zero changes needed to any existing source.
+- [x] `agent/graph.py` — `AgentState` gains a `tier: Optional[str]` field, threaded the same way `chunked` already is. `_finalize_payload` (the one place both the single-piece and multi-piece structuring paths already funnel through) forces every signal's `fact_or_opinion` to `"fact"` when `tier == "tier_1"` — the same "known metadata beats the LLM's guess" principle already applied there to `source_url`. Only exactly `"tier_1"` triggers the override; `tier=None` (e.g. `agent/topics.py`'s search-based queries, which never set `tier`) and `"tier_2"` both leave the model's own output untouched. `METADATA_INSTRUCTION` gets one added line describing the field, since it's now required on every structure call regardless of tier.
+- [x] `service.py` / `tests/test_sources.py` — both now set `"tier": source.get("tier", "tier_1")` alongside the existing `"chunked"` line, keeping the FastAPI path and the direct-test-invocation seam consistent.
+- [x] `CONTEXT.md`'s Tier 1/Tier 2 entry updated — no longer says the distinction "isn't represented in `agent/schema.py`."
+- [x] New `tests/test_tier_fact_opinion.py` (5 tests, fully offline — `_finalize_payload` is pure data-shaping code, no network/LLM needed to test the override itself): tier_1 forces fact even when the model said opinion; tier_2 and unset-tier both leave the model's output untouched; the schema rejects a signal missing `fact_or_opinion` or given an invalid value.
+- [x] `tests/test_sources.py` — `fact_or_opinion` added to `REQUIRED_METADATA_FIELDS`, plus a real-pipeline assertion that every tier_1 source's signals come back `fact_or_opinion == "fact"` (not run this pass — real-LLM, see Verification below).
+- [x] **1 real bug found by `/code-review` and fixed**: `agent/store.py`'s `CSV_HEADERS`/`append_topic_csv()` — the flattened `data/signals.csv` writer — were never updated for the new field, so `fact_or_opinion` was silently dropped from the CSV (though still present in `signals.jsonl`, which serializes the whole result dict). Not caught by any test, since `tests/test_sources.py`'s new assertion only checks the in-memory graph result, never the CSV output. Fixed (new 11th metadata column, both the no-signals and per-signal row paths), with a new offline regression test (`test_signals_csv_includes_fact_or_opinion_column`) writing a synthetic result through `append_topic_csv()` and reading the CSV back.
+
+### Verification
+- [x] Import/build sanity check — all 3 graphs compile cleanly, `SOURCES` imports unchanged (32 sources), `MarketSignal` carries the new field.
+- [x] `tests/test_tier_fact_opinion.py`: 6/6 passing (fully offline, including the CSV regression test above).
+- [x] `tests/test_content_gate.py` + the pure-code subset of `tests/test_bug_fixes.py`: 14/14 passing, unaffected by this change.
+- [ ] Full LLM-inclusive `pytest tests/test_sources.py` **not** run, per the fetch-dev-no-llm-by-default direction — the override logic itself is fully covered offline; a real-LLM run across all 32 sources is deferred to whenever a full-pipeline check is actually wanted.
+
+### Further Notes
+- This unblocks, but does not build, either Tier 2 source row — whoever picks up securities-firm research or consumer research next writes that source's own prompt with fact/opinion judgment guidance on top of this baseline, not new schema plumbing.
+- Still open, unrelated to this pass: annual reports/AGM documents (Layer 3, parked mid-discovery — see `.scratch/layer3-annual-reports/spec.md`), GSO stats, app-store release notes (6 apps), Phase 3 structuring-prompt quality.
+
 ## Maintenance fixes
 
 - [x] Swapped AI model: Groq shut down `llama-3.3-70b-versatile` (and `llama-3.1-8b-instant`) on 2026-08-16. Now defaults to `openai/gpt-oss-120b` (overridable via `GROQ_MODEL`).

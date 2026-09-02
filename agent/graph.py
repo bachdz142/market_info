@@ -42,7 +42,10 @@ METADATA_INSTRUCTION = (
     "\"forecast\" for an explicit projection. "
     "forecast_org is the organization that produced the forecast — set it "
     "ONLY when actual_proxy_forecast is \"forecast\"; leave it unset "
-    "otherwise."
+    "otherwise. "
+    "fact_or_opinion is \"fact\" for a directly disclosed or reported "
+    "figure, or \"opinion\" for an analyst's forecast, interpretation, or "
+    "subjective assessment — for most sources here, this will be \"fact\"."
 )
 
 STRUCTURE_SYSTEM_PROMPT = (
@@ -72,6 +75,7 @@ class AgentState(TypedDict):
     url: Optional[str]
     pdf_texts: Optional[list]
     chunked: Optional[bool]
+    tier: Optional[str]
 
 
 
@@ -214,7 +218,7 @@ def _structure_one(query: str, label: str, text: str, system_prompt: str = STRUC
     return batch, usage
 
 
-def _finalize_payload(query: str, batch: MarketSignalBatch, url: Optional[str] = None) -> dict:
+def _finalize_payload(query: str, batch: MarketSignalBatch, url: Optional[str] = None, tier: Optional[str] = None) -> dict:
     payload = batch.model_dump()
     payload["query"] = query
     payload["generated_at"] = datetime.now(VIETNAM_TZ).isoformat()
@@ -225,12 +229,23 @@ def _finalize_payload(query: str, batch: MarketSignalBatch, url: Optional[str] =
     if url:
         for signal in payload["signals"]:
             signal["source_url"] = url
+
+    # Tier 1 (official-disclosure) sources are fact by definition — force
+    # it rather than trust the model's own guess, the same "known metadata
+    # beats the LLM's guess" principle as source_url above. tier is None
+    # for anything not routed through a SOURCES entry (e.g. topics.py's
+    # search-based queries) or explicitly "tier_2" for the one source type
+    # that genuinely needs the model's own fact/opinion judgment — only
+    # exactly "tier_1" triggers the override.
+    if tier == "tier_1":
+        for signal in payload["signals"]:
+            signal["fact_or_opinion"] = "fact"
     return payload
 
 
 def _structure_node(state: AgentState) -> dict:
     batch, usage = _structure_one(state["query"], "Search results", state["search_results"])
-    payload = _finalize_payload(state["query"], batch, state.get("url"))
+    payload = _finalize_payload(state["query"], batch, state.get("url"), state.get("tier"))
     return {"result": payload, "token_usage": usage}
 
 
@@ -257,7 +272,10 @@ def _structure_multi_node(state: AgentState) -> dict:
         # No PDFs found — fall back to structuring the list/page text alone.
         batch, usage = _structure_one(query, "Content", state["search_results"])
         _add_usage(usage)
-        return {"result": _finalize_payload(query, batch, state.get("url")), "token_usage": total_usage}
+        return {
+            "result": _finalize_payload(query, batch, state.get("url"), state.get("tier")),
+            "token_usage": total_usage,
+        }
 
     batches = []
     for i, (piece_url, text) in enumerate(documents, start=1):
@@ -307,7 +325,7 @@ def _structure_multi_node(state: AgentState) -> dict:
     # url=None here: signals already carry their own per-document URL above,
     # and _finalize_payload only overwrites source_url when a url is given.
     return {
-        "result": _finalize_payload(query, final_batch, None),
+        "result": _finalize_payload(query, final_batch, None, state.get("tier")),
         "token_usage": total_usage,
     }
 

@@ -36,6 +36,7 @@ CSV_HEADERS = [
     "data_basis",
     "actual_proxy_forecast",
     "forecast_org",
+    "fact_or_opinion",
     "query",
     "generated_at",
 ]
@@ -111,7 +112,7 @@ def append_topic_csv(triggered_at: str, run_id: str, topic_result: dict) -> None
             writer.writerow(
                 common
                 + [
-                    "", "", "", "", "", "", "", "", "", "",
+                    "", "", "", "", "", "", "", "", "", "", "",
                     (result or {}).get("query", ""),
                     (result or {}).get("generated_at", ""),
                 ]
@@ -132,6 +133,7 @@ def append_topic_csv(triggered_at: str, run_id: str, topic_result: dict) -> None
                     signal.get("data_basis", ""),
                     signal.get("actual_proxy_forecast", ""),
                     signal.get("forecast_org", "") or "",
+                    signal.get("fact_or_opinion", ""),
                     result.get("query", ""),
                     result.get("generated_at", ""),
                 ]
