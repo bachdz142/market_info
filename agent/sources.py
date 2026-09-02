@@ -798,7 +798,19 @@ SOURCES = [
         # landing on a reliable condition. Confirmed live: real, dated
         # news items (a minigame results announcement, a CSR sustainability
         # partnership, procurement notices).
+        # Fixed 2026-09-03 (user review: "you did not click inside the
+        # actual article right?"): confirmed it didn't -- only the
+        # listing's own teaser text per item was ever read. This listing's
+        # teaser is a genuine 1-2 sentence summary, not a bare title, so
+        # signals were already informative (who a partnership was with,
+        # roughly what it covered) -- just missing the real depth
+        # (attendance figures, exact terms) only in the full article. See
+        # agent/crawler.py's _fetch_mbbank_news_parts(): follows the 3
+        # most recent /chi-tiet/ article links already known to exist
+        # (the listing's own wait-condition already checks for them).
+        # multi_pdf: these are genuinely separate documents.
         "url": "https://www.mbbank.com.vn/news/tin-tuc",
+        "multi_pdf": True,
         "prompt": (
             "Extract concrete news items from the content below — product/"
             "service announcements, partnerships, campaigns, or corporate "

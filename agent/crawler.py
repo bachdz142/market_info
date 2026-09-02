@@ -917,6 +917,72 @@ async def _fetch_mbbank_news_text() -> str:
     return text
 
 
+# Fixed 2026-09-03 (user review: "you did not click inside the actual
+# article right?" — confirmed: it didn't). The listing's own teaser text
+# per item is real, not just a bare title (unlike iav_bancassurance's
+# pre-fix case) — its own WAIT_JS condition already scopes to
+# "a[href*='/chi-tiet/']", meaning the article-detail links were known to
+# exist and simply never followed. Confirmed live: an article detail page
+# fetched with no JS wait comes back as a "Nội dung này không tồn tại!"
+# (content doesn't exist) placeholder shell — these pages need their own
+# render wait, not just the listing's. A JS-predicate wait condition
+# wasn't needed here (unlike the listing) — delay_before_return_html=3.0
+# was confirmed live to reliably let the real article text (real numbers:
+# visitor counts, attendance figures) render in. .mb-news-details-content
+# scopes past the site-wide nav/footer chrome to just the article body.
+MBBANK_NEWS_ARTICLE_SELECTOR = ".mb-news-details-content"
+MBBANK_NEWS_ARTICLE_LIMIT = 3
+
+
+async def _fetch_mbbank_news_parts() -> Tuple[str, List[Tuple[str, str]]]:
+    _throttle(_domain(MBBANK_NEWS_URL))
+    async with AsyncWebCrawler() as crawler:
+        listing = await crawler.arun(
+            url=MBBANK_NEWS_URL,
+            config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS, wait_for=MBBANK_NEWS_WAIT_JS, page_timeout=30000),
+        )
+        if not listing.success:
+            raise RuntimeError(f"Failed to fetch MBBank news page: {listing.error_message}")
+
+        soup = BeautifulSoup(listing.html, "lxml")
+        list_node = soup.select_one(MBBANK_NEWS_CONTENT_SELECTOR)
+        list_text = list_node.get_text(separator="\n", strip=True) if list_node else ""
+
+        seen = set()
+        article_urls: List[str] = []
+        for a in (list_node.select("a[href*='/chi-tiet/']") if list_node else []):
+            href = a.get("href")
+            if not href:
+                continue
+            article_url = urljoin(MBBANK_NEWS_URL, href)
+            if article_url in seen:
+                continue
+            seen.add(article_url)
+            article_urls.append(article_url)
+            if len(article_urls) >= MBBANK_NEWS_ARTICLE_LIMIT:
+                break
+
+        documents: List[Tuple[str, str]] = []
+        for article_url in article_urls:
+            _throttle(_domain(article_url))
+            article = await crawler.arun(
+                url=article_url,
+                config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS, page_timeout=30000, delay_before_return_html=3.0),
+            )
+            if not article.success:
+                logger.info("Failed to fetch MBBank article %s, skipping", article_url)
+                continue
+            article_soup = BeautifulSoup(article.html, "lxml")
+            article_node = article_soup.select_one(MBBANK_NEWS_ARTICLE_SELECTOR)
+            text = article_node.get_text(separator="\n", strip=True) if article_node else ""
+            if len(text) < 50:
+                logger.info("Near-empty MBBank article %s, skipping", article_url)
+                continue
+            documents.append((article_url, text))
+
+    return list_text, documents
+
+
 # Vietstock's static CDN serves each bank's filed financial statement at a
 # direct, predictable URL — confirmed live to sit outside whatever wall
 # blocks finance.vietstock.vn's JS-rendered document table (never rendered
@@ -1013,6 +1079,8 @@ async def _crawl_parts_async(url: str) -> Tuple[str, List[Tuple[str, str]]]:
         return await _fetch_vcb_fee_parts()
     if url == IAV_BANCASSURANCE_URL:
         return await _fetch_iav_market_overview_parts()
+    if url == MBBANK_NEWS_URL:
+        return await _fetch_mbbank_news_parts()
 
     config = _resolve_site_config(url)
     html, generic_text = await _fetch_html(url, config["needs_js"], config["wait_selector"])
