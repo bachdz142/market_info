@@ -34679,3 +34679,1492 @@ Currency risk (also referred to as exchange rate risk) refers to the risk arisin
 2026-09-02 23:40:01,807 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
 2026-09-02 23:40:01,817 INFO agent.graph: Structure LLM call done in 8.53s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 4953, 'output_tokens': 865, 'total_tokens': 5818}
 2026-09-02 23:40:01,819 INFO agent.graph: Per-piece structure call 18/21 done
+2026-09-02 23:40:31,926 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+The currency position is monitored daily and the Group takes risk mitigation actions to ensure that the currency position is within the set limit.
+* * *
+The main exchange rates applied by the Group for translating monetary assets and liabilities denominated in currencies other than VND at the reporting date were as follows:
+* * *
+Exchange rate as at 30.6.2026 31.12.2025
+* * *
+USD/VND 26,293 26,244 EUR/VND 30,080 30,906 JPY/VND 162.80 168.18 AUD/VND 18,158 17,625 CAD/VND 18,519 19,235 Gold/VND (*) 14,562,500 15,325,000 ═══════ ═══════
+* * *
+(*) The gold price is quoted in mace.
+* * *
+The following table shows the Group’s assets, liabilities and equity categorised by currencies which were translated into VND at the reporting date.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 82
+* * *
+## FINANCIAL RISK MANAGEMENT (continued)
+(c) Currency risk (continued)
+* * *
+Unit: VND million
+* * *
+USD Gold EUR JPY AUD CAD Others Total As at 30 June 2026 Assets Cash on hand, gold and gemstones 1,380,064 106,131 12,377 3,962 65,496 6,975 1,090 1,576,095 Balances with the State Bank of Vietnam 526,593--- 526,593 Deposits with and loans to other credit institutions (*) 14,696,580368,820 736,897 263,719 100,396 144,218 16,310,630 Derivatives and other financial assets 2,993,445-72,632 (18,519)3,047,558 Loans to customers (*) 30,658,855--- 30,658,855 Investment securities (*) 64,346--- 64,346 Other assets (*) 322,245 8,883--331,128 ─────── ───── ───── ────── ───── ───── ───── ─────── Total assets 50,642,128 115,014 381,197 740,859 401,847 88,852 145,308 52,515,205 ─────── ───── ───── ────── ───── ───── ───── ───────
+* * *
+Liabilities Deposits and borrowings from other credit institutions 21,135,4792,121 30,897-21,168,497 Deposits from customers 25,818,520333,017 675,309 377,124 53,045 87,891 27,344,906 Funds and entrusted investments received from the Government, international and other credit institutions-9,547-9,547 Other liabilities 689,28542,437 12,017 27,468 4,150 5,762 781,119 ─────── ───── ───── ────── ───── ───── ───── ─────── Total liabilities 47,643,284377,575 727,770 404,592 57,195 93,653 49,304,069 ─────── ───── ───── ────── ───── ───── ───── ─────── FX position on-balance sheet 2,998,844 115,014 3,622 13,089 (2,745) 31,657 51,655 3,211,136 FX position off-balance sheet (1,666,863)(1,504) 99,999 6,718 (27,223) 31,618 (1,557,255) ─────── ───── ───── ────── ───── ───── ───── ─────── FX position on and off-balance sheet 1,331,981 115,014 2,118 113,088 3,973 4,434 83,273 1,653,881 ═══════ ═════ ═════ ══════ ═════ ═════ ═════ ═══════
+* * *
+(*) These items do not include allowance.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026
+* * *
+83
+* * *
+## _41 FINANCIAL RISK MANAGEMENT (continued)_
+(c) Currency risk (continued)
+* * *
+Unit: VND million
+* * *
+USD Gold EUR JPY AUD CAD Others Total As at 31 December 2025 Assets Cash on hand, gold and gemstones 1,699,843 11,203 11,872 586 55,701 9,480 1,294 1,789,979 Balances with the State Bank of Vietnam 1,692,281--- 1,692,281 Deposits with and loans to other credit institutions (*) 18,323,784364,703 841,702 175,279 45,678 119,312 19,870,458 Derivatives and other financial assets (1,851,319)-61,688 (19,235)(1,808,866) Loans to customers (*) 17,843,944--- 17,843,944 Investment securities (*) 64,226--- 64,226 Other assets (*) 292,417 9,348 2-- 301,767 ─────── ───── ───── ────── ───── ───── ───── ─────── Total assets 38,065,176 20,551 376,577 842,288 292,668 35,923 120,606 39,753,789 ─────── ───── ───── ────── ───── ───── ───── ───────
+* * *
+Liabilities Deposits and borrowings from other credit institutions 17,612,83621,803 4,776-17,639,415 Deposits from customers 19,655,573331,681 788,675 203,294 23,121 48,371 21,050,715 Funds and entrusted investments received from the Government, international and other credit institutions-10,759-10,759 Other liabilities 1,073,71821,144 21,273 86,360 7,149 12,659 1,222,303 ─────── ───── ───── ────── ───── ───── ───── ─────── Total liabilities 38,342,127374,628 825,483 289,654 30,270 61,030 39,923,192 ─────── ───── ───── ────── ───── ───── ───── ─────── FX position on-balance sheet (276,951) 20,551 1,949 16,805 3,014 5,653 59,576 (169,403) FX position off-balance sheet 1,008,363- (14,127) 529 (3,847) (4,174) 986,744 ─────── ───── ───── ────── ───── ───── ───── ─────── FX position on and off-balance sheet 731,412 20,551 1,949 2,678 3,543 1,806 55,402 817,341 ═══════ ═════ ═════ ══════ ═════ ═════ ═════ ═══════
+* * *
+(*) These items do not include allowance.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026
+* * *
+84
+* * *
+## _41 FINANCIAL RISK MANAGEMENT (continued)_
+(d) Equity price risk
+* * *
+The equity price risk is the risk of losses due to adverse changes in market price of securities or derivative securities recognised in the Group's trading book.
+* * *
+The price risk relating to held-for-trading equity securities is managed through the analysis of the market movement and investment decision is made based on the purpose of gaining profit in the short term. Investments in available-for-sale equity securities are made based on business purpose of the Group, taking into account the diversification in the investment portfolio. The Bank does not hold held-for-trading equity securities as prescribed by Law on credit institutions.
+* * *
+(e) Sensitivity analysis
+* * *
+Changes in interest rate risk, currency risk and equity price risk can result in increase/decrease of the profit which the Group has recognised.
+* * *
+The sensitivity assessment of interest rate risk, currency risk and equity price risk can be made based on changes in main risk factors such as interest rate, currency exchange rate and share prices while other factors are kept constant. The Group will analyse and present the sensitivity analysis of its market risks when it has detailed guidance from the regulators.
+* * *
+(f) Liquidity risk
+* * *
+Liquidity risk is the risk that the Group is unable to fulfill its repayment obligations when due; or the Group is able to perform its obligations upon maturity but must pay higher costs than the market’s average cost. Liquidity risk is managed centrally through a liquidity risk management framework to ensure that all payment obligations are met on time and in accordance with internal and the SBV’s regulations. The Group manages liquidity risk by implementing international standards for internal liquidity adequacy assessment process and Basel III, ensuring that the Group has a clear strategy, regulations, and systems in place to identify, measure, monitor, and control liquidity risk effectively. In addition, the Group conducts regular reviews of its liquidity risk tolerance and risk appetite. The Group’s liquidity risk management strategy is applied under both normal conditions and unfavorable movements of liquidity, including maintaining sufficient liquid assets, performing daily liquidity management, regularly assessing the ability to access funding sources to meet liquidity needs and complying with the regulations of the SBV on liquidity management. Stress testing is conducted regularly to assess the level of liquidity needed to withstand internal and external shocks. The results of stress testing are used to propose measures to mitigate risk, allocate financial resources and review the contingency plan for liquidity as well as to assess business plans that may have a negative impact on liquidity. The contingency plan for liquidity is always ensured to be effective and feasible, outlining minimum actions to be taken and allowing for flexibility in specific conditions to enable the Group to respond promptly to different scenarios. Further, the contingency plan specifies clearly the coordination in management and assignment of responsibilities in case of liquidity shortage to effectively handle and control liquidity, mitigate losses for the Group, its customers and shareholders and help the Group stabilise and recover from financial losses in stressful situations.
+2026-09-02 23:40:35,988 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:40:36,026 INFO agent.graph: Structure LLM call done in 4.1s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 3442, 'output_tokens': 344, 'total_tokens': 3786, 'output_token_details': {'reasoning': 213}}
+2026-09-02 23:40:36,052 INFO agent.graph: Per-piece structure call 19/21 done
+2026-09-02 23:41:06,121 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+The following table shows the Group’s assets and liabilities categorised by the remaining contractual maturities at the reporting date.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026
+* * *
+85
+* * *
+## _41 FINANCIAL RISK MANAGEMENT (continued)_
+(f) Liquidity risk (continued)
+* * *
+Unit: VND million Overdue Current
+* * *
+Over 3 months Up to 3 months Up to 1 month From over 1 month to 3 months From over 3 months to 12 months From over 1 year to 5 years Over 5 years Total As at 30 June 2026 Assets Cash on hand, gold and gemstones- 6,151,699-- 6,151,699 Balances with the State Bank of Vietnam- 5,827,087-- 5,827,087 Deposits with and loans to other credit institutions (*)- 94,018,038 20,459,845 8,963,394- 123,441,277 Held-for-trading securities (*)- 5,933,956-- 5,933,956 Derivatives and other financial assets- 71,864 18,479 35,149 (10,581)114,911 Loans to customers (*) 6,331,044 12,725,745 78,264,063 169,536,080 213,047,810 27,924,135 237,930,426 745,759,303 Investment securities (*)- 64,34659,049,490 84,491,309 22,683,274 166,288,419 Long-term investments (*)--- 233,739 233,739 Fixed assets--- 5,698,923 5,698,923 Investment properties--- 171,692 171,692 Other assets (*) 129,310 107 10,770,219 2,085,272 3,443,871 23,198 309,259 16,761,236 ────── ─────── ──────── ──────── ──────── ─────── ──────── ───────── Total assets 6,460,354 12,725,852 201,101,272 192,099,676 284,539,714 112,428,061 267,027,313 1,076,382,242 ────── ─────── ──────── ──────── ──────── ─────── ──────── ─────────
+* * *
+Liabilities Due to the Government and the State Bank of Vietnam- 15,928,392 5,090,484-21,018,876 Deposits and borrowings from other credit institutions- 113,550,331 24,950,265 9,859,622- 148,360,218 Deposits from customers- 232,372,781 97,735,559 242,161,287 4,333,887 88 576,603,602 Funds and entrusted investments received from the Government, international and other credit institutions-1,166 3,635 8,877 868 14,546 Valuable papers issued- 449,907 6,029,729 153,460,252 39,073,105199,012,993 Other liabilities- 13,408,470 2,232,685 5,175,264 2,703,90323,520,322 ────── ─────── ──────── ──────── ──────── ─────── ──────── ──────── Total liabilities- 375,709,881 136,039,888 410,660,060 46,119,772 956 968,530,557 ────── ─────── ──────── ──────── ──────── ─────── ──────── ──────── Net liquidity gap 6,460,354 12,725,852 (174,608,609) 56,059,788 (126,120,346) 66,308,289 267,026,357 107,851,685 ══════ ═══════ ════════ ════════ ════════ ═══════ ════════ ════════
+* * *
+(*) These items do not include the allowance.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026
+* * *
+86
+* * *
+## _41 FINANCIAL RISK MANAGEMENT (continued)_
+(f) Liquidity risk (continued)
+* * *
+Unit: VND million Overdue Current
+* * *
+Over 3 months Up to 3 months Up to 1 month From over 1 month to 3 months From over 3 months to 12 months From over 1 year to 5 years Over 5 years Total As at 31 December 2025 Assets Cash on hand, gold and gemstones- 8,624,548-- 8,624,548 Balances with the State Bank of Vietnam- 16,574,958-- 16,574,958 Deposits with and loans to other credit institutions (*)- 121,832,168 21,507,334 6,651,179- 149,990,681 Held-for-trading securities (*)- 6,708,358-- 6,708,358 Derivatives and other financial assets- 144,944 49,989 132,590 (3,225)324,298 Loans to customers (*) 5,826,283 3,081,858 66,272,413 175,953,628 203,355,496 27,113,691 205,173,983 686,777,352 Investment securities (*)- 64,226 20,100,254 29,655,156 68,248,197 26,107,533 144,175,366 Long-term investments (*)--- 233,739 233,739 Fixed assets--- 5,438,550 5,438,550 Investment properties--- 149,673 149,673 Other assets (*) 183,870 118 9,162,334 3,012,324 2,613,323 22,34514,994,314 ────── ────── ──────── ──────── ──────── ─────── ──────── ───────── Total assets 6,010,153 3,081,976 229,383,949 220,623,529 242,407,744 95,381,008 237,103,478 1,033,991,837 ────── ────── ──────── ──────── ──────── ─────── ──────── ─────────
+* * *
+Liabilities Due to the Government and the State Bank of Vietnam- 15,325,841 17,650,298-32,976,139 Deposits and borrowings from other credit institutions- 116,791,706 26,501,688 11,706,145- 154,999,539 Deposits from customers- 298,452,107 111,910,820 170,829,960 3,985,529 1,759 585,180,175 Funds and entrusted investments received from the Government, international and other credit institutions-1,661 5,499 10,126 1,793 19,079 Valuable papers issued- 400,000 18,900,000 66,349,577 47,644,845133,294,422 Other liabilities- 17,527,212 3,037,909 4,230,460 65,47324,861,054 ────── ────── ──────── ──────── ──────── ─────── ──────── ──────── Total liabilities- 448,496,866 178,002,376 253,121,641 51,705,973 3,552 931,330,408 ────── ────── ──────── ──────── ──────── ─────── ──────── ──────── Net liquidity gap 6,010,153 3,081,976 (219,112,917) 42,621,153 (10,713,897) 43,675,035 237,099,926 102,661,429 ══════ ══════ ════════ ════════ ════════ ═══════ ════════ ════════ (*) These items do not include the allowance.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026
+* * *
+87
+* * *
+## _41 FINANCIAL RISK MANAGEMENT (continued)_
+(g) Fair value of financial assets and financial liabilities
+* * *
+Circular No. 210/2009/TT-BTC dated 6 November 2009 issued by the Ministry of Finance requires the Group to disclose the measurement method and related information about fair value of financial assets and financial liabilities for the purpose of comparing book values and fair values of these financial instruments.
+* * *
+The Group has not determined fair values of these financial instruments for disclosure in these consolidated interim financial statements because there is currently no guidance on determination of fair value using valuation techniques under Vietnamese Accounting Standards, the Vietnamese Accounting System and the relevant statutory requirements on preparation and presentation of interim financial statements applicable to credit institutions. The fair values of these financial instruments may differ from their carrying amounts.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026
+* * *
+88
+* * *
+## _42 SEGMENT REPORTING_
+### Business segments
+The six-month period ended 30 June 2026
+* * *
+Banking Securities trading Asset management Finance leasing Fund management Elimination Total VND million VND million VND million VND million VND million VND million VND million
+* * *
+Income 1. Interest income 35,846,447 1,383,095 16,626 134,497 18,037 (98,202) 37,300,500 External interest income 35,786,535 1,370,288134,476 9,20137,300,500 Internal interest income 59,912 12,807 16,626 21 8,836 (98,202) 2. Fee and commission income 2,399,401 205,318 116,7943,918 (658) 2,724,773 3. Other income 1,478,767 410,158 6,093 2,092 (22,287) (94,021) 1,780,802
+* * *
+Expenses 1. Interest expenses (21,695,755) (854,508) (11,519) (63,295)98,430 (22,526,647) External interest expenses (21,657,465) (854,508)(14,902)228 (22,526,647) Internal interest expenses (38,290)(11,519) (48,393)98,202 2. Depreciation and amortisation expenses (204,362) (12,347) (44) (278) (7)(217,038) 3. Other operating expenses (6,059,058) (394,482) (78,949) (22,860) (10,801) (15,005) (6,581,155) ─────── ────── ────── ───── ──── ───── ─────── Operating profit before allowance expenses for credit losses 11,765,440 737,234 49,001 50,156 (11,140) (109,456) 12,481,235 Allowance expenses for credit losses (1,729,209)- (8,212)(8,775) (1,746,196) ─────── ────── ────── ───── ───── ────── ─────── Profit before tax 10,036,231 737,234 49,001 41,944 (11,140) (118,231) 10,735,039 ═══════ ══════ ══════ ═════ ═════ ══════ ═══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026
+* * *
+89
+* * *
+## _42 SEGMENT REPORTING (continued)_
+### Business segments (continued)
+The six-month period ended 30 June 2025
+* * *
+Banking Securities trading Asset management Finance leasing Fund management Elimination Total VND million VND million VND million VND million VND million VND million VND million
+* * *
+Income 1. Interest income 26,745,222 845,838 3,030 104,026 4,828 (76,943) 27,626,001 External interest income 26,719,299 798,585104,006 4,11127,626,001 Internal interest income 25,923 47,253 3,030 20 717 (76,943) 2. Fee and commission income 2,276,881 174,364 42,7372,528 (72) 2,496,438 3. Other income 2,732,874 176,430 251,589 1,952 1,494 (4,151) 3,160,188
+* * *
+Expenses 1. Interest expenses (14,233,264) (390,983)(36,212)77,171 (14,583,288) External interest expenses (14,182,244) (390,983)(10,289)228 (14,583,288) Internal interest expenses (51,020)- (25,923)76,943 2. Depreciation and amortisation expenses (196,014) (14,141)(277) (8)(210,440) 3. Other operating expenses (6,163,114) (348,543) (179,576) (18,367) (4,402) 4,223 (6,709,779) ─────── ────── ────── ───── ──── ───── ─────── Operating profit before allowance expenses for credit losses 11,162,585 442,965 117,780 51,122 4,440 228 11,779,120 Allowance expenses for credit losses (1,053,565)- (35,602)- (1,089,167) ─────── ────── ────── ───── ──── ───── ─────── Profit before tax 10,109,020 442,965 117,780 15,520 4,440 228 10,689,953 ═══════ ══════ ══════ ═════ ════ ═════ ═══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026
+* * *
+90
+* * *
+## _42 SEGMENT REPORTING (continued)_
+### Business segments (continued)
+Banking
+* * *
+Securities trading Asset management Finance leasing Fund management Elimination Total As at 30 June 2026 VND million VND million VND million VND million VND million VND million VND million
+* * *
+Assets 1. Cash on hand, gold and gemstones 6,151,699--6,151,699 2. Fixed assets 5,593,615 101,8163,465 275,698,923 3. Other assets 1,029,920,941 38,895,065 2,652,962 3,149,670 1,069,331 (19,693,516) 1,055,994,453 ───────── ─────── ────── ─────── ────── ──────── ───────── 1,041,666,255 38,996,881 2,652,962 3,153,135 1,069,358 (19,693,516) 1,067,845,075 ═════════ ═══════ ══════ ═══════ ══════ ════════ ═════════
+* * *
+Liabilities 1. External liabilities 937,875,529 24,297,611 18,458 2,371,887 965 (4,631,775) 959,932,675 2. Internal liabilities 830,430 24,540 9,307 4,550 2,141870,968 3. Other liabilities 7,726,85361-7,726,914 ──────── ─────── ────── ─────── ────── ──────── ──────── 946,432,812 24,322,151 27,826 2,376,437 3,106 (4,631,775) 968,530,557 ════════ ═══════ ══════ ═══════ ══════ ════════ ════════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026
+* * *
+91
+* * *
+## _42 SEGMENT REPORTING (continued)_
+### Business segments (continued)
+Banking
+* * *
+Securities trading Asset management Finance leasing Fund management Elimination Total As at 31 December 2025 VND million VND million VND million VND million VND million VND million VND million
+* * *
+Assets 1. Cash on hand, gold and gemstones 8,624,548--8,624,548 2. Fixed assets 5,352,506 82,3613,649 345,438,550 3. Other assets 986,472,756 38,277,684 2,041,557 2,707,991 1,082,262 (18,795,221) 1,011,787,029 ───────── ─────── ────── ─────── ────── ──────── ───────── 1,000,449,810 38,360,045 2,041,557 2,711,640 1,082,296 (18,795,221) 1,025,850,127 ═════════ ═══════ ══════ ═══════ ══════ ════════ ═════════
+* * *
+Liabilities 1. External liabilities 900,528,246 24,274,415 1,335,686 1,965,608 2,429 (5,743,506) 922,362,878 2. Internal liabilities 889,692 34,624 11,262 3,150 2,475941,203 3.
+2026-09-02 23:41:12,438 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:41:12,594 INFO agent.graph: Structure LLM call done in 6.47s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 5458, 'output_tokens': 1980, 'total_tokens': 7438, 'output_token_details': {'reasoning': 1141}}
+2026-09-02 23:41:12,630 INFO agent.graph: Per-piece structure call 20/21 done
+2026-09-02 23:41:43,043 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+Other liabilities 8,026,26562-8,026,327 ──────── ─────── ────── ────── ───── ─────── ──────── 909,444,203 24,309,039 1,347,010 1,968,758 4,904 (5,743,506) 931,330,408 ════════ ═══════ ══════ ══════ ═════ ═══════ ════════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026
+* * *
+92
+* * *
+## _42 SEGMENT REPORTING (continued)_
+### Geographical segments
+The Northern
+* * *
+region The Central region The Southern region Elimination Total VND million VND million VND million VND million VND million
+* * *
+As at 30 June 2026 Assets 157,889,210 99,365,521 1,067,810,761 (257,220,417) 1,067,845,075 Liabilities 156,372,796 98,654,115 955,662,322 (242,158,676) 968,530,557
+* * *
+The six-month period ended 30 June 2026 Profit before tax 1,518,608 713,624 8,621,038 (118,231) 10,735,039 ════════ ═══════ ═════════ ════════ ═════════
+* * *
+The Northern region The Central region The Southern region Elimination Total VND million VND million VND million VND million VND million
+* * *
+As at 31 December 2025 Assets 140,219,594 90,839,097 1,003,485,154 (208,693,718) 1,025,850,127 Liabilities 137,095,693 89,410,455 900,466,263 (195,642,003) 931,330,408
+* * *
+The six-month period ended 30 June 2025 Profit before tax 1,462,633 698,049 8,529,043 228 10,689,953 ════════ ═══════ ════════ ════════ ═════════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026
+* * *
+93
+* * *
+## _43 SEASONAL OR CYCLICAL FACTORS_
+The Group’s consolidated interim financial statements are not affected by seasonal or cyclical
+* * *
+factors except for the following items:
+* * *
+(a) Foreign exchange differences
+* * *
+As described in Notes 3(b), 3(l) and 3(n), unrealised foreign exchange differences are recognised in the foreign exchange revaluation reserve on the consolidated statement of financial position at each month-end and are transferred to the consolidated statement of profit or loss at the year-end.
+* * *
+(b) Statutory reserves
+* * *
+The Group is required to make appropriation to reserve to supplement charter capital and financial reserve annually. The Group only makes appropriation to the statutory reserves at the year-end.
+* * *
+────────────── Luong Thi Thanh Van Preparer ──────────── Duong Thi Nguyet Chief Accountant ─────────── Tu Tien Phat General Director
+* * *
+## _12 August 2026_
+2026-09-02 23:41:44,724 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:41:44,736 INFO agent.graph: Structure LLM call done in 1.91s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 1844, 'output_tokens': 253, 'total_tokens': 2097, 'output_token_details': {'reasoning': 122}}
+2026-09-02 23:41:44,747 INFO agent.graph: Per-piece structure call 21/21 done
+2026-09-02 23:41:45,018 INFO service: [1/39] acb_financial_statements done in 730.16s (gate_passed=True, error=None)
+2026-09-02 23:42:15,234 INFO agent.gate: Gate passed: Extract concrete household income/expenditure (VHLSS) or labor/employment figure
+2026-09-02 23:42:17,247 INFO agent.graph: Crawl done in 2.01s for url: https://www.nso.gov.vn/en/data-and-statistics/
+2026-09-02 23:42:17,257 INFO agent.graph: Raw content fed to LLM for query: Extract concrete household income/expenditure (VHLSS) or labor/employment figure
+Exports and imports value by months of 2026
+Include Exports and imports value by months of 2026
+Date of issue: 14/08/2026
+Reference period: 7/2026
+Infographic social-economic performance in July of 2026
+As of July 20, 2026, the whole country has planted 1,862.8 thousand hectares of summer-autumn rice, down 24.0 thousand hectares compared to the same period last year, including: Northern provinces planted 166.9 thousand hectares, down 5.5 thousand hectares; southern provinces planted 1,695.9 thousand hectares, down 18.5 thousand hectares.
+Date of issue: 03/08/2026
+Reference period: 7/2026
+Next release: 20260903
+Index of industrial production in July of 2026
+Industrial production in July kept a positive growth momentum, driven by the activation of new production capacities and the expansion of business operations. The industrial production index for the whole industry in the month is estimated to have risen 1.2% compared to the previous month and 14.5% year-on-year.
+Date of issue: 03/08/2026
+Reference period: 7/2026
+Next release: 20260903
+Consumer Price Index, Gold Price Index and US Dollar Price Index in July and the first seven months of 2026
+The Consumer Price Index (CPI) decreased by 0.12% in July 2026 compared to the previous month, mainly due to lower gasoline and oil prices following the decline in global fuel prices, as well as lower food prices resulting from abundant supply. Compared to December 2025, the CPI increased by 3.08%, and it rose by 4.45% compared to the same period last year.
+Date of issue: 03/08/2026
+Reference period: 7/2026
+Report socio-economic performance in July and 7 months of 2026
+Agricultural, forestry, and fishery production in July maintained stable growth. Agricultural production focused on cultivating and tending of rice and other winter and summer-autumn crops.
+Date of issue: 03/08/2026
+Reference period: 7/2026
+Next release: 20260903
+1
+2
+3
+…
+236
+»
+2026-09-02 23:42:19,808 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:42:19,819 INFO agent.graph: Structure LLM call done in 2.56s for query: Extract concrete household income/expenditure (VHLSS) or labor/employment figure | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 1571, 'output_tokens': 320, 'total_tokens': 1891, 'input_token_details': {'cache_read': 768}, 'output_token_details': {'reasoning': 123}}
+2026-09-02 23:42:19,827 INFO service: [2/39] nso_data_and_statistics_official done in 4.72s (gate_passed=True, error=None)
+2026-09-02 23:42:49,918 INFO agent.gate: Gate passed: This is NSO's (Vietnam National Statistics Office) 'Key indicators on national a
+2026-09-02 23:43:00,366 INFO agent.graph: Crawl done in 10.44s for url: https://pxweb.nso.gov.vn/pxweb/en/National%20Accounts%20and%20State%20budget/National%20Accounts%20and%20State%20budget/E03.01.px/
+2026-09-02 23:43:00,402 INFO agent.graph: Raw content fed to LLM for query: This is NSO's (Vietnam National Statistics Office) 'Key indicators on national a
+Edit and Calculate
+Pivot manual
+Pivot clockwise
+Pivot counterclockwise
+Change value order
+Change decimals
+Delete value
+Delete variable
+Change texts
+Change text/code presentation
+Per cent
+Sum variable values
+Subtract variable values
+Divide variable values
+Multiply variable values
+Save table as
+PC-Axis file
+Comma delimited with heading
+Semicolon delimited without heading
+Html file (htm)
+Relational file (scb)
+Excel (xlsx)
+Excel (xlsx) with code and text column
+JSON-stat file (json)
+Table - Layout 1
+Table - Layout 2
+Table - Sorted
+Chart - Bar
+Chart - Bar stacked
+Chart - Bar stacked 100%
+Chart - Horizontal bar
+Chart - Horizontal bar stacked
+Chart - Horizontal bar stacked 100%
+Chart - Line
+Chart - Bar and line
+Chart - Area
+Chart - Area stacked
+Chart - Area stacked 100%
+Chart - Point
+Chart - Radar
+Footnotes
+Information
+Table settings Save your retrieval
+Key indicators on national accounts by Items and Year
+ 	2022	2023	Prel. 2024
+Gross domestic product at current prices (Bill. Dongs)	9,621,371.8	10,319,058.9	11,510,328.9
+Per capita gross domestic product at current prices in Vietnam currency (Mill. Dongs)	96.7	102.9	113.6
+Per capita gross domestic product at current prices in foreign currency (at average exchange rate) (USD)	4,155.2	4,322.8	4,700.0
+Gross capital formation at current prices (Bill. dongs)	3,111,599.7	3,267,875.6	3,520,402.6
+Final consumption at current prices (Bill. dongs)	6,109,397.2	6,483,293.5	7,182,395.7
+Export of goods and services at current prices (Bill. Dongs)	8,988,298.0	8,950,407.4	10,427,922.9
+Import of goods and services at current prices (Bill. Dongs)	8,633,592.7	8,075,584.2	9,626,108.7
+Gross national income at current prices- Bill. dongs	9,162,156.3	9,784,497.0	11,131,019.9
+Gross domestic product at constant 2010 prices (Bill. Dongs)	5,571,869.2	5,849,273.7	6,261,036.3
+Growth rate of GDP at constant 2010 prices (Previous year = 100) (%)	8.5	5.0	7.0
+Gross capital formation as percent of GDP (At current prices) (%)	32.3	31.7	30.6
+Gross fixed capital as percent of GDP (At current prices) (%)	30.6	30.1	29.0
+Final consumption as percent of GDP (At current prices) (%)	63.5	62.8	62.4
+Export of goods and services as percent of GDP (At current prices) (%)	93.4	86.7	90.6
+Import of goods and services as percent of GDP (At current prices) (%)	89.7	78.3	83.6
+Gross national income as percent of GDP (At current prices) (%)	95.2	94.8	96.7
+
+
+
+Information
+Official statistics
+No
+Unit
+Latest update
+1/14/2026
+Creation date
+1/14/2026
+Copyright
+No
+Matrix
+E03.01
+2026-09-02 23:43:08,215 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-09-02 23:43:08,769 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-02 23:43:09,445 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-02 23:43:35,908 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:43:36,162 INFO agent.graph: Structure LLM call done in 35.76s for query: This is NSO's (Vietnam National Statistics Office) 'Key indicators on national a | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 2245, 'output_tokens': 5814, 'total_tokens': 8059}
+2026-09-02 23:43:36,190 INFO service: [3/39] nso_gdp_key_indicators done in 46.33s (gate_passed=True, error=None)
+2026-09-02 23:44:06,274 INFO agent.gate: Gate passed: This is NSO's (Vietnam National Statistics Office) 'Monthly average income per c
+2026-09-02 23:44:13,107 INFO agent.graph: Crawl done in 6.79s for url: https://pxweb.nso.gov.vn/pxweb/en/Health%2C%20Culture%2C%20Sport%20and%20Living%20standard/Health%2C%20Culture%2C%20Sport%20and%20Living%20standard/E14.26.px/
+2026-09-02 23:44:13,110 INFO agent.graph: Raw content fed to LLM for query: This is NSO's (Vietnam National Statistics Office) 'Monthly average income per c
+Edit and Calculate
+Pivot manual
+Pivot clockwise
+Pivot counterclockwise
+Change value order
+Change decimals
+Delete value
+Delete variable
+Change texts
+Change text/code presentation
+Per cent
+Sum variable values
+Subtract variable values
+Divide variable values
+Multiply variable values
+Save table as
+PC-Axis file
+Comma delimited with heading
+Semicolon delimited without heading
+Html file (htm)
+Relational file (scb)
+Excel (xlsx)
+Excel (xlsx) with code and text column
+JSON-stat file (json)
+Table - Layout 1
+Table - Layout 2
+Table - Sorted
+Chart - Bar
+Chart - Bar stacked
+Chart - Bar stacked 100%
+Chart - Horizontal bar
+Chart - Horizontal bar stacked
+Chart - Horizontal bar stacked 100%
+Chart - Line
+Chart - Bar and line
+Chart - Area
+Chart - Area stacked
+Chart - Area stacked 100%
+Chart - Point
+Chart - Radar
+Footnotes
+Information
+Table settings Save your retrieval
+Monthly average income per capita at current prices by residence and by region by Residence and region and Year
+ 	2022	2023	Prel. 2024
+WHOLE COUNTRY	4,672.54	4,961.81	5,414.98
+Urban	5,944.72	6,258.20	6,889.53
+Rural	3,863.64	4,169.66	4,504.50
+Red River Delta	5,586.47	5,980.63	6,558.14
+Northern midlands and mountain areas	3,169.74	3,438.05	3,759.18
+North Central area and Central coastal area	3,966.68	4,274.91	4,648.49
+Central Highlands	3,281.79	3,548.19	3,882.34
+South East	6,334.09	6,514.15	7,074.54
+Mekong River Delta	4,076.64	4,370.97	4,753.17
+
+
+
+Information
+Official statistics
+No
+Unit
+Thous. dongs
+Copyright
+No
+Matrix
+E14.26
+2026-09-02 23:44:20,613 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-09-02 23:44:20,634 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-02 23:44:21,117 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-02 23:44:35,219 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:44:35,242 INFO agent.graph: Structure LLM call done in 22.13s for query: This is NSO's (Vietnam National Statistics Office) 'Monthly average income per c | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 1847, 'output_tokens': 3122, 'total_tokens': 4969}
+2026-09-02 23:44:35,252 INFO service: [4/39] nso_vhlss_income done in 29.02s (gate_passed=True, error=None)
+2026-09-02 23:45:05,333 INFO agent.gate: Gate passed: This is NSO's (Vietnam National Statistics Office) 'Monthly average expenditure 
+2026-09-02 23:45:15,051 INFO agent.graph: Crawl done in 9.36s for url: https://pxweb.nso.gov.vn/pxweb/en/Health%2C%20Culture%2C%20Sport%20and%20Living%20standard/Health%2C%20Culture%2C%20Sport%20and%20Living%20standard/E14.40.px/
+2026-09-02 23:45:15,075 INFO agent.graph: Raw content fed to LLM for query: This is NSO's (Vietnam National Statistics Office) 'Monthly average expenditure 
+Edit and Calculate
+Pivot manual
+Pivot clockwise
+Pivot counterclockwise
+Change value order
+Change decimals
+Delete value
+Delete variable
+Change texts
+Change text/code presentation
+Per cent
+Sum variable values
+Subtract variable values
+Divide variable values
+Multiply variable values
+Save table as
+PC-Axis file
+Comma delimited with heading
+Semicolon delimited without heading
+Html file (htm)
+Relational file (scb)
+Excel (xlsx)
+Excel (xlsx) with code and text column
+JSON-stat file (json)
+Table - Layout 1
+Table - Layout 2
+Table - Sorted
+Chart - Bar
+Chart - Bar stacked
+Chart - Bar stacked 100%
+Chart - Horizontal bar
+Chart - Horizontal bar stacked
+Chart - Horizontal bar stacked 100%
+Chart - Line
+Chart - Bar and line
+Chart - Area
+Chart - Area stacked
+Chart - Area stacked 100%
+Chart - Point
+Chart - Radar
+Footnotes
+Information
+Table settings Save your retrieval
+Monthly average expenditure per capita at current prices by residence and by region by Residence and region and Year
+ 	2020	2022	2024
+WHOLE COUNTRY	2,892	2,795	2,977
+Urban	3,776	3,264	3,768
+Rural	2,386	2,496	2,488
+Red River Delta	3,296	3,394	3,451
+Northern midlands and mountain areas	2,107	1,970	2,338
+North Central area and Central coastal area	2,565	2,547	2,715
+Central Highlands	2,167	2,209	2,274
+South East	3,930	3,580	3,675
+Mekong River Delta	2,494	2,258	2,611
+
+
+
+Information
+Official statistics
+No
+Unit
+Thous. dongs
+Latest update
+8/2/2025
+Creation date
+8/2/2025
+Copyright
+No
+Matrix
+E14.40
+2026-09-02 23:45:29,477 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-09-02 23:45:29,546 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-02 23:45:30,014 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-02 23:45:44,431 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:45:44,495 INFO agent.graph: Structure LLM call done in 29.42s for query: This is NSO's (Vietnam National Statistics Office) 'Monthly average expenditure  | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 1767, 'output_tokens': 3191, 'total_tokens': 4958}
+2026-09-02 23:45:44,527 INFO service: [5/39] nso_vhlss_expenditure done in 39.24s (gate_passed=True, error=None)
+2026-09-02 23:46:15,217 INFO agent.gate: Gate passed: Extract concrete government decrees, resolutions, and official documents from th
+2026-09-02 23:46:17,755 INFO agent.graph: Crawl done in 2.52s for url: https://vanban.chinhphu.vn
+2026-09-02 23:46:17,773 INFO agent.graph: Raw content fed to LLM for query: Extract concrete government decrees, resolutions, and official documents from th
+TẤT CẢ VĂN BẢN
+Số ký hiệu / Ngày ban hành / Trích yếu
+Số ký hiệu
+Ngày ban hành
+Trích yếu
+8871/VPCP-CN
+28/08/2026
+28/08/2026
+V/v triển khai ý kiến chỉ đạo của đồng chí Tổng Bí thư, Chủ tịch nước đối với tình hình triển khai Dự án Cảng hàng không quốc tế Long Thành
+28/08/2026
+Tài liệu đính kèm
+257/NQ-CP
+28/08/2026
+28/08/2026
+Phiên họp chuyên đề về xây dựng pháp luật tháng 8 năm 2026 (Phiên thứ 2)
+28/08/2026
+Tài liệu đính kèm
+06/2026/VBHN-TT-BTP
+28/08/2026
+28/08/2026
+Hướng dẫn về Hội đồng quản lý và tiêu chuẩn, điều kiện bổ nhiệm, miễn nhiệm thành viên Hội đồng quản lý trong đơn vị sự nghiệp công lập thuộc ngành Tư pháp
+28/08/2026
+Tài liệu đính kèm
+05/2026/VBHN-TT-BTP
+28/08/2026
+28/08/2026
+Quy định tiêu chí phân loại, điều kiện thành lập, sáp nhập, hợp nhất, giải thể đơn vị sự nghiệp công lập thuộc ngành, lĩnh vực tư pháp
+28/08/2026
+Tài liệu đính kèm
+04/2026/VBHN-TT-BTP
+28/08/2026
+28/08/2026
+Hướng dẫn chức năng, nhiệm vụ, quyền hạn của Sở Tư pháp thuộc Ủy ban nhân dân tỉnh, thành phố trực thuộc Trung ương và chức năng, nhiệm vụ, quyền hạn của Văn phòng Hội đồng nhân dân và Ủy ban nhân dân thuộc Ủy ban nhân dân xã, phường, đặc khu trong lĩnh vực tư pháp
+28/08/2026
+Tài liệu đính kèm
+1669/QĐ-TTg
+27/08/2026
+27/08/2026
+Phê chuẩn kết quả bầu chức vụ Phó Chủ tịch Ủy ban nhân dân tỉnh Quảng Ninh nhiệm kỳ 2026- 2031
+27/08/2026
+Tài liệu đính kèm
+1668/QĐ-TTg
+27/08/2026
+27/08/2026
+Phê chuẩn kết quả miễn nhiệm chức vụ Phó Chủ tịch Ủy ban nhân dân tỉnh Quảng Ninh nhiệm kỳ 2026 -2031
+27/08/2026
+Tài liệu đính kèm
+255/NQ-CP
+27/08/2026
+27/08/2026
+Về việc xây dựng công trình cấp bách đối với Dự án kéo dài tuyến Metro Bến Thành - Suối Tiên đến Trung tâm hành chính thành phố Đồng Nai và Cảng hàng không quốc tế Long Thành
+27/08/2026
+Tài liệu đính kèm
+80/2026/VBHN-TT-BNNMT
+27/08/2026
+27/08/2026
+Quy định ghi, nộp báo cáo, nhật ký khai thác thủy sản; kiểm tra tàu cá và giám sát sản lượng thủy sản tại cảng cá; danh sách tàu cá khai thác thủy sản bất hợp pháp; xác nhận nguyên liệu, chứng nhận nguồn gốc thủy sản khai thác
+27/08/2026
+Tài liệu đính kèm
+79/2026/VBHN-TT-BNNMT
+27/08/2026
+27/08/2026
+Hướng dẫn về bảo vệ và phát triển nguồn lợi thủy sản
+27/08/2026
+Tài liệu đính kèm
+78/2026/VBHN-TT-BNNMT
+27/08/2026
+27/08/2026
+Quy định chứng nhận thuỷ sản, sản phẩm thủy sản xuất khẩu vào thị trường Hoa Kỳ
+27/08/2026
+Tài liệu đính kèm
+66/2026/VBHN-TT-BXD
+27/08/2026
+27/08/2026
+Quy định trình tự, thủ tục cấp mới, cấp lại, tạm đình chỉ hoạt động, thu hồi giấy chứng nhận đủ điều kiện hoạt động kiểm định xe cơ giới của cơ sở đăng kiểm xe cơ giới, cơ sở kiểm định khí thải xe mô tô, xe gắn máy
+27/08/2026
+Tài liệu đính kèm
+65/2026/VBHN-NĐ-BXD
+27/08/2026
+27/08/2026
+Quy định chi tiết, hướng dẫn thi hành một số điều của Luật Đường bộ và Điều 77 Luật Trật tự, an toàn giao thông đường bộ
+27/08/2026
+Tài liệu đính kèm
+44/2026/TT-BCT
+27/08/2026
+27/08/2026
+Ban hành các Sửa đổi Quy chuẩn kỹ thuật quốc gia về an toàn trong lĩnh vực khai thác khoáng sản và thiết bị điện phòng nổ sử dụng trong mỏ hầm lò
+27/08/2026
+Tài liệu đính kèm
+44/2026/TT-NHNN
+27/08/2026
+27/08/2026
+Sửa đổi, bổ sung một số điều của Thông tư 40/2025/TT-NHNN hướng dẫn về quản lý ngoại hối đối với đầu tư ra nước ngoài trong hoạt động dầu khí
+27/08/2026
+Tài liệu đính kèm
+43/2026/TT-NHNN
+27/08/2026
+27/08/2026
+Hướng dẫn hoạt động thanh toán và chuyển tiền liên quan đến kinh doanh chuyển khẩu hàng hóa
+27/08/2026
+Tài liệu đính kèm
+27/2026/VBHN-NĐ-BTC
+27/08/2026
+27/08/2026
+Quy định xử phạt vi phạm hành chính về thuế, hóa đơn
+27/08/2026
+Tài liệu đính kèm
+15/2026/VBHN-QĐ-BKHCN
+27/08/2026
+27/08/2026
+Quy định hồ sơ, trình tự, thủ tục xác định dự án đầu tư sử dụng công nghệ lạc hậu, tiềm ẩn nguy cơ gây ô nhiễm môi trường, thâm dụng tài nguyên
+27/08/2026
+Tài liệu đính kèm
+14/2026/VBHN-QĐ-BKHCN
+27/08/2026
+27/08/2026
+Quy định việc nhập khẩu máy móc, thiết bị, dây chuyền công nghệ đã qua sử dụng
+27/08/2026
+Tài liệu đính kèm
+13/2026/VBHN-QĐ-BKHCN
+27/08/2026
+27/08/2026
+Về cấp giấy chứng nhận chuyển giao công nghệ khuyến khích chuyển giao
+27/08/2026
+Tài liệu đính kèm
+12/2026/VBHN-QĐ-BKHCN
+27/08/2026
+27/08/2026
+Quy định trình tự, thủ tục xác nhận hàng hóa sử dụng trực tiếp cho phát triển hoạt động ươm tạo công nghệ, ươm tạo doanh nghiệp 
+khoa học và công nghệ, đổi mới công nghệ; phương tiện vận tải chuyên dùng trong dây chuyền công nghệ sử dụng trực tiếp cho hoạt động sản xuất của dự án đầu tư
+27/08/2026
+Tài liệu đính kèm
+01/2026/VBHN-QĐCT-UBND
+27/08/2026
+27/08/2026
+Phân cấp cho Sở Nông nghiệp và Môi trường tổ chức, thực hiện một số nhiệm vụ trong lĩnh vực trồng trọt và bảo vệ thực vật thuộc thẩm quyền của Chủ tịch Ủy ban nhân dân thành phố trên địa bàn thành phố Hải Phòng
+27/08/2026
+Tài liệu đính kèm
+8800/VPCP-PL
+26/08/2026
+26/08/2026
+V/v khẩn trương ban hành các văn bản quy định chi tiết luật, nghị quyết được Quốc hội khóa XVI thông qua tại Kỳ họp không thường lệ lần thứ nhất
+26/08/2026
+Tài liệu đính kèm
+1663/QĐ-TTg
+26/08/2026
+26/08/2026
+Phê chuẩn kết quả miễn nhiệm chức vụ Phó Chủ tịch Ủy ban nhân dân thành phố Đà Nẵng nhiệm kỳ 2026 - 2031
+26/08/2026
+Tài liệu đính kèm
+1659/QĐ-TTg
+26/08/2026
+26/08/2026
+Về việc kiện toàn Ban Chỉ đạo quốc gia về ODA và vốn vay ưu đãi
+26/08/2026
+Tài liệu đính kèm
+1658/QĐ-TTg
+26/08/2026
+26/08/2026
+Về việc giải thể Hội đồng Quốc gia về Khoa học, Công nghệ và Đổi mới sáng tạo
+26/08/2026
+Tài liệu đính kèm
+338/2026/NĐ-CP
+26/08/2026
+26/08/2026
+Sửa đổi, bổ sung một số điều của 03 Nghị định của Chính phủ về chế độ trợ cấp một lần khi thôi phục vụ trong Quân đội đối với sĩ quan, quân nhân chuyên nghiệp, công nhân và viên chức quốc phòng
+26/08/2026
+Tài liệu đính kèm
+337/2026/NĐ-CP
+26/08/2026
+26/08/2026
+Quy định chi tiết một số điều và biện pháp thi hành Luật Tiếp cận thông tin
+26/08/2026
+Tài liệu đính kèm
+254/NQ-CP
+26/08/2026
+26/08/2026
+Về việc bổ sung dự án Luật Thực hiện dân chủ ở cơ sở (sửa đổi) vào Chương trình lập pháp năm 2026 của Quốc hội
+26/08/2026
+Tài liệu đính kèm
+42/2026/TT-NHNN
+26/08/2026
+26/08/2026
+Sửa đổi, bổ sung một số điều của Thông tư số 03/2020/TT-NHNN quy định về tiêu huỷ tiền của Ngân hàng Nhà nước Việt Nam
+26/08/2026
+Tài liệu đính kèm
+13/2026/TTLT-VKSNDTC-TANDTC-BCA-BQP-BTP
+26/08/2026
+26/08/2026
+Quy định phối hợp giữa các cơ quan thực hiện thống kê giám định tư pháp trong tố tụng hình sự
+26/08/2026
+Tài liệu đính kèm
+Tài liệu đính kèm
+77/2026/VBHN-NĐ-BNNMT
+25/08/2026
+25/08/2026
+Về hoạt động viễn thám
+25/08/2026
+Tài liệu đính kèm
+39/2026/NQ-CP
+25/08/2026
+25/08/2026
+Về cơ chế chuyển tiếp sử dụng nhãn, bao bì hàng hóa đã in tên cũ khi doanh nghiệp thay đổi tên nhưng không thay đổi pháp nhân và chủ thể chịu trách nhiệm về hàng hóa
+25/08/2026
+Tài liệu đính kèm
+11/2026/VBHN-TT-BKHCN
+25/08/2026
+25/08/2026
+Quy định về kết nối viễn thông
+25/08/2026
+Tài liệu đính kèm
+10/2026/VBHN-TT-BKHCN
+25/08/2026
+25/08/2026
+Quy định về quản lý chất lượng dịch vụ viễn thông
+25/08/2026
+Tài liệu đính kèm
+09/2026/VBHN-TT-BKHCN
+25/08/2026
+25/08/2026
+Quy định về kiểm định thiết bị viễn thông, đài vô tuyến điện
+25/08/2026
+Tài liệu đính kèm
+126/2026/TT-BTC
+24/08/2026
+24/08/2026
+Quy định chi tiết chi phí thực tế để in, sao, chụp và gửi thông tin theo quy định tại khoản 2 Điều 25 Luật Tiếp cận thông tin số 01/2026/QH16
+24/08/2026
+Tài liệu đính kèm
+66/2026/TT-BXD
+24/08/2026
+24/08/2026
+Quy định về quản lý, bảo trì công trình hàng không
+24/08/2026
+Tài liệu đính kèm
+12/2026/QH16
+23/08/2026
+23/08/2026
+Luật Phổ biến, giáo dục pháp luật
+23/08/2026
+Tài liệu đính kèm
+11/2026/QH16
+23/08/2026
+23/08/2026
+Luật sửa đổi, bổ sung một số điều của Luật Hải quan
+23/08/2026
+Tài liệu đính kèm
+8631/VPCP-PL
+22/08/2026
+22/08/2026
+V/v chuẩn bị nội dung Phiên họp Chính phủ chuyên đề về xây dựng pháp luật tháng 8 năm 2026 (Phiên thứ 2)
+22/08/2026
+Tài liệu đính kèm
+2084/QĐ-BCT
+22/08/2026
+22/08/2026
+Về kết quả rà soát lần thứ ba việc áp dụng biện pháp chống bán phá giá đối với một số sản phẩm thép hình chữ H có xuất xứ từ Cộng hòa nhân dân Trung Hoа
+22/08/2026
+Tài liệu đính kèm
+336/2026/NĐ-CP
+22/08/2026
+22/08/2026
+Quy định thực hiện thủ tục hành chính đối với hàng hóa xuất khẩu, nhập khẩu, quá cảnh; phương tiện vận tải xuất cảnh, nhập cảnh, quá cảnh theo cơ chế một cửa quốc gia, cơ chế một cửa ASEAN
+22/08/2026
+Tài liệu đính kèm
+125/2026/TT-BTC
+22/08/2026
+22/08/2026
+Sửa đổi, bổ sung một số điều của Thông tư số 83/2024/TT-BTC ngày 26 tháng 11 năm 2024 của Bộ trưởng Bộ Tài chính hướng dẫn
+cơ chế, chính sách về giá dịch vụ trong lĩnh vực chứng khoán do Nhà nước định giá áp dụng tại Sở Giao dịch Chứng khoán Việt Nam và các công ty con, Tổng công ty Lưu ký và Bù trừ chứng khoán Việt Nam và Thông tư số 34/2026/TT-BTC ngày 30 tháng 3 năm 2026 của Bộ trưởng Bộ Tài chính quy định đặc điểm kinh tế - kỹ thuật của dịch vụ trong lĩnh vực chứng khoán của Sở Giao dịch Chứng khoán Việt Nam và công ty con, Tổng công ty Lưu ký và Bù trừ chứng khoán Việt Nam và công ty con do Nhà nước định giá
+22/08/2026
+Tài liệu đính kèm
+124/2026/TT-BTC
+22/08/2026
+22/08/2026
+Bổ sung khoản 10 Điều 15 Thông tư số 33/2023/TT-BTC ngày 31 tháng 5 năm 2023 của Bộ trưởng Bộ Tài chính quy định về xác định xuất xứ hàng hóa xuất khẩu, nhập khẩu
+22/08/2026
+Tài liệu đính kèm
+70/2026/TT-BGDĐT
+22/08/2026
+22/08/2026
+Quy định về quản lý và sử dụng học bạ số trong các cơ sở giáo dục phổ thông và cơ sở giáo dục thường xuyên
+22/08/2026
+Tài liệu đính kèm
+69/2026/TT-BGDĐT
+22/08/2026
+22/08/2026
+Ban hành Quy chế tổ chức và hoạt động của trường năng khiếu nghệ thuật, thể dục, thể thao
+22/08/2026
+Tài liệu đính kèm
+68/2026/TT-BGDĐT
+22/08/2026
+22/08/2026
+Quy định việc giảng dạy khối lượng kiến thức văn hóa giáo dục phổ thông trong chương trình đào tạo các ngành, nghề đặc thù
+22/08/2026
+Tài liệu đính kèm
+59/CĐ-TTg
+22/08/2026
+22/08/2026
+Tăng cường công tác bảo đảm an ninh, trật tự dịp Lễ Quốc khánh 02-9
+22/08/2026
+Tài liệu đính kèm
+58/CĐ-TTg
+22/08/2026
+22/08/2026
+Về việc khẩn trương cập nhật, rà soát, tổng hợp phân loại và đề xuất giải pháp tháo gỡ khó khăn, vướng mắc cho các dự án tồn đọng, kéo dài
+22/08/2026
+Tài liệu đính kèm
+1
+2
+3
+4
+...
+1 - 50 | 98900
+2026-09-02 23:46:26,908 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:46:27,153 INFO agent.graph: Structure LLM call done in 9.38s for query: Extract concrete government decrees, resolutions, and official documents from th | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 4996, 'output_tokens': 2899, 'total_tokens': 7895, 'input_token_details': {'cache_read': 768}, 'output_token_details': {'reasoning': 2000}}
+2026-09-02 23:46:27,203 INFO service: [6/39] chinhphu_legal_documents_official done in 12.52s (gate_passed=True, error=None)
+2026-09-02 23:46:57,422 INFO agent.gate: Gate passed: Extract concrete open-banking, AI-in-banking, or fintech-policy developments rep
+2026-09-02 23:46:58,215 INFO agent.graph: Crawl done in 0.79s for url: https://vnba.org.vn
+2026-09-02 23:46:58,220 INFO agent.graph: Raw content fed to LLM for query: Extract concrete open-banking, AI-in-banking, or fintech-policy developments rep
+CQTT Hiệp hội Ngân hàng Việt Nam phát động thi đua giai đoạn 2026 - 2030: Quyết tâm đồng hành cùng mục tiêu tăng trưởng bền vững “2 con số”
+Ngày 24/8/2026, Cơ quan Thường trực (CQTT) Hiệp hội Ngân hàng Việt Nam ban hành Công văn số 481/CV-CQTT do Tổng Thư ký Đào Minh Tú ký nhằm phát động Phong trào thi đua giai đoạn 2026 - 2030 trong toàn thể cán bộ, người lao động. Phong trào hướng tới tạo chuyển biến thực chất trong nhận thức và hành động, lấy ứng dụng công nghệ, AI và nâng cao chất lượng phản biện chính sách làm trọng tâm hỗ trợ cộng đồng tổ chức hội viên.
+Nhiều đơn vị ngành Ngân hàng đạt giải cao tại Cuộc thi chính luận về bảo vệ nền tảng tư tưởng của Đảng lần thứ 2, năm 2026
+VNBA mời hội viên góp ý dự thảo Thông tư về thành lập và hoạt động ngân hàng
+Hiệp hội Ngân hàng Việt Nam kết nối doanh nghiệp FinTech Việt Nam và Vương quốc Anh
+Vietcombank bổ nhiệm 3 Phó Tổng Giám đốc mới
+Chi bộ Cơ quan Thường trực VNBA về nguồn tri ân, bồi đắp lý tưởng cách mạng cho cán bộ, đảng viên
+Hiệp hội Ngân hàng Việt Nam tổ chức khóa đào tạo cập nhật kiến thức về quản lý rủi ro
+CLB Xử lý nợ VNBA kết nạp 38 hội viên mới, kiện toàn Ban Chủ nhiệm nhiệm kỳ 2024–2027
+Hiệp hội Ngân hàng Việt Nam mời hội viên góp ý rà soát pháp luật liên quan đến Luật Đất đai
+Chuẩn hóa dữ liệu — chìa khóa “rã băng” dòng vốn trong nợ xấu
+Tin tức
+Agribank ưu đãi sinh nhật cho khách hàng VIP trên Agribank Plus
+Ngân hàng Nông nghiệp và Phát triển Nông thôn Việt Nam (Agribank) triển khai chương trình khuyến mại “Sinh nhật khách hàng - Ngập tràn may mắn” trên ứng dụng Agribank Plus, dành cho khách hàng cá nhân thuộc nhóm VIP. Tổng giá trị giải thưởng của chương trình lên tới 9,84 tỷ đồng.
+Vietcombank tham dự hội thảo Ngày doanh nghiệp Việt Nam HOSE - Daiwa 2026
+Ngày 24-25/8/2026, tại Singapore, Đoàn Vietcombank đã tham dự HOSE - Daiwa Vietnam Corporate Day Singapore 2026, sự kiện do Sở Giao dịch Chứng khoán TP. Hồ Chí Minh (HOSE) và Daiwa Securities Group đồng tổ chức.
+VietinBank giảm 90% giá tài khoản số đẹp
+Từ ngày 25/8 đến 30/9/2026, Ngân hàng TMCP Công Thương Việt Nam (VietinBank) triển khai chương trình ưu đãi tài khoản số đẹp, dành cho khách hàng cá nhân mới, hộ kinh doanh mới và khách hàng cá nhân có giao dịch ngoại tệ tại ngân hàng.
+TPBank cảnh báo khách hàng về các thủ đoạn lừa đảo chuyển khoản và đánh cắp thông tin thẻ
+Ngân hàng TMCP Tiên phong (TPBank) vừa gửi thông báo tới khách hàng qua ứng dụng Zalo, cảnh báo về tình trạng các đối tượng giả mạo nhân viên ngân hàng, yêu cầu chuyển tiền vào tài khoản cá nhân nhằm trục lợi.
+Ngân hàng Shinhan duy trì nền tảng ổn định, đẩy mạnh chuyển đổi trong nửa đầu năm 2026
+Ngân hàng TNHH MTV Shinhan Việt Nam (“Ngân hàng Shinhan”) vừa công bố kết quả kinh doanh 6 tháng đầu năm 2026, ghi nhận tăng trưởng về quy mô hoạt động và tín dụng, đồng thời tiếp tục duy trì năng lực tài chính vững chắc và chất lượng tài sản ở mức tốt.
+Xem thêm
+2026-09-02 23:47:01,935 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:47:01,951 INFO agent.graph: Structure LLM call done in 3.73s for query: Extract concrete open-banking, AI-in-banking, or fintech-policy developments rep | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 1919, 'output_tokens': 1301, 'total_tokens': 3220, 'output_token_details': {'reasoning': 713}}
+2026-09-02 23:47:02,000 INFO service: [7/39] vnba_banking_news done in 4.69s (gate_passed=True, error=None)
+2026-09-02 23:47:32,151 INFO agent.gate: Gate passed: Extract concrete monetary-policy analysis, banking-sector commentary, or credit-
+2026-09-02 23:47:36,852 INFO agent.graph: Crawl done in 4.7s for url: https://tapchinganhang.gov.vn
+2026-09-02 23:47:36,860 INFO agent.graph: Raw content fed to LLM for query: Extract concrete monetary-policy analysis, banking-sector commentary, or credit-
+Từ mùa Thu Độc lập đến nền tài chính hiện đại: Dấu ấn ngành Ngân hàng trong hành trình vươn mình của đất nước
+Ứng dụng học máy trong phân loại rủi ro tín dụng khách hàng cá nhân tại các ngân hàng thương mại Việt Nam
+Ứng dụng AI thúc đẩy kinh tế xanh và Net-Zero trong doanh nghiệp: Kinh nghiệm quốc tế, bài học cho Việt Nam
+Vai trò của Quỹ bảo đảm an toàn hệ thống Quỹ tín dụng nhân dân qua thực tiễn hoạt động cho vay hỗ trợ
+Chính sách
+08:15
+|
+01/09/2026
+Bài viết phân tích thực trạng hoạt động cho vay hỗ trợ của Quỹ bảo đảm an toàn hệ thống Quỹ tín dụng nhân dân - QTDND (Quỹ bảo toàn), qua đó làm rõ những kết quả đạt được, các điểm nghẽn trong thực tiễn triển khai và một số giải pháp nâng cao hiệu quả hoạt động của Quỹ trong thời gian tới.
+Tác động của chỉ số tiền gửi không kỳ hạn đến hiệu quả hoạt động của các ngân hàng thương mại Việt Nam
+Bài viết khoa học chuyên sâu
+08:10
+|
+31/08/2026
+Nghiên cứu trên dữ liệu 24 ngân hàng thương mại Việt Nam giai đoạn 2014 - 2024 cho thấy, chỉ số tiền gửi không kỳ hạn (CASA) có tác động tích cực đến hiệu quả hoạt động, đồng thời nhấn mạnh vai trò của năng lực vốn, quy mô, chất lượng tín dụng và quản trị rủi ro trong nâng cao hiệu quả ngân hàng.
+Tác động của tỉ giá hối đoái đến lạm phát tại Việt Nam và một số hàm ý chính sách
+Bài viết khoa học chuyên sâu
+07:15
+|
+28/08/2026
+Trong bối cảnh nền kinh tế Việt Nam ngày càng hội nhập sâu rộng, biến động tỉ giá hối đoái không chỉ tác động đến hoạt động xuất - nhập khẩu mà còn có thể tạo áp lực đáng kể lên mặt bằng giá trong nước thông qua hiệu ứng truyền dẫn tỉ giá, đặt ra yêu cầu phối hợp chính sách tỉ giá và tiền tệ nhằm kiểm soát lạm phát và ổn định kinh tế vĩ mô.
+Kinh tế - xã hội
+Thi đua yêu nước ngành Ngân hàng
+Sự kiện
+Từ mùa Thu Độc lập đến nền tài chính hiện đại: Dấu ấn ngành Ngân hàng trong hành trình vươn mình của đất nước
+Từ nền tảng tài chính, tiền tệ độc lập được xây dựng sau Cách mạng Tháng Tám, ngành Ngân hàng đã không ngừng đổi mới và trưởng thành, trở thành lực lượng quan trọng trong huy động, phân bổ nguồn lực và thúc đẩy tăng trưởng, đồng hành cùng khát vọng xây dựng Việt Nam phát triển, thịnh vượng, hùng cường.
+Đảm bảo an toàn hệ sinh thái số: Bảo vệ khách hàng sử dụng dịch vụ ngân hàng trên không gian mạng
+Để bảo đảm an toàn dữ liệu và tài khoản của khách hàng khi sử dụng dịch vụ ngân hàng trên môi trường mạng, bên cạnh nỗ lực của ngành Ngân hàng trong việc nâng cấp hạ tầng công nghệ bảo mật, cần có sự phối hợp chặt chẽ của các bộ, ngành liên quan trong công tác phòng, chống lừa đảo trực tuyến. Bởi lẽ, nếu các mắt xích trong hệ sinh thái số không được bảo vệ đồng bộ, thì ngay cả lớp xác thực sinh trắc học, dù hiện đại đến đâu, cũng khó phát huy hiệu quả tuyệt đối.
+Phát biểu chỉ đạo của Tổng Bí thư, Chủ tịch nước Tô Lâm tại Hội nghị quán triệt và triển khai Nghị quyết 10-NQ/TW
+Sáng 30/6/2026, tại Hà Nội, Tổng Bí thư, Chủ tịch nước Tô Lâm dự và phát biểu chỉ đạo Hội nghị toàn quốc nghiên cứu, học tập, quán triệt và triển khai thực hiện Nghị quyết số 10-NQ/TW ngày 8/6/2026 của Bộ Chính trị về phát triển kinh tế có vốn đầu tư nước ngoài. Trân trọng giới thiệu toàn văn phát biểu của Tổng Bí thư, Chủ tịch nước Tô Lâm tại Hội nghị.
+Toàn văn phát biểu của Tổng Bí thư, Chủ tịch nước Tô Lâm tiếp các Trưởng đoàn tham dự Diễn đàn Tương lai ASEAN 2026
+Trân trọng giới thiệu toàn văn phát biểu của Tổng Bí thư, Chủ tịch nước Tô Lâm tại buổi tiếp các Trưởng đoàn tham dự Diễn đàn Tương lai ASEAN 2026 chiều ngày 09/6/2026.
+Thủ tướng Lê Minh Hưng: ASEAN cần hướng tới ba tầm vóc chiến lược
+Sáng 09/6/2026, tại Hà Nội, Thủ tướng Chính phủ Lê Minh Hưng dự và có bài phát biểu quan trọng tại phiên khai mạc Diễn đàn Tương lai ASEAN 2026 (ASEAN Future Forum - AFF 2026) với chủ đề: "Cùng định hình tương lai chung: Hòa bình, thịnh vượng, lấy người dân làm trung tâm".
+Hoạt động ngân hàng
+Hoạt động ngân hàng
+Kỷ niệm 70 năm thành lập Ngân hàng Việt Nam
+Báo chí đồng hành cùng sự phát triển của ngành Ngân hàng Việt Nam
+Quỹ tín dụng nhân dân trước yêu cầu tái cơ cấu và chuyển đổi số: Cơ hội, thách thức và định hướng mô hình phát triển trong giai đoạn mới
+Bài viết phân tích những cơ hội và thách thức đối với hệ thống Quỹ tín dụng nhân dân (QTDND) trong quá trình tái cơ cấu gắn với chuyển đổi số, đồng thời đề xuất một số định hướng nhằm nâng cao năng lực quản trị, khả năng cạnh tranh và phát triển bền vững của hệ thống trong giai đoạn tới.
+Chuyển đổi số ngân hàng: An toàn số là nền tảng của niềm tin
+Ngành Ngân hàng là một trong những ngành tiên phong trong công cuộc chuyển đổi số, không ngừng đổi mới, ứng dụng công nghệ và khai thác hiệu quả dữ liệu, qua đó góp phần thúc đẩy phát triển kinh tế số, xã hội số và Chính phủ số.
+Cùng với những thành quả đạt được, an ninh mạng, bảo vệ dữ liệu và phòng, chống gian lận là cấu phần không thể thiếu trong chiến lược chuyển đổi số toàn Ngành. Tinh thần chỉ đạo của Ngân hàng Nhà nước Việt Nam (NHNN) là: Chuyển đổi số phải đi cùng an toàn; khai thác dữ liệu phải đi cùng bảo vệ dữ liệu; ứng dụng AI phải đi cùng quản trị rủi ro; đổi mới sáng tạo phải đi cùng tuân thủ, kiểm soát và trách nhiệm giải trình.
+Dòng vốn ngân hàng tiếp tục hướng tới doanh nghiệp nhỏ và vừa, lĩnh vực ưu tiên, động lực tăng trưởng
+Ngành Ngân hàng đang đẩy mạnh các chương trình tín dụng ưu đãi, tập trung hỗ trợ doanh nghiệp nhỏ và vừa, các lĩnh vực ưu tiên, những động lực tăng trưởng, góp phần thúc đẩy sản xuất, kinh doanh, tạo động lực cho nền kinh tế.
+Dịch vụ ngân hàng số trong Trung tâm tài chính quốc tế: Khung năng lực vận hành và hàm ý cho Việt Nam
+Sự hình thành Trung tâm tài chính quốc tế (IFC) tại Việt Nam đặt ra yêu cầu thiết kế thể chế mới: Dịch vụ ngân hàng số phục vụ IFC không thể được đồng nhất với các tiện ích số bán lẻ vốn đã phát triển nhanh trong thập kỷ qua. Trên cơ sở phân tích đối chứng giữa Singapore và Hồng Kông, bài viết xây dựng khung năng lực vận hành gồm bốn lớp hạ tầng (gia nhập thị trường, giao dịch, tuân thủ, niềm tin thị trường) và chỉ ra rằng sức mạnh của một IFC phụ thuộc vào độ sâu và khả năng liên thông của các lớp dịch vụ ở cấp độ tổ chức, không phải vào quy mô dịch vụ bán lẻ. Trên nền tảng đó, nghiên cứu đề xuất lộ trình ba giai đoạn cho IFC Việt Nam: (1) Chuẩn hóa định danh điện tử (eKYC) cho khách hàng phi cư trú, tài khoản đa tiền tệ và thanh toán xuyên biên giới theo chuẩn ISO 20022 trong giai đoạn 2026 - 2027; (2) Phát triển ngoại hối tổ chức, tài trợ thương mại số và lưu ký số trong giai đoạn 2027 - 2029; (3) Hoàn thiện công nghệ giám sát (SupTech), tiền kỹ thuật số ngân hàng trung ương (CBDC) bán buôn và cơ chế tường lửa tài chính từ năm 2029.
+Hệ sinh thái sản phẩm, dịch vụ ngân hàng: Nền tảng phát triển Trung tâm tài chính quốc tế tại Việt Nam
+Việc xây dựng Trung tâm tài chính quốc tế (IFC) tại Việt Nam (VIFC) đặt ra yêu cầu cấp thiết về nâng cao năng lực cung ứng các sản phẩm, dịch vụ tài chính theo hướng hiện đại, an toàn, minh bạch và có khả năng kết nối quốc tế. Trong bối cảnh đó, hệ sinh thái sản phẩm, dịch vụ ngân hàng trên nền tảng số giữ vai trò then chốt; không chỉ hỗ trợ thanh toán, quản lý dòng tiền, giao dịch ngoại hối, tài trợ thương mại, mà còn góp phần nâng cao năng lực cạnh tranh của thị trường tài chính, cải thiện môi trường đầu tư và thúc đẩy phát triển kinh tế số.
+Thị trường tài chính
+Hoàn thiện yêu cầu về lập và trình bày báo cáo lưu chuyển tiền tệ theo IAS 7
+Bài viết phân tích những định hướng sửa đổi quan trọng của Chuẩn mực Kế toán Quốc tế số 7 (IAS 7) về báo cáo lưu chuyển tiền tệ, đồng thời đánh giá tác động đối với doanh nghiệp, nhà đầu tư và cơ quan quản lý trong bối cảnh tăng cường tính minh bạch của báo cáo tài chính.
+Hoàn thiện mô hình giám sát tài chính tại Việt Nam: Cơ sở lý luận, kinh nghiệm quốc tế và một số khuyến nghị
+Bài viết này phân tích khuôn khổ giám sát tài chính của Việt Nam trên cơ sở lý luận và kinh nghiệm quốc tế, qua đó đề xuất một số khuyến nghị nhằm hoàn thiện mô hình giám sát theo hướng phối hợp liên ngành, dựa trên mức độ nguy cơ và nâng cao khả năng ứng phó với các biến động mang tính hệ thống.
+Quy định về Ủy ban kiểm toán trong doanh nghiệp niêm yết tại Việt Nam: Góc nhìn pháp lý và thực tiễn
+Ủy ban kiểm toán đóng vai trò quan trọng trong quản trị công ty hiện đại, nhưng khuôn khổ pháp lý hiện hành vẫn còn một số hạn chế, đòi hỏi tiếp tục hoàn thiện để nâng cao hiệu quả giám sát và tăng cường tính minh bạch cho doanh nghiệp niêm yết.
+Dịch vụ tài chính hiện đại: Khung lý luận, kinh nghiệm quốc tế và định hướng phát triển tại Việt Nam
+Trong bối cảnh chuyển đổi số diễn ra mạnh mẽ, dịch vụ tài chính hiện đại đang trở thành động lực quan trọng thúc đẩy đổi mới hệ thống tài chính. Bài viết làm rõ cơ sở lý luận, phân tích kinh nghiệm quốc tế và đề xuất một số giải pháp nhằm phát triển hệ sinh thái dịch vụ tài chính hiện đại tại Việt Nam.
+Mô hình sàn giao dịch bất động sản điện tử: Giải pháp minh bạch hóa thị trường trong bối cảnh chuyển đổi số quốc gia
+Chuyển đổi số đang mở ra cơ hội tái cấu trúc thị trường bất động sản theo hướng minh bạch, hiện đại và hiệu quả hơn, trong đó mô hình sàn giao dịch bất động sản điện tử được kỳ vọng sẽ góp phần số hóa toàn bộ quy trình giao dịch, tăng cường kết nối dữ liệu và nâng cao năng lực quản lý thị trường.
+2026-09-02 23:47:37,299 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-02 23:47:37,318 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-02 23:47:40,235 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 503 Service Unavailable"
+2026-09-02 23:47:44,983 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:47:45,175 INFO agent.graph: Structure LLM call done in 8.31s for query: Extract concrete monetary-policy analysis, banking-sector commentary, or credit- | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 3868, 'output_tokens': 601, 'total_tokens': 4469}
+2026-09-02 23:47:45,180 INFO service: [8/39] banking_review_journal done in 13.08s (gate_passed=True, error=None)
+2026-09-02 23:48:15,280 INFO agent.gate: Gate passed: Extract concrete economic/finance/banking policy analysis from the Finance Revie
+2026-09-02 23:48:16,347 INFO agent.graph: Crawl done in 1.06s for url: https://tapchitaichinh.vn
+2026-09-02 23:48:16,353 INFO agent.graph: Raw content fed to LLM for query: Extract concrete economic/finance/banking policy analysis from the Finance Revie
+Thành tựu xuất nhập khẩu - Dấu ấn của nền kinh tế năng động, hội nhập
+Chiến lược quốc gia thu hút, trọng dụng nhân tài trong các ngành, lĩnh vực mũi nhọn
+Đổi mới mô hình phát triển: Bước chuyển chiến lược đưa Việt Nam tiến vào kỷ nguyên phát triển mới
+Tổng Bí thư, Chủ tịch nước Tô Lâm dâng hương tưởng nhớ Chủ tịch Hồ Chí Minh tại Hà Nội
+Sáng 2/9, tại Hà Nội, Tổng Bí thư, Chủ tịch nước Tô Lâm đã vào Lăng viếng Chủ tịch Hồ Chí Minh và dâng hương tưởng niệm Người tại Nhà 67, Khu Di tích Chủ tịch Hồ Chí Minh trong Phủ Chủ tịch.
+Bộ trưởng Ngô Văn Tuấn: Việt Nam luôn coi Nga là đối tác quan trọng và ASEAN là không gian hợp tác chiến lược
+Bộ trưởng Bộ Tài chính Ngô Văn Tuấn khẳng định Việt Nam luôn coi Nga là đối tác quan trọng và ASEAN là không gian hợp tác chiến lược.
+Loạt bài: 30 năm ngành Chứng khoán Việt Nam: Kiến tạo thị trường vốn, vươn tầm vị thế mới
+Bài 1: Từ những viên gạch đầu tiên đến ngưỡng cửa nâng hạng
+Nâng hạng là điểm hội tụ của hơn 26 năm xây dựng và phát triển thị trường chứng khoán Việt Nam, từ những viên gạch đầu tiên đến quá trình hoàn thiện thể chế, nâng chất lượng và chuẩn hóa thị trường.
+Nội lực Việt Nam nhìn từ những doanh nghiệp tiên phong
+Từ công nghệ, công nghiệp chế tạo đến những dự án hạ tầng quy mô lớn, doanh nghiệp Việt Nam đang ngày càng hiện diện ở các lĩnh vực khó.
+Đối ngoại Việt Nam - Bản lĩnh tự chủ trong kỷ nguyên phát triển mới
+Kể từ mùa Thu Độc lập năm 1945, những giá trị nền tảng trong tư tưởng đối ngoại của Chủ tịch Hồ Chí Minh tiếp tục được Đảng ta kế thừa, vận dụng và phát triển.
+Trang thông tin Bộ trưởng và Lãnh đạo Bộ Tài chính
+Bộ trưởng Ngô Văn Tuấn: Việt Nam luôn coi Nga là đối tác quan trọng và ASEAN là không gian hợp tác chiến lược
+Các sự kiện nổi bật của ngành Tài chính tháng 8/2026
+Việt Nam - Pháp thúc đẩy hợp tác tài chính, mở rộng các lĩnh vực hợp tác mới
+Tạo thuận lợi tiếp cận vốn, thêm động lực để doanh nghiệp nhỏ và vừa "lớn lên"
+Dự án Luật Phát triển doanh nghiệp nhỏ và vừa: Gỡ khó về vốn, mặt bằng, công nghệ, thị trường
+Tiêu điểm
+Quyết tâm thực hiện thắng lợi mục tiêu tăng trưởng bền vững “2 con số” giai đoạn 2026 – 2030
+Loạt bài: Đảng viên tiên phong trên mặt trận kinh tế
+Bộ trưởng Bộ Tài chính Ngô Văn Tuấn tại Kỳ họp không thường lệ thứ nhất Quốc hội khoá XVI
+Loạt bài: Xử lý nợ bảo hiểm xã hội - Bài toán không thể để kéo dài
+Chính sách thuế đồng hành, hỗ trợ doanh nghiệp nhỏ và hộ kinh doanh
+Góc chuyên gia & nhà quản lý
+TS.KTS. Đào Ngọc Nghiêm
+-
+Phó Chủ tịch Hội Quy hoạch Phát triển Đô thị Việt Nam, nguyên Giám đốc Sở Quy hoạch - Kiến trúc Hà Nội
+TS.KTS. Đào Ngọc Nghiêm: Quy hoạch mới tạo dư địa để Hà Nội nâng tầm vị thế
+Luật sư Bùi Văn Thành
+-
+Trọng tài viên Trung tâm Trọng tài Quốc tế Việt Nam (VIAC)
+Kiến tạo thương hiệu quốc gia từ sức mạnh kinh tế tư nhân
+Ông Phan Anh Tuấn
+-
+Phó Chủ tịch HĐQT của Công ty cổ phần quản lý quỹ PVI
+Cần cá nhân hóa hành trình đầu tư của mỗi nhà đầu tư
+Ông Chu Hồng Kiên
+-
+Tổng Giám đốc Công ty Cổ phần Quản lý Quỹ đầu tư MB (MB Capital)
+11 triệu tỷ đồng tiền gửi tiết kiệm và dư địa cho ngành quản lý quỹ
+Ông Hoàng Việt Phương
+-
+Giám đốc Khối Phân tích và Tư vấn đầu tư VNDIRECT
+Cổ phiếu Việt Nam vào rổ FTSE: Mở rộng dư địa hút dòng vốn chủ động
+TS. Tô Văn Tuấn
+-
+Trưởng Bộ môn Tài chính - Ngân hàng, Khoa Quản trị - Tài chính, Đại học Hàng hải Việt Nam
+Từ chính sách giảm thuế đến động lực tăng trưởng bền vững
+PGS.TS Ngô Trí Long
+-
+Chuyên gia kinh tế, Hiệp hội Tư vấn Tài chính Việt Nam
+Giảm thuế tiếp sức cho hộ kinh doanh và doanh nghiệp, hỗ trợ mục tiêu tăng trưởng kinh tế
+Ông Lưu Minh Sang
+-
+Phó Trưởng bộ môn phụ trách Bộ môn Luật Tài chính - Ngân hàng, Khoa Luật, Trường Đại học Kinh tế - Luật, Đại học Quốc gia TP. Hồ Chí Minh
+Giảm 30% thuế: Tạo động lực để khu vực kinh doanh nhỏ lớn lên
+Infographic
+INFOGRAPHIC: Miễn, giảm một số khoản phí, lệ phí để phát triển công dân số
+INFOGRAPHIC: Thu - chi ngân sách nhà nước 8 tháng năm 2026
+Thị trường trong nước
+Lãi suất huy động
+Lãi suất cho vay
+Thị trường thế giới
+Chỉ số USD
+Chứng khoán
+Giá vàng
+Giá bạc
+×
+LÃI SUẤT HUY ĐỘNG
+×
+LÃI SUẤT CHO VAY
+×
+GIÁ VÀNG QUỐC TẾ
+Track all markets on TradingView
+Theo dõi mọi thị trường trên TradingView
+×
+GIÁ BẠC QUỐC TẾ
+Track all markets on TradingView
+Theo dõi mọi thị trường trên TradingView
+×
+CHỈ SỐ USD
+Track all markets on TradingView
+Theo dõi mọi thị trường trên TradingView
+×
+CHỨNG KHOÁN QUỐC TẾ
+Track all markets on TradingView
+Theo dõi mọi thị trường trên TradingView
+e-Magazine
+EMAGAZINE: Hà Nội tạo bước đột phá trong đổi mới tư duy chiến lược và phương thức lãnh đạo, hướng tới chặng đường phát triển mới
+Bài cuối: Tạo nền tảng cho một chu kỳ tăng trưởng dài hạn
+Bài 4: Tăng trưởng cao phải dựa trên chất lượng và năng suất
+Podcast
+PODCAST: Top cổ phiếu đóng góp nhiều nhất cho đà tăng VN-Index tuần qua
+PODCAST: Bệ phóng tài chính 2026: Bản đồ số liệu đằng sau mục tiêu tăng trưởng 2 con số
+PODCAST: Tỷ giá cuối năm trong nhịp tăng mạnh của xuất nhập khẩu
+Gần 200 doanh nghiệp kết nối, nâng giá trị cho ngành nội ngoại thất Việt Nam
+VIFA ASEAN 2026 quy tụ gần 200 doanh nghiệp trong nước và quốc tế, tạo thêm cơ hội giao thương, tìm kiếm thị trường và nâng giá trị cho ngành nội ngoại thất và mỹ nghệ Việt Nam.
+Tổng Bí thư, Chủ tịch nước Tô Lâm dâng hương tưởng nhớ Chủ tịch Hồ Chí Minh tại Hà Nội
+Sáng 2/9, tại Hà Nội, Tổng Bí thư, Chủ tịch nước Tô Lâm đã vào Lăng viếng Chủ tịch Hồ Chí Minh và dâng hương tưởng niệm Người tại Nhà 67, Khu Di tích Chủ tịch Hồ Chí Minh trong Phủ Chủ tịch.
+Quy hoạch Thủ đô Hà Nội tầm nhìn 100 năm: Phác thảo những biểu tượng cho khát vọng vươn tầm quốc tế
+Quy hoạch Thủ đô tầm nhìn 100 năm không chỉ mở ra không gian phát triển mới, mà còn đặt ra khát vọng định vị Hà Nội trong mạng lưới các đô thị có sức cạnh tranh và tầm ảnh hưởng quốc tế.
+Bộ trưởng Ngô Văn Tuấn: Việt Nam luôn coi Nga là đối tác quan trọng và ASEAN là không gian hợp tác chiến lược
+Bộ trưởng Bộ Tài chính Ngô Văn Tuấn khẳng định Việt Nam luôn coi Nga là đối tác quan trọng và ASEAN là không gian hợp tác chiến lược.
+Nguồn nhân lực - đột phá để công nghiệp văn hóa bứt phá
+Nhân lực chất lượng cao quyết định sức cạnh tranh công nghiệp văn hóa. Nghị quyết 80-NQ/TW định hướng đổi mới đào tạo, trọng dụng nhân tài tạo đột phá.
+INFOGRAPHIC: Miễn, giảm một số khoản phí, lệ phí để phát triển công dân số
+Nhiều loại phí, lệ phí sẽ được miễn, giảm theo quy định tại Thông tư số 117/2026/TT-BTC.
+Loạt bài: 30 năm ngành Chứng khoán Việt Nam: Kiến tạo thị trường vốn, vươn tầm vị thế mới
+Bài 1: Từ những viên gạch đầu tiên đến ngưỡng cửa nâng hạng
+Nâng hạng là điểm hội tụ của hơn 26 năm xây dựng và phát triển thị trường chứng khoán Việt Nam, từ những viên gạch đầu tiên đến quá trình hoàn thiện thể chế, nâng chất lượng và chuẩn hóa thị trường.
+Kịp thời xuất cấp hàng dự trữ quốc gia, đảm bảo an sinh xã hội
+Từ đầu năm đến ngày 20/8/2026, thực hiện các quyết định của cấp có thẩm quyền, các bộ, ngành quản lý hàng dự trữ quốc gia đã xuất cấp hàng với tổng giá trị khoảng hơn 1.583 tỷ đồng.
+Thị trường chứng khoán Việt Nam trước ngưỡng cửa phát triển mới
+Ngày 21/9/2026 đánh dấu bước chuyển quan trọng khi cổ phiếu Việt Nam chính thức được đưa vào các bộ chỉ số thị trường mới nổi của FTSE Russell. Triển vọng đón dòng vốn quốc tế đang tạo thêm động lực tái cơ cấu, nâng cao năng lực huy động vốn và củng cố ni
+Động lực chính đưa Việt Nam bứt phá trong kỷ nguyên mới
+Nghị quyết số 57-NQ/TW của Bộ Chính trị đã đưa ra một lựa chọn chiến lược lấy khoa học, công nghệ, đổi mới sáng tạo và chuyển đổi số làm động lực chủ yếu, tạo sức cạnh tranh mới cho nền kinh tế.
+TS.KTS. Đào Ngọc Nghiêm: Quy hoạch mới tạo dư địa để Hà Nội nâng tầm vị thế
+Với Quy hoạch Thủ đô tầm nhìn 100 năm, chúng ta có cơ sở để kỳ vọng Hà Nội sẽ tạo ra một giai đoạn phát triển mới, trong đó kinh tế sẽ đạt tốc độ tăng trưởng 2 con số.
+Nội lực Việt Nam nhìn từ những doanh nghiệp tiên phong
+Từ công nghệ, công nghiệp chế tạo đến những dự án hạ tầng quy mô lớn, doanh nghiệp Việt Nam đang ngày càng hiện diện ở các lĩnh vực khó.
+Chính sách mới
+Hướng dẫn kế toán nghiệp vụ thi hành án dân sự
+Thông tư quy định chi tiết chi phí thực tế để in, sao, chụp và gửi thông tin theo quy định tại khoản 2 Điều 25 Luật Tiếp cận thông tin số 01/2026/QH16
+Công bố thủ tục hành chính được sửa đổi, bổ sung trong lĩnh vực thành lập và hoạt động của doanh nghiệp thuộc phạm vi chức năng quản lý của Bộ Tài chính
+Sửa đổi, bổ sung một số điều của Thông tư số 83/2024/TT-BTC ngày 26/11/2024 của Bộ trưởng Bộ Tài chính hướng dẫn cơ chế, chính sách về giá dịch vụ trong lĩnh vực chứng khoán do Nhà nước định giá áp dụng tại Sở Giao dịch Chứng khoán Việt Nam và các công ty
+Sửa đổi, bổ sung một số điều của Thông tư số 130/2025/TT-BTC quy định Hệ thống Mục lục ngân sách nhà nước
+Tạp chí in
+Giá vàng
+PNJ
+Giá mua
+Giá bán
+TPHCM - PNJ
+145,700
+148,700
+Hà Nội - PNJ
+145,700
+148,700
+Đà Nẵng - PNJ
+145,700
+148,700
+Miền Tây - PNJ
+145,700
+148,700
+Tây Nguyên - PNJ
+145,700
+148,700
+Đông Nam Bộ - PNJ
+145,700
+148,700
+AJC
+Giá mua
+Giá bán
+Miếng SJC Hà Nội
+14,570
+14,870
+Miếng SJC Nghệ An
+14,570
+14,870
+Miếng SJC Thái Bình
+14,570
+14,870
+N.Tròn, 3A, Đ.Vàng H.Nội
+14,530
+14,870
+N.Tròn, 3A, Đ.Vàng N.An
+14,530
+14,870
+N.Tròn, 3A, Đ.Vàng T.Bình
+14,530
+14,870
+NL 99.99
+13,800
+Nhẫn Tròn Thái Bình
+13,700
+Trang sức 99.9
+14,180
+14,780
+Trang sức 99.99
+14,190
+14,790
+SJC
+Giá mua
+Giá bán
+Hồ Chí Minh - Vàng SJC 1L, 10L, 1KG
+1,457
+1,487
+Hồ Chí Minh - Vàng SJC 5 chỉ
+1,457
+14,872
+Hồ Chí Minh - Vàng SJC 0.5 chỉ, 1 chỉ, 2 chỉ
+1,457
+14,873
+Hồ Chí Minh - Vàng nhẫn SJC 99,99% 1 chỉ, 2 chỉ, 5 chỉ
+1,452
+1,482
+Hồ Chí Minh - Vàng nhẫn SJC 99,99% 0.5 chỉ, 0.3 chỉ
+1,452
+1,483
+Hồ Chí Minh - Nữ trang 99,99%
+1,427
+1,472
+Hồ Chí Minh - Nữ trang 99%
+138,743
+145,743
+Hồ Chí Minh - Nữ trang 75%
+100,761
+110,561
+Hồ Chí Minh - Nữ trang 68%
+90,456
+100,256
+Hồ Chí Minh - Nữ trang 61%
+80,151
+89,951
+Hồ Chí Minh - Nữ trang 58,3%
+76,176
+85,976
+Hồ Chí Minh - Nữ trang 41,7%
+51,739
+61,539
+Miền Bắc - Vàng SJC 1L, 10L, 1KG
+1,457
+1,487
+Hạ Long - Vàng SJC 1L, 10L, 1KG
+1,457
+1,487
+Hải Phòng - Vàng SJC 1L, 10L, 1KG
+1,457
+1,487
+Miền Trung - Vàng SJC 1L, 10L, 1KG
+1,457
+1,487
+Huế - Vàng SJC 1L, 10L, 1KG
+1,457
+1,487
+Quảng Ngãi - Vàng SJC 1L, 10L, 1KG
+1,457
+1,487
+Nha Trang - Vàng SJC 1L, 10L, 1KG
+1,457
+1,487
+Biên Hòa - Vàng SJC 1L, 10L, 1KG
+1,457
+1,487
+Miền Tây - Vàng SJC 1L, 10L, 1KG
+1,457
+1,487
+Bạc Liêu - Vàng SJC 1L, 10L, 1KG
+1,457
+1,487
+Cà Mau - Vàng SJC 1L, 10L, 1KG
+1,457
+1,487
+Lãi suất
+Ngân hàng
+KKH
+1 tuần
+2 tuần
+3 tuần
+1T
+2T
+3T
+6T
+9T
+12T
+24T
+Vietcombank
+0.10
+0.20
+0.20
+-
+1.60
+1.60
+1.90
+2.90
+2.90
+4.60
+4.70
+BIDV
+0.10
+-
+-
+-
+1.60
+1.60
+1.90
+1.90
+3.00
+4.70
+4.70
+Vietinbank
+0.10
+0.20
+0.20
+0.20
+1.60
+1.60
+1.90
+3.00
+3.00
+4.70
+4.80
+ACB
+0.01
+0.50
+0.50
+0.50
+2.30
+2.50
+2.70
+3.50
+3.70
+4.40
+4.50
+Sacombank
+-
+0.50
+0.50
+0.50
+2.80
+2.90
+3.20
+4.20
+4.30
+4.90
+5.00
+Techcombank
+0.05
+0.50
+0.50
+0.50
+4.10
+4.10
+4.50
+5.10
+5.10
+5.40
+5.40
+LPBank
+0.20
+0.20
+0.20
+0.20
+2.20
+2.20
+2.50
+3.50
+3.50
+5.0
+5.30
+DongA Bank
+0.50
+0.50
+0.50
+0.50
+4.00
+4.00
+4.30
+5.50
+5.50
+5.80
+5.90
+Agribank
+0.20
+-
+-
+-
+2.10
+2.10
+2.40
+3.50
+3.50
+4.70
+4.80
+Eximbank
+0.10
+0.50
+0.50
+0.50
+3.10
+3.30
+3.40
+4.70
+4.30
+5.00
+5.10
+Kết quả quay số mở thưởng
+Kỳ quay
+#01557
+Thứ  tư
+02/09/2026
+06
+09
+27
+29
+35
+44
+JACKPOT (Ước tính)
+38.804.848.000
+VND
+Kỳ quay
+#01392
+Thứ  ba
+01/09/2026
+01
+17
+41
+44
+49
+55
+45
+JACKPOT 1 (Ước tính)
+49.472.445.900
+VND
+JACKPOT 2 (Ước tính)
+3.359.930.300
+VND
+Kỳ quay
+#01127
+Thứ  tư
+02/09/2026
+Giải Đặc biệt
+367
+018
+Giải nhất
+903
+279
+237
+787
+Giải Nhì
+617
+126
+026
+780
+748
+371
+Giải ba
+768
+752
+220
+278
+067
+584
+606
+701
+Kỳ quay
+#00773
+Thứ  ba
+01/09/2026
+Giải Đặc biệt
+909
+970
+Giải nhất
+180
+152
+727
+471
+Giải Nhì
+205
+287
+643
+014
+491
+605
+Giải ba
+780
+967
+895
+208
+081
+772
+860
+600
+Mega 6/45 quay số mở thưởng Thứ 4, Thứ 6, Chủ nhật hàng tuần.
+Power 6/55, Max 3D PRO quay số mở thưởng Thứ 3, Thứ 5, Thứ 7 hàng tuần. Max 3D quay số mở thưởng Thứ 2, Thứ 4, Thứ 6 hàng tuần. Đăng ký làm Đại lý, Điểm bán hàng Vietlott trên toàn quốc liên hệ Hotline: 1900.55.88.89 hoặc Website:
+vietlott.vn
+2026-09-02 23:48:16,779 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-02 23:48:16,789 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-02 23:48:25,811 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 503 Service Unavailable"
+2026-09-02 23:48:33,657 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:48:33,668 INFO agent.graph: Structure LLM call done in 17.31s for query: Extract concrete economic/finance/banking policy analysis from the Finance Revie | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 6212, 'output_tokens': 1201, 'total_tokens': 7413}
+2026-09-02 23:48:33,673 INFO service: [9/39] finance_review_journal done in 18.46s (gate_passed=True, error=None)
+2026-09-02 23:49:03,776 INFO agent.gate: Gate passed: Extract concrete card promotions and partner offers from the content below — the
+2026-09-02 23:49:04,529 INFO agent.graph: Multi-crawl done in 0.74s for url: https://bidvinfo.com.vn/chinh-sach-va-san-pham/khuyen-mai-the (3 documents)
+2026-09-02 23:49:04,545 INFO agent.graph: Raw content fed to LLM for query: Extract concrete card promotions and partner offers from the content below — the
+* [Định chế tài chính](https://bidv.com.vn/vn/dinh-che-tai-chinh)
+  * [Doanh nghiệp](https://bidv.com.vn/vn/doanh-nghiep)
+  * [Cá nhân](https://bidv.com.vn/vn/ca-nhan)
+  * [Khách hàng cao cấp](https://bidvinfo.com.vn/chinh-sach-va-san-pham/khuyen-mai-the)
+    * [ ![BIDV Premier](https://bidvinfo.com.vn/Assets/static/css/images/bg-premier.jpg) ![BIDV Premier](https://bidvinfo.com.vn/Assets/static/css/images/bidv_premier.svg) Tìm hiểu thêm BIDV Premier ](https://bidv.com.vn/vn/premier "BIDV Premier")
+    * [ ![BIDV Private Banking](https://bidvinfo.com.vn/Assets/static/css/images/bg-private-banking.jpg) ![BIDV Private Banking](https://bidvinfo.com.vn/Assets/static/css/images/bidv_private.svg) Tìm hiểu thêm BIDV Private Banking ](https://bidv.com.vn/vn/private "BIDV Private Banking")
+
+
+  * [Về BIDV](https://bidv.com.vn/vn/ve-bidv)
+  * [Quan hệ nhà đầu tư](https://bidv.com.vn/vn/quan-he-nha-dau-tu "Quan hệ nhà đầu tư")
+  * [Tin tức](https://bidvinfo.com.vn/ "Tin tức")
+  * [Tuyển dụng](https://tuyendung.bidv.com.vn/ "Tuyển dụng")
+
+
+[ ![](https://bidvinfo.com.vn/assets/static/css/images/flag-vn.svg) ](https://bidvinfo.com.vn/)
+[ ![English](https://bidvinfo.com.vn/assets/static/css/images/flag_en.svg) ](https://bidvinfo.com.vn/en/) [ ![](https://bidvinfo.com.vn/assets/static/css/images/korea-flag.jpg) ](https://bidvinfo.com.vn/ko/)
+[ ![logo](https://bidvinfo.com.vn/assets/static/css/images/logo.png) ](https://bidv.com.vn/vn/trang-chu)
+[](javascript:search\(\) "Tìm kiếm")
+  * [](https://bidvinfo.com.vn/ "Trang chủ")
+  * [Tin hoạt động](https://bidvinfo.com.vn/tin-hoat-dong "Tin hoạt động")
+  * [Chính sách và sản phẩm ](https://bidvinfo.com.vn/chinh-sach-va-san-pham "Chính sách và sản phẩm ")
+  * [Thị trường](https://bidvinfo.com.vn/thi-truong "Thị trường")
+  * [ESG](https://bidvinfo.com.vn/esg "ESG")
+  * [Văn hóa](https://bidvinfo.com.vn/van-hoa "Văn hóa")
+  * [BIDV Stories](https://bidvinfo.com.vn/bidv-stories "BIDV Stories")
+  * [E- magazine](https://bidvinfo.com.vn/an-pham "E- magazine")
+  * [Tài chính GenZ](https://bidvinfo.com.vn/tai-chinh-genz "Tài chính GenZ")
+
+
+  * [Hợp tác chiến lược](https://bidvinfo.com.vn/hop-tac-chien-luoc "Hợp tác chiến lược")
+  * [Video](https://bidvinfo.com.vn/video "Video")
+  * [Podcast](https://bidvinfo.com.vn/podcast "Podcast")
+  * [Reels](https://bidvinfo.com.vn/reels "Reels")
+  * [Thực hiện Nghị quyết Đại hội Đảng lần thứ XIV](https://bidvinfo.com.vn/thuc-hien-nghi-quyet-dai-hoi-dang-lan-thu-xiv "Thực hiện Nghị quyết Đại hội Đảng lần thứ XIV")
+  * [Sự kiện](https://bidvinfo.com.vn/danh-sach-su-kien "sự kiện")
+
+
+# [Chính sách và sản phẩm ](https://bidvinfo.com.vn/chinh-sach-va-san-pham)
+  * ## [Chính sách ngành ngân hàng](https://bidvinfo.com.vn/chinh-sach-va-san-pham/chinh-sach-nganh-ngan-hang)
+  * ## [Khách hàng cá nhân](https://bidvinfo.com.vn/chinh-sach-va-san-pham/khach-hang-ca-nhan)
+  * ## [Khách hàng tổ chức](https://bidvinfo.com.vn/chinh-sach-va-san-pham/khach-hang-to-chuc)
+  * ## [Khuyến mãi thẻ](https://bidvinfo.com.vn/chinh-sach-va-san-pham/khuyen-mai-the)
+  * ## [Tiểu thương/ hộ kinh doanh](https://bidvinfo.com.vn/chinh-sach-va-san-pham/tieu-thuong-ho-kinh-doanh)
+
+
+[![Giảm đến 14% đặt dịch vụ tại Trip.com cùng thẻ BIDV JCB](https://bidv.1cdn.vn/thumbs/900x600/2026/05/16/bidv.com.vn-wps-wcm-connect-39a427d5-d384-490f-a520-24373306c972-_792x484-trip.jpg)](https://bidvinfo.com.vn/giam-den-14-dat-dich-vu-tai-trip-com-cung-the-bidv-jcb-10015929.html "Giảm đến 14% đặt dịch vụ tại Trip.com cùng thẻ BIDV JCB")
+## [Giảm đến 14% đặt dịch vụ tại Trip.com cùng thẻ BIDV JCB](https://bidvinfo.com.vn/giam-den-14-dat-dich-vu-tai-trip-com-cung-the-bidv-jcb-10015929.html "Giảm đến 14% đặt dịch vụ tại Trip.com cùng thẻ BIDV JCB")
+[](https://bidvinfo.com.vn/giam-den-14-dat-dich-vu-tai-trip-com-cung-the-bidv-jcb-10015929.html "Giảm đến 14% đặt dịch vụ tại Trip.com cùng thẻ BIDV JCB")
+  * [![Giảm đến 15% khi đặt phòng trên Agoda cùng thẻ BIDV JCB](https://bidv.1cdn.vn/thumbs/540x360/2026/05/16/bidv.com.vn-wps-wcm-connect-dbf48003-5dda-4d1b-905d-9761cecdde43-_792x484-agoda.jpg)](https://bidvinfo.com.vn/giam-den-15-khi-dat-phong-tren-agoda-cung-the-bidv-jcb-10015930.html "Giảm đến 15% khi đặt phòng trên Agoda cùng thẻ BIDV JCB")
+## [Giảm đến 15% khi đặt phòng trên Agoda cùng thẻ BIDV JCB](https://bidvinfo.com.vn/giam-den-15-khi-dat-phong-tren-agoda-cung-the-bidv-jcb-10015930.html "Giảm đến 15% khi đặt phòng trên Agoda cùng thẻ BIDV JCB")
+[](https://bidvinfo.com.vn/giam-den-15-khi-dat-phong-tren-agoda-cung-the-bidv-jcb-10015930.html "Giảm đến 15% khi đặt phòng trên Agoda cùng thẻ BIDV JCB")
+  * [![Giảm đến 20% tối đa 50.000VND khi đặt GreenSM đến và đi tới BIDV](https://bidv.1cdn.vn/thumbs/540x360/2026/05/12/bidv.com.vn-wps-wcm-connect-e8185153-78f1-4e6b-be38-fe07f3cbc2db-_792x484-g-2-.jpg)](https://bidvinfo.com.vn/giam-den-20-toi-da-50-000vnd-khi-dat-greensm-den-va-di-toi-bidv-10015860.html "Giảm đến 20% tối đa 50.000VND khi đặt GreenSM đến và đi tới BIDV")
+## [Giảm đến 20% tối đa 50.000VND khi đặt GreenSM đến và đi tới BIDV](https://bidvinfo.com.vn/giam-den-20-toi-da-50-000vnd-khi-dat-greensm-den-va-di-toi-bidv-10015860.html "Giảm đến 20% tối đa 50.000VND khi đặt GreenSM đến và đi tới BIDV")
+[](https://bidvinfo.com.vn/giam-den-20-toi-da-50-000vnd-khi-dat-greensm-den-va-di-toi-bidv-10015860.html "Giảm đến 20% tối đa 50.000VND khi đặt GreenSM đến và đi tới BIDV")
+2026-09-02 23:49:04,905 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-02 23:49:04,918 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-02 23:49:05,361 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-02 23:49:09,591 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:49:09,607 INFO agent.graph: Structure LLM call done in 5.06s for query: Extract concrete card promotions and partner offers from the content below — the | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 3412, 'output_tokens': 544, 'total_tokens': 3956}
+2026-09-02 23:49:09,626 INFO agent.graph: Per-piece structure call 1/3 done
