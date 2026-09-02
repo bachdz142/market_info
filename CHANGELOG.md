@@ -5,6 +5,39 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — `mbbank_news` + `acb_promotions` click-through fixes (4th/5th user-found content bugs)
+
+Both found by the user re-checking their own already-"solved" v0.10
+sources (`"you did not click inside the actual article right?"`, then
+`"you also didn't click actual promotion detail with acb_promotions"`).
+Less severe than IAV's original case — both listings already had real,
+informative text — but real depth gaps.
+
+- `mbbank_news` only ever extracted the listing page's own teaser text.
+  New `_fetch_mbbank_news_parts()` follows up to 3 `a[href*='/chi-tiet/']`
+  article links from the listing, fetching each with
+  `delay_before_return_html=3.0` (the article template renders a
+  `"Nội dung này không tồn tại!"` placeholder without a fixed delay —
+  a JS-predicate wait doesn't apply here), scoped to
+  `.mb-news-details-content`. Switched `chunked` → `multi_pdf`.
+- `acb_promotions`'s own detail API call was reading the wrong field —
+  `long_description` is null on every real promo, `short_description` is
+  itself only a ~70-char teaser. `_fetch_acb_promotions_text()` now also
+  fetches each promo's real public detail page
+  (`acb.com.vn/vi/uu-dai/{slug}`, SSR, no JS needed) and uses its real
+  body text (scoped to the parent of the page's first `id="block-id-N"`
+  element) whenever it's longer than the API stub.
+- `review_dashboard.py`'s `_merge_runs()` never copied `token_usage`
+  into its merged dict, silently breaking any downstream real-run check
+  relying on token spend. Fixed by including it in the merge.
+- Verified live, both sources: `mbbank_news` — `gate_passed=True`, 3 real
+  signals, exact minigame prize amounts (1,000,000/500,000/200,000 VND)
+  and a recycled-bag product detail invisible in the pre-fix
+  teaser-only extraction. `acb_promotions` — `gate_passed=True`, 6 real
+  signals, including a 0.8% online-savings rate boost and a 50%-cashback
+  offer with its exact eligible categories, none of which existed in the
+  API's short description.
+
 ## Unreleased — Three real, user-found content bugs (SBV stats, IAV, MBB)
 
 All three found by the user directly reviewing the Phase 1 review dashboard

@@ -400,6 +400,17 @@ async def _fetch_acb_statement_text() -> str:
 ACB_PROMOTIONS_URL = "https://acb.com.vn/en/promotions"
 ACB_PROMOTIONS_LIST_API = "https://acb.com.vn/api/en/front/v1/map/posts?type=uu-dai&limit=20"
 ACB_PROMOTIONS_DETAIL_API = "https://acb.com.vn/api/vi/front/v1/posts/{post_id}"
+# The detail API's own "short_description"/"long_description" fields are a
+# stub (long_description is null on every real promo checked; the ~70-char
+# short_description is just a listing teaser) — confirmed live (2026-09-03,
+# user-flagged: "you also didn't click actual promotion detail"). The real
+# terms/conditions body only exists on the public, server-rendered detail
+# page (https://acb.com.vn/vi/uu-dai/{slug}, a Next.js SSR page — no JS
+# wait needed, same AsyncHTTPCrawlerStrategy as the API calls). Confirmed
+# live across all 8 promos: real body text scoped to the parent of the
+# page's first `id="block-id-N"` element (offer terms + validity window +
+# contact info, no nav/footer), 358-14758 chars vs. ~70 chars before.
+ACB_PROMOTIONS_DETAIL_PAGE = "https://acb.com.vn/vi/uu-dai/{slug}"
 # Keeps the eventual structuring call reasonably sized — the list endpoint
 # doesn't expose dates to sort by, so this just takes the first N as given.
 ACB_PROMOTIONS_LIMIT = 8
@@ -423,12 +434,28 @@ async def _fetch_acb_promotions_text() -> str:
                 continue
             data = json.loads(detail_result.html).get("data", {})
             title = data.get("title") or ""
+            slug = data.get("slug") or ""
             if not title:
                 continue
-            desc = data.get("short_description") or ""
             start = data.get("published_start") or ""
             end = data.get("published_end") or ""
-            parts.append(f"{title}\n{desc}\nValid: {start} to {end}")
+
+            body = data.get("short_description") or ""
+            if slug:
+                page_url = ACB_PROMOTIONS_DETAIL_PAGE.format(slug=slug)
+                _throttle(_domain(page_url))
+                page_result = await crawler.arun(url=page_url, config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS))
+                if page_result.success:
+                    soup = BeautifulSoup(page_result.html, "lxml")
+                    first_block = soup.find(id=lambda x: x and x.startswith("block-id-"))
+                    if first_block is not None:
+                        block_text = first_block.parent.get_text(" ", strip=True)
+                        if block_text and len(block_text) > len(body):
+                            body = block_text
+                else:
+                    logger.info("Failed to fetch ACB promotion detail page %s, using short_description", page_url)
+
+            parts.append(f"{title}\n{body}\nValid: {start} to {end}")
 
     if not parts:
         raise ValueError("No ACB promotions found with real content")

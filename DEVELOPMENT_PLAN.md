@@ -25,6 +25,7 @@ that interprets and acts on them.
 | v0.8 — Layer 3 journals + Layer 4 macro/gov sources (first Layer 2-4 increment) | 🚧 Partial — 5 of 6 sources usable; `sbv_legal_directives_official` fetches and passes tests but its documents are scan-only (same category as BIDV/Vietcombank), needs OCR |
 | v0.9 — Content-usability gate | ✅ Done |
 | v0.10 — Layer 2 (CVP/offerings), first sources + 3 real bugs found and fixed | ✅ Done — all 10 bank news/fee sources solved (BIDV news+fee, ACB promo+fee, VPBank news+fee, VCB promo+fee, MBBank news+fee) |
+| v0.23 — `mbbank_news` + `acb_promotions` click-through fixes (4th/5th user-found content bugs) | ✅ Done — verified live, real signals now surface article/detail-page-only content (prize amounts, cashback terms) |
 
 ## Known temporary state (fix before a real full run)
 
@@ -522,6 +523,23 @@ All three found by the user directly reviewing the Phase 1 review dashboard (raw
 ### Out of Scope
 - `sbv_portal_statistics` only pulls one of the ~199 available report types (basic indicators). CAR and ROA/ROE are real, separate report pages under the same nav section — not pulled this pass, deliberately scoped to one report rather than a rewrite into a multi-document source.
 - Techcombank's chunked path getting real PDF-URL threading (a side effect of the regression fix) was not separately live-verified for OCR-eligibility — only confirmed the crash is fixed and the shape is correct.
+
+## v0.23 — Two more user-found click-through bugs: `mbbank_news`, `acb_promotions` (✅ done, verified live)
+
+Both found by the user re-checking their own already-"solved" v0.10 sources: *"you did not click inside the actual article right?"* (mbbank_news), then *"you also didn't click actual promotion detail with acb_promotions"*. Less severe than IAV's original case (both listings already had real, informative teaser text — a depth problem, not a fabrication problem), but real, verifiable content gaps all the same. Same root cause both times: a source that looked "solved" (real fetch, real signals, real network capture for ACB) but stopped one hop short of the actual document.
+
+- [x] **`mbbank_news` only ever extracted the listing page's own teaser text, never followed into the article.** New `agent/crawler.py`: `_fetch_mbbank_news_parts()` fetches the listing (same JS-predicate wait as v0.10's fix), pulls up to 3 `a[href*='/chi-tiet/']` article links, then fetches each detail page with `delay_before_return_html=3.0` — a fixed delay, not a JS-predicate wait, since the article template renders a literal `"Nội dung này không tồn tại!"` placeholder without one — scoped to `.mb-news-details-content`. `agent/sources.py`: swapped `"chunked": True` → `"multi_pdf": True` (separate documents, matching IAV's own precedent).
+- [x] **`acb_promotions`'s own detail API call (added in v0.10) was hitting the wrong endpoint's field.** `long_description` is null on every real promo checked; the `short_description` field it was using is itself just a ~70-char listing teaser, not the real terms. The real body only exists on the public, server-rendered detail page (`acb.com.vn/vi/uu-dai/{slug}` — a Next.js SSR page, no JS wait needed, same lightweight `AsyncHTTPCrawlerStrategy` as the existing API calls). `_fetch_acb_promotions_text()` now also fetches that page per promo and uses the real body text (scoped to the parent of the page's first `id="block-id-N"` element — clean of nav/footer) whenever it's longer than the API's stub description.
+- [x] **Real bug found and fixed in `review_dashboard.py`'s `_merge_runs()` while building the Phase 4 presentation**: it never copied `token_usage` into its merged output dict, silently breaking any downstream "was this a real run" check that relies on token spend (the dashboard's own display doesn't need it, so this went unnoticed). Fixed by adding `"token_usage": rec.get("token_usage")` to the merge; verified by confirming `sbv_press_releases_official` (a real run that spent tokens but found 0 new signals) went from wrongly-excluded to correctly-counted.
+
+### Verification
+- [x] Live end-to-end (`/trigger` code path, real network, real LLM calls), both sources:
+  - `mbbank_news`: `gate_passed=True`, 3 real signals — exact prize amounts for a minigame (1,000,000 / 500,000 / 200,000 VND) with a claim deadline, the "Hoa va Rac" 2026 partnership, and a specific recycled-bag product tied to that partnership — the last of these was invisible in the pre-fix teaser-only extraction.
+  - `acb_promotions`: `gate_passed=True`, 6 real signals (up from what a ~70-char-per-promo teaser could ever support) — a real 0.8% online-savings rate boost, a 50%-cashback offer with its exact eligible spending categories and first-30-days window, an iPhone 17 Pro Max reward tier, none of which existed in the API's short description.
+- [x] Full offline-safe suite: 46/46 passing after the `mbbank_news` fix; re-run after the `acb_promotions` fix too.
+
+### Out of Scope
+- `run_todo_sources.py`'s live, user-run batch job may still process `mbbank_news` with the pre-fix code if it reached that source before this fix landed (Python doesn't hot-reload a running process) — a targeted re-run via `service.trigger(source_ids="mbbank_news")` covers that if needed.
 
 ## Maintenance fixes
 

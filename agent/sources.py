@@ -642,6 +642,13 @@ SOURCES = [
         # returns nulls for these Vietnamese-only posts). Confirmed live: 8
         # real, current promotions (0-fee transfers, cashback offers,
         # savings-rate boosts), several with explicit validity date ranges.
+        # 2026-09-03 follow-up (user-flagged, same click-through gap as
+        # mbbank_news): the detail API's own description fields are a stub
+        # (long_description null, short_description ~70 chars). Now also
+        # fetches each promo's real public detail page
+        # (acb.com.vn/vi/uu-dai/{slug}, server-rendered, no JS needed) and
+        # uses its real body text when longer — confirmed live, 358-14758
+        # real chars per promo vs. ~70 before.
         "url": "https://acb.com.vn/en/promotions",
         "prompt": (
             "Extract concrete promotional offers from the content below — "
