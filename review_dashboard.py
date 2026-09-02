@@ -75,6 +75,33 @@ _LAYERS = [
 ]
 LAYER_OF = {sid: name for name, ids in _LAYERS for sid in ids}
 SIGNAL_METADATA_COLS = ["reference_period", "fact_or_opinion", "confidence"]
+SIGNALS_VISIBLE = 5
+
+try:
+    import tiktoken
+    _TOKEN_ENC = tiktoken.get_encoding("cl100k_base")
+except Exception:
+    _TOKEN_ENC = None
+
+
+def _token_estimate(text: str) -> str:
+    """Rough token count alongside the char count, for eyeballing LLM
+    cost/context-window impact — cl100k_base (OpenAI's tokenizer), not the
+    exact tokenizer any of the 4 fallback-chain providers actually use, so
+    always an estimate, never exact. Worth showing anyway: Vietnamese text
+    tokenizes far denser than English (~2 chars/token here vs. ~4 for
+    English), so char count alone understates real LLM cost for this
+    project's content. Falls back to a plain heuristic if tiktoken can't
+    load its encoding (e.g. no cached file and no network) rather than
+    ever breaking the dashboard build."""
+    if not text:
+        return "0 tokens"
+    if _TOKEN_ENC is not None:
+        try:
+            return f"~{len(_TOKEN_ENC.encode(text)):,} tokens"
+        except Exception:
+            pass
+    return f"~{len(text) // 3:,} tokens (rough est.)"
 
 
 def _short_layer(layer_name: str) -> str:
@@ -167,13 +194,22 @@ def _signals_table_html(result: dict) -> str:
         return '<p class="empty">No signals extracted.</p>'
     head = "<tr><th>Type</th><th>Summary</th>" + "".join(f"<th>{c}</th>" for c in SIGNAL_METADATA_COLS) + "</tr>"
     rows = []
-    for s in signals:
+    for i, s in enumerate(signals):
         cells = "".join(f"<td>{html.escape(str(s.get(c, '') or ''))}</td>" for c in SIGNAL_METADATA_COLS)
+        extra_attrs = " class='more-row' hidden" if i >= SIGNALS_VISIBLE else ""
         rows.append(
-            f"<tr><td class='sigtype'>{html.escape(s.get('signal_type', ''))}</td>"
+            f"<tr{extra_attrs}><td class='sigtype'>{html.escape(s.get('signal_type', ''))}</td>"
             f"<td>{html.escape(s.get('summary', ''))}</td>{cells}</tr>"
         )
-    return f"<table class='sigtable'><thead>{head}</thead><tbody>{''.join(rows)}</tbody></table>"
+    table = f"<table class='sigtable'><thead>{head}</thead><tbody>{''.join(rows)}</tbody></table>"
+    if len(signals) > SIGNALS_VISIBLE:
+        more = len(signals) - SIGNALS_VISIBLE
+        show_label = f"▼ Show {more} more signal{'s' if more != 1 else ''}"
+        table += (
+            f"<button type='button' class='showmore' data-label='{html.escape(show_label)}' "
+            f"onclick='toggleSignals(this)'>{show_label}</button>"
+        )
+    return table
 
 
 def _run_panel_html(run: dict, source: dict) -> str:
@@ -184,14 +220,14 @@ def _run_panel_html(run: dict, source: dict) -> str:
     error = run.get("error")
 
     raw_html = (
-        f"<details open><summary>{len(raw):,} chars</summary>"
+        f"<details open><summary>{len(raw):,} chars &middot; {_token_estimate(raw)}</summary>"
         f"<pre class='rawbox'>{html.escape(raw) if raw else '(empty)'}</pre></details>"
         if raw else "<p class='empty'>No raw content logged for this run.</p>"
     )
 
     prompt_text = source.get("prompt") or ""
     prompt_html = (
-        f"<details open><summary>{len(prompt_text):,} chars</summary>"
+        f"<details open><summary>{len(prompt_text):,} chars &middot; {_token_estimate(prompt_text)}</summary>"
         f"<pre class='promptbox'>{html.escape(prompt_text)}</pre></details>"
         if prompt_text else "<p class='empty'>No per-source prompt (search-based topic?).</p>"
     )
@@ -248,7 +284,7 @@ def _source_section_html(source: dict, raw_by_id: dict, signals_by_id: dict) -> 
         ocr_class, ocr_label = _ocr_flag(sid, None)
         prompt_text = source.get("prompt") or ""
         prompt_html = (
-            f"<details><summary>{len(prompt_text):,} chars</summary>"
+            f"<details><summary>{len(prompt_text):,} chars &middot; {_token_estimate(prompt_text)}</summary>"
             f"<pre class='promptbox'>{html.escape(prompt_text)}</pre></details>"
             if prompt_text else ""
         )
@@ -283,6 +319,23 @@ def _source_section_html(source: dict, raw_by_id: dict, signals_by_id: dict) -> 
     )
 
 
+def _toc_html(raw_by_id: dict, signals_by_id: dict) -> str:
+    items = []
+    for i, (layer_name, ids) in enumerate(_LAYERS):
+        sources_in_layer = [s for s in SOURCES if s["id"] in ids]
+        src_links = []
+        for s in sources_in_layer:
+            has_run = bool(_merge_runs(s["id"], raw_by_id, signals_by_id))
+            cls = "ran" if has_run else "notrun"
+            src_links.append(f"<li><a href='#{s['id']}' class='tocsid {cls}'>{s['id']}</a></li>")
+        items.append(
+            f"<li><a href='#layer-{i}' class='toclayer'>{html.escape(layer_name)}"
+            f" <span class='toccount'>({len(sources_in_layer)})</span></a>"
+            f"<ul class='tocsrc'>{''.join(src_links)}</ul></li>"
+        )
+    return f"<nav class='toc'><strong>Contents</strong><ul class='toclayers'>{''.join(items)}</ul></nav>"
+
+
 def build() -> str:
     raw_by_id = _load_raw_content()
     signals_by_id = _load_signals()
@@ -291,12 +344,13 @@ def build() -> str:
     total = len(SOURCES)
 
     layer_sections = []
-    for layer_name, ids in _LAYERS:
+    for i, (layer_name, ids) in enumerate(_LAYERS):
         sources_in_layer = [s for s in SOURCES if s["id"] in ids]
         body = "".join(_source_section_html(s, raw_by_id, signals_by_id) for s in sources_in_layer)
-        layer_sections.append(f"<h2>{layer_name}</h2>{body}")
+        layer_sections.append(f"<h2 id='layer-{i}'>{layer_name}</h2>{body}")
 
     body_html = "".join(layer_sections)
+    toc_html = _toc_html(raw_by_id, signals_by_id)
 
     return f"""<!doctype html>
 <html><head><meta charset="utf-8">
@@ -335,23 +389,52 @@ section.notrun {{ background:#fafafa; opacity:.7; }}
 .syspromptblock summary {{ cursor:pointer; font-size:.85rem; font-weight:600; }}
 .syspromptblock .filepath {{ font-family: ui-monospace, monospace; font-weight:400; color:#666; font-size:.78rem; }}
 .syspromptblock pre {{ margin-top:.6rem; background:#f7f7f8; border:1px solid #e5e5e5; border-radius:4px; padding:.6rem; font-size:.78rem; white-space:pre-wrap; }}
+.showmore {{ display:block; margin:.5rem 0 0; padding:.3rem .65rem; font-size:.75rem; background:#eef1f4; border:1px solid #ddd; border-radius:4px; cursor:pointer; color:#444; }}
+.showmore:hover {{ background:#e4e7eb; }}
+.layout {{ display:flex; align-items:flex-start; gap:1.5rem; }}
+.toc {{ position:sticky; top:1rem; flex:0 0 230px; max-height:calc(100vh - 2rem); overflow-y:auto; background:#fff; border:1px solid #ddd; border-radius:6px; padding:.7rem .9rem; font-size:.8rem; }}
+.toc strong {{ display:block; margin-bottom:.5rem; font-size:.85rem; }}
+.toc ul {{ list-style:none; margin:0; padding:0; }}
+.toc ul.toclayers > li {{ margin-bottom:.7rem; }}
+.toc a.toclayer {{ font-weight:600; color:#1a1f24; text-decoration:none; }}
+.toc a.toclayer:hover {{ text-decoration:underline; }}
+.toc .toccount {{ font-weight:400; color:#999; }}
+.toc ul.tocsrc {{ margin:.3rem 0 0 .5rem; padding-left:.6rem; border-left:2px solid #eee; }}
+.toc ul.tocsrc li {{ margin:.18rem 0; }}
+.toc a.tocsid {{ font-family: ui-monospace, monospace; font-size:.73rem; color:#555; text-decoration:none; }}
+.toc a.tocsid:hover {{ text-decoration:underline; color:#1a1f24; }}
+.toc a.tocsid.notrun {{ color:#bbb; }}
+.main {{ flex:1 1 auto; min-width:0; }}
 [hidden] {{ display:none !important; }}
 </style></head>
 <body>
 <h1>Review Dashboard</h1>
 <p class="stats">{have_data} of {total} sources have at least one run logged &middot; {total - have_data} not yet run (spot-checked only, no structuring pass yet)</p>
+<div class="layout">
+{toc_html}
+<div class="main">
 <details class="syspromptblock">
 <summary>Shared system prompt <span class="filepath">(agent/graph.py — STRUCTURE_SYSTEM_PROMPT)</span></summary>
 <p class="empty">Identical for every source below — defines the output contract (signal_type taxonomy + metadata schema), not extraction guidance. Each source's own instructions (shown per-row in the "Prompt" column) are combined with this as the human message; this is the system message.</p>
 <pre>{html.escape(STRUCTURE_SYSTEM_PROMPT)}</pre>
 </details>
 {body_html}
+</div>
+</div>
 <script>
 function selectRun(sid, idx) {{
   const section = document.getElementById(sid);
   section.querySelectorAll('.runpanel').forEach(p => {{
     p.hidden = p.dataset.idx !== String(idx);
   }});
+}}
+function toggleSignals(btn) {{
+  const table = btn.previousElementSibling;
+  const rows = table.querySelectorAll('tr.more-row');
+  if (!rows.length) return;
+  const willShow = rows[0].hidden;
+  rows.forEach(r => {{ r.hidden = !willShow; }});
+  btn.textContent = willShow ? '▲ Show fewer' : btn.dataset.label;
 }}
 </script>
 </body></html>"""

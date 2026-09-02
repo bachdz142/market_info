@@ -17,3 +17,4 @@ pypdf>=4.0       # agent/content_gate.py's check_pdf_page_density() — per-page
 beautifulsoup4>=4.12
 lxml>=5.0
 pytest>=8.0
+tiktoken>=0.7   # review_dashboard.py's per-source char/token counts — was only a transitive dep of langchain-openai before, now imported directly
