@@ -171,6 +171,19 @@ SITE_CONFIGS = {
         "pdf_link_selector": None,
         "pdf_link_limit": 1,
     },
+    # cimigo's "trends" blog (free) vs. its askcimigo.com report catalog
+    # (paywalled, 40pp PDFs) — confirmed live these are two separate things,
+    # not the same content gated differently. div.post--content scopes past
+    # the page's nav/related-posts/newsletter-CTA noise (checked: the wider
+    # wrapper divs are 5-6x the size, mostly boilerplate). Static fetch
+    # already returns the real article, no JS needed.
+    "cimigo.com": {
+        "needs_js": False,
+        "wait_selector": None,
+        "content_selector": "div.post--content",
+        "pdf_link_selector": None,
+        "pdf_link_limit": 1,
+    },
     # Confirmed live: this domain's static HTTP response is a genuine 410
     # (not an anti-bot block) — needs_js forces the full browser strategy,
     # which returns real, current content. .col-left.f-collumn.row-g25
@@ -1010,6 +1023,76 @@ async def _fetch_mbbank_news_parts() -> Tuple[str, List[Tuple[str, str]]]:
     return list_text, documents
 
 
+# decisionlab.co's blog has no per-topic category filter that survives a
+# plain fetch (checked live) — the URLs below were picked by hand from its
+# real sitemap.xml (2026-09-03), grouped into 3 sources by theme (Connected
+# Consumer quarterly series / Gen X-Y-Z behavior / fintech-e-wallet
+# behavior) rather than one source per article, matching this project's
+# "one source_id, several real documents" pattern (see IAV/mbbank_news
+# above). Confirmed live: a plain static fetch (AsyncHTTPCrawlerStrategy,
+# no JS) already returns the real article — decisionlab.co is HubSpot-CMS
+# hosted, .pwr-post-content scopes past its nav/related-posts noise, same
+# selector confirmed working across all 3 groups' articles. Refreshing this
+# list to newer articles later means re-checking the sitemap by hand, same
+# as this project's other Layer 3 sources (SSI/VCBS/decisionlab rankings)
+# already being single hardcoded URLs, not auto-discovered.
+DECISIONLAB_POST_SELECTOR = ".pwr-post-content"
+
+DECISIONLAB_CONNECTED_CONSUMER_URLS = [
+    "https://www.decisionlab.co/blog/the-connected-consumer-vietnam-digital-2025",
+    "https://www.decisionlab.co/blog/connected-consumer-report-q12025",
+    "https://www.decisionlab.co/blog/the-connected-consumer-q4-2024-blog",
+]
+
+DECISIONLAB_GENZ_BEHAVIOR_URLS = [
+    "https://www.decisionlab.co/blog/vietnam-what-brands-must-know-about-generation-z",
+    "https://www.decisionlab.co/blog/gen-z-wants-to-disconnect",
+    "https://www.decisionlab.co/blog/gen-x-driving-grab-towards-vietnams-4-billion-ride-hailing-future",
+    "https://www.decisionlab.co/blog/tiktok-grows-beyond-gen-z-while-old-habits-persist-despite-divided-attention",
+]
+
+DECISIONLAB_FINTECH_EWALLET_URLS = [
+    "https://www.decisionlab.co/blog/demystifying-the-rise-of-e-wallets-in-vietnam",
+    "https://www.decisionlab.co/blog/e-wallet-in-vietnam-solving-the-user-disloyalty-puzzle",
+    "https://www.decisionlab.co/blog/fintech-and-mobile-banking-lead-yougovs-bank-and-payment-system-consideration-rankings-in-vietnam",
+]
+
+
+async def _fetch_decisionlab_article_parts(urls: List[str]) -> Tuple[str, List[Tuple[str, str]]]:
+    documents: List[Tuple[str, str]] = []
+    async with AsyncWebCrawler(crawler_strategy=AsyncHTTPCrawlerStrategy()) as crawler:
+        for url in urls:
+            _throttle(_domain(url))
+            result = await crawler.arun(url=url, config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS))
+            if not result.success:
+                logger.info("Failed to fetch decisionlab.co article %s, skipping", url)
+                continue
+            soup = BeautifulSoup(result.html, "lxml")
+            node = soup.select_one(DECISIONLAB_POST_SELECTOR)
+            text = node.get_text(separator="\n", strip=True) if node else ""
+            if len(text) < 50:
+                logger.info("Near-empty decisionlab.co article %s, skipping", url)
+                continue
+            documents.append((url, text))
+
+    if not documents:
+        raise ValueError("No decisionlab.co articles found with real content")
+    list_text = "\n\n".join(f"--- {url} ---\n{text}" for url, text in documents)
+    return list_text, documents
+
+
+async def _fetch_decisionlab_connected_consumer_parts() -> Tuple[str, List[Tuple[str, str]]]:
+    return await _fetch_decisionlab_article_parts(DECISIONLAB_CONNECTED_CONSUMER_URLS)
+
+
+async def _fetch_decisionlab_genz_behavior_parts() -> Tuple[str, List[Tuple[str, str]]]:
+    return await _fetch_decisionlab_article_parts(DECISIONLAB_GENZ_BEHAVIOR_URLS)
+
+
+async def _fetch_decisionlab_fintech_ewallet_parts() -> Tuple[str, List[Tuple[str, str]]]:
+    return await _fetch_decisionlab_article_parts(DECISIONLAB_FINTECH_EWALLET_URLS)
+
+
 # Vietstock's static CDN serves each bank's filed financial statement at a
 # direct, predictable URL — confirmed live to sit outside whatever wall
 # blocks finance.vietstock.vn's JS-rendered document table (never rendered
@@ -1108,6 +1191,12 @@ async def _crawl_parts_async(url: str) -> Tuple[str, List[Tuple[str, str]]]:
         return await _fetch_iav_market_overview_parts()
     if url == MBBANK_NEWS_URL:
         return await _fetch_mbbank_news_parts()
+    if url == DECISIONLAB_CONNECTED_CONSUMER_URLS[0]:
+        return await _fetch_decisionlab_connected_consumer_parts()
+    if url == DECISIONLAB_GENZ_BEHAVIOR_URLS[0]:
+        return await _fetch_decisionlab_genz_behavior_parts()
+    if url == DECISIONLAB_FINTECH_EWALLET_URLS[0]:
+        return await _fetch_decisionlab_fintech_ewallet_parts()
 
     config = _resolve_site_config(url)
     html, generic_text = await _fetch_html(url, config["needs_js"], config["wait_selector"])

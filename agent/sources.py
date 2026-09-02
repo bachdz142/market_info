@@ -1291,6 +1291,111 @@ SOURCES = [
             "signals is \"QANDME\"."
         ),
     },
+    {
+        "id": "cimigo_consumer_trends",
+        "kind": "qualitative",
+        "role": "citable",
+        "tier": "tier_2",
+        # cimigo.com's "trends" blog is free — a separate thing from its
+        # askcimigo.com report catalog, which IS paywalled (checked live:
+        # its one banking-specific report, "Vietnam retail banking", is a
+        # full paywall, no readable content). This annual flagship trends
+        # article is not: confirmed live, real retail/spending/e-commerce
+        # stats (modern trade share, livestream-shopping adoption, etc.),
+        # no login gate. A single hardcoded URL, like this project's other
+        # Layer 3 sources — will need re-pointing to next year's edition by
+        # hand (2027 etc.) once this one goes stale.
+        "url": "https://www.cimigo.com/en/trends/vietnam-consumer-trends-2026/",
+        "prompt": (
+            "This is Cimigo's Vietnam Consumer Trends 2026 article. "
+            "Extract concrete survey/market findings — retail channel "
+            "shift (modern trade vs. traditional trade share), "
+            "e-commerce/livestream-shopping adoption rates, and any other "
+            "concrete consumer-spending-behavior statistic given. Since "
+            "these are Cimigo's own research findings, not an official "
+            "disclosure, tag every signal's fact_or_opinion as \"opinion\" "
+            "unless it's Cimigo directly citing an official statistic "
+            "(e.g. GSO data), in which case use \"fact\". data_basis is "
+            "\"not_applicable\". source_code for these signals is "
+            "\"CIMIGO\"."
+        ),
+    },
+    {
+        "id": "decisionlab_connected_consumer",
+        "kind": "qualitative",
+        "role": "citable",
+        "tier": "tier_2",
+        "multi_pdf": True,
+        # 3 most recent editions of Decision Lab's recurring "Connected
+        # Consumer" quarterly report (Vietnam Digital 2025, Q1 2025, Q4
+        # 2024) — picked by hand from decisionlab.co's real sitemap.xml
+        # (2026-09-03), see agent/crawler.py's
+        # _fetch_decisionlab_connected_consumer_parts(). Confirmed live:
+        # real digital/consumer-behavior findings, no login gate.
+        "url": "https://www.decisionlab.co/blog/the-connected-consumer-vietnam-digital-2025",
+        "prompt": (
+            "These are 3 editions of Decision Lab's \"Connected Consumer\" "
+            "quarterly report on Vietnamese digital behavior. Extract "
+            "concrete survey findings — platform/app usage rates, digital "
+            "spending or payment behavior, and any named shift between "
+            "editions. Since these are Decision Lab's own survey-based "
+            "findings, tag every signal's fact_or_opinion as \"opinion\" "
+            "and note which edition (quarter/report name) each finding is "
+            "from in the summary. data_basis is \"not_applicable\". "
+            "source_code for these signals is \"DECISIONLAB\"."
+        ),
+    },
+    {
+        "id": "decisionlab_genz_behavior",
+        "kind": "qualitative",
+        "role": "citable",
+        "tier": "tier_2",
+        "multi_pdf": True,
+        # 4 articles on generational (mostly Gen Z, one Gen X) consumer
+        # behavior — picked by hand from decisionlab.co's real sitemap.xml
+        # (2026-09-03), see agent/crawler.py's
+        # _fetch_decisionlab_genz_behavior_parts(). Confirmed live: real
+        # content, no login gate.
+        "url": "https://www.decisionlab.co/blog/vietnam-what-brands-must-know-about-generation-z",
+        "prompt": (
+            "These are 4 Decision Lab articles on Vietnamese Gen Z/Gen X "
+            "consumer behavior. Extract concrete survey findings — stated "
+            "behavior, preferences, or platform/app usage patterns by "
+            "generation, and any named shift or trend. Since these are "
+            "Decision Lab's own survey-based findings, tag every signal's "
+            "fact_or_opinion as \"opinion\" and note which article each "
+            "finding is from in the summary. data_basis is "
+            "\"not_applicable\". source_code for these signals is "
+            "\"DECISIONLAB\"."
+        ),
+    },
+    {
+        "id": "decisionlab_fintech_ewallet_behavior",
+        "kind": "qualitative",
+        "role": "citable",
+        "tier": "tier_2",
+        "multi_pdf": True,
+        # 3 articles on e-wallet/fintech adoption and bank/payment
+        # consideration behavior — picked by hand from decisionlab.co's
+        # real sitemap.xml (2026-09-03), see agent/crawler.py's
+        # _fetch_decisionlab_fintech_ewallet_parts(). The closest of the 3
+        # new decisionlab.co sources to direct banking relevance (one is
+        # literally a YouGov bank/payment-system consideration ranking).
+        # Confirmed live: real content, no login gate.
+        "url": "https://www.decisionlab.co/blog/demystifying-the-rise-of-e-wallets-in-vietnam",
+        "prompt": (
+            "These are 3 Decision Lab articles on Vietnamese e-wallet and "
+            "fintech adoption behavior, including a YouGov bank/payment-"
+            "system consideration ranking. Extract concrete survey "
+            "findings — adoption/usage rates, stated user concerns (e.g. "
+            "loyalty, security), and bank/payment-provider consideration "
+            "rankings where given. Since these are Decision Lab's own "
+            "survey-based findings, tag every signal's fact_or_opinion as "
+            "\"opinion\" and note which article each finding is from in "
+            "the summary. data_basis is \"not_applicable\". source_code "
+            "for these signals is \"DECISIONLAB\"."
+        ),
+    },
 
     # ------------------------------------------------------------------
     # Layer 2 — app-store release notes (source_plan_mvp0.md §4), all 6

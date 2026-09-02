@@ -26,6 +26,7 @@ that interprets and acts on them.
 | v0.9 — Content-usability gate | ✅ Done |
 | v0.10 — Layer 2 (CVP/offerings), first sources + 3 real bugs found and fixed | ✅ Done — all 10 bank news/fee sources solved (BIDV news+fee, ACB promo+fee, VPBank news+fee, VCB promo+fee, MBBank news+fee) |
 | v0.23 — `mbbank_news` + `acb_promotions` click-through fixes (4th/5th user-found content bugs) | ✅ Done — verified live, real signals now surface article/detail-page-only content (prize amounts, cashback terms) |
+| v0.24 — 4 new Layer 3 sources: cimigo + decisionlab x3 (consumer behavior, not banking-labeled) | ✅ Done — crawl-verified all 4, live LLM-verified one |
 
 ## Known temporary state (fix before a real full run)
 
@@ -540,6 +541,28 @@ Both found by the user re-checking their own already-"solved" v0.10 sources: *"y
 
 ### Out of Scope
 - `run_todo_sources.py`'s live, user-run batch job may still process `mbbank_news` with the pre-fix code if it reached that source before this fix landed (Python doesn't hot-reload a running process) — a targeted re-run via `service.trigger(source_ids="mbbank_news")` covers that if needed.
+
+## v0.24 — 4 new Layer 3 sources: cimigo, decisionlab x3 (consumer-behavior focus, not banking-labeled)
+
+User-directed: *"cimigo.com (has free retail banking reports); decisionlab.co; qandme.net — Gen X/Y/Z behavior, lifestyle banking, public survey findings — lets work on this?"*, then, after the first pass came back too narrowly banking-keyword-filtered: *"dont limit on only banking ... our aim is to find behavior, not have to contain banking keyword, spending is also behavior and insight, just take the most useful articles from these as source."*
+
+- [x] **cimigo.com investigated fully**: its `askcimigo.com` paid report catalog (one banking-specific report, "Vietnam retail banking") is a genuine full paywall — confirmed live, zero readable findings without a subscription. But its separate, free `/en/trends/` blog is not gated at all — confirmed live, real substantive content (57K raw chars on one article). These are two different things on the same domain, not the same content gated differently.
+- [x] **decisionlab.co's real sitemap.xml** (182 blog URLs, fetched directly — its `/blog` listing page itself is a flat unpaginated view, not usable for discovery) was hand-filtered for consumer-behavior relevance (spending, e-wallets, generational behavior, digital consumption — not just banking-labeled content per the user's correction), yielding 65 real candidates. Grouped into 3 new sources by theme rather than one source per article, matching this project's existing "one source_id, several real documents" pattern (`multi_pdf: True`, same shape as `iav_bancassurance`/`mbbank_news`).
+- [x] **4 new sources added** (`agent/sources.py`, all Tier 2, Layer 3):
+  - `cimigo_consumer_trends` — single-fetch, Cimigo's Vietnam Consumer Trends 2026 flagship article. New `SITE_CONFIGS["cimigo.com"]` entry (`content_selector: "div.post--content"`, no JS needed).
+  - `decisionlab_connected_consumer` — 3 most recent editions of Decision Lab's recurring quarterly "Connected Consumer" digital-behavior report (Vietnam Digital 2025, Q1 2025, Q4 2024).
+  - `decisionlab_genz_behavior` — 4 articles on Gen Z (mostly) and Gen X consumer behavior.
+  - `decisionlab_fintech_ewallet_behavior` — 3 articles on e-wallet/fintech adoption, including a YouGov bank/payment-system consideration ranking — the closest of the 3 to direct banking relevance.
+  - New `agent/crawler.py`: `_fetch_decisionlab_article_parts()` (shared helper, static fetch via `AsyncHTTPCrawlerStrategy`, no JS needed — confirmed live), `.pwr-post-content` selector confirmed working across all 7 decisionlab.co articles used (HubSpot-CMS-hosted site).
+  - All 4 hardcoded URL lists picked by hand from the real sitemap on 2026-09-03 — refreshing to newer articles later means re-checking the sitemap by hand, same maintenance pattern as this project's other Layer 3 sources (SSI/VCBS/decisionlab-rankings) already being single hardcoded URLs, not auto-discovered.
+
+### Verification
+- [x] Crawl-only verified all 4 sources live (no LLM spend) before writing any prompt: `cimigo_consumer_trends` 8,035 real chars; `decisionlab_connected_consumer` 3 docs / 11,264 chars; `decisionlab_genz_behavior` 4 docs / 12,473 chars; `decisionlab_fintech_ewallet_behavior` 3 docs / 11,676 chars — all real content, zero fetch failures across 11 total article fetches.
+- [x] Live end-to-end LLM verification: `decisionlab_fintech_ewallet_behavior` — real survey stats extracted (e.g. only 35% of users plan to stick with their current e-wallet, 46% keep a balance under VND 500,000, 57% of Gen Z dislike e-wallets' excess functions), each piece correctly falling through Groq/Gemini 429s to Mistral via the existing fallback chain.
+- [x] `agent/sources.py` sanity check: 51 total sources, zero duplicate ids.
+
+### Out of Scope
+- qandme.net (86 real candidate reports found via its own sitemap, including one with a directly useful "91% weekly online-banking-app usage" stat) and Decision Lab's recurring EuroCham Business Confidence Index series — both surfaced during this pass but deliberately not added; user chose to keep this pass to the 4 sources above.
 
 ## Maintenance fixes
 

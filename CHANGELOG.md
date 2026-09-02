@@ -25,6 +25,36 @@ package release. For plain-English progress tracking see
   a real portability gap elsewhere. Round-trip verified Vietnamese
   diacritics + em dash + arrow through the fixed functions.
 
+## Unreleased — 4 new Layer 3 sources: cimigo, decisionlab x3
+
+User-directed, then corrected mid-pass: don't limit discovery to a
+"banking" keyword — spending/lifestyle/generational behavior counts too.
+
+- `cimigo.com`: askcimigo.com's paid report catalog is a genuine
+  paywall (confirmed live), but its separate `/en/trends/` blog isn't —
+  added `cimigo_consumer_trends` (single-fetch, new
+  `SITE_CONFIGS["cimigo.com"]`, `content_selector: "div.post--content"`).
+- `decisionlab.co`: fetched its real sitemap.xml directly (the `/blog`
+  listing page itself isn't paginated/filterable), hand-filtered 182
+  URLs down to 65 behavior-relevant candidates, grouped into 3 new
+  `multi_pdf: True` sources — `decisionlab_connected_consumer` (3 most
+  recent quarterly editions), `decisionlab_genz_behavior` (4 articles),
+  `decisionlab_fintech_ewallet_behavior` (3 articles, closest to direct
+  banking relevance). New `_fetch_decisionlab_article_parts()` shared
+  helper, `.pwr-post-content` selector confirmed across all 7 articles
+  used, static fetch (no JS needed).
+- All 4 hardcoded URL lists picked by hand from real sitemaps
+  (2026-09-03) — same maintenance pattern as this project's other
+  hardcoded-URL Layer 3 sources.
+- Crawl-verified all 4 live before writing any prompt (11 article
+  fetches, zero failures); live LLM-verified one
+  (`decisionlab_fintech_ewallet_behavior` — real stats: 35%
+  wallet-loyalty rate, 46% sub-500K-VND balance, 57% Gen Z dislike
+  excess app functions).
+- qandme.net (86 real candidates found) and Decision Lab's EuroCham
+  Business Confidence Index series were surfaced but deliberately
+  skipped this pass.
+
 ## Unreleased — `mbbank_news` + `acb_promotions` click-through fixes (4th/5th user-found content bugs)
 
 Both found by the user re-checking their own already-"solved" v0.10

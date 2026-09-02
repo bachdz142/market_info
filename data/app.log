@@ -50072,3 +50072,157 @@ Version 8.8.2
 2026-09-03 01:19:20,106 INFO service: [39/39] vpbank_neo_release_notes done in 20.1s (gate_passed=True, error=None)
 2026-09-03 01:19:20,587 INFO service: Trigger finished in 6585.31s: 39/39 ok, 0 gate-rejected, 0 errored
 2026-09-03 01:19:20,587 INFO service: Full run summary written to /Users/dangngocbach/PycharmProjects/Market insight test/data/trigger_run_6c789d58-f769-4b44-afee-6019e7aff0f9.json
+2026-09-03 01:49:59,877 INFO agent.gate: Gate passed: These are 3 Decision Lab articles on Vietnamese e-wallet and fintech adoption be
+2026-09-03 01:50:01,178 INFO agent.crawler: Throttling request to decisionlab.co, waiting 4.5s
+2026-09-03 01:50:05,836 INFO agent.crawler: Throttling request to decisionlab.co, waiting 4.8s
+2026-09-03 01:50:10,837 INFO agent.graph: Multi-crawl done in 10.96s for url: https://www.decisionlab.co/blog/demystifying-the-rise-of-e-wallets-in-vietnam (3 documents)
+2026-09-03 01:50:11,214 INFO agent.graph: Raw content fed to LLM for query: These are 3 Decision Lab articles on Vietnamese e-wallet and fintech adoption be
+F
+intech has been receiving much buzz on the Vietnam tech scene. More specifically, digital wallet payment methods have been in fierce competition with each other to grow their user base and number of transactions. Without a doubt, there remains a lot to discover about E-wallets in Vietnam. For that reason, Decision Lab has launched a study to uncover insights about
+Vietnamese consumers' usage and attitude regarding E-wallets
+.
+The growing number of E-wallet providers sums it all up: In Vietnam there are currently more than 40+ E-wallets,
+compared to merely five E-wallets just 6 years ago
+. The idea and the demand is there. However, for E-wallet providers, the recipe for success is still in the making. Some E-wallets leverage their ‘first-mover’ advantage by becoming exclusive partners to super-apps, while others derive benefits from financial institutions and sharing customer base.
+E-wallets’ context for success
+Once the most popular method of payment, cash-on-delivery has seen a downward trend in usage ever since the pandemic started in early 2020. Correspondingly, digital payment methods, including internet banking (70%) and E-wallets (59%), have stepped in. Thanks to the rise in digital payments, there are great potentials in the Vietnam market for E-wallet, as it is becoming the most preferred method of payment for making online purchases.
+E-wallets came into existence with the primary purpose of facilitating transactions and online payments, which holds true for two-thirds of Vietnamese consumers. It is noteworthy that promotions are the second most important reason for using E-wallets over other payment methods (65%), followed by convenience when paying for bills (61%). Understanding customers’ motivation for using E-wallets can help providers improve key features to stay ahead of the competition.
+Our findings also show high usage frequency for E-wallets. Two thirds of Vietnamese customers use E-wallets on a weekly basis. Among them, 35% use E-wallets 3-5 times a week and 30% use E-wallets daily. In addition, 61% of Vietnamese customers use two or more E-wallets. Is the increase in E-wallet usage merely a result of social distancing? Yes, but only for the 6% of users who intend to use E-wallets less in the future. Otherwise, 37% of customers claim they will continue using E-wallets as much as they do now. And most importantly, 57% of customers intend to use E-wallets more frequently in the next 6 months.
+Top E-wallet providers
+Momo, ShopeePay (AirPay), and ZaloPay are the top three most popular E-wallets in the market, based on penetration rates. That these E-wallets are different in nature makes their popularity all the more intriguing. While Momo is an independent E-wallet, ZaloPay and ShopeePay partner up with established platforms (Zalo and Shopee). With the most familiar name on the scene, Momo retains its market leader position both in terms of active customer base (86%) and most used E-wallet for 56% of users. Although ZaloPay is more popular than ShopeePay, the latter is better at encouraging transactions and usage among current users.
+Key differentiating factors among top E-wallets
+As an independent e-wallet, Momo’s success comes from its superior delivery of key functions, such as fast transactions and a wide acceptance network. On the other hand, ShopeePay as an e-wallet for e-commerce shopping is most used by consumers for promotions and convenience in making online purchases. As for ZaloPay, this e-wallet’s aggressive acquisition strategy by offering a myriad of promotions has clearly been effective, as most users turn to ZaloPay for its convenient payment services (fast, accepted at many retailers) and promotions. For ViettelPay, brand reputation is the most important trigger for adoption.
+So far, it seems difficult for e-wallets to differentiate themselves beyond easy money transactions, convenient bills payment & attractive promotions. However, knowing that more and more people will use e-wallets and the current users will use e-wallets more frequently, we can expect that customers’ needs will grow beyond the basic features. That said, as more e-wallet providers enter the scene, we believe the key to success lies in providers’ ability to identify and address their target customers’ needs.
+For more insights into Vietnam’s E-wallet landscape
+download Decision Lab’s FREE report on "The rise of E-wallets in Vietnam" here
+. For a consultation about how your brand can tap into this market,
+reach out
+to one of our expert consultants today.
+2026-09-03 01:50:12,786 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:50:12,857 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:50:12,857 WARNING google_genai.models: Direct use of automatic function calling (AFC) in Models.generate_content is not recommended. Instead, we recommend to use AFC in Chat.send_message. Similarly, direct use of AFC in Models.generate_content_stream is not recommended. Instead, we recommend to use AFC in Chat.send_message_stream.
+2026-09-03 01:50:13,308 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:50:19,841 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:50:19,863 WARNING agent.llm_fallback: [mistral/mistral-small-2603] failed schema validation, trying next provider | error: 1 validation error for MarketSignalBatch
+generated_at
+  Field required [type=missing, input_value={'query': 'Decision Lab a...r_opinion': 'opinion'}]}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-09-03 01:50:20,964 INFO httpx2: HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:50:46,917 INFO agent.graph: Structure LLM call done in 35.7s for query: These are 3 Decision Lab articles on Vietnamese e-wallet and fintech adoption be | provider: openrouter/nvidia/nemotron-3-super-120b-a12b:free | tokens: {'input_tokens': 2392, 'output_tokens': 4252, 'total_tokens': 6644, 'input_token_details': {'audio': 0, 'cache_read': 0, 'cache_creation': 0}, 'output_token_details': {'audio': 0, 'reasoning': 2037}}
+2026-09-03 01:50:46,919 INFO agent.graph: Per-piece structure call 1/3 done
+2026-09-03 01:51:16,920 INFO agent.graph: Raw content fed to LLM for query: These are 3 Decision Lab articles on Vietnamese e-wallet and fintech adoption be
+T
+he fast-growing e-wallet market in Vietnam is not without its problems, such as low customer loyalty and limited monthly average balance.
+A recent report by Decision Lab
+provides some indications for areas which providers should improve.
+The e-wallet market in Vietnam is saturated with 40+ providers. Clear front-runners, such as MoMo, ShopeePay, and ZaloPay, distinguish themselves by providing fast and convenient online payment methods for Vietnamese consumers. Yet, besides the fierce competition inherent in a crowded market, e-wallet providers still need to face tough barriers to win over customers’ hearts.
+The user loyalty problem
+With the wide variety of e-wallet services, Vietnamese users naturally have many options.
+According to Decision Lab’s latest report on E-wallet usage in Vietnam
+, most people use more than one e-wallet app in Vietnam, and only 35 percent of Vietnamese users plan to stick with their current e-wallets. As a result, e-wallet providers must spend significant efforts on retaining their customer base to combat users’ lack of loyalty.
+Vietnamese users don’t keep a high balance in their e-wallet accounts either, with 46% maintaining a usual balance of less than VND500,000. Low balances may reflect smaller values of transactions, which may typically reach up to VND1,000,000. It is, thus, important for providers to encourage users to maintain higher balances and, in a sense, spend more through e-wallet apps.
+Addressing users’ unmet needs may boost loyalty
+Vietnamese users’ lack of loyalty might be due the fact that they find e-wallets’ point collection scheme unsatisfactory. For 57 percent of e-wallet users in Vietnam, one of the biggest downsides to e-wallets is their unattractive point collection system.
+An obvious solution is to give users higher rewards for their point collection within e-wallets. This method may be especially useful for millennials, since 58 percent of users of this age group regarded poor point collection as damaging to their experience while using e-wallets. Gen X and Z users also share the same concern, to a slightly lesser extent (56%).
+In the same breath, e-wallet providers should consider designing higher-value promotions. While promotions are the main driver of adoption among Vietnamese e-wallet users, 52 percent of them regard unattractive promotions as a thorny issue.
+E-wallets in Vietnam typically aim to capture customers’ every need by providing a wide variety of services. However, having too many functions in one app may create negative experiences for users. According to Decision Lab’s report, people often use e-wallets for 4 main purposes: mobile top-up (77%), paying bills (74%), receiving/transferring money (67%), and shopping online (66%).
+Including extra functions outside of these four main purposes seems to be a pain point for half of the e-wallet users in Vietnam, especially for those within the Gen Z age group (57%). In fact, having too many unnecessary functions is what Gen Z consumers dislike most about e-wallets.
+For more insights into Vietnam’s E-wallet landscape
+download Decision Lab’s FREE report on "The rise of E-wallets in Vietnam" here
+. For a consultation about how your brand can tap into this market,
+reach out
+to one of our expert consultants today.
+2026-09-03 01:51:17,207 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:51:17,258 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:51:17,770 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:51:22,445 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:51:22,458 INFO agent.graph: Structure LLM call done in 5.54s for query: These are 3 Decision Lab articles on Vietnamese e-wallet and fintech adoption be | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 1977, 'output_tokens': 853, 'total_tokens': 2830}
+2026-09-03 01:51:22,479 INFO agent.graph: Per-piece structure call 2/3 done
+2026-09-03 01:52:17,469 INFO agent.gate: Gate passed: These are 3 Decision Lab articles on Vietnamese e-wallet and fintech adoption be
+2026-09-03 01:52:18,853 INFO agent.crawler: Throttling request to decisionlab.co, waiting 4.5s
+2026-09-03 01:52:23,526 INFO agent.crawler: Throttling request to decisionlab.co, waiting 4.9s
+2026-09-03 01:52:28,525 INFO agent.graph: Multi-crawl done in 11.05s for url: https://www.decisionlab.co/blog/demystifying-the-rise-of-e-wallets-in-vietnam (3 documents)
+2026-09-03 01:52:28,774 INFO agent.graph: Raw content fed to LLM for query: These are 3 Decision Lab articles on Vietnamese e-wallet and fintech adoption be
+F
+intech has been receiving much buzz on the Vietnam tech scene. More specifically, digital wallet payment methods have been in fierce competition with each other to grow their user base and number of transactions. Without a doubt, there remains a lot to discover about E-wallets in Vietnam. For that reason, Decision Lab has launched a study to uncover insights about
+Vietnamese consumers' usage and attitude regarding E-wallets
+.
+The growing number of E-wallet providers sums it all up: In Vietnam there are currently more than 40+ E-wallets,
+compared to merely five E-wallets just 6 years ago
+. The idea and the demand is there. However, for E-wallet providers, the recipe for success is still in the making. Some E-wallets leverage their ‘first-mover’ advantage by becoming exclusive partners to super-apps, while others derive benefits from financial institutions and sharing customer base.
+E-wallets’ context for success
+Once the most popular method of payment, cash-on-delivery has seen a downward trend in usage ever since the pandemic started in early 2020. Correspondingly, digital payment methods, including internet banking (70%) and E-wallets (59%), have stepped in. Thanks to the rise in digital payments, there are great potentials in the Vietnam market for E-wallet, as it is becoming the most preferred method of payment for making online purchases.
+E-wallets came into existence with the primary purpose of facilitating transactions and online payments, which holds true for two-thirds of Vietnamese consumers. It is noteworthy that promotions are the second most important reason for using E-wallets over other payment methods (65%), followed by convenience when paying for bills (61%). Understanding customers’ motivation for using E-wallets can help providers improve key features to stay ahead of the competition.
+Our findings also show high usage frequency for E-wallets. Two thirds of Vietnamese customers use E-wallets on a weekly basis. Among them, 35% use E-wallets 3-5 times a week and 30% use E-wallets daily. In addition, 61% of Vietnamese customers use two or more E-wallets. Is the increase in E-wallet usage merely a result of social distancing? Yes, but only for the 6% of users who intend to use E-wallets less in the future. Otherwise, 37% of customers claim they will continue using E-wallets as much as they do now. And most importantly, 57% of customers intend to use E-wallets more frequently in the next 6 months.
+Top E-wallet providers
+Momo, ShopeePay (AirPay), and ZaloPay are the top three most popular E-wallets in the market, based on penetration rates. That these E-wallets are different in nature makes their popularity all the more intriguing. While Momo is an independent E-wallet, ZaloPay and ShopeePay partner up with established platforms (Zalo and Shopee). With the most familiar name on the scene, Momo retains its market leader position both in terms of active customer base (86%) and most used E-wallet for 56% of users. Although ZaloPay is more popular than ShopeePay, the latter is better at encouraging transactions and usage among current users.
+Key differentiating factors among top E-wallets
+As an independent e-wallet, Momo’s success comes from its superior delivery of key functions, such as fast transactions and a wide acceptance network. On the other hand, ShopeePay as an e-wallet for e-commerce shopping is most used by consumers for promotions and convenience in making online purchases. As for ZaloPay, this e-wallet’s aggressive acquisition strategy by offering a myriad of promotions has clearly been effective, as most users turn to ZaloPay for its convenient payment services (fast, accepted at many retailers) and promotions. For ViettelPay, brand reputation is the most important trigger for adoption.
+So far, it seems difficult for e-wallets to differentiate themselves beyond easy money transactions, convenient bills payment & attractive promotions. However, knowing that more and more people will use e-wallets and the current users will use e-wallets more frequently, we can expect that customers’ needs will grow beyond the basic features. That said, as more e-wallet providers enter the scene, we believe the key to success lies in providers’ ability to identify and address their target customers’ needs.
+For more insights into Vietnam’s E-wallet landscape
+download Decision Lab’s FREE report on "The rise of E-wallets in Vietnam" here
+. For a consultation about how your brand can tap into this market,
+reach out
+to one of our expert consultants today.
+2026-09-03 01:52:30,223 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:52:30,298 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:52:30,298 WARNING google_genai.models: Direct use of automatic function calling (AFC) in Models.generate_content is not recommended. Instead, we recommend to use AFC in Chat.send_message. Similarly, direct use of AFC in Models.generate_content_stream is not recommended. Instead, we recommend to use AFC in Chat.send_message_stream.
+2026-09-03 01:52:30,769 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:52:36,701 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:52:36,718 INFO agent.graph: Structure LLM call done in 7.94s for query: These are 3 Decision Lab articles on Vietnamese e-wallet and fintech adoption be | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 2258, 'output_tokens': 1128, 'total_tokens': 3386}
+2026-09-03 01:52:36,722 INFO agent.graph: Per-piece structure call 1/3 done
+2026-09-03 01:53:06,726 INFO agent.graph: Raw content fed to LLM for query: These are 3 Decision Lab articles on Vietnamese e-wallet and fintech adoption be
+T
+he fast-growing e-wallet market in Vietnam is not without its problems, such as low customer loyalty and limited monthly average balance.
+A recent report by Decision Lab
+provides some indications for areas which providers should improve.
+The e-wallet market in Vietnam is saturated with 40+ providers. Clear front-runners, such as MoMo, ShopeePay, and ZaloPay, distinguish themselves by providing fast and convenient online payment methods for Vietnamese consumers. Yet, besides the fierce competition inherent in a crowded market, e-wallet providers still need to face tough barriers to win over customers’ hearts.
+The user loyalty problem
+With the wide variety of e-wallet services, Vietnamese users naturally have many options.
+According to Decision Lab’s latest report on E-wallet usage in Vietnam
+, most people use more than one e-wallet app in Vietnam, and only 35 percent of Vietnamese users plan to stick with their current e-wallets. As a result, e-wallet providers must spend significant efforts on retaining their customer base to combat users’ lack of loyalty.
+Vietnamese users don’t keep a high balance in their e-wallet accounts either, with 46% maintaining a usual balance of less than VND500,000. Low balances may reflect smaller values of transactions, which may typically reach up to VND1,000,000. It is, thus, important for providers to encourage users to maintain higher balances and, in a sense, spend more through e-wallet apps.
+Addressing users’ unmet needs may boost loyalty
+Vietnamese users’ lack of loyalty might be due the fact that they find e-wallets’ point collection scheme unsatisfactory. For 57 percent of e-wallet users in Vietnam, one of the biggest downsides to e-wallets is their unattractive point collection system.
+An obvious solution is to give users higher rewards for their point collection within e-wallets. This method may be especially useful for millennials, since 58 percent of users of this age group regarded poor point collection as damaging to their experience while using e-wallets. Gen X and Z users also share the same concern, to a slightly lesser extent (56%).
+In the same breath, e-wallet providers should consider designing higher-value promotions. While promotions are the main driver of adoption among Vietnamese e-wallet users, 52 percent of them regard unattractive promotions as a thorny issue.
+E-wallets in Vietnam typically aim to capture customers’ every need by providing a wide variety of services. However, having too many functions in one app may create negative experiences for users. According to Decision Lab’s report, people often use e-wallets for 4 main purposes: mobile top-up (77%), paying bills (74%), receiving/transferring money (67%), and shopping online (66%).
+Including extra functions outside of these four main purposes seems to be a pain point for half of the e-wallet users in Vietnam, especially for those within the Gen Z age group (57%). In fact, having too many unnecessary functions is what Gen Z consumers dislike most about e-wallets.
+For more insights into Vietnam’s E-wallet landscape
+download Decision Lab’s FREE report on "The rise of E-wallets in Vietnam" here
+. For a consultation about how your brand can tap into this market,
+reach out
+to one of our expert consultants today.
+2026-09-03 01:53:07,132 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:53:07,138 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:53:07,479 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:53:12,158 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:53:12,167 INFO agent.graph: Structure LLM call done in 5.44s for query: These are 3 Decision Lab articles on Vietnamese e-wallet and fintech adoption be | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 1977, 'output_tokens': 853, 'total_tokens': 2830}
+2026-09-03 01:53:12,172 INFO agent.graph: Per-piece structure call 2/3 done
+2026-09-03 01:53:42,178 INFO agent.graph: Raw content fed to LLM for query: These are 3 Decision Lab articles on Vietnamese e-wallet and fintech adoption be
+The biggest consumer finance survey in Vietnam has named MoMo (30.8 points), Vietcombank (27.8 points), and ZaloPay (23.0 points) as the country’s three most considered banking and payment brands.
+The rankings are based on YouGov BrandIndex’s positive Consideration score, which measures the percentage of a brand’s customers who would consider it when next in the market to use a Financial Institutions & Services brand. The rankings show the brands with the highest average Consideration score between 1 October 2021 – 30 September 2022 compared with the same period in the previous year, revealing the brands at the forefront in the minds of potential customers.
+Fintech’s disruption of consumer finance
+The rankings hint at the changing face of consumer finance in Vietnam, with half of the top-ranked brands being newcomers to the brand rankings, the majority of which are from the fintech sector. Alongside MoMo (1st) and ZaloPay (3rd), mobile banking brands ViettelPay (8th) and ShopeePay (10th) also made the top 10.
+Despite the inroads being made by newcomers, some traditional banks – such as MB (5th) and Techcombank (6th) – have managed to maintain their strong positions in the market and feature as some of the most considered brands.
+Newcomers gain ground on traditional banks
+Alongside the brand rankings, YouGov also released the ten “most improved” brands of the sector, tracking how sentiment towards these banks and financial institutions in the minds of Vietnamese consumers may have changed over the past year. By far the biggest improver this year was MB Bank, which saw an increase of seven points in 2022.
+Fintech brands also dominated the list of top improvers, with ShopeePay (2nd), ZaloPay (3rd), and VNPay (4th) also seeing improvements and featuring highly. VP Bank rounded off the top five, improving by 2.2 points.
+Commenting on the 2022 YouGov Bank and Payment System Consideration Rankings,
+Thue Quist Thomasen, CEO of Decision Lab
+, YouGov’s exclusive partner in Vietnam, said:
+“The 2022 YouGov Financial Services rankings show that mobile banking is becoming more popular in Vietnam and fintech brands are gaining ground on more traditional financial players. Vietnamese consumers are embracing the ease and convenience of e-wallets and digital payments, presenting new challenges to long-established banks.
+“Consumers are becoming more comfortable with digital-first products and mobile banking services. This presents both challenges and opportunities to the sector as a whole. Financial brands who understand this trend and adapt their marketing strategies to match can capitalise on this emerging consumer segment. But this requires using tools that can track fast-moving consumer trends in real-time – such as YouGov’s BrandIndex – measuring what customers think about financial brands and their products.”
+Mr. Nguyen Manh Tuong, Executive Vice Chairman and CEO of MoMo
+, the top-performing financial brand in 2022, said:
+"We are delighted that MoMo to be the brand most Vietnamese consumers would turn to when looking for new financial products. The fact that MoMo has taken the number one spot in our first year in the YouGov Financial Services rankings shows the speed at which customers have embraced the ease and convenience of our platform. Fintech helps speeding up the growth of finance services in Vietnam, and this trend will only continue to grow in the future."
+To get in touch about our entire suite of agile marketing products, reach out to one of our expert consultants
+today
+.
+2026-09-03 01:53:42,488 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:53:42,495 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:53:42,943 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:53:49,900 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:53:49,910 INFO agent.graph: Structure LLM call done in 7.73s for query: These are 3 Decision Lab articles on Vietnamese e-wallet and fintech adoption be | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 2028, 'output_tokens': 1379, 'total_tokens': 3407}
+2026-09-03 01:53:49,911 INFO agent.graph: Per-piece structure call 3/3 done
+2026-09-03 01:53:49,921 INFO service: [1/1] decisionlab_fintech_ewallet_behavior done in 92.45s (gate_passed=True, error=None)

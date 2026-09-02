@@ -1,0 +1,163 @@
+<title>Market Insight Pipeline</title>
+<style>
+body { font-family: -apple-system, "Segoe UI", sans-serif; background:#f4f5f6; color:#1a1f24; margin:0; padding:1.5rem 2rem 4rem; }
+h1 { font-size:1.5rem; margin-bottom:.2rem; }
+.dek { color:#555; font-size:.92rem; max-width:42rem; line-height:1.55; margin:.3rem 0 .6rem; }
+.stats-note { color:#555; font-size:.85rem; margin-bottom:1.5rem; }
+h2 { font-size:1.1rem; border-bottom:2px solid #ccc; padding-bottom:.3rem; margin-top:2.4rem; }
+h3 { font-size:.95rem; margin:1.4rem 0 .4rem; }
+.countnote { font-weight:400; color:#888; font-size:.8rem; }
+.archwrap { background:#fff; border:1px solid #ddd; border-radius:6px; padding:.8rem; overflow-x:auto; }
+.archsvg { width:100%; min-width:820px; height:auto; display:block; }
+.srctable { width:100%; border-collapse:collapse; font-size:.85rem; margin-bottom:.6rem; background:#fff; border:1px solid #ddd; border-radius:6px; overflow:hidden; }
+.srctable th { text-align:left; font-size:.7rem; text-transform:uppercase; letter-spacing:.04em; color:#666; padding:.4rem .7rem; border-bottom:1px solid #ddd; background:#f7f7f8; }
+.srctable td { padding:.42rem .7rem; border-bottom:1px solid #eee; }
+.srctable tr:last-child td { border-bottom:none; }
+.num { font-variant-numeric:tabular-nums; }
+.sid { font-family:ui-monospace, monospace; font-size:.82rem; }
+.techup { font-family:ui-monospace, monospace; }
+.technote { color:#666; font-size:.82rem; }
+.badge { font-size:.7rem; padding:.15rem .5rem; border-radius:999px; background:#e8eaed; color:#444; }
+.badge.ok { background:#dcf3e6; color:#186a3c; }
+.badge.rejected { background:#fff3cd; color:#7a5200; }
+.badge.errored { background:#fbdada; color:#8a1c1c; }
+.badge.notrun-badge { background:#eee; color:#777; }
+.plainlist { margin:0 0 1rem; padding-left:1.2rem; font-size:.9rem; line-height:1.6; }
+.plainlist li { margin-bottom:.4rem; }
+footer { margin-top:2.5rem; padding-top:1rem; border-top:2px solid #ccc; font-size:.8rem; color:#777; }
+</style>
+
+<h1>Market Insight Pipeline</h1>
+<p class="dek">Vietnam banking market intelligence - a crawl -> gate -> extract pipeline over 51 real sources: bank IR pages, SBV statistics, legal circulars, industry research.</p>
+<p class="stats-note">Live snapshot, regenerated from data/signals.jsonl + raw_content.csv - not a fixed export. Run <code>python presentation.py</code> again any time to refresh.</p>
+
+<h2>Tech stack</h2>
+<table class='srctable'><thead><tr><th>Role</th><th>Technology</th><th>Note</th></tr></thead><tbody><tr><td>Fetch engine</td><td class='sid'>crawl4ai</td><td class='technote'>HTTP + Playwright-based crawling, PDF text extraction</td></tr><tr><td>Browser automation</td><td class='sid'>Playwright</td><td class='technote'>JS-rendered pages, click simulation, network-capture API discovery</td></tr><tr><td>Pipeline orchestration</td><td class='sid'>LangGraph</td><td class='technote'>StateGraph: checkpoint_gate -&gt; crawl -&gt; content_gate -&gt; structure</td></tr><tr><td>LLM chat abstraction</td><td class='sid'>LangChain</td><td class='technote'>Unified interface across 4 providers, with .with_fallbacks()</td></tr><tr><td>Primary LLM</td><td class='sid'>Groq - openai/gpt-oss-120b</td><td class='technote'>Free tier, fast, rate-limited (TPM + daily TPD)</td></tr><tr><td>Fallback LLM 1</td><td class='sid'>Google Gemini - gemini-3.6-flash</td><td class='technote'></td></tr><tr><td>Fallback LLM 2</td><td class='sid'>Mistral - mistral-small-2603</td><td class='technote'></td></tr><tr><td>Fallback LLM 3</td><td class='sid'>OpenRouter - nvidia/nemotron-3-super-120b-a12b:free</td><td class='technote'>Last resort, free-tier models rotate</td></tr><tr><td>OCR</td><td class='sid'>Mistral OCR - mistral-ocr-latest, Batch mode</td><td class='technote'>Scanned / no-text-layer PDF recovery, ~$2/1,000 pages</td></tr><tr><td>Structured output</td><td class='sid'>Pydantic</td><td class='technote'>MarketSignalBatch schema validation</td></tr><tr><td>HTML parsing</td><td class='sid'>BeautifulSoup4 + lxml</td><td class='technote'>Content-selector scoping past nav/footer boilerplate</td></tr><tr><td>PDF page analysis</td><td class='sid'>pypdf</td><td class='technote'>Partial-scan detection via real page counts</td></tr><tr><td>HTTP client</td><td class='sid'>requests</td><td class='technote'>Raw PDF re-download for OCR / page-density checks</td></tr><tr><td>API service</td><td class='sid'>FastAPI</td><td class='technote'>/trigger endpoint</td></tr><tr><td>Storage</td><td class='sid'>JSONL + CSV, flat files</td><td class='technote'>signals, raw content, provider calls, OCR job log - no database yet</td></tr></tbody></table>
+
+<h2>Architecture</h2>
+<p class="stats-note">The real graph shape - including the automatic OCR-recovery branch and the disabled search path still present in code, not a simplified version.</p>
+<div class="archwrap">
+<svg viewBox="0 0 1220 420" role="img" aria-label="Pipeline architecture, horizontal, two parallel lanes" class="archsvg">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#888"></path>
+    </marker>
+    <marker id="arrowocr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#a33"></path>
+    </marker>
+  </defs>
+  <style>
+    .archsvg text { font-family: ui-monospace, monospace; }
+    .box { fill: #fff; stroke: #ccc; stroke-width: 1.2; }
+    .box.gate { fill: #eef1f4; }
+    .box.ocr { fill: #fbdada; stroke: #c98; }
+    .box.dormant { fill: #f2f2f2; stroke-dasharray: 4 3; }
+    .lbl { font-size: 12.5px; fill: #1a1f24; }
+    .lbl.small { font-size: 10px; fill: #777; }
+    .lbl.ocrnote { font-size: 8px; fill: #a33; }
+    .edge { stroke: #999; stroke-width: 1.3; fill: none; marker-end: url(#arrow); }
+    .edge.ocr-trig { stroke: #a33; marker-end: url(#arrowocr); }
+    .edge.ocr-ret { stroke: #a33; stroke-dasharray: 3 3; marker-end: url(#arrowocr); }
+    .edge.dormant { stroke: #999; stroke-dasharray: 3 3; }
+  </style>
+
+  <circle cx="30" cy="170" r="13" class="box gate"></circle>
+  <text x="30" y="174" text-anchor="middle" class="lbl">START</text>
+
+  <rect x="70" y="148" width="140" height="44" rx="5" class="box gate"></rect>
+  <text x="140" y="168" text-anchor="middle" class="lbl">checkpoint_gate</text>
+  <text x="140" y="181" text-anchor="middle" class="lbl small">validates the query</text>
+  <path d="M43,170 L70,170" class="edge"></path>
+
+  <!-- top lane: single-fetch - y49-91 throughout, dedicated to this lane only -->
+  <rect x="280" y="49" width="130" height="42" rx="5" class="box"></rect>
+  <text x="345" y="68" text-anchor="middle" class="lbl">crawl</text>
+  <text x="345" y="80" text-anchor="middle" class="lbl small">single-fetch source</text>
+  <path d="M210,158 L280,70" class="edge"></path>
+
+  <rect x="460" y="49" width="150" height="42" rx="5" class="box gate"></rect>
+  <text x="535" y="68" text-anchor="middle" class="lbl">content_gate</text>
+  <text x="535" y="80" text-anchor="middle" class="lbl small">near-empty / block / scan</text>
+  <path d="M410,70 L460,70" class="edge"></path>
+
+  <!-- structure is pushed right of structure_multi's column so its straight
+       vertical drop to the fallback lane below has a clear channel past the
+       bottom lane's row (nothing else sits above x=790 down there) -->
+  <rect x="900" y="49" width="130" height="42" rx="5" class="box"></rect>
+  <text x="965" y="68" text-anchor="middle" class="lbl">structure</text>
+  <text x="965" y="80" text-anchor="middle" class="lbl small">one LLM call</text>
+  <path d="M610,70 L900,70" class="edge"></path>
+
+  <!-- bottom lane: multi-piece - y249-291 throughout, dedicated to this lane only -->
+  <rect x="280" y="249" width="130" height="42" rx="5" class="box"></rect>
+  <text x="345" y="268" text-anchor="middle" class="lbl">crawl_multi</text>
+  <text x="345" y="280" text-anchor="middle" class="lbl small">chunked / multi_pdf</text>
+  <path d="M210,182 L280,270" class="edge"></path>
+
+  <rect x="460" y="249" width="150" height="42" rx="5" class="box gate"></rect>
+  <text x="535" y="268" text-anchor="middle" class="lbl">content_gate_multi</text>
+  <text x="535" y="280" text-anchor="middle" class="lbl small">per-piece, same checks</text>
+  <path d="M410,270 L460,270" class="edge"></path>
+
+  <rect x="660" y="249" width="130" height="42" rx="5" class="box"></rect>
+  <text x="725" y="268" text-anchor="middle" class="lbl">structure_multi</text>
+  <text x="725" y="280" text-anchor="middle" class="lbl small">per piece, merged</text>
+  <path d="M610,270 L660,270" class="edge"></path>
+
+  <!-- ensure_ocr_text(): its own vertical lane, sandwiched directly between
+       content_gate (above) and content_gate_multi (below) - both arrows in,
+       both arrows out, are short, symmetric straight verticals -->
+  <rect x="460" y="150" width="150" height="40" rx="5" class="box ocr"></rect>
+  <text x="535" y="166" text-anchor="middle" class="lbl">ensure_ocr_text()</text>
+  <text x="535" y="178" text-anchor="middle" class="lbl small">billed Mistral OCR, cached/doc</text>
+
+  <path d="M520,91 L520,150" class="edge ocr-trig"></path>
+  <path d="M550,150 L550,91" class="edge ocr-ret"></path>
+  <text x="558" y="122" class="lbl ocrnote">recovered, re-checked</text>
+
+  <path d="M520,249 L520,190" class="edge ocr-trig"></path>
+  <path d="M550,190 L550,249" class="edge ocr-ret"></path>
+  <text x="558" y="224" class="lbl ocrnote">recovered, re-checked</text>
+
+  <!-- LLM fallback chain: own lane below both structure nodes. Straight
+       vertical drops from each (structure's is the long one, routed through
+       the clear channel right of structure_multi's box), one straight line
+       back up to END - no diagonal crossing through this zone. -->
+  <rect x="650" y="340" width="360" height="52" rx="5" class="box"></rect>
+  <text x="830" y="358" text-anchor="middle" class="lbl">Groq -> Gemini -> Mistral</text>
+  <text x="830" y="371" text-anchor="middle" class="lbl">-&gt; OpenRouter</text>
+  <text x="830" y="384" text-anchor="middle" class="lbl small">first success wins</text>
+  <path d="M965,91 L965,340" class="edge"></path>
+  <path d="M725,291 L725,340" class="edge"></path>
+  <path d="M1010,366 L1060,180" class="edge"></path>
+
+  <rect x="1060" y="155" width="140" height="50" rx="5" class="box"></rect>
+  <text x="1130" y="185" text-anchor="middle" class="lbl">END</text>
+
+  <!-- dormant search path -->
+  <rect x="70" y="300" width="150" height="56" rx="5" class="box dormant"></rect>
+  <text x="145" y="320" text-anchor="middle" class="lbl small">search (Tavily)</text>
+  <text x="145" y="333" text-anchor="middle" class="lbl small">build_graph()</text>
+  <text x="145" y="346" text-anchor="middle" class="lbl small">disabled: TOPICS=[]</text>
+  <path d="M140,192 L145,300" class="edge dormant"></path>
+</svg>
+</div>
+
+<h2>Run summary</h2>
+<p class="stats-note">Counts reflect only genuinely completed structuring passes - stale entries from a 2026-08-31 provider-quota outage (before the current fallback chain existed) are excluded, not counted as real attempts.</p>
+<table class="srctable"><tr><td>Sources configured</td><td class='num'>51</td></tr><tr><td>Attempted (real run)</td><td class='num'>48</td></tr><tr><td>Succeeded</td><td class='num'>48</td></tr><tr><td>Gate-rejected</td><td class='num'>0</td></tr><tr><td>Errored</td><td class='num'>0</td></tr><tr><td>Signals extracted</td><td class='num'>1016</td></tr><tr><td>Documents fetched</td><td class='num'>48</td></tr></table>
+
+<h2>Sources, by Layer</h2>
+<p class="stats-note">source_plan_mvp0.md's 4 content layers - every one of the 47 configured sources, not just a count.</p>
+<h3>Layer 1 - Quantitative bank benchmarks <span class='countnote'>(6 sources)</span></h3><table class='srctable'><thead><tr><th>Source</th><th>Kind</th><th>Status</th><th>Signals</th></tr></thead><tbody><tr><td class='sid'>techcombank_vas_statements</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>3</td></tr><tr><td class='sid'>bidv_financial_statements</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>4</td></tr><tr><td class='sid'>acb_financial_statements</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>27</td></tr><tr><td class='sid'>mbb_financial_statements</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>4</td></tr><tr><td class='sid'>sbv_portal_statistics</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>9</td></tr><tr><td class='sid'>iav_bancassurance</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>3</td></tr></tbody></table><h3>Layer 2 - CVP, offerings &amp; segment sales <span class='countnote'>(16 sources)</span></h3><table class='srctable'><thead><tr><th>Source</th><th>Kind</th><th>Status</th><th>Signals</th></tr></thead><tbody><tr><td class='sid'>bidv_card_promotions</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>29</td></tr><tr><td class='sid'>bidv_personal_fee_schedule</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>177</td></tr><tr><td class='sid'>acb_promotions</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>6</td></tr><tr><td class='sid'>vpbank_news</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>3</td></tr><tr><td class='sid'>vpbank_fee_documents</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>7</td></tr><tr><td class='sid'>vcb_promotions</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>7</td></tr><tr><td class='sid'>acb_fee_schedule</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>24</td></tr><tr><td class='sid'>mbbank_fee_schedule</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>28</td></tr><tr><td class='sid'>mbbank_news</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>3</td></tr><tr><td class='sid'>vcb_fee_schedule</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>52</td></tr><tr><td class='sid'>techcombank_mobile_release_notes</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>25</td></tr><tr><td class='sid'>vcb_digibank_release_notes</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>25</td></tr><tr><td class='sid'>bidv_smartbanking_release_notes</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>25</td></tr><tr><td class='sid'>mbbank_app_release_notes</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>25</td></tr><tr><td class='sid'>acb_one_release_notes</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>25</td></tr><tr><td class='sid'>vpbank_neo_release_notes</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>25</td></tr></tbody></table><h3>Layer 3 - Strategic profile per bank <span class='countnote'>(11 sources)</span></h3><table class='srctable'><thead><tr><th>Source</th><th>Kind</th><th>Status</th><th>Signals</th></tr></thead><tbody><tr><td class='sid'>banking_review_journal</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>3</td></tr><tr><td class='sid'>finance_review_journal</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>8</td></tr><tr><td class='sid'>ssi_banking_sector_report</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>14</td></tr><tr><td class='sid'>vcbs_banking_sector_report</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>115</td></tr><tr><td class='sid'>bsc_mbb_report</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>14</td></tr><tr><td class='sid'>decisionlab_bank_satisfaction_rankings</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>10</td></tr><tr><td class='sid'>qandme_online_banking_usage</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>3</td></tr><tr><td class='sid'>cimigo_consumer_trends</td><td>qualitative</td><td><span class='badge notrun-badge'>not yet run</span></td><td class='num'>-</td></tr><tr><td class='sid'>decisionlab_connected_consumer</td><td>qualitative</td><td><span class='badge notrun-badge'>not yet run</span></td><td class='num'>-</td></tr><tr><td class='sid'>decisionlab_genz_behavior</td><td>qualitative</td><td><span class='badge notrun-badge'>not yet run</span></td><td class='num'>-</td></tr><tr><td class='sid'>decisionlab_fintech_ewallet_behavior</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>24</td></tr></tbody></table><h3>Layer 4 - Macro, government &amp; PEST <span class='countnote'>(18 sources)</span></h3><table class='srctable'><thead><tr><th>Source</th><th>Kind</th><th>Status</th><th>Signals</th></tr></thead><tbody><tr><td class='sid'>vietnam_cpi_official</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>5</td></tr><tr><td class='sid'>sbv_press_releases_official</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>0</td></tr><tr><td class='sid'>sbv_legal_directives_official</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>6</td></tr><tr><td class='sid'>nso_data_and_statistics_official</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>0</td></tr><tr><td class='sid'>nso_gdp_key_indicators</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>48</td></tr><tr><td class='sid'>nso_vhlss_income</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>27</td></tr><tr><td class='sid'>nso_vhlss_expenditure</td><td>quant</td><td><span class='badge ok'>succeeded</span></td><td class='num'>27</td></tr><tr><td class='sid'>chinhphu_legal_documents_official</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>6</td></tr><tr><td class='sid'>vnba_banking_news</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>4</td></tr><tr><td class='sid'>sbv_circular_08_2026_tt_nhnn</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>1</td></tr><tr><td class='sid'>sbv_official_letter_4551_nhnn_cstt</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>2</td></tr><tr><td class='sid'>sbv_circular_21_2025_tt_nhnn</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>37</td></tr><tr><td class='sid'>decree_94_2025_nd_cp_fintech_sandbox</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>47</td></tr><tr><td class='sid'>resolution_57_nq_tw_digital_transformation</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>11</td></tr><tr><td class='sid'>resolution_110_2025_ubtvqh15_pit_deduction</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>2</td></tr><tr><td class='sid'>pit_law_109_2025_qh15</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>45</td></tr><tr><td class='sid'>decision_21_2025_qd_ttg_green_taxonomy</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>16</td></tr><tr><td class='sid'>sbv_circular_17_2022_tt_nhnn_environmental_risk</td><td>qualitative</td><td><span class='badge ok'>succeeded</span></td><td class='num'>5</td></tr></tbody></table>
+
+<h2>Further improvements</h2>
+<ul class='plainlist'><li>Full LLM-verification pass across the original 47 sources - done (39/39 ok, 0 errored, run_todo_sources.py); the 4 newest sources (cimigo/decisionlab) each have their own live spot-check but not all 4 have a full-pipeline run logged yet.</li><li>Prompt refactor grouped by content shape (financial-statement PDF / legal document / news article / app release notes) - deferred pending real evidence; the two weak-extraction candidates checked so far turned out to be stale pre-fix data, not current prompt problems.</li><li>Extend automatic OCR-eligibility to the remaining single-fetch chunked sources (Techcombank, ACB, 3 fee schedules) - only BIDV and MBB have it wired so far.</li><li>Reconsider blind pre-chunking of large documents (ACB&#x27;s financial statement splits into 21 pieces, ~10-15 min just from pacing) - BIDV&#x27;s own ~190K-char OCR&#x27;d document was handled in a single call by the fallback chain&#x27;s larger-context providers; chunking may now be a pre-fallback-chain relic.</li><li>A real query layer (SQLite) for joining signals &lt;-&gt; raw content &lt;-&gt; run history - currently hand-rolled Python merges in every script that needs it.</li><li>Annual reports / AGM documents (Layer 3) - parked mid-discovery, deferred pending OCR effort (which now exists).</li><li>Vietcombank&#x27;s own Layer 1 disclosures - Akamai-blocked, routed to manual ingestion per source_plan_mvp0.md section 8, not automated.</li></ul>
+
+<h2>Blockers we faced</h2>
+<ul class='plainlist'><li>Anti-bot walls: Akamai (MBBank&#x27;s, Vietcombank&#x27;s own sites), intermittent WAF rejections (sbv.gov.vn) - routed around via aggregator mirrors or accepted as flaky, never evasion techniques.</li><li>AJAX-gapped listings (VPBank, ACB) where the real content loads via client-side API calls invisible to a plain fetch - solved via real Playwright network capture of an actual click, not scraping guesses.</li><li>Scanned / no-text-layer PDFs (BIDV, SBV legal directives, MBBank&#x27;s Vietstock mirror) - needed a real OCR pipeline (Mistral Batch OCR) built from scratch this session.</li><li>A full Groq daily token-quota exhaustion (2026-08-31) - silently produced &quot;completed&quot; runs with zero real signals, before the current Groq -&gt; Gemini -&gt; Mistral -&gt; OpenRouter fallback chain existed to catch it.</li><li>robots.txt blocks naming ClaudeBot specifically (thuvienphapluat.vn, VNDirect) - routed to an equivalent aggregator instead of working around the block.</li><li>A corrupted-text auto-detection threshold with a real near-miss: MBBank&#x27;s re-OCR&#x27;d mirror measured 0.0477 against a 0.05 cutoff - needed a manual per-source override, not a global threshold change.</li><li>Content that fetches successfully but is 100% navigation boilerplate (SBV statistics) - invisible to a basic reachability check; only caught by directly reading the fetched text.</li></ul>
+
+<h2>Blockers we might still face</h2>
+<ul class='plainlist'><li>No formal spend cap on LLM/OCR usage yet - real financial exposure if the pipeline runs unattended at full scale.</li><li>More sources likely have SBV-statistics-style bugs (fetches fine, content is boilerplate) - only found by manual review so far, not systematically.</li><li>Provider API / model deprecations - already happened once mid-project (Groq retired llama-3.3-70b-versatile); the fallback chain helps but doesn&#x27;t eliminate this.</li><li>Vietcombank&#x27;s Layer 1 data has no automated path at all - needs a real manual-ingestion workflow that doesn&#x27;t exist yet.</li><li>Chunked-source processing time scales badly - a single heavily-split document can take 10+ minutes from per-piece pacing alone.</li></ul>
+
+<footer>Generated by presentation.py from live pipeline data.</footer>
