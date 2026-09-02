@@ -1,5 +1,6 @@
 import agent.ssl_bootstrap  # noqa: F401  — must import-run before anything below (see that module's docstring)
 
+import json
 import logging
 import time
 import uuid
@@ -17,7 +18,7 @@ load_dotenv()
 from agent.graph import build_crawl_graph, build_graph, build_multi_pdf_graph
 from agent.logging_config import setup_logging
 from agent.sources import SOURCES
-from agent.store import append_raw_content, append_topic_csv, append_topic_jsonl
+from agent.store import DATA_DIR, append_raw_content, append_topic_csv, append_topic_jsonl
 from agent.topics import TOPICS
 
 # TEMP: Tavily search disabled for now to avoid spending search credits —
@@ -126,16 +127,30 @@ def _run_item(graph, item: dict, index: int, total: int, extra_state: dict = Non
 
 
 @app.post("/trigger")
-def trigger() -> dict:
+def trigger(source_ids: Optional[str] = None) -> dict:
+    """source_ids: optional comma-separated agent/sources.py ids to
+    restrict this run to (e.g. "acb_financial_statements,vnba_banking_news")
+    — omit to run every configured source, the normal/default behavior.
+    Added 2026-09-02 for re-running just the sources that have never had a
+    real, current-code structuring pass, without re-spending on ones
+    already confirmed — TOPICS is already empty (disabled above), so this
+    only ever filters SOURCES."""
     search_graph = build_graph()
     crawl_graph = build_crawl_graph()
     multi_pdf_graph = build_multi_pdf_graph()
     run_id = str(uuid.uuid4())
     triggered_at = datetime.now(VIETNAM_TZ).isoformat()
     start = time.perf_counter()
-    total = len(TOPICS) + len(SOURCES)
 
-    logger.info("Trigger started (run_id=%s): %d topics, %d sources", run_id, len(TOPICS), len(SOURCES))
+    selected_ids = set(source_ids.split(",")) if source_ids else None
+    selected_sources = SOURCES if selected_ids is None else [s for s in SOURCES if s["id"] in selected_ids]
+    total = len(TOPICS) + len(selected_sources)
+
+    logger.info(
+        "Trigger started (run_id=%s): %d topics, %d sources%s",
+        run_id, len(TOPICS), len(selected_sources),
+        f" (filtered to {len(selected_ids)} requested ids)" if selected_ids else "",
+    )
     all_results = []
     pbar = tqdm(total=total, desc="Trigger", unit="item")
     index = 0
@@ -154,7 +169,7 @@ def trigger() -> dict:
         if index < total:
             time.sleep(TOPIC_DELAY_SECONDS)
 
-    for source in SOURCES:
+    for source in selected_sources:
         index += 1
         pbar.set_postfix_str(source["id"])
         # "multi_pdf" (several distinct PDFs) and "chunked" (one document
@@ -182,8 +197,40 @@ def trigger() -> dict:
 
     pbar.close()
     run_seconds = round(time.perf_counter() - start, 2)
-    logger.info("Trigger finished in %ss", run_seconds)
-    return {"run_id": run_id, "triggered_at": triggered_at, "run_seconds": run_seconds, "topics": all_results}
+
+    # Phase 3 (mattpocock-skills grill, 2026-09-02): a single dedicated
+    # per-run file, on top of (not instead of) the existing
+    # signals.jsonl/csv/raw_content.csv logs — those are joined by
+    # (run_id, id) across every run ever made; this is the one-shot
+    # "everything this specific run produced" dump Phase 4's presentation
+    # reads from, so it doesn't need to re-join two files across the
+    # right run_id itself.
+    run_summary = {
+        "run_id": run_id, "triggered_at": triggered_at,
+        "run_seconds": run_seconds, "topics": all_results,
+    }
+    run_file = DATA_DIR / f"trigger_run_{run_id}.json"
+    run_file.write_text(json.dumps(run_summary, indent=2, ensure_ascii=False))
+
+    # "Make failures clear and loud" — _run_item's own try/except already
+    # gives per-source isolation (one crash doesn't stop the loop; see its
+    # docstring), so no bigger error-handling refactor is needed here,
+    # just a summary loud enough to actually see what happened without
+    # combing back through the whole run's logs.
+    ok = [r for r in all_results if r["gate_passed"] and not r["error"]]
+    gate_rejected = [r for r in all_results if r["gate_passed"] is False]
+    errored = [r for r in all_results if r["error"]]
+    logger.info(
+        "Trigger finished in %ss: %d/%d ok, %d gate-rejected, %d errored",
+        run_seconds, len(ok), total, len(gate_rejected), len(errored),
+    )
+    for r in gate_rejected:
+        logger.warning("GATE-REJECTED %s: %s", r["id"], r["gate_reason"])
+    for r in errored:
+        logger.error("ERRORED %s: %s", r["id"], r["error"])
+    logger.info("Full run summary written to %s", run_file)
+
+    return run_summary
 
 
 if __name__ == "__main__":
