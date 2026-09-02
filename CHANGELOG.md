@@ -5,6 +5,41 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — Layer 4 legal-document watchlist added via LuatVietnam (9 documents)
+
+- Added 9 new sources for the 9 named documents across `source_plan_mvp0.md`
+  §6.1-6.4's watchlist (real estate credit rules, the fintech sandbox
+  decree, the digital-transformation resolution, 2026 PIT deduction/law
+  changes, the green taxonomy decision, environmental-risk-management
+  circular). Fetch-only development, zero LLM calls spent verifying any
+  of it.
+- `thuvienphapluat.vn` (one of the plan's two named aggregator sites)
+  skipped entirely: its `robots.txt` has a dedicated
+  `User-agent: ClaudeBot` / `Disallow: /` block, separate from its
+  general `Content-Signal` declaration. Used `luatvietnam.vn` (the
+  plan's own listed alternative) exclusively instead — no bot-specific
+  rule there.
+- New `SITE_CONFIGS["luatvietnam.vn"]` / `["english.luatvietnam.vn"]`
+  entries, `.content-left` selector, scoping past a large sidebar
+  taxonomy nav. Confirmed live the pages' own "Bạn chưa Đăng nhập thành
+  viên" notice gates only a "watch this document" feature, not the
+  document text itself — full legal text is present in the static HTML,
+  no login or JS needed.
+- One stale-reference correction: the plan names "Circular 52/2018" as
+  the credit-institution-rating regulation behind SBV's credit-room
+  mechanism; confirmed live it was replaced by Circular 21/2025/TT-NHNN
+  (effective 2025-11-01) before this was even added. Sourced the
+  currently-effective circular instead of the plan's outdated number.
+- All 9 use the new `role: "aggregator"` value (previously documented,
+  never used) since luatvietnam.vn isn't the issuing authority; each
+  prompt's `source_code` names the actual issuing body instead
+  (SBV/CHINHPHU/TW/UBTVQH/QH/TTG), matching the MBBank attribution
+  convention. 7 of 9 marked `chunked: true` (over the 12K-char
+  single-call threshold once scoped).
+- Annual reports/AGM documents (Layer 3, 5 banks) parked mid-discovery
+  in favor of this smaller, more self-contained slice — see
+  `DEVELOPMENT_PLAN.md` v0.11 for exact state to resume from.
+
 ## Unreleased — VCB fee schedule fully resolved via real click simulation
 
 - Followed up on the correctness fix below by actually doing what should

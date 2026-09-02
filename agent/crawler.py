@@ -184,6 +184,31 @@ SITE_CONFIGS = {
         "pdf_link_selector": "a[href*='.pdf']",
         "pdf_link_limit": 1,
     },
+    # Layer 4 legal-document lookups (thuvienphapluat.vn is skipped — its
+    # robots.txt has a dedicated "User-agent: ClaudeBot / Disallow: /"
+    # block, distinct from its general Content-Signal declaration, so
+    # luatvietnam.vn is used exclusively). .content-left scopes past a
+    # large sidebar taxonomy nav (~30K chars unscoped on a typical decree
+    # page). Confirmed live: the visible "Bạn chưa Đăng nhập thành viên"
+    # notice on these pages gates only a "watch this document" convenience
+    # feature, not the document text itself — full decree/circular/law
+    # text including appendices is present in the static HTML, no JS
+    # needed. Same selector confirmed live on both this domain and its
+    # english.luatvietnam.vn sibling below.
+    "luatvietnam.vn": {
+        "needs_js": False,
+        "wait_selector": None,
+        "content_selector": ".content-left",
+        "pdf_link_selector": None,
+        "pdf_link_limit": 1,
+    },
+    "english.luatvietnam.vn": {
+        "needs_js": False,
+        "wait_selector": None,
+        "content_selector": ".content-left",
+        "pdf_link_selector": None,
+        "pdf_link_limit": 1,
+    },
 }
 DEFAULT_CONFIG = {
     "needs_js": False,
