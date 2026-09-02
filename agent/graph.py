@@ -8,7 +8,7 @@ from langchain_tavily import TavilySearch
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, StateGraph
 
-from agent.content_gate import check_content_usable
+from agent.content_gate import check_content_usable, check_pdf_page_density
 from agent.gate import checkpoint_gate
 from agent.llm_fallback import build_structuring_model, log_provider_call
 from agent.schema import MarketSignalBatch
@@ -96,25 +96,99 @@ def _search_node(state: AgentState) -> dict:
 
 def _crawl_node(state: AgentState) -> dict:
     start = time.perf_counter()
-    from agent.crawler import crawl
+    from agent.crawler import crawl_with_pdf_urls
 
-    text = crawl(state["url"])
+    text, pdf_texts = crawl_with_pdf_urls(state["url"])
     elapsed = round(time.perf_counter() - start, 2)
     logger.info("Crawl done in %ss for url: %s", elapsed, state["url"])
-    return {"search_results": text}
+    return {"search_results": text, "pdf_texts": pdf_texts}
+
+
+def _recover_pdf_piece_via_ocr(
+    source_id: str, pdf_url: str, original_pdf_text: str, search_results: str
+) -> Optional[str]:
+    """Shared by both failure paths in _content_gate_node below: given one
+    PDF's own URL and its already-extracted (bad) text, tries the OCR
+    fallback and, if it produces something that actually passes
+    check_content_usable(), substitutes it into the flattened
+    search_results string in place of the original extraction and returns
+    the rebuilt string. Returns None on any failure — OCR itself failing,
+    or the OCR text still not being usable — so the caller can fall back
+    to its original rejection instead of trusting a bad result. Uses
+    string substitution rather than any richer text-tracking because the
+    single-fetch path only carries one flattened blob (see _crawl_node) —
+    original_pdf_text is a real substring of it (built by _crawl_async's
+    own "--- Full content of {pdf_url} ---" join), so .replace() is exact,
+    not a heuristic match."""
+    from agent.ocr import ensure_ocr_text
+
+    ocr_text = ensure_ocr_text(source_id, pdf_url)
+    if not ocr_text:
+        return None
+    rebuilt = search_results.replace(original_pdf_text, ocr_text, 1)
+    if check_content_usable(rebuilt)["usable"]:
+        return rebuilt
+    return None
 
 
 def _content_gate_node(state: AgentState) -> dict:
     """Runs after a single-fetch crawl, before the structuring LLM call —
     rejects unusable content (near-empty, a WAF block page, a scan with a
-    broken OCR layer) for free, before any model spend. Reuses gate_passed/
-    gate_reason rather than a separate field pair: the rest of the pipeline
-    (service.py's reporting, the CSV schema) already knows how to surface a
-    gate rejection, and the reason text itself says which gate rejected it."""
-    result = check_content_usable(state.get("search_results") or "")
+    broken OCR layer, or a partial scan — real text on a couple of pages,
+    blank scans for the rest) for free, before any model spend. Reuses
+    gate_passed/gate_reason rather than a separate field pair: the rest of
+    the pipeline (service.py's reporting, the CSV schema) already knows
+    how to surface a gate rejection, and the reason text itself says which
+    gate rejected it.
+
+    Two independent OCR-eligible failure shapes, both only handled when
+    pdf_texts carries exactly one piece (a source with pdf_link_limit > 1
+    that isn't multi_pdf/chunked doesn't exist today — see
+    agent/sources.py — but this stays deliberately narrow rather than
+    guessing which piece if it ever did):
+    - check_content_usable() rejects with code "scan" (corrupted-ratio) —
+      the same signature agent/ocr.py's ensure_ocr_text() already handles
+      for the multi-PDF path.
+    - check_content_usable() PASSES, but agent/content_gate.py's
+      check_pdf_page_density() (a second, PDF-specific gate — needs the
+      PDF's real page count, which only a fresh download can give it)
+      finds the content is mostly blank pages — BIDV's actual live
+      failure mode (confirmed 2026-09-02): clean, real cover-letter text
+      that content_gate's text-only check has no way to flag on its own."""
+    source_id = state.get("source_id") or (state.get("query") or "")[:40]
+    search_results = state.get("search_results") or ""
+    pdf_texts = state.get("pdf_texts") or []
+
+    result = check_content_usable(search_results)
     if not result["usable"]:
+        if result["code"] == "scan" and len(pdf_texts) == 1:
+            pdf_url, original_pdf_text = pdf_texts[0]
+            rebuilt = _recover_pdf_piece_via_ocr(source_id, pdf_url, original_pdf_text, search_results)
+            if rebuilt:
+                logger.info("OCR fallback recovered %s after a 'scan' rejection", state.get("url"))
+                return {"search_results": rebuilt}
         logger.warning("Content gate rejected %s: %s", state.get("url"), result["reason"])
         return {"gate_passed": False, "gate_reason": f"Content gate: {result['reason']}"}
+
+    if len(pdf_texts) == 1:
+        from agent.ocr import download_pdf_bytes
+
+        pdf_url, original_pdf_text = pdf_texts[0]
+        try:
+            pdf_bytes = download_pdf_bytes(pdf_url)
+            density_result = check_pdf_page_density(pdf_bytes)
+        except Exception:
+            logger.exception("Page-density check failed for %s, treating content as usable", pdf_url)
+            return {}
+
+        if not density_result["usable"]:
+            rebuilt = _recover_pdf_piece_via_ocr(source_id, pdf_url, original_pdf_text, search_results)
+            if rebuilt:
+                logger.info("OCR fallback recovered %s after a 'partial_scan' finding", state.get("url"))
+                return {"search_results": rebuilt}
+            logger.warning("Content gate rejected %s: %s", state.get("url"), density_result["reason"])
+            return {"gate_passed": False, "gate_reason": f"Content gate: {density_result['reason']}"}
+
     return {}
 
 

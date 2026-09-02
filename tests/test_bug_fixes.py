@@ -16,6 +16,7 @@ import uuid
 from pathlib import Path
 
 import agent.graph
+import agent.ocr
 import service
 from agent import store
 from agent.crawler import crawl_parts
@@ -24,6 +25,21 @@ from agent.sources import SOURCES
 from service import _combined_raw_content
 
 SBV_PRESS_RELEASE_URL = "https://sbv.gov.vn/en/press-release"
+
+
+def _no_ocr_spend(monkeypatch):
+    # These tests hit real network/crawl4ai by design (see module
+    # docstring) but were never meant to also exercise real, billed
+    # Mistral OCR spend as a side effect — a real risk now that
+    # agent/graph.py's content_gate nodes auto-trigger agent/ocr.py's
+    # ensure_ocr_text() on a detected scan. Confirmed live (2026-09-02):
+    # test_run_item_preserves_raw_content_when_structuring_fails below
+    # actually did this once, unmocked, before this fixture existed —
+    # bidv_financial_statements' real filing legitimately trips the new
+    # partial-scan check, and a real ~$0.11 OCR job got submitted purely
+    # as a side effect of running the test suite. Every test in this file
+    # that reaches a content_gate node now guards against it.
+    monkeypatch.setattr(agent.ocr, "ensure_ocr_text", lambda source_id, url: None)
 
 
 def test_crawl_parts_survives_partial_pdf_failure():
@@ -41,9 +57,10 @@ def test_crawl_parts_survives_partial_pdf_failure():
         assert pdf_text  # only successfully-fetched docs are ever included
 
 
-def test_multi_pdf_signals_carry_their_own_document_url():
+def test_multi_pdf_signals_carry_their_own_document_url(monkeypatch):
     """Bug #1: merged multi-PDF signals must carry the URL of the document
     they actually came from, never the listing page's URL."""
+    _no_ocr_spend(monkeypatch)
     state = {
         "query": (
             "Extract concrete market signals from the full press release "
@@ -140,11 +157,23 @@ def test_run_item_preserves_raw_content_when_structuring_fails(monkeypatch):
         raise RuntimeError("simulated structure failure")
 
     monkeypatch.setattr(agent.graph, "_structure_one", _boom)
+    # BIDV's real filing is a genuine partial scan (see check_pdf_page_density) —
+    # content_gate correctly rejects it before structuring ever runs, which
+    # would stop this test from reaching the code path it's actually
+    # testing. Mock a plausible OCR recovery (not agent.ocr.ensure_ocr_text
+    # -> None, which would leave the item correctly gate-rejected and never
+    # call _structure_one at all) so the crawl -> gate -> structure chain
+    # still runs for real up to the structuring step this test targets.
+    monkeypatch.setattr(
+        agent.ocr, "ensure_ocr_text",
+        lambda source_id, url: "Mocked OCR-recovered text, long enough to clear the near-empty and corrupted-ratio content gate checks.",
+    )
 
     source = next(s for s in SOURCES if s["id"] == "bidv_financial_statements")
     graph = build_crawl_graph()
     result = service._run_item(
-        graph, source, 1, 1, extra_state={"url": source["url"], "chunked": False}
+        graph, source, 1, 1,
+        extra_state={"url": source["url"], "chunked": False, "source_id": source["id"]},
     )
 
     assert result["error"] is not None

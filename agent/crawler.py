@@ -961,31 +961,39 @@ VIETSTOCK_FALLBACK_TICKERS = {
 }
 
 
-async def _crawl_async(url: str) -> str:
+async def _crawl_async(url: str) -> Tuple[str, List[Tuple[str, str]]]:
+    """Returns (flattened_text, [(pdf_url, pdf_text), ...]) — the second
+    element is [] for sources with no PDF-fetching SITE_CONFIGS entry (the
+    dispatch branches below, and any source with pdf_link_selector unset),
+    and carries each fetched PDF's own URL alongside its text otherwise
+    (mirrors _crawl_parts_async's shape) — needed so agent/graph.py's
+    _content_gate_node can run agent/content_gate.py's page-density/OCR
+    checks against a specific PDF, not just the flattened blob. crawl()
+    below is the plain-string-only wrapper every other caller still uses."""
     if url == ACB_FINANCIAL_STATEMENTS_URL:
-        return await _fetch_acb_statement_text()
+        return await _fetch_acb_statement_text(), []
     if url == ACB_PROMOTIONS_URL:
-        return await _fetch_acb_promotions_text()
+        return await _fetch_acb_promotions_text(), []
     if url == ACB_FEE_SCHEDULE_URL:
-        return await _fetch_acb_fee_schedule_text()
+        return await _fetch_acb_fee_schedule_text(), []
     if url == VPBANK_NEWS_URL:
-        return await _fetch_api_json_text(VPBANK_NEWS_API)
+        return await _fetch_api_json_text(VPBANK_NEWS_API), []
     if url == VPBANK_FEE_URL:
-        return await _fetch_api_json_text(VPBANK_FEE_API)
+        return await _fetch_api_json_text(VPBANK_FEE_API), []
     if url == VCB_PROMOTIONS_URL:
-        return await _fetch_vcb_promotions_text()
+        return await _fetch_vcb_promotions_text(), []
     if url == MBBANK_FEE_URL:
-        return await _fetch_mbbank_fee_text()
+        return await _fetch_mbbank_fee_text(), []
     if url == MBBANK_NEWS_URL:
-        return await _fetch_mbbank_news_text()
+        return await _fetch_mbbank_news_text(), []
     if url == SSI_BANKING_SECTOR_REPORT_URL:
-        return await _fetch_ssi_report_text(url)
+        return await _fetch_ssi_report_text(url), []
     if url == VCBS_BANKING_SECTOR_REPORT_URL:
-        return await _fetch_vcbs_report_text(url)
+        return await _fetch_vcbs_report_text(url), []
     if url in (NSO_GDP_KEY_INDICATORS_URL, NSO_VHLSS_INCOME_URL, NSO_VHLSS_EXPENDITURE_URL):
-        return await _fetch_nso_pxweb_table_text(url)
+        return await _fetch_nso_pxweb_table_text(url), []
     if url in VIETSTOCK_FALLBACK_TICKERS:
-        return await _fetch_vietstock_statement_text(VIETSTOCK_FALLBACK_TICKERS[url])
+        return await _fetch_vietstock_statement_text(VIETSTOCK_FALLBACK_TICKERS[url]), []
 
     config = _resolve_site_config(url)
 
@@ -1001,12 +1009,13 @@ async def _crawl_async(url: str) -> str:
     # selected is a (node, text) tuple, always truthy even when text is ""
     # (an empty-but-matched selector) — check the text itself, not the tuple.
     if not selected or not selected[1]:
-        return generic_text or html
+        return generic_text or html, []
 
     node, text = selected
-    for pdf_url, pdf_text in await _fetch_selected_pdfs(url, node, config):
+    documents = await _fetch_selected_pdfs(url, node, config)
+    for pdf_url, pdf_text in documents:
         text = f"{text}\n\n--- Full content of {pdf_url} ---\n{pdf_text}"
-    return text
+    return text, documents
 
 
 def crawl(url: str) -> str:
@@ -1014,6 +1023,17 @@ def crawl(url: str) -> str:
     lightweight HTTP strategy + generic markdown extraction); escalates to a
     real headless browser only when SITE_CONFIGS says the site needs JS, or
     the cheap path comes back with suspiciously little content."""
+    text, _ = asyncio.run(_crawl_async(url))
+    return text
+
+
+def crawl_with_pdf_urls(url: str) -> Tuple[str, List[Tuple[str, str]]]:
+    """Like crawl(), but also returns each fetched PDF's own URL alongside
+    its text — [(pdf_url, pdf_text), ...], empty for sources with no
+    PDF-fetching SITE_CONFIGS entry. Used by agent/graph.py's
+    _crawl_node so _content_gate_node can run OCR-fallback checks against
+    a specific PDF's real URL, the same way the multi-PDF path's
+    pdf_texts state already lets it."""
     return asyncio.run(_crawl_async(url))
 
 

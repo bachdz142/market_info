@@ -1,5 +1,8 @@
 import logging
 import re
+from io import BytesIO
+
+from pypdf import PdfReader
 
 logger = logging.getLogger(__name__)
 
@@ -37,6 +40,66 @@ BLOCK_PAGE_MARKERS = [
 # "2026Reference" from a missing space in the source HTML) — 0.05 sits
 # comfortably clear of both real measurements.
 MAX_CORRUPTED_TOKEN_RATIO = 0.05
+
+# Partial-scan detection: a PDF with real text on only its first couple of
+# pages and nothing on the rest — a distinct failure shape from "scan"
+# above (which needs some OCR/font-encoding layer to garble; a genuinely
+# blank page produces zero corrupted tokens, not a high ratio, since
+# there's no text to corrupt). check_content_usable() alone can't catch
+# this: the extracted text (just the real pages) reads as perfectly clean
+# prose. Needs the PDF's actual page count, which only
+# check_pdf_page_density() below has access to (via a fresh download +
+# pypdf, not the already-flattened text check_content_usable() works
+# from) — a separate function, not folded into check_content_usable(),
+# since it needs different inputs (raw PDF bytes, not just extracted
+# text) and only makes sense for PDF-backed sources.
+#
+# Calibrated against one real, live measurement (2026-09-02,
+# bidv_financial_statements' actual filing at the time: "20260818 - BID -
+# CBTT BCTC HN ban nien da duoc soat xet.pdf"): 57 pages, real text
+# (2414 + 1254 chars) on exactly the first 2, 0 chars on all 55 remaining
+# pages — a 96.5% blank-page ratio. MAX_BLANK_PAGE_RATIO sits well below
+# that (comfortable margin against a false positive on some future
+# document with a handful of legitimately blank pages, e.g. a section
+# separator) while still catching this shape decisively.
+MIN_PAGES_FOR_DENSITY_CHECK = 5
+MIN_CHARS_PER_PAGE = 20
+MAX_BLANK_PAGE_RATIO = 0.6
+
+
+def check_pdf_page_density(pdf_bytes: bytes) -> dict:
+    """A second, PDF-specific gate alongside check_content_usable() — call
+    it after that one passes, when the content came from a PDF (i.e. the
+    caller has the PDF's raw bytes available, not just its extracted
+    text). Returns the same {"usable", "reason", "code"} shape; "code" is
+    "partial_scan" or None. A malformed/unreadable PDF is treated as
+    usable (returns {"usable": True, ...}) — this function's only job is
+    catching the specific blank-pages shape, not general PDF validity;
+    check_content_usable() already caught near-empty/corrupted text
+    upstream of this."""
+    try:
+        reader = PdfReader(BytesIO(pdf_bytes))
+        page_count = len(reader.pages)
+        if page_count < MIN_PAGES_FOR_DENSITY_CHECK:
+            return {"usable": True, "reason": None, "code": None}
+        blank_pages = sum(
+            1 for page in reader.pages if len((page.extract_text() or "").strip()) < MIN_CHARS_PER_PAGE
+        )
+    except Exception:
+        logger.exception("check_pdf_page_density: could not parse PDF, skipping this check")
+        return {"usable": True, "reason": None, "code": None}
+
+    blank_ratio = blank_pages / page_count
+    if blank_ratio > MAX_BLANK_PAGE_RATIO:
+        reason = (
+            f"{blank_pages}/{page_count} pages ({blank_ratio:.1%}) have under "
+            f"{MIN_CHARS_PER_PAGE} chars of extractable text (likely a partial "
+            "scan — real text on a few pages, scanned images for the rest)."
+        )
+        logger.warning("Content gate rejected: %s", reason)
+        return {"usable": False, "reason": reason, "code": "partial_scan"}
+
+    return {"usable": True, "reason": None, "code": None}
 
 
 URL_RE = re.compile(r"(?:https?|data):\S+")
@@ -76,11 +139,14 @@ def check_content_usable(text: str) -> dict:
     "block_page", "scan", or None when usable) — added so agent/graph.py's
     automatic OCR fallback (see agent/ocr.py's ensure_ocr_text()) can key
     off a stable value instead of string-matching "reason"'s human prose.
-    Only "scan" is safe to auto-OCR: it's the one rejection validated
-    against a real scanned document (sbv_legal_directives_official's
-    "CT 02_2026.pdf"); "near_empty" and "block_page" both fire for reasons
-    OCR can't fix (a WAF rejection page, a genuine fetch failure) and would
-    just waste a real, billed OCR job."""
+    "scan" is safe to auto-OCR: it's the one rejection this function
+    produces that's validated against a real scanned document
+    (sbv_legal_directives_official's "CT 02_2026.pdf"); "near_empty" and
+    "block_page" both fire for reasons OCR can't fix (a WAF rejection page,
+    a genuine fetch failure) and would just waste a real, billed OCR job.
+    (check_pdf_page_density() below produces a third OCR-eligible code,
+    "partial_scan", for a different failure shape this function can't see
+    — see that function's own docstring.)"""
     stripped = (text or "").strip()
 
     if len(stripped) < MIN_USABLE_CHARS:

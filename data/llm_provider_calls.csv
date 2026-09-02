@@ -65,3 +65,8 @@ timestamp,provider,model,success,query_preview,error
 2026-09-02T18:11:37.669204+07:00,groq,openai/gpt-oss-120b,True,Extract concrete regulatory content from SBV's administrative documents and dire,
 2026-09-02T19:10:40.419442+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,
 2026-09-02T19:11:14.838715+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,
+2026-09-02T19:58:27.383565+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,
+2026-09-02T20:02:19.630432+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,
+2026-09-02T20:03:20.033553+07:00,mistral,mistral-small-2603,True,Extract BIDV's quarterly quantitative benchmarks from the consolidated financial,
+2026-09-02T20:09:23.261811+07:00,none,none,False,Extract BIDV's quarterly quantitative benchmarks from the consolidated financial,"Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-120b` in organization `org_01m0hpewc9efk8bh39pdvjjbgq` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 56529, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+2026-09-02T20:10:33.815511+07:00,gemini,gemini-3.6-flash,True,Extract BIDV's quarterly quantitative benchmarks from the consolidated financial,

@@ -12,6 +12,8 @@ tqdm>=4.66
 playwright==1.60.0  # pinned: newer releases (1.62+) dropped macOS 13 support
 crawl4ai>=0.9
 certifi>=2024.0  # load-bearing for the SSL_CERT_FILE fix (see agent/ssl_bootstrap.py) — declare explicitly, don't rely on it arriving transitively via crawl4ai/requests
+requests>=2.31   # agent/ocr.py's raw-PDF-bytes downloader — matches crawl4ai's own internal PDF-download call shape (requests.get(stream=True)), confirmed live to succeed where urllib.request failed on BIDV's WCM-served URLs
+pypdf>=4.0       # agent/content_gate.py's check_pdf_page_density() — per-page text extraction to detect a partial scan (real text on a couple of pages, blank/scanned for the rest)
 beautifulsoup4>=4.12
 lxml>=5.0
 pytest>=8.0

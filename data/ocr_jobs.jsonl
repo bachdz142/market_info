@@ -1,2 +1,6 @@
 {"event": "submitted", "job_id": "006db290-9145-47be-a2d0-72daf907fb62", "source_id": "sbv_ct_02_2026_test", "pdf_name": "CT_02_2026.pdf", "timestamp": "2026-09-02T17:28:30.414533+07:00"}
 {"event": "completed", "job_id": "006db290-9145-47be-a2d0-72daf907fb62", "source_id": "sbv_ct_02_2026_test", "status": "SUCCESS", "page_count": 6, "estimated_cost_usd": 0.012, "timestamp": "2026-09-02T17:30:27.382579+07:00"}
+{"event": "submitted", "job_id": "4308bcfa-4a69-4a38-8a66-25e4a8ac237f", "source_id": "Extract BIDV's quarterly quantitative be", "pdf_name": "tmpzu0rk4x7.pdf", "timestamp": "2026-09-02T19:59:00.383253+07:00"}
+{"event": "completed", "job_id": "4308bcfa-4a69-4a38-8a66-25e4a8ac237f", "source_id": "Extract BIDV's quarterly quantitative be", "status": "SUCCESS", "page_count": 57, "estimated_cost_usd": 0.114, "timestamp": "2026-09-02T19:59:37.078680+07:00"}
+{"event": "submitted", "job_id": "116cac48-df7c-4b92-bfb4-2fcad61f90df", "source_id": "bidv_financial_statements", "pdf_name": "tmpegpkuuvy.pdf", "timestamp": "2026-09-02T20:02:05.210432+07:00"}
+{"event": "completed", "job_id": "116cac48-df7c-4b92-bfb4-2fcad61f90df", "source_id": "bidv_financial_statements", "status": "SUCCESS", "page_count": 57, "estimated_cost_usd": 0.114, "timestamp": "2026-09-02T20:02:28.871211+07:00"}

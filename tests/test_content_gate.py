@@ -10,8 +10,10 @@ development (2026-09-01), not invented samples — see agent/content_gate.py's
 own comments for where each came from.
 """
 
+import agent.content_gate
+import agent.graph
 import agent.ocr
-from agent.content_gate import check_content_usable
+from agent.content_gate import check_content_usable, check_pdf_page_density
 from agent.graph import _content_gate_multi_node, _content_gate_node
 
 # Real excerpt from sbv_legal_directives_official's "CT 02_2026.pdf" — a
@@ -136,6 +138,122 @@ def test_content_gate_node_rejects_bad_content():
     update = _content_gate_node(state)
     assert update["gate_passed"] is False
     assert update["gate_reason"].startswith("Content gate:")
+
+
+class _FakePage:
+    def __init__(self, text):
+        self._text = text
+
+    def extract_text(self):
+        return self._text
+
+
+class _FakePdfReader:
+    def __init__(self, pages):
+        self.pages = pages
+
+
+def _fake_reader_factory(page_texts):
+    return lambda _bytes_io: _FakePdfReader([_FakePage(t) for t in page_texts])
+
+
+def test_check_pdf_page_density_flags_a_real_partial_scan_shape(monkeypatch):
+    """Real numbers from the live calibration document (2026-09-02,
+    bidv_financial_statements' actual filing): 57 pages, real text
+    (2414 + 1254 chars) on the first 2, 0 chars on the other 55."""
+    pages = [2414 * "x", 1254 * "x"] + [""] * 55
+    monkeypatch.setattr(agent.content_gate, "PdfReader", _fake_reader_factory(pages))
+    result = check_pdf_page_density(b"irrelevant, PdfReader is mocked")
+    assert result["usable"] is False
+    assert result["code"] == "partial_scan"
+    assert "55/57" in result["reason"]
+
+
+def test_check_pdf_page_density_accepts_a_dense_document(monkeypatch):
+    pages = [800 * "x" for _ in range(12)]
+    monkeypatch.setattr(agent.content_gate, "PdfReader", _fake_reader_factory(pages))
+    result = check_pdf_page_density(b"irrelevant, PdfReader is mocked")
+    assert result["usable"] is True
+    assert result["code"] is None
+
+
+def test_check_pdf_page_density_skips_short_documents(monkeypatch):
+    """Below MIN_PAGES_FOR_DENSITY_CHECK, even an all-blank document is
+    left alone — real risk of flagging a genuinely short, legitimate
+    document (e.g. a 2-page notice) that just happens to render with no
+    extractable text on one page."""
+    pages = ["", "", ""]
+    monkeypatch.setattr(agent.content_gate, "PdfReader", _fake_reader_factory(pages))
+    result = check_pdf_page_density(b"irrelevant, PdfReader is mocked")
+    assert result["usable"] is True
+
+
+def test_check_pdf_page_density_treats_unparseable_bytes_as_usable():
+    """A malformed/undownloadable PDF isn't this function's problem to
+    catch — check_content_usable() already caught near-empty/corrupted
+    text upstream; this just must not raise and crash content_gate."""
+    result = check_pdf_page_density(b"not a real pdf file")
+    assert result["usable"] is True
+
+
+def test_content_gate_node_recovers_a_scan_via_ocr_fallback(monkeypatch):
+    """Single-fetch-path mirror of the multi-node OCR-recovery test: a
+    "scan"-coded flattened result with exactly one PDF piece gets one
+    shot at OCR recovery before being rejected."""
+    monkeypatch.setattr(agent.ocr, "ensure_ocr_text", lambda source_id, url: CLEAN_VIETNAMESE_TEXT)
+    garbled = GARBLED_SCAN_EXCERPT * 2
+    state = {
+        "search_results": f"listing text\n\n--- Full content of https://example.com/scan.pdf ---\n{garbled}",
+        "pdf_texts": [("https://example.com/scan.pdf", garbled)],
+        "url": "https://example.com",
+        "source_id": "bidv_financial_statements",
+    }
+    update = _content_gate_node(state)
+    assert "gate_passed" not in update
+    assert CLEAN_VIETNAMESE_TEXT in update["search_results"]
+    assert garbled not in update["search_results"]
+
+
+def test_content_gate_node_recovers_a_partial_scan_via_ocr_fallback(monkeypatch):
+    """Content that reads as clean, real prose (so check_content_usable()
+    passes it) but whose PDF is mostly blank pages (check_pdf_page_density())
+    also gets one shot at OCR recovery — BIDV's actual live failure shape."""
+    cover_letter = CLEAN_VIETNAMESE_TEXT
+    monkeypatch.setattr(agent.ocr, "download_pdf_bytes", lambda url: b"fake pdf bytes")
+    monkeypatch.setattr(
+        agent.graph, "check_pdf_page_density",
+        lambda pdf_bytes: {"usable": False, "reason": "55/57 pages blank", "code": "partial_scan"},
+    )
+    monkeypatch.setattr(agent.ocr, "ensure_ocr_text", lambda source_id, url: LEGIT_FINANCIAL_CODES_TEXT)
+    state = {
+        "search_results": f"listing text\n\n--- Full content of https://example.com/report.pdf ---\n{cover_letter}",
+        "pdf_texts": [("https://example.com/report.pdf", cover_letter)],
+        "url": "https://example.com",
+        "source_id": "bidv_financial_statements",
+    }
+    update = _content_gate_node(state)
+    assert "gate_passed" not in update
+    assert LEGIT_FINANCIAL_CODES_TEXT in update["search_results"]
+    assert cover_letter not in update["search_results"]
+
+
+def test_content_gate_node_rejects_partial_scan_when_ocr_does_not_help(monkeypatch):
+    cover_letter = CLEAN_VIETNAMESE_TEXT
+    monkeypatch.setattr(agent.ocr, "download_pdf_bytes", lambda url: b"fake pdf bytes")
+    monkeypatch.setattr(
+        agent.graph, "check_pdf_page_density",
+        lambda pdf_bytes: {"usable": False, "reason": "55/57 pages blank", "code": "partial_scan"},
+    )
+    monkeypatch.setattr(agent.ocr, "ensure_ocr_text", lambda source_id, url: None)
+    state = {
+        "search_results": f"listing text\n\n--- Full content of https://example.com/report.pdf ---\n{cover_letter}",
+        "pdf_texts": [("https://example.com/report.pdf", cover_letter)],
+        "url": "https://example.com",
+        "source_id": "bidv_financial_statements",
+    }
+    update = _content_gate_node(state)
+    assert update["gate_passed"] is False
+    assert "55/57 pages blank" in update["gate_reason"]
 
 
 def test_content_gate_multi_node_drops_only_the_bad_piece(monkeypatch):

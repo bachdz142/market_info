@@ -33,20 +33,26 @@ without going through a full /trigger run.
 
 Auto-wired into the live graph (2026-09-02, per explicit user direction —
 originally deferred, deliberately reversed): agent/graph.py's
-_content_gate_multi_node calls ensure_ocr_text() below whenever
-check_content_usable() flags a piece with code "scan" — the one rejection
-reason validated against a real scanned document. Real, billed Mistral
-spend happens automatically now; ensure_ocr_text()'s local cache
-(data/ocr_cache/) is the only thing standing between that and re-paying
-for the same PDF on every single /trigger run, so it is load-bearing, not
-an optimization. Scope: only the multi-PDF path (build_multi_pdf_graph)
-is wired — its pdf_texts state already carries each document's exact PDF
-URL. The single-fetch path (build_crawl_graph, e.g. BIDV's Layer 1
-filings) does NOT get this fallback yet: its per-site fetch functions in
-agent/crawler.py (one per bank/page) return only extracted text, not the
-resolved PDF URL they fetched it from — threading that through is a
-separate, not-yet-done plumbing change across every one of those
-functions, not a content_gate/ocr.py change.
+_content_gate_multi_node and _content_gate_node both call
+ensure_ocr_text() below whenever a piece is flagged with code "scan" (the
+corrupted-token heuristic) or "partial_scan" (agent/content_gate.py's
+check_pdf_page_density() — real text on a couple of pages, blank scans
+for the rest; BIDV's actual live failure mode, confirmed 2026-09-02: a
+57-page filing with real text on exactly 2 pages, 0 chars on the other
+55). Real, billed Mistral spend happens automatically now;
+ensure_ocr_text()'s local cache (data/ocr_cache/) is the only thing
+standing between that and re-paying for the same PDF on every single
+/trigger run, so it is load-bearing, not an optimization.
+
+download_pdf_bytes() below uses `requests` (not `urllib.request`) to
+re-fetch a flagged PDF's raw bytes — confirmed live that BIDV's WCM-served
+PDF URLs (wps/wcm/connect/...?MOD=AJPERES&CACHEID=...) reject a plain
+urllib.request GET outright (an HTML "<!DOC..." error page, or the
+connection gets closed mid-response) but succeed via `requests` with no
+special headers at all — the same library and call shape crawl4ai's own
+PDFContentScrapingStrategy already uses internally to fetch these same
+URLs successfully. Matching that proven-working approach mattered more
+here than any theory about why urllib specifically fails.
 """
 
 import hashlib
@@ -55,11 +61,11 @@ import logging
 import os
 import tempfile
 import time
-import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Optional
-from urllib.parse import quote
+
+import requests
 
 from mistralai.client import Mistral
 
@@ -282,26 +288,25 @@ def _cache_path(source_id: str, pdf_url: str) -> Path:
     return OCR_CACHE_DIR / f"{source_id}_{digest}.md"
 
 
-def _download_pdf_bytes(url: str) -> bytes:
+def download_pdf_bytes(url: str) -> bytes:
     """Re-downloads a PDF's raw bytes for OCR submission. crawl4ai's own
     PDF strategy (the normal fetch path) only returns extracted text, not
-    the source file, so a document content_gate flags as a scan needs a
-    fresh direct download before it can be handed to Mistral. Same urllib
-    + browser User-Agent pattern as agent/crawler.py's
-    _fetch_ssi_report_text() — confirmed there that a plain browser UA
-    avoids at least one PDF-downloader-specific block crawl4ai's own PDF
-    strategy hit on a different host."""
-    # Real bug found live (2026-09-02): sbv.gov.vn's document URLs come
-    # back from the page with a literal, unescaped space in the path
-    # (".../CT 02_2026.pdf/..."), not percent-encoded — urllib.request
-    # rejects that outright ("URL can't contain control characters").
-    # quote()'s default safe set already protects "/" and ":"; adding "%"
-    # too so a URL that's already partially percent-encoded elsewhere
-    # (e.g. a query string) doesn't get double-encoded.
-    safe_url = quote(url, safe=":/%?=&#")
-    req = urllib.request.Request(safe_url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return resp.read()
+    the source file, so a document content_gate flags needs a fresh direct
+    download before it can be handed to Mistral.
+
+    Uses `requests`, not `urllib.request` — confirmed live (2026-09-02)
+    that BIDV's WCM-served PDF URLs reject a plain urllib GET (an HTML
+    error page back, or the connection closed mid-response) but succeed
+    via `requests` with no special headers, exactly matching what
+    crawl4ai's own PDFContentScrapingStrategy does internally (see
+    site-packages/crawl4ai/processors/pdf/__init__.py's _get_pdf_path) —
+    reusing a call shape already proven to work against these exact URLs
+    beats guessing at headers. `requests` also handles a literal
+    unescaped space in the URL path (confirmed on sbv.gov.vn's document
+    URLs) without needing manual percent-encoding, unlike urllib."""
+    response = requests.get(url, stream=True, timeout=(20, 600))
+    response.raise_for_status()
+    return response.content
 
 
 def ensure_ocr_text(source_id: str, pdf_url: str) -> Optional[str]:
@@ -326,7 +331,7 @@ def ensure_ocr_text(source_id: str, pdf_url: str) -> Optional[str]:
         source_id, pdf_url,
     )
     try:
-        pdf_bytes = _download_pdf_bytes(pdf_url)
+        pdf_bytes = download_pdf_bytes(pdf_url)
         with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
             f.write(pdf_bytes)
             tmp_path = Path(f.name)

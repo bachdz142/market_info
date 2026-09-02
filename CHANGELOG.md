@@ -5,6 +5,46 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — BIDV's real failure mode: partial-scan detection + single-fetch OCR wiring
+
+- BIDV's actual live failure isn't a corrupted-OCR "scan" — it's a clean,
+  real cover letter on pages 1-2 of a 57-page filing with 0 chars of
+  extractable text on the other 55. `agent/content_gate.py` gains a
+  second, PDF-specific gate, `check_pdf_page_density()`, that catches
+  this shape (needs real page count via a fresh `pypdf` parse, which the
+  text-only `check_content_usable()` can't see). Calibrated against one
+  real live measurement: BIDV's filing scored 96.5% blank pages.
+- `agent/crawler.py`'s `_crawl_async` now returns `(text, pdf_texts)`
+  instead of discarding the resolved PDF URL it already had in hand;
+  `crawl()` stays a thin backward-compatible wrapper, new
+  `crawl_with_pdf_urls()` exposes both. `agent/graph.py`'s
+  `_content_gate_node` (the single-fetch path) now runs both OCR-eligible
+  checks — the existing "scan" code and the new "partial_scan" — giving
+  the single-fetch path (BIDV, etc.) the same automatic OCR fallback the
+  multi-PDF path got in the previous entry.
+- Real bug found live: `agent/ocr.py`'s raw-PDF downloader rejected
+  BIDV's WCM-served URLs via `urllib.request` (HTML error page back, or
+  connection closed mid-response); switched to `requests`, matching
+  crawl4ai's own internal PDF-download call shape exactly. `requests` and
+  `pypdf` added to `requirements.txt` explicitly.
+- Real safety issue found and fixed via this pass's own testing: 2
+  pre-existing real-network tests in `tests/test_bug_fixes.py` weren't
+  mocking `ensure_ocr_text` and silently spent a real ~$0.11 OCR job as
+  an unintended side effect of a routine regression run. Fixed with a
+  shared `_no_ocr_spend()` helper.
+- **Verified fully live, no shortcuts**: ran the actual `/trigger` code
+  path against the real `bidv_financial_statements` source.
+  `check_pdf_page_density` correctly flagged the real filing;
+  `ensure_ocr_text` automatically submitted and waited on a real 57-page
+  OCR job (~$0.114); recovered text (including a real profit-growth
+  table) got structured via the existing Groq→Gemini→Mistral fallback
+  chain (Groq 413, Gemini 504, Mistral succeeded) into 3 real signals —
+  loan balance, deposit balance, and net interest income, each with real
+  VND figures and period-over-period growth. This source produced zero
+  usable data before this change.
+- 7 new offline tests in `tests/test_content_gate.py`; 46/46 offline-safe
+  suite passing.
+
 ## Unreleased — Automatic OCR fallback in the live graph
 
 - Reverses the earlier "consume-only, never auto-submit" OCR decision,
