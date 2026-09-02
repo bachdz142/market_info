@@ -60,7 +60,7 @@ def main() -> None:
 
     PREVIEW_DIR.mkdir(parents=True, exist_ok=True)
     out_path = PREVIEW_DIR / f"{args.source_id}.md"
-    out_path.write_text(markdown)
+    out_path.write_text(markdown, encoding="utf-8")
     print(f"{len(markdown)} chars -> {out_path}")
 
 

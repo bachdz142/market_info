@@ -92,7 +92,7 @@ def log_provider_call(provider: str, model: str, success: bool, query: str, erro
     from agent.store import _prepare_csv  # reuse the existing thread-safe schema-migration helper
 
     _prepare_csv(PROVIDER_LOG_CSV, PROVIDER_LOG_HEADERS)
-    with PROVIDER_LOG_CSV.open("a", newline="") as f:
+    with PROVIDER_LOG_CSV.open("a", newline="", encoding="utf-8") as f:
         csv.writer(f).writerow(
             [
                 datetime.now(VIETNAM_TZ).isoformat(),

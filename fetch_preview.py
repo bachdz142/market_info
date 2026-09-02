@@ -58,7 +58,7 @@ def main() -> None:
             print(f"[{source_id}] FAILED: {exc}")
             continue
         out_path = PREVIEW_DIR / f"{source_id}.txt"
-        out_path.write_text(text)
+        out_path.write_text(text, encoding="utf-8")
         print(f"[{source_id}] {len(text)} chars -> {out_path}")
 
 

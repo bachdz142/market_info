@@ -60,7 +60,7 @@ def _prepare_csv(path: Path, headers: list) -> None:
         DATA_DIR.mkdir(parents=True, exist_ok=True)
 
         if path.exists():
-            with path.open("r", newline="") as f:
+            with path.open("r", newline="", encoding="utf-8") as f:
                 existing_header = next(csv.reader(f), None)
             if existing_header == headers:
                 return
@@ -69,7 +69,7 @@ def _prepare_csv(path: Path, headers: list) -> None:
             path.rename(archive_path)
             logger.warning("%s schema changed — archived old file to %s", path.name, archive_path)
 
-        with path.open("w", newline="") as f:
+        with path.open("w", newline="", encoding="utf-8") as f:
             csv.writer(f).writerow(headers)
 
 
@@ -80,8 +80,8 @@ def append_topic_jsonl(triggered_at: str, run_id: str, topic_result: dict) -> No
     joinable back via (run_id, id)."""
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     record = {k: v for k, v in topic_result.items() if k != "raw_content"}
-    with SIGNALS_FILE.open("a") as f:
-        f.write(json.dumps({"run_id": run_id, "triggered_at": triggered_at, **record}) + "\n")
+    with SIGNALS_FILE.open("a", encoding="utf-8") as f:
+        f.write(json.dumps({"run_id": run_id, "triggered_at": triggered_at, **record}, ensure_ascii=False) + "\n")
 
 
 def append_topic_csv(triggered_at: str, run_id: str, topic_result: dict) -> None:
@@ -89,7 +89,7 @@ def append_topic_csv(triggered_at: str, run_id: str, topic_result: dict) -> None
     signals or errored), written as soon as that topic finishes."""
     _prepare_csv(SIGNALS_CSV, CSV_HEADERS)
 
-    with SIGNALS_CSV.open("a", newline="") as f:
+    with SIGNALS_CSV.open("a", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
 
         result = topic_result.get("result")
@@ -152,8 +152,8 @@ def append_ocr_job(record: dict) -> None:
     "estimated_cost_usd"/"status"} — callers decide exactly which fields
     apply to a given event; this just appends whatever dict it's given."""
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    with OCR_JOBS_FILE.open("a") as f:
-        f.write(json.dumps(record) + "\n")
+    with OCR_JOBS_FILE.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
 def append_raw_content(triggered_at: str, run_id: str, topic_result: dict) -> None:
@@ -162,7 +162,7 @@ def append_raw_content(triggered_at: str, run_id: str, topic_result: dict) -> No
     back to signals.jsonl/signals.csv via (run_id, id)."""
     _prepare_csv(RAW_CONTENT_CSV, RAW_CONTENT_CSV_HEADERS)
 
-    with RAW_CONTENT_CSV.open("a", newline="") as f:
+    with RAW_CONTENT_CSV.open("a", newline="", encoding="utf-8") as f:
         csv.writer(f).writerow(
             [
                 run_id,

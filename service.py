@@ -210,7 +210,7 @@ def trigger(source_ids: Optional[str] = None) -> dict:
         "run_seconds": run_seconds, "topics": all_results,
     }
     run_file = DATA_DIR / f"trigger_run_{run_id}.json"
-    run_file.write_text(json.dumps(run_summary, indent=2, ensure_ascii=False))
+    run_file.write_text(json.dumps(run_summary, indent=2, ensure_ascii=False), encoding="utf-8")
 
     # "Make failures clear and loud" — _run_item's own try/except already
     # gives per-source isolation (one crash doesn't stop the loop; see its

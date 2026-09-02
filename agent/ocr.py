@@ -208,6 +208,7 @@ def fetch_ocr_batch_result(job_id: str) -> Optional[dict]:
     # response type.
     response = client.files.download(file_id=job.output_file)
     response.read()
+    response.encoding = "utf-8"
     lines = [line for line in response.text.splitlines() if line.strip()]
     if not lines:
         return None
@@ -324,7 +325,7 @@ def ensure_ocr_text(source_id: str, pdf_url: str) -> Optional[str]:
     cache_file = _cache_path(source_id, pdf_url)
     if cache_file.is_file():
         logger.info("OCR cache hit for %s (%s)", source_id, pdf_url)
-        return cache_file.read_text()
+        return cache_file.read_text(encoding="utf-8")
 
     logger.info(
         "content_gate flagged a scan for %s (%s) -- submitting a real, billed OCR batch job",
@@ -344,5 +345,5 @@ def ensure_ocr_text(source_id: str, pdf_url: str) -> Optional[str]:
         return None
 
     OCR_CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    cache_file.write_text(markdown)
+    cache_file.write_text(markdown, encoding="utf-8")
     return markdown

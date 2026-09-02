@@ -351,7 +351,7 @@ footer {{ margin-top:2.5rem; padding-top:1rem; border-top:2px solid #ccc; font-s
 
 
 def main() -> None:
-    OUT_PATH.write_text(build())
+    OUT_PATH.write_text(build(), encoding="utf-8")
     print(f"Wrote {OUT_PATH}")
 
 

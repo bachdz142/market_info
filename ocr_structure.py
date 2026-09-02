@@ -59,7 +59,7 @@ def main() -> None:
         if not markdown_path.is_file():
             print(f"Not a file: {markdown_path}", file=sys.stderr)
             sys.exit(1)
-        markdown = markdown_path.read_text()
+        markdown = markdown_path.read_text(encoding="utf-8")
 
     graph = build_ocr_structure_graph()
     run_id = str(uuid.uuid4())

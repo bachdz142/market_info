@@ -111,7 +111,7 @@ def _ocr_flag(source_id: str, latest_run: dict) -> tuple:
 def _load_raw_content() -> dict:
     by_id = defaultdict(list)
     if RAW_CONTENT_CSV.is_file():
-        with RAW_CONTENT_CSV.open(newline="") as f:
+        with RAW_CONTENT_CSV.open(newline="", encoding="utf-8") as f:
             for row in csv.DictReader(f):
                 by_id[row["id"]].append(row)
     return by_id
@@ -120,7 +120,7 @@ def _load_raw_content() -> dict:
 def _load_signals() -> dict:
     by_id = defaultdict(list)
     if SIGNALS_JSONL.is_file():
-        with SIGNALS_JSONL.open() as f:
+        with SIGNALS_JSONL.open(encoding="utf-8") as f:
             for line in f:
                 line = line.strip()
                 if not line:
@@ -358,7 +358,7 @@ function selectRun(sid, idx) {{
 
 
 def main() -> None:
-    OUT_PATH.write_text(build())
+    OUT_PATH.write_text(build(), encoding="utf-8")
     print(f"Wrote {OUT_PATH}")
 
 
