@@ -5,6 +5,28 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — OCR result -> structured signal wiring
+
+- Added `agent/graph.py`'s `build_ocr_structure_graph()`: a minimal
+  `checkpoint_gate -> structure -> END` graph (no crawl/content_gate node
+  — an already-completed OCR job's text has nothing left to fetch or
+  gate) and `ocr_structure.py`, a new CLI that takes a `source_id` plus
+  `--job-id` or `--markdown-file`, runs the OCR text through that graph
+  using the source's own `prompt`/`url`/`tier`, and logs the result via
+  the same `agent/store.py` functions `/trigger` uses — OCR-derived
+  signals land in `data/signals.jsonl`/`data/signals.csv` indistinguishable
+  from normal crawl output, keeping the source's own id.
+- Scoped explicitly to "consume an already-submitted result" only — still
+  no automatic OCR submission on a content_gate rejection; that stays a
+  separate, deliberate action via `ocr_preview.py`.
+- Verified live end-to-end reusing the already-completed OCR job from the
+  entry below (no new OCR spend): 6 real, correctly-dated regulatory
+  signals produced from `sbv_legal_directives_official`'s recovered text.
+- `tests/test_ocr.py` gains 2 offline tests (mocked `_structure_one`,
+  same pattern as `test_bug_fixes.py`'s bug #5 test) covering the new
+  graph's shape: OCR text reaches structuring directly, and an empty
+  query is still rejected by `checkpoint_gate` first.
+
 ## Unreleased — OCR fallback for scan-only PDFs (Mistral, Batch mode, POC)
 
 - Added `agent/ocr.py`, a new isolated module (mirrors `agent/llm_

@@ -11,9 +11,13 @@ log.
 """
 
 import json
+import uuid
 
+import agent.graph
 from agent import store
+from agent.graph import build_ocr_structure_graph
 from agent.ocr import _parse_batch_result_line
+from agent.schema import MarketSignalBatch
 
 
 def test_parse_batch_result_line_response_wrapping():
@@ -91,3 +95,68 @@ def test_append_ocr_job_writes_and_reads_back(tmp_path, monkeypatch):
     assert first["event"] == "submitted"
     assert second["event"] == "completed"
     assert second["page_count"] == 56
+
+
+def test_ocr_structure_graph_skips_straight_to_structuring(monkeypatch):
+    """build_ocr_structure_graph() (ocr_structure.py's seam) must feed
+    state["search_results"] straight to the structure node with no crawl or
+    content_gate step in between — OCR text already came from a job that
+    succeeded, so there's nothing left to fetch and nothing left to gate.
+    Mocks _structure_one the same way test_bug_fixes.py's bug #5 test does,
+    so this is a pure, offline check of the graph's shape, not a real LLM
+    call."""
+
+    def _fake_structure_one(query, label, text, system_prompt=None):
+        assert text == "Recovered OCR markdown text."
+        batch = MarketSignalBatch(query=query, signals=[], generated_at="")
+        return batch, {"input_tokens": 1, "output_tokens": 1, "total_tokens": 2}
+
+    monkeypatch.setattr(agent.graph, "_structure_one", _fake_structure_one)
+
+    graph = build_ocr_structure_graph()
+    state = {
+        "query": "Extract regulatory content",
+        "gate_passed": False,
+        "gate_reason": None,
+        "search_results": "Recovered OCR markdown text.",
+        "result": None,
+        "token_usage": None,
+        "url": "https://sbv.gov.vn/en/văn-bản-quản-lý-hành-chính",
+        "pdf_texts": None,
+        "chunked": False,
+        "tier": "tier_1",
+    }
+    final_state = graph.invoke(state, config={"configurable": {"thread_id": str(uuid.uuid4())}})
+
+    assert final_state["gate_passed"] is True
+    assert final_state["result"] is not None
+    assert final_state["result"]["signals"] == []
+    assert final_state["token_usage"] == {"input_tokens": 1, "output_tokens": 1, "total_tokens": 2}
+
+
+def test_ocr_structure_graph_rejects_empty_query(monkeypatch):
+    """checkpoint_gate still runs — an empty/missing prompt must not reach
+    the structure node just because OCR text is present."""
+
+    def _boom(*args, **kwargs):
+        raise AssertionError("structure must not run when the gate rejects the query")
+
+    monkeypatch.setattr(agent.graph, "_structure_one", _boom)
+
+    graph = build_ocr_structure_graph()
+    state = {
+        "query": "",
+        "gate_passed": False,
+        "gate_reason": None,
+        "search_results": "Recovered OCR markdown text.",
+        "result": None,
+        "token_usage": None,
+        "url": None,
+        "pdf_texts": None,
+        "chunked": False,
+        "tier": "tier_1",
+    }
+    final_state = graph.invoke(state, config={"configurable": {"thread_id": str(uuid.uuid4())}})
+
+    assert final_state["gate_passed"] is False
+    assert final_state["result"] is None

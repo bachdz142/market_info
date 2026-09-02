@@ -375,6 +375,31 @@ def build_crawl_graph():
     return graph.compile(checkpointer=MemorySaver())
 
 
+def build_ocr_structure_graph():
+    """Structures text already recovered by a completed Mistral OCR batch
+    job (see agent/ocr.py, ocr_structure.py) through the same checkpoint_gate
+    -> structure path every other source uses. No crawl or content_gate node
+    here: there's nothing left to fetch (the text was pulled from the OCR
+    job's own result, not a live URL) and nothing left to gate (an OCR job
+    that succeeded with real markdown is, by construction, usable content —
+    the same bar content_gate enforces for a normal crawl). The caller is
+    expected to run this manually, per source, against an already-completed
+    job — never wired into build_crawl_graph()/build_multi_pdf_graph()
+    itself, so a normal /trigger run never submits or waits on an OCR job."""
+    graph = StateGraph(AgentState)
+
+    graph.add_node("checkpoint_gate", checkpoint_gate)
+    graph.add_node("structure", _structure_node)
+
+    graph.add_edge(START, "checkpoint_gate")
+    graph.add_conditional_edges(
+        "checkpoint_gate", _route_after_gate, {"search": "structure", END: END}
+    )
+    graph.add_edge("structure", END)
+
+    return graph.compile(checkpointer=MemorySaver())
+
+
 def build_multi_pdf_graph():
     """Same shape as build_crawl_graph(), but for sources whose content
     would blow Groq's per-request token ceiling as a single structure call

@@ -444,8 +444,27 @@ First work on the OCR gap noted since v0.6/v0.8: BIDV's and Vietcombank's Layer 
 - [ ] The real OCR call path (submit → poll → fetch against a real scanned PDF) **not** run as part of this pass — real money, and per the spec's own testing decision, validated manually via `ocr_preview.py` whenever a real document is actually run through it, not automatically.
 
 ### Further Notes
-- Next step, explicitly deferred: run `ocr_preview.py` against one of the three known real scan-only documents (BIDV's `bidv_financial_statements`, Vietcombank's Vietstock-mirror fetch, or one of `sbv_legal_directives_official`'s scanned PDFs) to judge real output quality before deciding whether/how to wire an automatic content-gate-rejection-triggers-OCR hook into the live graph.
+- Real output quality validated live (2026-09-02): `ocr_preview.py` run against `sbv_legal_directives_official`'s scanned "CT 02_2026.pdf" (previously documented above as producing garbled text — "ctrAm di6m", "chri d$ng") recovered 6 pages / 15,202 chars of coherent, readable Vietnamese legal text. Two real bugs found and fixed via this live run: `ocr_preview.py` was missing `load_dotenv()` (`MISTRAL_API_KEY` never loaded); `agent/ocr.py`'s `fetch_ocr_batch_result()` accessed a streaming `httpx.Response`'s `.text` without calling `.read()` first (confirmed via the SDK's own `files.py` source — `download()` returns the raw response with `stream=True`, never read).
+- BIDV's and Vietcombank's Vietstock-mirror sources still need their own real OCR run before judging whether they become usable this way — not yet done, still open.
+- See v0.19 for the "consume an already-completed OCR result" graph wiring — this closes the loop from a validated OCR result to a real structured signal, still without any automatic OCR submission.
 - Still open, unrelated to this pass: annual reports/AGM documents (Layer 3, still parked — see `.scratch/layer3-annual-reports/spec.md`), and the standing cross-cutting gap — zero of this session's ~42 new sources have been LLM-verified yet.
+
+## v0.19 — OCR result → structured signal wiring (✅ done, POC)
+
+Closes the loop from v0.18: an already-completed OCR job's text now runs through the exact same LLM structuring step every other source uses, and the result lands in the same `data/signals.jsonl`/`data/signals.csv` as any normal `/trigger` output. Explicitly scoped by the user to the "consume" direction only — a normal `/trigger` run still never submits or waits on an OCR job; that stays a separate, deliberate action via `ocr_preview.py`.
+
+- [x] **`agent/graph.py`: `build_ocr_structure_graph()`** — a third, minimal graph shape alongside `build_graph()`/`build_crawl_graph()`/`build_multi_pdf_graph()`: `checkpoint_gate → structure → END`, no crawl or content_gate node. There's nothing left to fetch (the text came from an OCR job's own result, not a live URL) and nothing left to gate (a successfully completed OCR job's markdown is, by construction, past the bar content_gate enforces for a normal crawl).
+- [x] **`ocr_structure.py`** (new CLI, mirrors `ocr_preview.py`'s and `fetch_preview.py`'s role) — takes a `source_id` (looked up in `agent/sources.py` for its own `prompt`/`url`/`tier`, so OCR text is judged by that source's own extraction criteria) plus either `--job-id` (fetches the result fresh from Mistral) or `--markdown-file` (reads text already saved locally, e.g. by `ocr_preview.py`). Runs it through `build_ocr_structure_graph()` and logs via the exact same `agent/store.py` functions `service.py`'s `/trigger` loop uses (`append_topic_jsonl`, `append_topic_csv`, `append_raw_content`) — OCR-derived signals carry the source's own existing id, indistinguishable in the log from a normal crawl's output, per the same no-new-marker decision from v0.18.
+- [x] Verified live end-to-end, reusing the already-completed OCR job from v0.18 (no new OCR spend): `ocr_structure.py sbv_legal_directives_official --markdown-file data/ocr_preview/sbv_ct_02_2026_test.md` produced 6 real signals — correct circular/decision numbers, dates, and subjects (e.g. "Circular No. 02/CT-NHNN dated 09 January 2026 directs the acceleration of digital transformation..."), `source_code: "SBV"`, no fabricated documents — matching `sbv_legal_directives_official`'s own prompt exactly as a normal crawl of it would.
+
+### Verification
+- [x] `tests/test_ocr.py` gains 2 new offline tests: `build_ocr_structure_graph()` feeds `search_results` straight to a mocked `_structure_one` with no crawl/content_gate step in between (same monkeypatch pattern as `test_bug_fixes.py`'s bug #5 test); an empty query is still rejected by `checkpoint_gate` before structuring runs, even with OCR text present. 7/7 passing.
+- [x] Full offline-safe suite (everything except `test_sources.py`, which hits real network/LLM by design): 37/37 passing.
+- [x] Live run against a real completed OCR result (above) — real signals produced, logged into `data/signals.jsonl`/`data/signals.csv` alongside normal `/trigger` output.
+
+### Out of Scope
+- Still no automatic content-gate-rejection-triggers-OCR hook — explicitly rejected again this pass ("second option": consume already-submitted results, don't auto-submit).
+- BIDV's and Vietcombank's sources not yet run through this path — no OCR job has been submitted for either yet (see v0.18's Further Notes).
 
 ## Maintenance fixes
 
