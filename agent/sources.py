@@ -915,29 +915,28 @@ SOURCES = [
     # tier_1). Each prompt below spells out the fact/opinion boundary
     # explicitly, since these documents genuinely mix both in one place.
     #
-    # Of the plan's 4 named securities firms, SSI and VCBS are included
-    # here. VNDirect (vndirect.com.vn) is skipped — its robots.txt has a
-    # dedicated "User-agent: ClaudeBot / Disallow: /" block, the same
-    # pattern already found on thuvienphapluat.vn (see agent/sources.py's
-    # Layer 4 legal-document comment above). VCBS's report list only
-    # resolves after clicking its "Báo cáo ngành" tab, and a plain
-    # synthetic .click() on the report's own title/icon did nothing — a
-    # genuinely trusted Playwright click on that same icon did trigger
-    # real navigation, but to an intermediate discovery page that's
-    # genuinely bot-gated (confirmed live: loads an invisible reCAPTCHA,
-    # stays blank even after a 15s wait). The underlying PDF file itself
-    # carries no gate at all — only the page used to discover it does —
-    # confirmed by the user's own manual click surfacing the working
-    # direct file URL. See VCBS_BANKING_SECTOR_REPORT_URL's comment in
-    # agent/crawler.py. BSC remains unsolved: its specific
-    # report detail page (chi-tiet-bao-cao/714250, "Báo cáo phân tích
-    # ngành Ngân Hàng") renders the exact same generic stock-ticker
-    # dashboard content regardless of URL or JS wait — the report body
-    # itself never loads via a plain page visit, and no equivalent direct-
-    # file-URL pattern (like VCBS's storage/ttpt_reports/...) was found
-    # for it. Documented here rather than silently dropped, matching this
-    # project's own "blocked-by-design, not evaded" convention — worth
-    # another pass with real click simulation before concluding further.
+    # Of the plan's 4 named securities firms, SSI, VCBS, and BSC are all
+    # included here — VNDirect (vndirect.com.vn) is the only one skipped,
+    # for a compliance reason (its robots.txt has a dedicated
+    # "User-agent: ClaudeBot / Disallow: /" block, the same pattern
+    # already found on thuvienphapluat.vn — see agent/sources.py's Layer 4
+    # legal-document comment above), not a technical one. VCBS's report
+    # list only resolves after clicking its "Báo cáo ngành" tab, and a
+    # plain synthetic .click() on the report's own title/icon did nothing
+    # — a genuinely trusted Playwright click on that same icon did
+    # trigger real navigation, but to an intermediate discovery page
+    # that's genuinely bot-gated (confirmed live: loads an invisible
+    # reCAPTCHA, stays blank even after a 15s wait). The underlying PDF
+    # file itself carries no gate at all — only the page used to discover
+    # it does — confirmed by the user's own manual click surfacing the
+    # working direct file URL. See VCBS_BANKING_SECTOR_REPORT_URL's
+    # comment in agent/crawler.py. BSC's own plan-listed URL
+    # (chi-tiet-bao-cao/714250, "Báo cáo phân tích ngành Ngân Hàng") is
+    # simply dead — confirmed live it's not linked from anywhere on the
+    # current site — but its real, current report listing (found via
+    # BSC's own "Industry & Business Report" nav link, a different URL
+    # pattern than the plan's dead link) does have real, live analyst
+    # content; see bsc_mbb_report below.
     #
     # Of the plan's 3 named consumer-research firms, Cimigo is skipped.
     # Its "evergreen" trends page republishes 2022 GDP/COVID-era figures
@@ -1022,6 +1021,48 @@ SOURCES = [
             "forecast figure must have actual_proxy_forecast set to "
             "\"forecast\" with forecast_org set to \"VCBS Research\". "
             "source_code for these signals is \"VCBS\"."
+        ),
+    },
+    {
+        "id": "bsc_mbb_report",
+        "kind": "qualitative",
+        "role": "citable",
+        "tier": "tier_2",
+        # BSC's plan-listed URL (chi-tiet-bao-cao/714250, "Báo cáo phân
+        # tích ngành Ngân Hàng") is dead — confirmed live it's not linked
+        # from anywhere on the current site (a 3.3MB scan of its
+        # by-company report listing found zero matches for that report ID
+        # or title), and its own detail page renders the same generic
+        # stock-ticker dashboard regardless. The real, current report
+        # listing lives at bsc.com.vn/bao-cao-nganh-doanh-nghiep/ (found
+        # via "Industry & Business Report" in BSC's own nav — a different
+        # URL pattern than the plan's dead link, bao-cao/{id}-{slug} not
+        # chi-tiet-bao-cao/{id}). No dedicated whole-sector banking report
+        # was found there at time of writing, but a real, current,
+        # substantive bank-specific analyst report was (BSC's own "X-Alpha"
+        # research line) — confirmed live: a genuine BUY recommendation on
+        # MBB with target price, ROAE analysis, and 2026-2027F forecasts,
+        # dated 20/08/2026. 18.2K chars (chunked) — a content_selector
+        # (.detail) was tried but truncates real content, so left unscoped.
+        "url": "https://www.bsc.com.vn/bao-cao/15801-x-alpha-mbb-25700-29-tiep-them-nhien-lieu-tang-toc-tren-duong-bang",
+        "chunked": True,
+        "prompt": (
+            "This is a BSC Research (BIDV Securities) equity analyst "
+            "report on MBB (Military Commercial Joint Stock Bank). "
+            "Extract concrete signals — both directly reported facts "
+            "(e.g. disclosed financial figures quoted in the report) and "
+            "BSC's own analyst views (the BUY/SELL/HOLD call, target "
+            "price, valuation multiples, ROAE outlook, growth forecasts, "
+            "named catalysts). Tag each signal's fact_or_opinion "
+            "carefully: \"fact\" only for a directly disclosed/reported "
+            "figure; \"opinion\" for BSC's own analysis, recommendation, "
+            "valuation, or forecast — this report is mostly analyst "
+            "opinion, so most signals should be \"opinion\", but don't "
+            "default everything to one value if a genuine disclosed fact "
+            "is present. Any forecast figure (target price, forecast "
+            "ROAE/profit growth) must have actual_proxy_forecast set to "
+            "\"forecast\" with forecast_org set to \"BSC Research\". "
+            "source_code for these signals is \"BSC\"."
         ),
     },
     {

@@ -13,9 +13,10 @@ package release. For plain-English progress tracking see
   confirmed a crawl4ai-side quirk via a clean `curl` 200 on the same
   URL — fetched via direct `urllib` + crawl4ai's own
   `NaivePDFProcessorStrategy` instead), `vcbs_banking_sector_report`
-  (see below), `decisionlab_bank_satisfaction_rankings`, and
+  (see below), `bsc_mbb_report` (see below),
+  `decisionlab_bank_satisfaction_rankings`, and
   `qandme_online_banking_usage` (both solved directly, no gating). All
-  four use the new `"tier": "tier_2"` config.
+  five use the new `"tier": "tier_2"` config.
 - `vcbs_banking_sector_report`: reopened after being wrongly judged
   blocked-by-design. A genuinely *trusted* Playwright click (not a
   JS-level `.click()`, which this site's handler ignores as untrusted)
@@ -26,10 +27,13 @@ package release. For plain-English progress tracking see
   manual click surfacing the working direct file URL. Net effect: this
   report's URL can be refetched automatically now, but discovering
   future reports this way still needs a human click.
+- `bsc_mbb_report`: the plan's own listed URL was simply dead (not
+  linked from anywhere on the current site) — the real report listing
+  lives at a different URL, found via BSC's own nav. A real, current
+  BUY-rated MBB analyst report (target price, ROAE outlook,
+  2026-2027F forecasts) was found there.
 - VNDirect skipped: same dedicated `User-agent: ClaudeBot` robots.txt
-  block found on thuvienphapluat.vn in the previous entry. BSC remains
-  unsolved (its report-detail page never renders distinct content,
-  with no equivalent direct-file-URL pattern found for it). Cimigo
+  block found on thuvienphapluat.vn in the previous entry. Cimigo
   skipped as stale after a full pagination check (best available was a
   ~21-month-old article) rather than blocked.
 - `agent/content_gate.py`: fixed a second URL-scheme false positive in
