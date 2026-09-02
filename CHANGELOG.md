@@ -5,6 +5,38 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — VCB fee schedule correctness fix: dynamic scraper had a real data-integrity bug
+
+- Fixed `vcb_fee_schedule` (added in the previous entry below) after the
+  user's own manual check of the live page caught something the
+  automated scraper missed. Investigating the discrepancy found a real
+  correctness bug, not just flakiness: all 3 of VCB's transfer-type
+  categories (international transfer, domestic transfer, remittance)
+  render with the *same* "Biểu phí" (fee schedule) content in the
+  initial HTML — international transfer's 2 PDFs appear duplicated under
+  every category heading, not each category's own real documents. Same
+  failure shape as BIDV's Layer 1 bug #6 (the same document set repeated
+  under every tab), except here it would have meant silently mislabeling
+  international-transfer fees as domestic-transfer or remittance fees —
+  a real correctness risk, not cosmetic noise.
+- A retry-until-fully-rendered strategy (raising the bar from "found any
+  PDFs" to "found more than one category's worth") did not fix this —
+  it just retried into the same duplicated-content state more
+  confidently, since the duplication happens inside a single otherwise-
+  complete render, not as a symptom of partial rendering.
+- Replaced the dynamic accordion scraper (`_vcb_fee_pdf_urls()`) with a
+  hand-verified, explicit list of 3 PDF URLs in `agent/crawler.py`
+  (`VCB_FEE_PDF_URLS`): international transfer's 2 real PDFs (found via
+  the accordion before the duplication bug was understood) and domestic
+  transfer's 1 real PDF (given directly by the user from the live page —
+  several plausible filename guesses to find it independently all
+  404'd). The third category (remittance) was not found and is left out
+  rather than guessed at further; each category's genuinely distinct
+  content likely only loads after a real user click, which would need
+  ACB-style network capture to fetch properly.
+- Fetch-only re-verified via `crawl_parts()`: all 3 pieces now correct
+  and distinct, zero LLM cost.
+
 ## Unreleased — VCB fee schedule solved on a second pass (reopened from "needs OCR") — Layer 2 news/fee pass now complete, 10/10
 
 - Added `vcb_fee_schedule`, reopening a source previously judged "needs
