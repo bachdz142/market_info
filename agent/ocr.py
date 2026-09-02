@@ -163,7 +163,15 @@ def fetch_ocr_batch_result(job_id: str) -> Optional[dict]:
     if job.status != "SUCCESS" or not job.output_file:
         return None
 
+    # download() deliberately returns a streaming httpx.Response
+    # (stream=True internally) without reading it — confirmed live that
+    # accessing .text directly raises "Attempted to access streaming
+    # response content, without having called `read()`."; .read() loads
+    # the full body first, same pattern the SDK's own error-handling
+    # branches use internally (utils.stream_to_text) for this same
+    # response type.
     response = client.files.download(file_id=job.output_file)
+    response.read()
     lines = [line for line in response.text.splitlines() if line.strip()]
     if not lines:
         return None

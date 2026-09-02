@@ -1,0 +1,2 @@
+{"event": "submitted", "job_id": "006db290-9145-47be-a2d0-72daf907fb62", "source_id": "sbv_ct_02_2026_test", "pdf_name": "CT_02_2026.pdf", "timestamp": "2026-09-02T17:28:30.414533+07:00"}
+{"event": "completed", "job_id": "006db290-9145-47be-a2d0-72daf907fb62", "source_id": "sbv_ct_02_2026_test", "status": "SUCCESS", "page_count": 6, "estimated_cost_usd": 0.012, "timestamp": "2026-09-02T17:30:27.382579+07:00"}

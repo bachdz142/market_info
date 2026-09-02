@@ -4,12 +4,15 @@ import argparse
 import sys
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 from agent.ocr import run_ocr_sync
 
 PREVIEW_DIR = Path("data/ocr_preview")
 
 
 def main() -> None:
+    load_dotenv()
     parser = argparse.ArgumentParser(
         description=(
             "Run Mistral OCR (Batch mode) against one local PDF file and save "
