@@ -12,15 +12,26 @@ package release. For plain-English progress tracking see
   report links; its host 403s crawl4ai's PDF downloader specifically —
   confirmed a crawl4ai-side quirk via a clean `curl` 200 on the same
   URL — fetched via direct `urllib` + crawl4ai's own
-  `NaivePDFProcessorStrategy` instead), `decisionlab_bank_satisfaction_
-  rankings`, and `qandme_online_banking_usage` (both solved directly,
-  no gating). All three use the new `"tier": "tier_2"` config.
+  `NaivePDFProcessorStrategy` instead), `vcbs_banking_sector_report`
+  (see below), `decisionlab_bank_satisfaction_rankings`, and
+  `qandme_online_banking_usage` (both solved directly, no gating). All
+  four use the new `"tier": "tier_2"` config.
+- `vcbs_banking_sector_report`: reopened after being wrongly judged
+  blocked-by-design. A genuinely *trusted* Playwright click (not a
+  JS-level `.click()`, which this site's handler ignores as untrusted)
+  did trigger real navigation — but to an intermediate discovery page
+  that's genuinely bot-gated (confirmed live: loads an invisible
+  reCAPTCHA, stays blank even after a 15s wait). The underlying PDF
+  file itself carries no gate at all, confirmed by the user's own
+  manual click surfacing the working direct file URL. Net effect: this
+  report's URL can be refetched automatically now, but discovering
+  future reports this way still needs a human click.
 - VNDirect skipped: same dedicated `User-agent: ClaudeBot` robots.txt
-  block found on thuvienphapluat.vn in the previous entry.
-- VCBS and BSC investigated live and documented as genuinely
-  blocked-by-design (SPA routing that a plain click/JS-wait can't get
-  past), not silently dropped. Cimigo skipped as stale (only 2022 data
-  freely available; 2024 report is email-gated) rather than blocked.
+  block found on thuvienphapluat.vn in the previous entry. BSC remains
+  unsolved (its report-detail page never renders distinct content,
+  with no equivalent direct-file-URL pattern found for it). Cimigo
+  skipped as stale after a full pagination check (best available was a
+  ~21-month-old article) rather than blocked.
 - `agent/content_gate.py`: fixed a second URL-scheme false positive in
   `_corrupted_token_ratio` — inline `data:image/svg+xml;...` URIs
   weren't stripped before the ratio check, same failure mode as the

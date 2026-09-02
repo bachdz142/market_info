@@ -915,34 +915,42 @@ SOURCES = [
     # tier_1). Each prompt below spells out the fact/opinion boundary
     # explicitly, since these documents genuinely mix both in one place.
     #
-    # Of the plan's 4 named securities firms, only SSI is included here:
-    # VNDirect (vndirect.com.vn) is skipped — its robots.txt has a
+    # Of the plan's 4 named securities firms, SSI and VCBS are included
+    # here. VNDirect (vndirect.com.vn) is skipped — its robots.txt has a
     # dedicated "User-agent: ClaudeBot / Disallow: /" block, the same
-    # pattern already found on thuvienphapluat.vn (see
-    # agent/sources.py's Layer 4 legal-document comment above). VCBS and
-    # BSC were both investigated live and found genuinely blocked by
-    # design, not by a simple selector/JS-wait fix: VCBS's report list
-    # itself only resolves after clicking its "Báo cáo ngành" tab (its
-    # real Banking Sector Report 2026 does surface, tickers MBB/BID/STB/
-    # CTG/HDB/VPB confirmed), but the individual report's own link isn't a
-    # real navigable element — clicking it does nothing (same URL, no new
-    # content) — reverse-engineering its SPA's actual API is a
-    # disproportionate investment for one row. BSC's specific report
-    # detail page (chi-tiet-bao-cao/714250, "Báo cáo phân tích ngành Ngân
-    # Hàng") renders the exact same generic stock-ticker dashboard content
-    # regardless of URL or JS wait — the report body itself never loads
-    # via a plain page visit. Documented here rather than silently
-    # dropped, matching this project's own "blocked-by-design, not
-    # evaded" convention.
+    # pattern already found on thuvienphapluat.vn (see agent/sources.py's
+    # Layer 4 legal-document comment above). VCBS's report list only
+    # resolves after clicking its "Báo cáo ngành" tab, and a plain
+    # synthetic .click() on the report's own title/icon did nothing — a
+    # genuinely trusted Playwright click on that same icon did trigger
+    # real navigation, but to an intermediate discovery page that's
+    # genuinely bot-gated (confirmed live: loads an invisible reCAPTCHA,
+    # stays blank even after a 15s wait). The underlying PDF file itself
+    # carries no gate at all — only the page used to discover it does —
+    # confirmed by the user's own manual click surfacing the working
+    # direct file URL. See VCBS_BANKING_SECTOR_REPORT_URL's comment in
+    # agent/crawler.py. BSC remains unsolved: its specific
+    # report detail page (chi-tiet-bao-cao/714250, "Báo cáo phân tích
+    # ngành Ngân Hàng") renders the exact same generic stock-ticker
+    # dashboard content regardless of URL or JS wait — the report body
+    # itself never loads via a plain page visit, and no equivalent direct-
+    # file-URL pattern (like VCBS's storage/ttpt_reports/...) was found
+    # for it. Documented here rather than silently dropped, matching this
+    # project's own "blocked-by-design, not evaded" convention — worth
+    # another pass with real click simulation before concluding further.
     #
-    # Of the plan's 3 named consumer-research firms, Cimigo is skipped:
-    # its only freely-fetchable retail-banking content (both its 2022 PDF
-    # and its "evergreen" trends page, which republishes the same 2022
-    # figures under a non-dated URL) is confirmed stale — its 2024 report
-    # is email-gated, its old landing page now 404s, and no 2025/2026
-    # retail-banking-specific report exists yet. Decision Lab and Q&Me
-    # both cover this row's real content need (Gen X/Y/Z lifestyle/
-    # banking behavior, satisfaction rankings) with current data.
+    # Of the plan's 3 named consumer-research firms, Cimigo is skipped.
+    # Its "evergreen" trends page republishes 2022 GDP/COVID-era figures
+    # under a non-dated URL, and its 2024 report's landing page is
+    # email-gated and now 404s regardless. Paginating its full article
+    # feed (not just the homepage's first page) did surface a genuinely
+    # free Dec 2024 article — but by the time this was checked (Sept
+    # 2026) that's already ~21 months old, well past the plan's quarterly
+    # cadence, and its competitive-ranking claims could easily have
+    # reversed since; explicit user call to still skip rather than add
+    # stale-but-less-stale data. Decision Lab and Q&Me both cover this
+    # row's real content need (Gen X/Y/Z lifestyle/banking behavior,
+    # satisfaction rankings) with genuinely current data.
     {
         "id": "ssi_banking_sector_report",
         "kind": "qualitative",
@@ -974,6 +982,46 @@ SOURCES = [
             "actual_proxy_forecast set to \"forecast\" with forecast_org "
             "set to \"SSI Research\". source_code for these signals is "
             "\"SSI\"."
+        ),
+    },
+    {
+        "id": "vcbs_banking_sector_report",
+        "kind": "qualitative",
+        "role": "citable",
+        "tier": "tier_2",
+        # See VCBS_BANKING_SECTOR_REPORT_URL's own comment in
+        # agent/crawler.py for the full discovery story: VCBS's report
+        # list only resolves after clicking its "Báo cáo ngành" tab, and
+        # a plain synthetic .click() on the report's own title/icon did
+        # nothing (no navigation) — a genuinely trusted Playwright click
+        # on the exact same download icon (confirmed via the user's own
+        # browser inspector — same element) did trigger real navigation,
+        # but to an intermediate discovery page that's genuinely
+        # bot-gated (confirmed live: loads an invisible reCAPTCHA, stays
+        # blank even after a 15s wait — not a timing issue). The user's
+        # own manual click bypassed that page and surfaced this direct
+        # file URL, which itself carries no gate at all — only the page
+        # used to discover it does. 73.1K chars, real, current content:
+        # VCBS Research's 2026 banking-sector outlook (credit growth
+        # 17.87% as of 25/12/2025 vs. 13.82% the same period a year
+        # earlier).
+        "url": "https://www.vcbs.com.vn/storage/ttpt_reports/20260109/bao-cao-nganh-ngan-hang-2026.pdf",
+        "chunked": True,
+        "prompt": (
+            "This is a VCBS Research (Vietcombank Securities) "
+            "banking-sector analyst report. Extract concrete signals — "
+            "both directly reported facts (e.g. system-wide credit growth "
+            "figures reported by NHNN/banks) and VCBS's own analyst views "
+            "(e.g. sector outlook, forecasts, bank-specific comparisons). "
+            "Tag each signal's fact_or_opinion carefully: \"fact\" only "
+            "for a directly disclosed/reported figure (e.g. NHNN's own "
+            "credit growth statistic quoted in the report); \"opinion\" "
+            "for VCBS's own analysis, interpretation, forecast, or "
+            "sector-outlook assessment — this report contains plenty of "
+            "both, so do not default everything to one value. Any "
+            "forecast figure must have actual_proxy_forecast set to "
+            "\"forecast\" with forecast_org set to \"VCBS Research\". "
+            "source_code for these signals is \"VCBS\"."
         ),
     },
     {
