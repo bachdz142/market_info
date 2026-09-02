@@ -39,7 +39,7 @@ TECH_STACK = [
 ]
 
 FURTHER_IMPROVEMENTS = [
-    "Full LLM-verification pass across the original 47 sources - done (39/39 ok, 0 errored, run_todo_sources.py); the 4 newest sources (cimigo/decisionlab) each have their own live spot-check but not all 4 have a full-pipeline run logged yet.",
+    "Full LLM-verification pass across all 51 sources - done (original 47: 39/39 ok via run_todo_sources.py; the 4 newest cimigo/decisionlab sources: 4/4 ok, each verified live individually).",
     "Prompt refactor grouped by content shape (financial-statement PDF / legal document / news article / app release notes) - deferred pending real evidence; the two weak-extraction candidates checked so far turned out to be stale pre-fix data, not current prompt problems.",
     "Extend automatic OCR-eligibility to the remaining single-fetch chunked sources (Techcombank, ACB, 3 fee schedules) - only BIDV and MBB have it wired so far.",
     "Reconsider blind pre-chunking of large documents (ACB's financial statement splits into 21 pieces, ~10-15 min just from pacing) - BIDV's own ~190K-char OCR'd document was handled in a single call by the fallback chain's larger-context providers; chunking may now be a pre-fallback-chain relic.",
