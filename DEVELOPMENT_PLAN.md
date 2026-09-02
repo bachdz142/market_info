@@ -397,7 +397,7 @@ First real work on `source_plan_mvp0.md` §4's app-store release-notes row. Goog
 
 Closes out the PxWeb gap left open in v0.14. NSO's GDP data lives behind a genuine PxWeb statistical-database UI (classic ASP.NET WebForms) — a real, solvable integration, not a dead end, once approached with real click simulation instead of a plain fetch.
 
-- [x] **`nso_gdp_key_indicators`** — the "Key indicators on national accounts" table (GDP at current prices, per-capita GDP, growth rate, gross capital formation, and more). Two real gotchas found and worked around: (1) the page's "Continue" button looks like a plain link, but a raw JS-level `.click()` reset the selection to 0 cells instead of submitting (confirmed live) — ASP.NET's postback needs the listbox's actual selection state set via a genuine browser selection API (Playwright's `select_option`, which fires a proper `change` event), not just a DOM click; (2) the resulting table URL's `rxid` is a server-side session id, not a stable/shareable link — confirmed live that re-fetching it in a fresh browser session just redirects back to the selection form, so the real table text has to be read from the very page that just submitted the form, in the same session. This is why `_fetch_nso_gdp_table_text` uses crawl4ai's `on_page_context_created` hook to get a real Playwright `page` handle — the only fetch function in this file that needs this, since every other custom fetch only needs `js_code`. Confirmed live: real, current GDP figures for the 3 latest available years (2022: 9,621,371.8 bn VND; 2023: 10,319,058.9 bn VND; 2024 Prel.: 11,510,328.9 bn VND; growth rates 8.5%/5.0%/7.0%).
+- [x] **`nso_gdp_key_indicators`** — the "Key indicators on national accounts" table (GDP at current prices, per-capita GDP, growth rate, gross capital formation, and more). Two real gotchas found and worked around: (1) the page's "Continue" button looks like a plain link, but a raw JS-level `.click()` reset the selection to 0 cells instead of submitting (confirmed live) — ASP.NET's postback needs the listbox's actual selection state set via a genuine browser selection API (Playwright's `select_option`, which fires a proper `change` event), not just a DOM click; (2) the resulting table URL's `rxid` is a server-side session id, not a stable/shareable link — confirmed live that re-fetching it in a fresh browser session just redirects back to the selection form, so the real table text has to be read from the very page that just submitted the form, in the same session. This is why `_fetch_nso_pxweb_table_text` (renamed in v0.17 below once it turned out to be fully generic, not GDP-specific) uses crawl4ai's `on_page_context_created` hook to get a real Playwright `page` handle — the only fetch function in this file that needs this, since every other custom fetch only needs `js_code`. Confirmed live: real, current GDP figures for the 3 latest available years (2022: 9,621,371.8 bn VND; 2023: 10,319,058.9 bn VND; 2024 Prel.: 11,510,328.9 bn VND; growth rates 8.5%/5.0%/7.0%).
 - [x] `nso_data_and_statistics_official`'s prompt updated to explicitly exclude GDP (now covered by this dedicated source) alongside the CPI exclusion already there.
 
 ### Verification
@@ -407,8 +407,24 @@ Closes out the PxWeb gap left open in v0.14. NSO's GDP data lives behind a genui
 - [ ] Full LLM-inclusive `pytest tests/test_sources.py` **not** run, per the fetch-dev-no-llm-by-default direction.
 
 ### Further Notes
-- This closes essentially every named source-discovery item from `source_plan_mvp0.md` except annual reports/AGM documents (Layer 3, still parked — see `.scratch/layer3-annual-reports/spec.md`) and VHLSS (not yet investigated, separate from GDP).
+- This closes essentially every named source-discovery item from `source_plan_mvp0.md` except annual reports/AGM documents (Layer 3, still parked — see `.scratch/layer3-annual-reports/spec.md`) and VHLSS (not yet investigated, separate from GDP). **Update: VHLSS solved in v0.17 below.**
 - The single biggest remaining cross-cutting gap, unchanged: zero of this session's ~40 new sources have been LLM-verified yet.
+
+## v0.17 — VHLSS household income/expenditure via the same PxWeb mechanism (✅ done)
+
+Closes the last open item noted in v0.16. VHLSS (Vietnam Household Living Standards Survey) figures live on the same `pxweb.nso.gov.vn` server as GDP, just under a different theme ("Health, Culture, Sport, Living standards...", not a dedicated "VHLSS" page) — found by searching that category's own "Data" tab for "income"/"expenditure" keywords.
+
+- [x] **`nso_vhlss_income`** / **`nso_vhlss_expenditure`** — confirmed live that `_fetch_nso_pxweb_table_text` (renamed from `_fetch_nso_gdp_table_text` here, since it turned out to need zero changes for a second and third table — PxWeb's selection-form shape is generic across every table on the server, not GDP-specific) works unchanged for both, no new logic. Real, current monthly average income/expenditure per capita, whole-country + urban/rural + 6 named regions, thousand-dong figures for the 3 latest available years.
+
+### Verification
+- [x] Import/build sanity check — `SOURCES` imports cleanly with both new entries (47 total sources), no id collisions.
+- [x] Full fetch → content-gate pipeline verified live via `fetch_preview.py`, fetch-only (zero LLM cost) — both pass `check_content_usable()`, real current figures confirmed for each.
+- [x] Offline test suite (`test_content_gate.py` + `test_tier_fact_opinion.py` + the pure-code subset of `test_bug_fixes.py`): 21/21 passing, unaffected by this change.
+- [ ] Full LLM-inclusive `pytest tests/test_sources.py` **not** run, per the fetch-dev-no-llm-by-default direction.
+
+### Further Notes
+- This closes every named source-discovery item from `source_plan_mvp0.md` except annual reports/AGM documents (Layer 3, still parked — see `.scratch/layer3-annual-reports/spec.md`).
+- The single biggest remaining cross-cutting gap, unchanged across every version this session: zero of the ~42 new sources added this session have been LLM-verified yet.
 
 ## Maintenance fixes
 

@@ -5,6 +5,19 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — VHLSS household income/expenditure (same PxWeb mechanism)
+
+- Added `nso_vhlss_income` and `nso_vhlss_expenditure` — found on the
+  same `pxweb.nso.gov.vn` server as GDP, under a different theme
+  ("Health, Culture, Sport, Living standards...", not a dedicated
+  "VHLSS" page).
+- `_fetch_nso_pxweb_table_text` (renamed from `_fetch_nso_gdp_table_
+  text`, since it turned out to need zero changes for these) worked
+  unchanged for both — PxWeb's selection-form shape is generic across
+  every table on the server, not GDP-specific.
+- Closes every named source-discovery item in `source_plan_mvp0.md`
+  except annual reports/AGM (still parked). 47 total sources.
+
 ## Unreleased — NSO GDP figures via PxWeb (real click simulation)
 
 - Closes the PxWeb gap left open in the previous NSO entry. Added

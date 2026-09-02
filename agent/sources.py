@@ -374,6 +374,59 @@ SOURCES = [
         ),
     },
     {
+        "id": "nso_vhlss_income",
+        "kind": "quant",
+        "role": "citable",
+        # Same PxWeb server/mechanism as nso_gdp_key_indicators — see
+        # NSO_VHLSS_INCOME_URL's comment in agent/crawler.py: confirmed
+        # live the same fetch function works unchanged. This is the
+        # household income half of source_plan_mvp0.md §6.3's VHLSS row
+        # (found under NSO's "Health, Culture, Sport, Living standards..."
+        # category, not a dedicated "VHLSS" page). Confirmed live: real
+        # monthly average income per capita, whole-country + urban/rural +
+        # 6 regions, thousand-dong figures for the 3 latest available
+        # years.
+        "url": "https://pxweb.nso.gov.vn/pxweb/en/Health%2C%20Culture%2C%20Sport%20and%20Living%20standard/Health%2C%20Culture%2C%20Sport%20and%20Living%20standard/E14.26.px/",
+        "prompt": (
+            "This is NSO's (Vietnam National Statistics Office) 'Monthly "
+            "average income per capita' table (VHLSS — Vietnam Household "
+            "Living Standards Survey), covering the 3 most recent "
+            "available years. Extract each concrete figure as its own "
+            "signal — the income per capita for the whole country, and "
+            "separately for urban/rural and each named region — with the "
+            "exact year as reference_period and the geography named in "
+            "the summary. Note when a year is marked 'Prel.' "
+            "(preliminary) in the summary. data_basis is "
+            "\"not_applicable\". actual_proxy_forecast is \"actual\" for "
+            "every figure here. source_code for these signals is "
+            "\"NSO\"."
+        ),
+    },
+    {
+        "id": "nso_vhlss_expenditure",
+        "kind": "quant",
+        "role": "citable",
+        # Same PxWeb server/mechanism as nso_gdp_key_indicators — see
+        # NSO_VHLSS_EXPENDITURE_URL's comment in agent/crawler.py. The
+        # household expenditure half of the VHLSS row. Confirmed live:
+        # real monthly average expenditure per capita, whole-country +
+        # urban/rural + 6 regions, thousand-dong figures.
+        "url": "https://pxweb.nso.gov.vn/pxweb/en/Health%2C%20Culture%2C%20Sport%20and%20Living%20standard/Health%2C%20Culture%2C%20Sport%20and%20Living%20standard/E14.40.px/",
+        "prompt": (
+            "This is NSO's (Vietnam National Statistics Office) 'Monthly "
+            "average expenditure per capita' table (VHLSS — Vietnam "
+            "Household Living Standards Survey), covering the 3 most "
+            "recent available years. Extract each concrete figure as its "
+            "own signal — the expenditure per capita for the whole "
+            "country, and separately for urban/rural and each named "
+            "region — with the exact year as reference_period and the "
+            "geography named in the summary. data_basis is "
+            "\"not_applicable\". actual_proxy_forecast is \"actual\" for "
+            "every figure here. source_code for these signals is "
+            "\"NSO\"."
+        ),
+    },
+    {
         "id": "chinhphu_legal_documents_official",
         "kind": "qualitative",
         "role": "citable",

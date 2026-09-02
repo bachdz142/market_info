@@ -616,9 +616,22 @@ NSO_GDP_KEY_INDICATORS_URL = (
     "https://pxweb.nso.gov.vn/pxweb/en/National%20Accounts%20and%20State%20budget/"
     "National%20Accounts%20and%20State%20budget/E03.01.px/"
 )
+# Same PxWeb instance, VHLSS (household income/expenditure) tables —
+# confirmed live that _fetch_nso_pxweb_table_text works unchanged for these
+# too, no new logic needed: PxWeb's selection-form shape (2 listboxes +
+# a "Continue" button with this exact element id) is generic across every
+# table on this server, not something specific to the GDP one.
+NSO_VHLSS_INCOME_URL = (
+    "https://pxweb.nso.gov.vn/pxweb/en/Health%2C%20Culture%2C%20Sport%20and%20Living%20standard/"
+    "Health%2C%20Culture%2C%20Sport%20and%20Living%20standard/E14.26.px/"
+)
+NSO_VHLSS_EXPENDITURE_URL = (
+    "https://pxweb.nso.gov.vn/pxweb/en/Health%2C%20Culture%2C%20Sport%20and%20Living%20standard/"
+    "Health%2C%20Culture%2C%20Sport%20and%20Living%20standard/E14.40.px/"
+)
 
 
-async def _fetch_nso_gdp_table_text(url: str) -> str:
+async def _fetch_nso_pxweb_table_text(url: str) -> str:
     _throttle(_domain(url))
     captured_page: dict = {}
 
@@ -969,8 +982,8 @@ async def _crawl_async(url: str) -> str:
         return await _fetch_ssi_report_text(url)
     if url == VCBS_BANKING_SECTOR_REPORT_URL:
         return await _fetch_vcbs_report_text(url)
-    if url == NSO_GDP_KEY_INDICATORS_URL:
-        return await _fetch_nso_gdp_table_text(url)
+    if url in (NSO_GDP_KEY_INDICATORS_URL, NSO_VHLSS_INCOME_URL, NSO_VHLSS_EXPENDITURE_URL):
+        return await _fetch_nso_pxweb_table_text(url)
     if url in VIETSTOCK_FALLBACK_TICKERS:
         return await _fetch_vietstock_statement_text(VIETSTOCK_FALLBACK_TICKERS[url])
 
