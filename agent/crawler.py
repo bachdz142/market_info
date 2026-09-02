@@ -496,6 +496,77 @@ async def _fetch_vcb_promotions_text() -> str:
     return "\n\n".join(parts)
 
 
+# VCB's fee-schedule page was originally judged "needs OCR, not a crawling
+# problem" after seeing a banner image and no fee data in one fetch — that
+# conclusion turned out to be wrong on a fresh pass. The real cause: this
+# page's fee accordion is genuinely server-side rendered (not client-JS
+# populated — confirmed live that waiting on a JS predicate for an anchor
+# to appear inside it timed out every time, since no client-side code ever
+# adds one), but VCB's own server/CDN non-deterministically returns either
+# the fully-rendered version or a near-empty shell — the same class of
+# caching race already documented for bidv.com.vn. A client-side wait
+# can't fix a server-side race; retrying the fetch a few times can, and
+# does (confirmed live: succeeded on attempt 1 of a 5-attempt budget).
+# Once rendered, the accordion has 3 transfer-type categories (outbound
+# international transfer, domestic transfer, inbound remittance), each
+# with a "Biểu mẫu" (forms) section and a separate "Biểu phí" (fee
+# schedule) section — only the latter is used here. Confirmed live: a
+# genuine, current, itemized fee schedule (percentages and USD/VND min/
+# max amounts, split by counter vs. internet-banking channel).
+VCB_FEE_URL = "https://www.vietcombank.com.vn/vi-VN/KHCN/Cong-cu-Tien-ich/KHCN---Bieu-mau-va-bieu-phi"
+VCB_FEE_ACCORDION_SELECTOR = ".form-and-guide-list-component__accordion"
+VCB_FEE_RETRY_ATTEMPTS = 5
+
+
+async def _vcb_fee_pdf_urls(crawler: AsyncWebCrawler) -> List[str]:
+    for attempt in range(VCB_FEE_RETRY_ATTEMPTS):
+        _throttle(_domain(VCB_FEE_URL))
+        result = await crawler.arun(url=VCB_FEE_URL, config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS))
+        if not result.success:
+            continue
+        soup = BeautifulSoup(result.html, "lxml")
+        node = soup.select_one(VCB_FEE_ACCORDION_SELECTOR)
+        if node is None:
+            continue
+
+        urls = []
+        for h4 in node.find_all("h4"):
+            if "phí" not in h4.get_text().lower():
+                continue
+            ul = h4.find_next_sibling("ul")
+            if not ul:
+                continue
+            for a in ul.find_all("a", href=True):
+                if ".pdf" in a["href"].lower():
+                    urls.append(urljoin(VCB_FEE_URL, a["href"]))
+        if urls:
+            logger.info("VCB fee page rendered fully on attempt %d/%d", attempt + 1, VCB_FEE_RETRY_ATTEMPTS)
+            return list(dict.fromkeys(urls))  # de-dup, preserve order
+
+    return []
+
+
+async def _fetch_vcb_fee_parts() -> Tuple[str, List[Tuple[str, str]]]:
+    async with AsyncWebCrawler() as crawler:
+        pdf_urls = await _vcb_fee_pdf_urls(crawler)
+    if not pdf_urls:
+        raise ValueError(f"VCB fee page never rendered its real content across {VCB_FEE_RETRY_ATTEMPTS} attempts")
+
+    documents = []
+    async with AsyncWebCrawler(crawler_strategy=PDFCrawlerStrategy()) as crawler:
+        for pdf_url in pdf_urls:
+            try:
+                text = await _fetch_pdf_text(crawler, pdf_url)
+            except Exception:
+                logger.exception("Failed to fetch VCB fee PDF %s, skipping", pdf_url)
+                continue
+            documents.append((pdf_url, text))
+
+    if not documents:
+        raise ValueError("No VCB fee-schedule PDFs had usable content")
+    return "", documents
+
+
 # MBBank's own site (mbbank.com.vn, bare domain) is Akamai-blocked
 # comprehensively — every path returns the identical near-empty block,
 # confirmed live and already documented for Layer 1. But the "www."
@@ -667,6 +738,9 @@ async def _fetch_selected_pdfs(url: str, node: Any, config: dict) -> List[Tuple[
 
 
 async def _crawl_parts_async(url: str) -> Tuple[str, List[Tuple[str, str]]]:
+    if url == VCB_FEE_URL:
+        return await _fetch_vcb_fee_parts()
+
     config = _resolve_site_config(url)
     html, generic_text = await _fetch_html(url, config["needs_js"], config["wait_selector"])
 

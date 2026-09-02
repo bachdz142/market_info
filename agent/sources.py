@@ -633,4 +633,35 @@ SOURCES = [
             "signals is \"MBB\"."
         ),
     },
+    {
+        "id": "vcb_fee_schedule",
+        "kind": "quant",
+        "role": "citable",
+        # Reopened after being wrongly judged "needs OCR" on an earlier
+        # pass — that conclusion came from one fetch that happened to
+        # return a near-empty shell (see agent/crawler.py's
+        # _fetch_vcb_fee_parts() comment: this page is server-side
+        # rendered, and VCB's own server/CDN non-deterministically returns
+        # either the full render or a near-empty one, the same class of
+        # caching race already documented for bidv.com.vn). Retrying the
+        # fetch (not a client-side JS wait, which can't fix a server-side
+        # race) resolves it reliably. Picks the "Biểu phí" (fee schedule)
+        # PDFs — a sibling section to "Biểu mẫu" (forms), which is not
+        # used — across VCB's transfer-type categories (international/
+        # domestic transfer, remittance). Confirmed live: a genuine,
+        # current, itemized fee schedule (percentages and USD/VND min/max
+        # amounts, split by counter vs. internet-banking channel).
+        "url": "https://www.vietcombank.com.vn/vi-VN/KHCN/Cong-cu-Tien-ich/KHCN---Bieu-mau-va-bieu-phi",
+        "multi_pdf": True,
+        "prompt": (
+            "Extract concrete fee amounts and conditions from VCB's "
+            "fee-schedule document below — the specific transfer/service "
+            "type, the fee (percentage or fixed amount, with any minimum/"
+            "maximum), and which channel it applies to (counter vs. "
+            "internet banking) where the document distinguishes them. "
+            "data_basis is \"not_applicable\" — these are fee figures, "
+            "not financial-statement data. source_code for these signals "
+            "is \"VCB\"."
+        ),
+    },
 ]

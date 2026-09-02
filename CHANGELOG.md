@@ -5,6 +5,37 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — VCB fee schedule solved on a second pass (reopened from "needs OCR") — Layer 2 news/fee pass now complete, 10/10
+
+- Added `vcb_fee_schedule`, reopening a source previously judged "needs
+  OCR, not a crawling problem" — that conclusion turned out to be wrong.
+  It came from one fetch that happened to return a near-empty page shell
+  (an unrelated banner-image reference was misread as "the fee table is
+  an image").
+- The real cause: this page's fee accordion is genuinely server-side
+  rendered, not client-JS populated — confirmed live that waiting on a
+  JS predicate for an anchor to appear inside it timed out on every
+  attempt, since no client-side code ever adds one. VCB's own server/CDN
+  non-deterministically returns either the fully-rendered version or a
+  near-empty shell — the same class of caching race already documented
+  for `bidv.com.vn`. A client-side wait can't fix a server-side race;
+  retrying the fetch can, and did (succeeded on attempt 1 of a 5-attempt
+  budget when re-tested).
+- Once rendered, the accordion has 3 transfer-type categories (outbound
+  international transfer, domestic transfer, inbound remittance), each
+  with a "Biểu mẫu" (forms) section and a separate "Biểu phí" (fee
+  schedule) section — only the latter is used. Confirmed live: a
+  genuine, current, itemized fee schedule (percentages and USD/VND
+  min/max amounts, split by counter vs. internet-banking channel).
+- `agent/crawler.py`: `_fetch_vcb_fee_parts()`, routed through
+  `crawl_parts()` (not `crawl()`) since VCB has multiple distinct fee
+  PDFs across its transfer categories, each kept as its own piece with
+  its own provenance URL.
+- Fetch-only verified via `crawl_parts()`, zero LLM cost.
+- **This completes the full Layer 2 news/fee pass: 10 of 10 sources
+  solved** (BIDV news+fee, ACB promotions+fee, VPBank news+fee, VCB
+  promotions+fee, MBBank news+fee). `SOURCES` is now at 23 total.
+
 ## Unreleased — MBBank Layer 2 sources solved after all (reopened from blocked-by-design)
 
 - Added `mbbank_fee_schedule` and `mbbank_news`, reopening what was
