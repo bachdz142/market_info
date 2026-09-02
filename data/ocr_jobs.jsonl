@@ -6,3 +6,5 @@
 {"event": "completed", "job_id": "116cac48-df7c-4b92-bfb4-2fcad61f90df", "source_id": "bidv_financial_statements", "status": "SUCCESS", "page_count": 57, "estimated_cost_usd": 0.114, "timestamp": "2026-09-02T20:02:28.871211+07:00"}
 {"event": "submitted", "job_id": "380eea0e-0cc4-4afd-acf2-a536a1200b4e", "source_id": "mbb_financial_statements", "pdf_name": "tmpnzektvue.pdf", "timestamp": "2026-09-02T21:40:22.882488+07:00"}
 {"event": "completed", "job_id": "380eea0e-0cc4-4afd-acf2-a536a1200b4e", "source_id": "mbb_financial_statements", "status": "SUCCESS", "page_count": 61, "estimated_cost_usd": 0.122, "timestamp": "2026-09-02T21:40:57.223584+07:00"}
+{"event": "submitted", "job_id": "ba0fa079-2739-4672-b5b4-18521810ef4b", "source_id": "sbv_legal_directives_official", "pdf_name": "tmpqbrjudz4.pdf", "timestamp": "2026-09-03T01:17:10.511846+07:00"}
+{"event": "completed", "job_id": "ba0fa079-2739-4672-b5b4-18521810ef4b", "source_id": "sbv_legal_directives_official", "status": "SUCCESS", "page_count": 125, "estimated_cost_usd": 0.25, "timestamp": "2026-09-03T01:17:44.155973+07:00"}

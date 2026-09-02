@@ -98,10 +98,10 @@ def _token_estimate(text: str) -> str:
         return "0 tokens"
     if _TOKEN_ENC is not None:
         try:
-            return f"~{len(_TOKEN_ENC.encode(text)):,} tokens"
+            return f"{len(_TOKEN_ENC.encode(text)):,} tokens"
         except Exception:
             pass
-    return f"~{len(text) // 3:,} tokens (rough est.)"
+    return f"{len(text) // 3:,} tokens (rough est.)"
 
 
 def _short_layer(layer_name: str) -> str:
@@ -359,7 +359,7 @@ def build() -> str:
 
     return f"""<!doctype html>
 <html><head><meta charset="utf-8">
-<title>Review Dashboard</title>
+<title>Agent Run Log</title>
 <style>
 body {{ font-family: -apple-system, "Segoe UI", sans-serif; background:#f4f5f6; color:#1a1f24; margin:0; padding:1.5rem 2rem 4rem; }}
 h1 {{ font-size:1.4rem; margin-bottom:.2rem; }}
@@ -420,7 +420,7 @@ section.notrun {{ background:#fafafa; opacity:.7; }}
 [hidden] {{ display:none !important; }}
 </style></head>
 <body>
-<h1>Review Dashboard</h1>
+<h1>Agent Run Log</h1>
 <p class="stats">{have_data} of {total} sources have at least one run logged &middot; {total - have_data} not yet run (spot-checked only, no structuring pass yet)</p>
 <div class="layout">
 {toc_html}

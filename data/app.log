@@ -48561,3 +48561,1514 @@ Báo cáo này và/hoặc bất kỳ nhận định, thông tin nào trong báo 
 2026-09-03 01:11:47,144 INFO agent.graph: Structure LLM call done in 14.41s for query: This is a VCBS Research (Vietcombank Securities) banking-sector analyst report.  | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 2440, 'output_tokens': 1129, 'total_tokens': 3569}
 2026-09-03 01:11:47,147 INFO agent.graph: Per-piece structure call 7/7 done
 2026-09-03 01:11:47,502 INFO service: [30/39] vcbs_banking_sector_report done in 343.5s (gate_passed=True, error=None)
+2026-09-03 01:12:18,569 INFO agent.gate: Gate passed: This is a BSC Research (BIDV Securities) equity analyst report on MBB (Military 
+2026-09-03 01:12:25,142 INFO agent.graph: Multi-crawl done in 6.54s for url: https://www.bsc.com.vn/bao-cao/15801-x-alpha-mbb-25700-29-tiep-them-nhien-lieu-tang-toc-tren-duong-bang (2 documents)
+2026-09-03 01:12:25,212 INFO agent.graph: Raw content fed to LLM for query: This is a BSC Research (BIDV Securities) equity analyst report on MBB (Military 
+Cổ phiếu 
+Báo cáo 
+Tin tức 
+Hướng dẫn 
+[ Mở tài khoản giao dịch  ](https://www.bsc.com.vn/tai-website-va-webtrading/)
+[ Dịch vụ giao dịch khác  ](https://www.bsc.com.vn/dang-ky-dich-vu-giao-dich-ky-quy-va-phai-sinh/)
+[ Giao dịch tiền  ](https://www.bsc.com.vn/lien-ket-tai-khoan-tien-ngan-hang/)
+[ Giao dịch chứng khoán  ](https://www.bsc.com.vn/giao-dich-thoa-thuan-online-tren-webtrading/)
+[ Dịch vụ tài chính  ](https://www.bsc.com.vn/thong-bao-san-pham-giao-dich-ky-quy/)
+[ Sản phẩm giao dịch khác  ](https://www.bsc.com.vn/bo-loc-chung-khoan/)
+Tab 
+Chuyển nhanh 
+  * [Hỗ trợ](https://www.bsc.com.vn/trung-tam-ho-tro-khach-hang/)
+  * [Tin tức](https://www.bsc.com.vn/tin-tuc/)
+  * [Cơ hội nghề nghiệp](https://www.bsc.com.vn/co-hoi-nghe-nghiep/)
+  * [Liên hệ](https://www.bsc.com.vn/lien-he/)
+
+vi 
+Cổ phiếu 
+Báo cáo 
+Tin tức 
+Hướng dẫn 
+[ Mở tài khoản giao dịch  ](https://www.bsc.com.vn/tai-website-va-webtrading/)
+[ Dịch vụ giao dịch khác  ](https://www.bsc.com.vn/dang-ky-dich-vu-giao-dich-ky-quy-va-phai-sinh/)
+[ Giao dịch tiền  ](https://www.bsc.com.vn/lien-ket-tai-khoan-tien-ngan-hang/)
+[ Giao dịch chứng khoán  ](https://www.bsc.com.vn/giao-dich-thoa-thuan-online-tren-webtrading/)
+[ Dịch vụ tài chính  ](https://www.bsc.com.vn/thong-bao-san-pham-giao-dich-ky-quy/)
+[ Sản phẩm giao dịch khác  ](https://www.bsc.com.vn/bo-loc-chung-khoan/)
+[ ![](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/1.Layer_1.png) ](https://www.bsc.com.vn "Công ty Cổ phần Chứng khoán BIDV")
+  * [ ](https://www.bsc.com.vn)
+  * [Dịch vụ chứng khoán](https://www.bsc.com.vn/dich-vu-chung-khoan/)
+  * [Ngân hàng đầu tư](https://www.bsc.com.vn/dich-vu-thi-truong-von-ecm/)
+  * [Trung tâm phân tích](https://www.bsc.com.vn/trung-tam-phan-tich-nghien-cuu/)
+  * [Quan hệ cổ đông](https://www.bsc.com.vn/quan-he-co-dong/)
+  * [Về BSC](https://www.bsc.com.vn/ve-chung-toi/)
+
+
+    * [Tiếng Việt](https://www.bsc.com.vn/)
+    * [English](https://www.bsc.com.vn/en/)
+    * [日本語](https://www.bsc.com.vn/jp/)
+    * [한국어](https://www.bsc.com.vn/ko/)
+[ Mở tài khoản  ](https://dangky.bsc.com.vn/)
+  * [ Trang chủ ](https://www.bsc.com.vn)
+  * [Dịch vụ chứng khoán](https://www.bsc.com.vn/dich-vu-chung-khoan/)
+    * [![Mở tài khoản](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/icon1.png)Mở tài khoản](https://www.bsc.com.vn/mo-tai-khoan/)
+    * [![Nền tảng giao dịch](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/icon3.png)Nền tảng giao dịch](https://www.bsc.com.vn/bsc-web-trading/)
+      * [BSC Web Trading](https://www.bsc.com.vn/bsc-web-trading/)
+      * [BSC Smart Invest](https://www.bsc.com.vn/bsc-smart-invest/)
+      * [MTrader](https://www.bsc.com.vn/mtrader/)
+    * [![Chương trình khuyến mãi](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/icon4.png)Chương trình khuyến mãi](https://www.bsc.com.vn/chuong-trinh-khuyen-mai/)
+    * [![Sản phẩm dịch vụ](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/Layer-1.png)Sản phẩm dịch vụ](https://www.bsc.com.vn/dich-vu-chung-khoan/#service-products)
+      * [Tư vấn đầu tư](https://www.bsc.com.vn/tu-van-dau-tu-online/)
+      * [Môi giới chứng khoán](https://www.bsc.com.vn/moi-gioi-chung-khoan/)
+      * [Dịch vụ tài chính](https://www.bsc.com.vn/giao-dich-ky-quy/)
+    * [![Hỗ trợ](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/2Layer-1.png)Hỗ trợ](https://www.bsc.com.vn/trung-tam-ho-tro-khach-hang/)
+      * [Sổ tay giao dịch](https://www.bsc.com.vn/tai-website-va-webtrading/)
+      * [Biểu phí giao dịch](https://www.bsc.com.vn/phi-giao-dich-qua-san/)
+      * [Kiến thức đầu tư](https://www.bsc.com.vn/kien-thuc-dau-tu/)
+      * [Điều khoản chung](https://www.bsc.com.vn/ban-cong-bo-rui-ro/)
+      * [Liên hệ](https://www.bsc.com.vn/lien-he/)
+  * [Ngân hàng đầu tư](https://www.bsc.com.vn/dich-vu-thi-truong-von-ecm/)
+    * [![Dịch vụ thị trường vốn \(ECM\)](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/icon5.png)Dịch vụ thị trường vốn (ECM)](https://www.bsc.com.vn/dich-vu-thi-truong-von-ecm/)
+    * [![Dịch vụ thị trường nợ \(DCM\)](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/icon6.png)Dịch vụ thị trường nợ (DCM)](https://www.bsc.com.vn/dich-vu-thi-truong-no-dcm/)
+    * [![Tư vấn tài chính doanh nghiệp](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/icon7.png)Tư vấn tài chính doanh nghiệp](https://www.bsc.com.vn/tu-van-tai-chinh-doanh-nghiep/)
+    * [![Tư vấn mua bán sáp nhập \(M&A\)](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/icon8.png)Tư vấn mua bán sáp nhập (M&A)](https://www.bsc.com.vn/u-van-mua-ban-sap-nhap-ma/)
+  * [Trung tâm phân tích](https://www.bsc.com.vn/trung-tam-phan-tich-nghien-cuu/)
+    * [![Báo cáo phân tích](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/icon9.png)Báo cáo phân tích](https://www.bsc.com.vn/trung-tam-bao-cao-phan-tich/)
+      * [Báo cáo vĩ mô](https://www.bsc.com.vn/bao-cao-vi-mo-thi-truong/)
+      * [Báo cáo doanh nghiệp](https://www.bsc.com.vn/bao-cao-nganh-doanh-nghiep/)
+      * [Báo cáo đặc biệt](https://www.bsc.com.vn/bao-cao-dac-biet/)
+      * [Danh mục khuyến nghị](https://www.bsc.com.vn/danh-muc-khuyen-nghi/)
+      * [Quan điểm BSC](https://www.bsc.com.vn/quan-diem-bsc/)
+    * [![Tra cứu thông tin cổ phiếu](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/1.Layer-1.png)Tra cứu thông tin cổ phiếu](https://www.bsc.com.vn/thong-tin-co-phieu/)
+    * [![Lịch thị trường](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/11/icon-pack-bsc_bieu-phi-chung-khoan-1.svg)Lịch thị trường](https://www.bsc.com.vn/lich-thi-truong/)
+  * [Quan hệ cổ đông](https://www.bsc.com.vn/quan-he-co-dong/)
+    * [![Công bố thông tin](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/icon-pack-bsc_bieu-phi-chung-khoan.png)Công bố thông tin](https://www.bsc.com.vn/cong-bo-thong-tin/)
+    * [![Đại hội đồng cổ đông](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/3Layer-1.png)Đại hội đồng cổ đông](https://www.bsc.com.vn/dai-hoi-dong-co-dong/)
+    * [![Quản trị doanh nghiệp](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/4Layer-1.png)Quản trị doanh nghiệp](https://www.bsc.com.vn/quan-tri-doanh-nghiep/)
+    * [![Báo cáo tài chính](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/5Layer-1.png)Báo cáo tài chính](https://www.bsc.com.vn/bao-cao-tai-chinh/)
+    * [![Báo cáo thường niên](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/5.Layer-1-1.png)Báo cáo thường niên](https://www.bsc.com.vn/bao-cao-thuong-nien/)
+  * [Về BSC](https://www.bsc.com.vn/ve-chung-toi/)
+    * [![Về chúng tôi](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/7Layer-1.png)Về chúng tôi](https://www.bsc.com.vn/ve-chung-toi/)
+    * [![Tin tức](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/9Layer-1.png)Tin tức](https://www.bsc.com.vn/tin-tuc/)
+      * [Tin sản phẩm](https://www.bsc.com.vn/category/tin-san-pham/)
+      * [Tin dịch vụ](https://www.bsc.com.vn/category/tin-dich-vu/)
+      * [Tin thị trường](https://www.bsc.com.vn/category/tin-thi-truong/)
+      * [Tin hoạt động](https://www.bsc.com.vn/category/tin-hoat-dong/)
+      * [Tin nội bộ](https://www.bsc.com.vn/category/tin-noi-bo/)
+    * [![BSC với cộng đồng](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/9Layer-1.png)BSC với cộng đồng](https://www.bsc.com.vn/trach-nhiem-voi-cong-dong/)
+    * [![Cơ hội nghề nghiệp](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/Group-1000007509.png)Cơ hội nghề nghiệp](https://www.bsc.com.vn/co-hoi-nghe-nghiep/)
+    * [![Danh sách người hành nghề chứng khoán](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/12/icon-pack-bsc_moi-gioi-chung-khoan-2.png)Danh sách người hành nghề chứng khoán](https://www.bsc.com.vn/danh-sach-nguoi-hanh-nghe-chung-khoan/)
+
+
+[ Giao dịch trực tuyến  ](https://trading.bsc.com.vn/priceboard) [ Mở tài khoản  ](https://dangky.bsc.com.vn/)
+  * [Tiếng Việt](https://www.bsc.com.vn/)
+  * [English](https://www.bsc.com.vn/en/)
+  * [日本語](https://www.bsc.com.vn/jp/)
+  * [한국어](https://www.bsc.com.vn/ko/)
+
+
+[Home](https://www.bsc.com.vn/en/) /  [Trung tâm phân tích nghiên cứu](https://www.bsc.com.vn/trung-tam-phan-tich-nghien-cuu/) /  Danh mục khuyến nghị 
+##  Danh mục khuyến nghị 
+#  X-Alpha | MBB 25,700 +29%: Tiếp thêm nhiên liệu, tăng tốc trên đường băng 
+[ Báo cáo doanh nghiệp ](javascript:void\(0\)) Mua 
+  * Ngày đăng 
+20/08/2026 
+  * Mã chứng khoán 
+[MBB](https://www.bsc.com.vn/cong-ty/tong-quan/mbb)
+  * Doanh nghiệp 
+Ngân hàng Thương mại Cổ phần Quân đội 
+  * Tên chuyên viên 
+Nguyễn Dân Trưởng 
+  * Ngôn ngữ 
+Tiếng Việt 
+  * Lượt tải về 
+176 
+
+
+Tải xuống 
+##  Báo cáo chi tiết 
+**QUAN ĐIỂM ĐỊNH GIÁ**
+BSC tiếp tục khuyến nghị **MUA** cho MBB với giá mục tiêu cập nhật là 25,700 đồng/cp (upside +29% so với giá tham chiếu 19/08/2026). Với phương pháp hệ số nhân, P/B và P/E mục tiêu 1 năm được kì vọng lần lượt ở mức 1.5x và 8.0x, trong bối cảnh mặt bằng thanh khoản thị trường vẫn còn căng thẳng. Về phương pháp thu nhập thặng dư, CAGR LNST 5 năm tiếp theo được dự báo ở mức 21%/năm trong kịch bản cơ sở. 
+**LUẬN ĐIỂM ĐẦU TƯ**
+  * Hạn mức tín dụng vượt trội tạo nền tảng cho tăng trưởng trong dài hạn. Tận dụng lợi thế về hạn mức tín dụng có được sau khi nhận chuyển giao bắt buộc, MBB lên kế hoạch tăng trưởng 35%/năm trong 3 năm tới. Quy mô bảng cân đối của MB khi đó sẽ cao gấp 2.5 lần so với hiện tại và dự kiến sánh ngang nhóm Big3. 
+
+
+  * Thuộc nhóm dẫn đầu ngành về ROAE và có cơ sở duy trì trong trung hạn – ROAE trên 20% so với mức trung bình ngành 18%, trong khi định giá đang chiết khấu 18% so với trung bình 5 năm. BSC dự báo MBB tiếp tục duy trì ROAE trên 20% trong 3 năm tới (đến ít nhất đến năm 2028), dù quy mô tài sản thuộc nhóm cao trong ngành. Triển vọng này đặt tương quan với P/B 2026F hiện 1.2x (chiết khấu 18% so với trung bình 5 năm), chúng tôi cho rằng cổ phiếu MBB xứng đáng để tích lũy khi mặt bằng thanh khoản cải thiện và lãi suất giảm. 
+
+
+  * Một số chất xúc tác kì vọng trong tương lai giúp tái định giá cổ phiếu. Trong ngắn hạn, kì vọng chất xúc tác đến từ việc IPO MCredit. Nhìn dài hạn hơn, MBB có thể có kế hoạch phát hành riêng lẻ để tăng vốn, đáp ứng nhu cầu tăng trưởng cao.
+2026-09-03 01:12:25,967 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:12:26,060 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:12:26,471 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:12:33,916 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:12:34,013 INFO agent.graph: Structure LLM call done in 8.8s for query: This is a BSC Research (BIDV Securities) equity analyst report on MBB (Military  | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 5231, 'output_tokens': 1374, 'total_tokens': 6605}
+2026-09-03 01:12:34,033 INFO agent.graph: Per-piece structure call 1/2 done
+2026-09-03 01:13:04,038 INFO agent.graph: Raw content fed to LLM for query: This is a BSC Research (BIDV Securities) equity analyst report on MBB (Military 
+**DỰ BÁO KQKD 2026 - 2027F**
+So với dự báo trước, BSC điều chỉnh tăng lần lượt 1% và 2.3% dự báo LNTT 2026F – 2027F của MBB lên 42.1 nghìn tỷ (+23% YoY) và 50.3 nghìn tỷ (+19.5% YoY). 
+Dự báo 2026F của BSC tương đương 106% kế hoạch LNTT 39.5 nghìn tỷ và ROAE duy trì ở mức 21.6%, phù hợp với định hướng của BLĐ về tăng trưởng lợi nhuận 20% và duy trì ROE trên 21%. Cơ cấu dự báo thay đổi đáng kể dù tổng lợi nhuận gần như không đổi: chúng tôi nâng dự báo thu nhập lãi thuần và hạ mạnh dự báo thu nhập ngoài lãi. 
+###  Các báo cáo liên quan 
+[ MBB ](https://www.bsc.com.vn/cong-ty/tong-quan/mbb)
+Mua 
+31/07/2026
+###  [ X-Point | MBB 32,400 +44%: Cập nhật KQKD Q2/2026 ](https://www.bsc.com.vn/bao-cao/15713-x-point-mbb-32400-44-cap-nhat-kqkd-q2-2026)
+261 Lượt tải xuống 
+Tải xuống 
+[ MBB ](https://www.bsc.com.vn/cong-ty/tong-quan/mbb)
+Mua 
+25/06/2026
+###  [ X-Point | MBB 32,900 +33%: Cập nhật thông tin 6/2026 ](https://www.bsc.com.vn/bao-cao/15527-x-point-mbb-32900-33-cap-nhat-thong-tin-6-2026)
+354 Lượt tải xuống 
+Tải xuống 
+[ MBB ](https://www.bsc.com.vn/cong-ty/tong-quan/mbb)
+Mua 
+11/03/2026
+###  [ X-Alpha | MBB 32,400 +22%: Hổ mọc thêm cánh ](https://www.bsc.com.vn/bao-cao/15076-x-alpha-mbb-32400-22-ho-moc-them-canh)
+1095 Lượt tải xuống 
+[ Tải xuống ](https://www.bsc.com.vn/Report/ReportFile/15076)
+[ HDB ](https://www.bsc.com.vn/cong-ty/tong-quan/hdb)
+Mua 
+26/08/2026
+###  [ X-Stock | HDB 33,200 +23%: Thu nhập ngoài lãi dẫn dắt lợi nhuận, chất lượng tài sản cần quan sát thêm ](https://www.bsc.com.vn/bao-cao/15828-x-stock-hdb-33200-23-thu-nhap-ngoai-lai-dan-dat-loi-nhuan-chat-luong-tai-san-can-quan-sat-them)
+107 Lượt tải xuống 
+Tải xuống 
+[ VPB ](https://www.bsc.com.vn/cong-ty/tong-quan/vpb)
+Mua 
+05/08/2026
+###  [ X-Stock | VPB 36,500 +43%: Cập nhật KQKD Q2/2026 và các định hướng trong 2026 ](https://www.bsc.com.vn/bao-cao/15731-x-stock-vpb-36500-43-cap-nhat-kqkd-q2-2026-va-cac-dinh-huong-trong-2026)
+452 Lượt tải xuống 
+Tải xuống 
+[ F88 ](https://www.bsc.com.vn/cong-ty/tong-quan/f88)
+Không 
+16/07/2026
+###  [ X-Stock | F88 KKN: Báo cáo lần đầu ](https://www.bsc.com.vn/bao-cao/15637-x-stock-f88-kkn-bao-cao-lan-dau)
+240 Lượt tải xuống 
+Tải xuống 
+TỔNG ĐÀI ĐẶT LỆNH:  
+HN : (024) 3926 4660 | HCM: (028) 3821 8889
+[ ](https://zalo.me/chungkhoanbidv) [ ](https://www.facebook.com/BIDVSecurities) [ ](https://www.youtube.com/c/C%C3%B4ngtych%E1%BB%A9ngkho%C3%A1nBSC)
+[![](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/logo-ft.png)](https://www.bsc.com.vn "Công ty Cổ phần Chứng khoán BIDV")
+Công ty cổ phần chứng khoán BIDV (BSC) được thành lập ngày 18/11/1999, là một trong những công ty chứng khoán uy tín hàng đầu tại Việt Nam, chuyên cung cấp các dịch vụ tài chính và sản phẩm đầu tư cho các nhà đầu tư tổ chức và cá nhân, các quỹ và ngân hàng đầu tư trong – ngoài nước.
+  * [ **Trụ sở chính:** Tầng 8, Tầng 9 LPB Tower, số 210 Trần Quang Khải, Phường Hoàn Kiếm, Thành phố Hà Nội ](https://maps.app.goo.gl/zRkYPRx7PrQgE2oC9)
+  * [ Tel: (024) 3935 2722 | Fax: (024)33816699 ](Tel:02439352722)
+  * [ **Chi nhánh:** Tầng 4, Tầng 9 Tòa nhà President Place, Số 93 Đường Nguyễn Du, Phường Sài Gòn, Thành phố Hồ Chí Minh ](https://maps.app.goo.gl/UcTu2pfACYc33SD47)
+  * [ Tel: (028) 3821 8885 | Fax: (028) 3821 8879 ](Tel:02838218885%20)
+  * Email: services@bsc.com.vn 
+  * [ Mạng lưới  ](https://www.bsc.com.vn/lien-he/#diem-ho-tro)
+
+
+TẢI ỨNG DỤNG BSC SMART INVEST TRÊN 
+![](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2025/03/Ma-QR-BSC-smart-invest-1.jpg)
+[ ![](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/05143630/chplay.png) ](https://play.google.com/store/apps/details?id=com.bsc.mobiletrading&hl=vi&pli=1) [ ![](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/05143630/ios.png) ](https://apps.apple.com/vn/app/bsc-smart-invest/id1625291569?l=vi)
+© 2024 Copyright
+Công ty Cổ phần Chứng khoán BIDV
+CHỨNG KHOÁN BIDV 
+  * [Về chúng tôi](https://www.bsc.com.vn/ve-chung-toi/)
+  * [Quan hệ cổ đông](https://www.bsc.com.vn/quan-he-co-dong/)
+  * [Cơ hội nghề nghiệp](https://www.bsc.com.vn/co-hoi-nghe-nghiep/)
+  * [Tin tức](https://www.bsc.com.vn/tin-tuc/)
+
+
+HỖ TRỢ KHÁCH HÀNG 
+  * [Biểu phí](https://www.bsc.com.vn/phi-giao-dich-qua-san/)
+  * [Biểu lãi suất](https://www.bsc.com.vn/bieu-phi-lai-suat/)
+  * [Hướng dẫn giao dịch](https://www.bsc.com.vn/quy-dinh-giao-dich-chung/)
+
+
+NỀN TẢNG 
+  * [Webtrading](https://trading.bsc.com.vn/priceboard)
+  * [Mobile Trading](https://apps.apple.com/us/app/bsc-smart-invest/id1625291569?l=vi)
+
+
+Đăng ký nhận tin tức mới nhất của chúng tôi 
+Luôn cập nhật xu hướng thị trường và đổi mới, hiện tại và trong tương lai. 
+Đăng ký
+Tiện ích giao dịch 
+[ ![icon](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/icon-pack-bsc_web-trading.svg) BSC   
+Webtrading ](https://trading.bsc.com.vn/priceboard) [ ![icon](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/icon-pack-bsc_smart-invest.svg) BSC   
+Smart Invest ](https://apps.apple.com/us/app/bsc-smart-invest/id1625291569?l=vi) [ ![icon](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/12/icon-pack-bsc_lien-he-ho-tro.svg) Hỗ trợ   
+trực tuyến ](https://www.bsc.com.vn/bao-cao/15801-x-alpha-mbb-25700-29-tiep-them-nhien-lieu-tang-toc-tren-duong-bang/#livechat)
+Thu gọn 
+[ NÂNG HẠNG THỊ TRƯỜNG: GIẢI MÃ CƠ HỘI ĐẦU TƯ CỔ PHIẾU NGÂN HÀNG| CHỨNG AND CHILL  ](https://www.youtube.com/watch?v=mP8MpSis_hI)
+Liên kết nhanh 
+LIÊN KẾT NHANH 
+Ẩn đi 
+[ ![icon](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/22Layer-1.svg) Danh mục khuyến nghị  ](https://www.bsc.com.vn/danh-muc-khuyen-nghi/) [ ![icon](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/221Layer-1.svg) Hướng dẫn giao dịch  ](https://www.bsc.com.vn/quy-dinh-giao-dich-chung/) [ ![icon](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/12/1.1Layer-2.svg) Hỗ trợ trực tuyến  ](https://www.bsc.com.vn/bao-cao/15801-x-alpha-mbb-25700-29-tiep-them-nhien-lieu-tang-toc-tren-duong-bang/#livechat) [ ![icon](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/223_Layer-1.svg) Biểu phí  ](https://www.bsc.com.vn/phi-giao-dich-qua-san/) [ ![icon](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/224Layer-1.svg) Ưu đãi  ](https://www.bsc.com.vn/chuong-trinh-khuyen-mai/) [ ![icon](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/icon-pack-bsc_video-huong-dan.svg) Video hướng dẫn  ](https://www.bsc.com.vn/video-huong-dan/) [ ![icon](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/icon-pack-bsc_thong-tin-co-phieu.svg) Thông tin cổ phiếu  ](https://www.bsc.com.vn/thong-tin-co-phieu/) [ ![icon](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/icon-pack-bsc_phan-tich-co-phieu.svg) Phân tích cổ phiếu  ](https://www.bsc.com.vn/bao-cao-doanh-nghiep/)
+Close modal
+Chia sẻ  [ Xem nội dung ](https://www.bsc.com.vn/bao-cao/15801-x-alpha-mbb-25700-29-tiep-them-nhien-lieu-tang-toc-tren-duong-bang/)
+[ ![](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/1.Layer_1.png) ](https://www.bsc.com.vn "Công ty Cổ phần Chứng khoán BIDV")
+Quý khách vui lòng 
+chọn loại tài khoản để đăng nhập
+[ Tài khoản chứng khoán ](https://trading.bsc.com.vn/sso/oauth/authorize?client_id=HQ0VNLPFCI&response_type=code&redirect_uri=https://www.bsc.com.vn/callback&scope=general&ui_locales=vi&state=https%3A%2F%2Fwww.bsc.com.vn%2Fbao-cao%2F15801-x-alpha-mbb-25700-29-tiep-them-nhien-lieu-tang-toc-tren-duong-bang%2F&webtrade=true) [ Tài khoản khác ](javascript:void\(0\))
+[ ![](https://files.bsc.com.vn/websitebsc/wp-content/uploads/2024/10/logo.png) ](https://www.bsc.com.vn "Công ty Cổ phần Chứng khoán BIDV")
+Đăng nhập [ Quay lại ](javascript:void\(0\))
+![Tiếng Việt](https://www.bsc.com.vn/wp-content/plugins/polylang/flags/vn.png)Tiếng Việt 
+  * [Tiếng Việt](https://www.bsc.com.vn/)
+  * [English](https://www.bsc.com.vn/en/)
+  * [日本語](https://www.bsc.com.vn/jp/)
+  * [한국어](https://www.bsc.com.vn/ko/)
+2026-09-03 01:13:04,778 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:13:04,785 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:13:05,284 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:13:11,905 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:13:11,913 INFO agent.graph: Structure LLM call done in 7.88s for query: This is a BSC Research (BIDV Securities) equity analyst report on MBB (Military  | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 4814, 'output_tokens': 1225, 'total_tokens': 6039}
+2026-09-03 01:13:11,914 INFO agent.graph: Per-piece structure call 2/2 done
+2026-09-03 01:13:11,924 INFO service: [31/39] bsc_mbb_report done in 54.23s (gate_passed=True, error=None)
+2026-09-03 01:13:42,177 INFO agent.gate: Gate passed: This is Decision Lab's Bank Satisfaction Rankings 2026 (drawn from YouGov BrandI
+2026-09-03 01:13:43,863 INFO agent.graph: Crawl done in 1.68s for url: https://www.decisionlab.co/blog/bank-satisfaction-rankings-2026-vietcombank-returns-to-the-top-spot-as-competition-tightens-amongst-top-players
+2026-09-03 01:13:43,874 INFO agent.graph: Raw content fed to LLM for query: This is Decision Lab's Bank Satisfaction Rankings 2026 (drawn from YouGov BrandI
+[Skip to content](https://www.decisionlab.co/blog/bank-satisfaction-rankings-2026-vietcombank-returns-to-the-top-spot-as-competition-tightens-amongst-top-players#main-content)
+[ Close ](https://www.decisionlab.co/blog/bank-satisfaction-rankings-2026-vietcombank-returns-to-the-top-spot-as-competition-tightens-amongst-top-players)
+  * [Solutions](https://www.decisionlab.co/solutions)
+    * [Explore](https://www.decisionlab.co/explore)
+    * [Plan](https://www.decisionlab.co/plan)
+    * [Track](https://www.decisionlab.co/track)
+  * [Insights](https://www.decisionlab.co/insights)
+    * [Blog](https://www.decisionlab.co/insights)
+    * [Library](https://www.decisionlab.co/library)
+    * [Cases](https://www.decisionlab.co/cases)
+  * [About us](https://www.decisionlab.co/about-us)
+    * [Our story](https://www.decisionlab.co/about-us)
+    * [Career](https://www.decisionlab.co/career)
+
+
+[ CONTACT ](https://www.decisionlab.co/blog/bank-satisfaction-rankings-2026-vietcombank-returns-to-the-top-spot-as-competition-tightens-amongst-top-players)
+PHONE HOTLINE: [+49 (0) 89 123 456](tel:+4989123456)E-MAIL: decision@decisionlab.co
+[Contact us](https://www.decisionlab.co/contact-us)
+[![Decision Lab_logo_original](https://www.decisionlab.co/hubfs/Decision%20Lab_logo_original.svg)](https://www.decisionlab.co/ygdl)[![power theme logo](https://www.decisionlab.co/hubfs/raw_assets/public/@marketplace/maka_Agency/POWER%20THEME/images/logos/power/pwr-img_logo_power-white.svg)](https://www.decisionlab.co/ygdl)
+  * [Solutions](https://www.decisionlab.co/solutions)
+    * [Explore](https://www.decisionlab.co/explore)
+    * [Plan](https://www.decisionlab.co/plan)
+    * [Track](https://www.decisionlab.co/track)
+  * [Insights](https://www.decisionlab.co/insights)
+    * [Blog](https://www.decisionlab.co/insights)
+    * [Library](https://www.decisionlab.co/library)
+    * [Cases](https://www.decisionlab.co/cases)
+  * [About us](https://www.decisionlab.co/about-us)
+    * [Our story](https://www.decisionlab.co/about-us)
+    * [Career](https://www.decisionlab.co/career)
+
+
+[](https://www.decisionlab.co/blog/bank-satisfaction-rankings-2026-vietcombank-returns-to-the-top-spot-as-competition-tightens-amongst-top-players)
+PHONE HOTLINE: [+49 (0) 89 123 456](tel:+4989123456)E-MAIL: decision@decisionlab.co
+[Contact us](https://www.decisionlab.co/contact-us)
+[ ](https://www.decisionlab.co/blog/bank-satisfaction-rankings-2026-vietcombank-returns-to-the-top-spot-as-competition-tightens-amongst-top-players)
+![Decision Lab Bank Satisfaction Rankings 2026](https://www.decisionlab.co/hs-fs/hubfs/CSAT.jpg?width=300&name=CSAT.jpg)
+[Tien Huynh](https://www.decisionlab.co/blog/author/tien-huynh)
+# Bank Satisfaction Rankings 2026: Vietcombank leads the rankings as competition tightens amongst top players
+The Top Improver Rankings highlight the largest year-on-year gains The Decision Lab Bank Satisfaction Rankings 2026 is our annual benchmark of how Vietnam's banks perform through the eyes of their customers. It draws on daily consumer research collected throughout 2025 using **YouGov BrandIndex** and is designed for banking leaders, marketers and strategists seeking an independent benchmark of customer satisfaction. This year, 25 banks meet the inclusion criteria and are ranked accordingly, providing a comprehensive view of customer satisfaction across Vietnam's banking sector.
+**Vietcombank** takes the top spot with a Net Satisfaction Score of 86.8, ahead of **Techcombank** at 85.9 and **MB** on 85.6. Beyond the leading group, **Timo** climbs ten places to enter the top ten, **HSBC** rises four places into the five highest-ranked banks, while **Se****A****Bank** records the largest year-on-year increase in Net Satisfaction Score across all ranked banks.
+[**Download the full report.**](https://www.decisionlab.co/decision-lab-bank-satisfaction-rankings-2026)
+**The leading banks remain closely grouped in this year's rankings**
+**Vietcombank** leads the ranking with a Net Satisfaction Score of 86.8, an increase of 2.5 points that takes the bank to the top position. **Techcombank** follows closely on 85.9 and **MB** on 85.6, with **MB** adding 4.1 points over the year. **VietinBank** holds fourth on 82.3. The four highest scoring banks are separated by fewer than five points, reflecting a close competition for the top spots in this year's rankings.
+Mr Le Hoang Tung, Deputy General Director of Vietcombank, said: 
+_“ Ranking first in the Decision Lab Bank Satisfaction Rankings 2026 recognisesVietcombank's continued efforts to improve the customer experience and raise the quality of our products and services under a customer-centred philosophy. This recognition from our customers is a powerful motivation for Vietcombank to hold firm to a direction of safe, effective and sustainable growth, and to keep transforming and innovating in order to deliver ever greater value to our customers.”_
+![Top 10 banks overall](https://www.decisionlab.co/hs-fs/hubfs/Top%2010%20banks%20overall.png?width=795&height=398&name=Top%2010%20banks%20overall.png)
+_Vietcombank leads a top ten separated by fewer than ten points_ _._
+Several banks also record notable movements within the top ten. **HSBC** rises four places to join the five highest-ranked banks for customer satisfaction. **Timo** and **Bac A Bank** record the largest rank movements in the group, while **BIDV** , **ACB** and **HD Bank** remain among the top ten banks for customer satisfaction. The top ten comprises state-owned, private and international banks, showing that high customer satisfaction is no longer concentrated in any one group of banks. With fewer than ten points separating first and tenth place, even modest gains in customer satisfaction can reshape the top ten.
+Mr Manpreet Singh, Head of Customer Propositions & Marketing, International Wealth & Premier Banking, HSBC Vietnam, said: 
+_“Customers are at the heart of everything we do at HSBC. Being recognised in the Top 5 for customer satisfaction across all banks in Vietnam is a strong endorsement of the trust our customers place in us, and it reflects the CARE our teams bring to every interaction.  
+This achievement strengthens our ambition to be the most trusted bank globally. We’ll keep thinking customer in every decision and delivering value through simpler, safer and more seamless journeys so customers feel supported and confident in the moments that matter most.”_
+Every bank in this year's top ten records a Net Satisfaction Score above 77, while fewer than ten points separate first and tenth place. With the field this tightly grouped, **Timo and Bac A Bank show the effect most clearly, climbing ten and nine places respectively into the top ten** on the strength of a single year's improvement. Rank now turns on the pace of improvement as much as the level of satisfaction achieved.
+**The Top Improver Rankings highlight the largest year-on-year gains**
+The **Top Improver****Rankings** rank banks by the size of their year-on-year gain rather than their absolute score, so they surface a different set of names from the overall ranking. **SeA Bank** leads with a gain of 13.7 points, the largest movement in the entire ranking, lifting its score to 76.2. **Timo** follows with a gain of 8.4 points to 80.6, and **Vikki** completes the top three with a gain of 7.4 points to 73.3.
+![Top 3 improver banks](https://www.decisionlab.co/hs-fs/hubfs/Top%203%20improver%20banks.png?width=795&height=398&name=Top%203%20improver%20banks.png)
+_SeA Bank records the largest satisfaction gain of the year at 13.7 points._
+Unlike the Overall Rankings, which measure absolute Net Satisfaction Score, the Top Improvers Rankings measure year-on-year change in customer satisfaction. **Timo** appears in both the Overall Rankings and the Top Improvers Rankings, reflecting both a high Net Satisfaction Score and one of the largest year-on-year improvements recorded during the reporting period. **SeA Bank** leads the improvers and **Vikki** ranks among the top three, both from outside the overall top ten, which shows the largest gains this year coming from banks outside the leading group. Tracking both the highest scores and the largest gains shows not only which banks lead today but where the ranking is most likely to shift next.
+**Mr Thue Quist Thomasen, CEO of Decision Lab, said:**  
+
+_“ Customer satisfaction is now one of the clearest competitive indicators in Vietnam's banking sector. As competition tightens, a snapshot of last year's performance is no longer enough. What matters is understanding how customer perceptions are evolving and where expectations are shifting. At Decision Lab, we work with banks to provide continuous, independent measurement that helps leaders benchmark their performance, identify emerging shifts early, and make decisions based on evidence rather than assumptions.”_
+**Methodology**
+**The Decision Lab Bank Satisfaction Rankings 2026** are compiled using data collected daily in Vietnam through **YouGov BrandIndex** , YouGov's flagship brand tracking solution.
+Banks are ranked by their Net Satisfaction Score, calculated by subtracting the Negative Satisfaction Score from the Positive Satisfaction Score among each bank's current customers. Respondents are asked whether they are a satisfied customer or a dissatisfied customer of each bank they currently use.
+The study covers the period from 1 January 2025 to 31 December 2025 and compares results with the equivalent period from 1 January 2024 to 31 December 2024. All respondents are current customers of the relevant bank and aged 18 or above.
+To be included in the Overall Rankings, a bank must achieve a minimum sample size of 200 respondents and be tracked for at least six months. To be included in the Top Improvers Rankings, a bank must be tracked continuously for at least 18 months. A total of 25 banks met these criteria and are included in this year's rankings. Sample sizes range from 203 to 2,897 respondents in 2025 and from 215 to 2,551 respondents in 2024. All scores are rounded to one decimal place.
+[Download the full report](https://www.decisionlab.co/decision-lab-bank-satisfaction-rankings-2026 "Button Download the full report")
+## RELATED ARTICLES
+[](https://www.decisionlab.co)
+  * [Solutions](https://www.decisionlab.co/solutions)
+    * [Explore](https://www.decisionlab.co/explore)
+    * [Plan](https://www.decisionlab.co/plan)
+    * [Track](https://www.decisionlab.co/track)
+  * [Insights](https://www.decisionlab.co/insights)
+    * [Blog](https://www.decisionlab.co/insights)
+    * [Library](https://www.decisionlab.co/library)
+    * [Cases](https://www.decisionlab.co/cases)
+  * [About us](https://www.decisionlab.co/about-us)
+    * [Our story](https://www.decisionlab.co/about-us)
+    * [Career](https://www.decisionlab.co/career)
+
+
+All rights reserved
+  * [Solutions](https://www.decisionlab.co/solutions)
+  * [Insights](https://www.decisionlab.co/insights)
+  * [About us](https://www.decisionlab.co/about-us)
+
+
+[ ](https://www.decisionlab.co/blog/bank-satisfaction-rankings-2026-vietcombank-returns-to-the-top-spot-as-competition-tightens-amongst-top-players)
+
+2026-09-03 01:13:44,267 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:13:44,277 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:13:44,749 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:13:53,886 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:13:53,903 INFO agent.graph: Structure LLM call done in 10.03s for query: This is Decision Lab's Bank Satisfaction Rankings 2026 (drawn from YouGov BrandI | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 4198, 'output_tokens': 1944, 'total_tokens': 6142}
+2026-09-03 01:13:53,915 INFO service: [32/39] decisionlab_bank_satisfaction_rankings done in 11.9s (gate_passed=True, error=None)
+2026-09-03 01:14:23,959 INFO agent.gate: Gate passed: This is a Q&Me market-research report on Vietnamese usage of online banking serv
+2026-09-03 01:14:24,508 INFO agent.graph: Crawl done in 0.55s for url: https://qandme.net/en/report/Vietnamese-usage-of-online-banking-services.html
+2026-09-03 01:14:24,512 INFO agent.graph: Raw content fed to LLM for query: This is a Q&Me market-research report on Vietnamese usage of online banking serv
+Close
+[ ![Vietnam Market Research](https://qandme.net/images/qandme_logo.png) ](https://qandme.net/en/)
+[ Report ](https://qandme.net/en/report/)
+[ Research ](https://qandme.net/en/research/concept.html)
+  * [ AI solution ](https://qandme.net/en/research/AI.html)
+  * [ Concept ](https://qandme.net/Concept.html)
+  * [ Online market research ](https://qandme.net/en/research/Online-market-research.html)
+  * [ Offline market research ](https://qandme.net/en/research/Offline-market-research.html)
+  * [ Concept test & Packaging test ](https://qandme.net/Concept-test-and-packaging-test-en.html)
+  * [ NPS ](https://qandme.net/NPS-en.html)
+  * [ Brand health check ](https://qandme.net/en/wp/brand-health-check.html)
+
+
+  * [ Retail audit ](https://qandme.net/Retail-Audit-en.html)
+  * [ FOCUS GROUP INTERVIEW ](https://qandme.net/en/research/focus-group.html)
+  * [ Mystery Shopping ](https://qandme.net/en/research/mystery-shopping.html)
+  * [ In-Depth Interview (IDI) ](https://qandme.net/en/research/in-depth-interview.html)
+  * [ Central Location Test (CLT) ](https://qandme.net/en/research/central-location-test.html)
+  * [ Import data analysis ](https://qandme.net/en/Importdata.html)
+
+
+  * [ Home Use Test (HUT) ](https://qandme.net/en/research/home-use-test.html)
+  * [ Customer Journey Survey ](https://qandme.net/en/research/customer-journey.html)
+  * [ Campaign Evaluation ](https://qandme.net/en/research/campaign-reviews.html)
+  * [ Employee Satisfaction ](https://qandme.net/en/research/employee-satisfaction.html)
+  * [QUALITY CONTROL ](https://qandme.net/home/QualityControl)
+  * [ South east asia research ](https://qandme.net/en/SEAresearch.html)
+
+
+[ Use case ](https://qandme.net/en/solution.html)
+  * [ Top ](https://qandme.net/en/solution.html)
+  * [ Automotive industry ](https://qandme.net/en/solution/automotive.html)
+  * [ Beauty industry ](https://qandme.net/en/solution/beauty.html)
+
+
+  * [ Finance industry ](https://qandme.net/en/solution/finance.html)
+  * [ Food & Beverage industry ](https://qandme.net/en/solution/food-beverage.html)
+  * [ Housing and real estate industry ](https://qandme.net/en/solution/housing.html)
+
+
+  * [ Technology industry ](https://qandme.net/en/solution/technology.html)
+  * [ Retail industry ](https://qandme.net/en/solution/retail.html)
+  * [ Electronics industry ](https://qandme.net/en/solution/electronic.html)
+
+
+[ Asian Research ](https://qandme.net/en/southeast-asia-market-research/) [ Technology ](https://qandme.net/en/fieldcheck.html)
+![English](https://qandme.net/images/flags/gb.png)
+  * [ ![](https://qandme.net/images/flags/gb.png) ](https://qandme.net/en/report/Vietnamese-usage-of-online-banking-services.html "English")
+  * [ ![](https://qandme.net/images/flags/jp.png) ](https://qandme.net/ja/report/Vietnamese-usage-of-online-banking-services-jp.html "日本語")
+  * [ ![](https://qandme.net/images/flags/kr.png) ](https://qandme.net/kr/report/Vietnamese-usage-of-online-banking-services-ko_kr.html "한국어")
+  * [ ![](https://qandme.net/images/flags/vn.png) ](https://qandme.net/vi/baibaocao/Thoi-quen-su-dung-ngan-hang-truc-tuyen-cua-nguoi-Viet.html "Tiếng Việt")
+
+
+-------------- Money / Finance --------------
+# Vietnamese usage of online banking services
+## Online banking is an useful tool for people to save time of doing lots of transactions nowadays. Check out how the Vietnamese usage of this service.
+![Vietnamese usage of online banking services](https://qandme.net/images/onlinebanking_1.png)
+![Vietnamese usage of online banking services](https://qandme.net/images/onlinebanking_2.png)
+Vietcom bank is most popular nation-wide, while the popularity of Vietin bank is high in the north.
+63% people above 35 years old use online banking regularly. 
+38% people under 24 years old are not having an online banking account. 
+52% Vietnamese have concern about Security when using online banking. 
+Most of Vietnamese feel comfortable using this service. 
+![](https://qandme.net/images/qandme_icon_3.png)
+Subscribe Newsletter Sign-Up
+To view the full report, please click the button below
+[SEE FULL REPORT](https://www.slideshare.net/asiaplus_inc/online-banking-47393168)
+Vietnamese usage of online banking services
+500 Vietnamese people between 20-39 years old
+Conducted on April 20th – April 22nd, 2015 
+## [Q&Me Vietnam Market Research](https://qandme.net/)
+New report 
+[Research on Vietnam Celebrities and Ad Recall](https://qandme.net/en/report/research-on-vietnam-celebrities-and-ad-recall.html)  
+[Popular Retail Stores in Vietnam](https://qandme.net/en/report/popular-retail-stores-in-vietnam.html)  
+[Vietnam Market Trend Report — H1 2026](https://qandme.net/en/report/vietnam-market-trend-report-h1-2026.html)  
+[What New Foods Have Vietnamese Consumers Tried or Cooked Recently?](https://qandme.net/en/report/what-new-foods-have-vietnamese-consumers-tried-or-cooked-recently.html)  
+[Counterfeit Products in Vietnam: Consumer Attitudes and Behavior](https://qandme.net/en/report/counterfeit-products-in-vietnam-consumer-attitudes-and-behavior.html)  
+
+Related report 
+[Vietnamese consumer average spending](https://qandme.net/en/report/Vietnamese-consumer-average-spending.html)  
+[Vietnamese money loan situation survey](https://qandme.net/en/report/Vietnamese-money-loan-situation-survey.html)  
+[Vietnamese money saving trend](https://qandme.net/en/report/Vietnamese-love-cash-but-how-do-they-save-money-and-how-much-they-have.html)  
+[Vietnamese money saving](https://qandme.net/en/report/Vietnamese-money-saving.html)  
+[Mobile payment usage in Vietnam 2020](https://qandme.net/en/report/mobile-payment-usage-in-vietnam-2020.html)  
+
+##  **ABOUT US**
+  
+
+Q&Me is the **Vietnam market research** service that provides the superb Vietnam consumer trend and insight for your business success in Vietnam.
+  
+
+Our leading-edge technology made both of the quantitative and qualitative survey online so that we could deliver the high-quality Vietnam market data with affordable pricing. In our service, even group interview can be conducted online as Chat survey so that you could omit the hassle of business trip. Now that Q&Me manages the panelist directly, information you need will be delivered to you instantly.
+  
+
+Please [contact us](https://qandme.net/contact-us) for any inquiries about Vietnam market. We are more than happy to get in touch with you and help your business success in Vietnam.
+##  About Q&Me Vietnam market research service
+  
+
+Q&Me stands at the forefront of market research in Vietnam, catering to a diverse clientele across various industries. We distinguish ourselves by offering insightful business guidance through agile and cost-effective research solutions, all underpinned by a team of seasoned researchers and robust operational frameworks.
+  
+
+### Get all our latest market findings in our newsletter
+Subscribe
+### Get all our latest market findings in our newsletter
+Subscribe
+×
+#### **NEWSLETTER SIGN-UP**
+Never miss one of our market research reports again. By subscribing to our newsletter, our latest market findings are delivered straight to your email inbox!
+Name*   
+
+Company*   
+
+Email*   
+
+[ ![Vietnam Market Research](https://qandme.net/images/qandme_logo.png) ](https://qandme.net/en/)
+Asia Plus Inc.
+Q&Me is a product of Asia Plus Inc.
+6F 506 Nguyen Dinh Chieu Street, Ban Co Ward, Ho Chi Minh City
+[+84 02839100043](tel:+8402839100043)
+[Contact us](https://qandme.net/contact-us)
+[ Report ](https://qandme.net/en/report/)
+[ Research ](https://qandme.net/en/research/concept.html)
+  * [ Concept ](https://qandme.net/Concept.html)
+  * [ Online market research ](https://qandme.net/en/research/Online-market-research.html)
+  * [ Offline market research ](https://qandme.net/en/research/Offline-market-research.html)
+  * [ Concept test & Packaging test ](https://qandme.net/Concept-test-and-packaging-test-en.html)
+  * [ NPS ](https://qandme.net/NPS-en.html)
+  * [ Quality control ](https://qandme.net/home/QualityControl)
+
+
+  * [ Retail audit ](https://qandme.net/Retail-Audit-en.html)
+  * [ Focus group interview ](https://qandme.net/en/research/focus-group.html)
+  * [ Mystery shopping ](https://qandme.net/en/research/mystery-shopping.html)
+  * [ In-Depth Interview (IDI) ](https://qandme.net/en/research/in-depth-interview.html)
+  * [ Central Location Test (CLT) ](https://qandme.net/en/research/central-location-test.html)
+  * [ Import data analysis ](https://qandme.net/en/Importdata.html)
+
+
+  * [ Home Use Test (HUT) ](https://qandme.net/en/research/home-use-test.html)
+  * [ Customer Journey Survey ](https://qandme.net/en/research/customer-journey.html)
+  * [ Campaign Evaluation ](https://qandme.net/en/research/campaign-reviews.html)
+  * [ Employee Satisfaction ](https://qandme.net/en/research/employee-satisfaction.html)
+  * [ South east asia research ](https://qandme.net/en/SEAresearch.html)
+
+
+[ Use case ](https://qandme.net/en/solution.html)
+  * [ Automotive industry ](https://qandme.net/en/solution/automotive.html)
+  * [ Beauty industry ](https://qandme.net/en/solution/beauty.html)
+  * [ Finance industry ](https://qandme.net/en/solution/finance.html)
+
+
+  * [ Food & Beverage industry ](https://qandme.net/en/solution/food-beverage.html)
+  * [ Housing and real estate industry ](https://qandme.net/en/solution/housing.html)
+  * [ Technology industry ](https://qandme.net/en/solution/technology.html)
+
+
+  * [ Retail industry ](https://qandme.net/en/solution/retail.html)
+  * [ Electronics industry ](https://qandme.net/en/solution/electronic.html)
+
+
+[ Technology ](https://qandme.net/en/fieldcheck.html)
+[ Contact us ](https://qandme.net/contact-us)
+Q&Me is a product of Asia Plus Inc. Copyright © 2026 [Asia Plus Inc.](https://asia-plus.net)
+
+2026-09-03 01:14:24,874 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:14:24,878 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:14:25,357 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:14:28,974 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:14:28,983 INFO agent.graph: Structure LLM call done in 4.47s for query: This is a Q&Me market-research report on Vietnamese usage of online banking serv | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 3944, 'output_tokens': 671, 'total_tokens': 4615}
+2026-09-03 01:14:28,987 INFO service: [33/39] qandme_online_banking_usage done in 5.04s (gate_passed=True, error=None)
+2026-09-03 01:14:59,032 INFO agent.gate: Gate passed: This is Techcombank Mobile's App Store version history. Extract concrete release
+2026-09-03 01:15:00,684 INFO agent.graph: Crawl done in 1.65s for url: https://apps.apple.com/vn/app/techcombank-mobile/id1548623362
+2026-09-03 01:15:00,692 INFO agent.graph: Raw content fed to LLM for query: This is Techcombank Mobile's App Store version history. Extract concrete release
+What’s New
+Version History
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.24
+6 days ago
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.23
+20 Aug
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.22
+13 Aug
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.21
+6 Aug
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.20
+30 Jul
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.19
+23 Jul
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.18
+15 Jul
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.17
+7 Jul
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.16
+30 Jun
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.15
+18 Jun
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.14
+11 Jun
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.12
+4 Jun
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.11
+28 May
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.9
+21 May
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.7
+7 May
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.6
+28 Apr
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.4
+9 Apr
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+4.0.3
+2 Apr
+• Easily gain a monthly spending overview through the card spending chart.
+
+Update or download the app now to start exploring. If you're happy, leave us a 5-star review!
+4.0.2
+25 Mar
+• Easily gain a monthly spending overview through the card spending chart.
+
+Update or download the app now to start exploring. If you're happy, leave us a 5-star review!
+4.0.1
+19 Mar
+• Easily gain a monthly spending overview through the card spending chart.
+
+Update or download the app now to start exploring. If you're happy, leave us a 5-star review!
+4.0.0
+12 Mar
+• Easily gain a monthly spending overview through the card spending chart.
+
+Update or download the app now to start exploring. If you're happy, leave us a 5-star review!
+3.1.38
+5 Mar
+• Easily gain a monthly spending overview through the card spending chart.
+
+Update or download the app now to start exploring. If you're happy, leave us a 5-star review!
+3.1.36
+5 Feb
+• Easily gain a monthly spending overview through the card spending chart.
+
+Update or download the app now to start exploring. If you're happy, leave us a 5-star review!
+3.1.35
+29 Jan
+• Easily gain a monthly spending overview through the card spending chart.
+
+Update or download the app now to start exploring. If you're happy, leave us a 5-star review!
+3.1.34
+15 Jan
+Techcombank continues to elevate your experience!
+We’re always listening and continuously improving to bring you a better experience every day. In this latest version, the app comes with several key enhancements:
+• Faster & more stable — Smooth, seamless performance
+• More secure — Enhanced multi-layer security system
+• More user-friendly — Optimized experience with refreshed feature interfaces
+• And more improvements to ensure the app runs even better
+ 
+Update the app now to enjoy these latest enhancements!
+more
+Version 4.0.24
+6 days ago
+2026-09-03 01:15:01,499 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:15:01,505 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:15:02,026 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:15:14,858 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:15:14,868 INFO agent.graph: Structure LLM call done in 14.18s for query: This is Techcombank Mobile's App Store version history. Extract concrete release | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 3719, 'output_tokens': 2812, 'total_tokens': 6531}
+2026-09-03 01:15:14,873 INFO service: [34/39] techcombank_mobile_release_notes done in 15.87s (gate_passed=True, error=None)
+2026-09-03 01:15:44,942 INFO agent.gate: Gate passed: This is VCB Digibank's App Store version history. Extract concrete release notes
+2026-09-03 01:15:46,923 INFO agent.graph: Crawl done in 1.97s for url: https://apps.apple.com/vn/app/vcb-digibank/id561433133
+2026-09-03 01:15:46,932 INFO agent.graph: Raw content fed to LLM for query: This is VCB Digibank's App Store version history. Extract concrete release notes
+What’s New
+Version History
+Changes to improve customer's experience and system's performance
+6.5.5
+21 Aug
+- Changes to improve customer's experience and system's performance
+6.5.4
+18 Aug
+- Changes to improve customer's experience and system's performance
+6.5.2
+20 Jul
+Changes to improve customer's experience and system's performance
+6.5.1
+25 Jun
+Changes to improve customer's experience and system's performance
+6.5.0
+9 Jun
+Changes to improve customer's experience and system's performance
+6.4.9
+2 Jun
+- Changes to improve customer's experience and system's performance
+6.4.8
+19 May
+Changes to improve customer's experience and system's performance
+6.4.7
+6 May
+Changes to improve customer's experience and system's performance
+6.4.6
+19 Apr
+Changes to improve customer's experience and system's performance
+6.4.1
+7 Apr
+Changes to improve customer's experience and system's performance
+6.3.9
+2 Apr
+Changes to improve customer's experience and system's performance
+6.3.8
+31 Mar
+Changes to improve customer's experience and system's performance
+6.3.6
+9 Feb
+Changes to improve customer's experience and system's performance
+6.3.5
+4 Feb
+Changes to improve customer's experience and system's performance
+6.3.4
+30 Jan
+Changes to improve customer's experience and system's performance
+6.3.3
+8 Jan
+Changes to improve customer's experience and system's performance
+6.3.2
+3 Jan
+Changes to improve customer's experience and system's performance
+6.3.1
+31/12/2025
+Changes to improve customer's experience and system's performance
+6.3.0
+24/12/2025
+Changes to improve customer's experience and system's performance
+6.2.9
+20/12/2025
+- Changes to improve customer's experience and system's performance
+6.2.8
+15/12/2025
+Changes to improve customer's experience and system's performance
+6.2.7
+12/12/2025
+Changes to improve customer's experience and system's performance
+6.2.6
+03/12/2025
+Changes to improve customer's experience and system's performance
+6.2.5
+06/11/2025
+Changes to improve customer's experience and system's performance
+6.2.4
+02/10/2025
+Changes to improve customer's experience and system's performance
+more
+Version 6.5.5
+21 Aug
+2026-09-03 01:15:47,557 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:15:47,566 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:15:47,824 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:16:02,017 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:16:02,034 INFO agent.graph: Structure LLM call done in 15.1s for query: This is VCB Digibank's App Store version history. Extract concrete release notes | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 1859, 'output_tokens': 3021, 'total_tokens': 4880}
+2026-09-03 01:16:02,040 INFO service: [35/39] vcb_digibank_release_notes done in 17.15s (gate_passed=True, error=None)
+2026-09-03 01:16:32,073 INFO agent.gate: Gate passed: This is BIDV SmartBanking's App Store version history. Extract concrete release 
+2026-09-03 01:16:32,990 INFO agent.graph: Crawl done in 0.91s for url: https://apps.apple.com/vn/app/bidv-smartbanking/id1061867449
+2026-09-03 01:16:32,994 INFO agent.graph: Raw content fed to LLM for query: This is BIDV SmartBanking's App Store version history. Extract concrete release 
+What’s New
+Version History
+- Bảo hiểm kèm Hành trình – Thêm an tâm, trọn vẹn mỗi hành trình. Miễn phí tháng đầu tiên.
+- Chứng chỉ tiền gửi An Phát – Linh hoạt mua bán, chủ động kế hoạch tài chính.
+- Chuyển tiền theo danh sách – Nhiều giao dịch, thực hiện dễ dàng trong một lần.
+- Trải nghiệm mượt mà hơn – Tối ưu hiệu năng, nâng tầm trải nghiệm trên toàn ứng dụng.
+5.3.11
+18 Aug
+- Bảo hiểm kèm Hành trình – Thêm an tâm, trọn vẹn mỗi hành trình. Miễn phí tháng đầu tiên.
+- Chứng chỉ tiền gửi An Phát – Linh hoạt mua bán, chủ động kế hoạch tài chính.
+- Chuyển tiền theo danh sách – Nhiều giao dịch, thực hiện dễ dàng trong một lần.
+- Trải nghiệm mượt mà hơn – Tối ưu hiệu năng, nâng tầm trải nghiệm trên toàn ứng dụng.
+5.3.10
+10 Aug
+- Tối ưu trải nghiệm khách hàng
+5.3.09
+23 Jul
+- Tối ưu trải nghiệm khách hàng
+5.3.08
+19 Jul
+- Thanh toán online tiện lợi với Click to Pay
+- Chủ động gia hạn thẻ ngay trên SmartBanking
+- Chuyển tiền quốc tế tự động, nhanh chóng
+- Tối ưu trải nghiệm khách hàng
+5.3.07
+4 Jul
+- Xác nhận giao dịch bằng chữ ký số
+- Tra cứu thông tin cá nhân
+- Thanh toán bằng thẻ Hybrid
+- Nâng cao trải nghiệm khách hàng
+5.3.06
+15 Jun
+- Xác nhận giao dịch bằng chữ ký số
+- Tra cứu thông tin cá nhân
+- Thanh toán bằng thẻ Hybrid
+- Nâng cao trải nghiệm khách hàng
+5.3.05
+13 Jun
+- Nhận diện thông tin chuyển tiền tự động bằng AI
+- Hỗ trợ chuyển nhanh 247 giá trị cao
+- Nâng cao trải nghiệm người dùng
+5.3.04
+4 Jun
+- Nhận diện thông tin chuyển tiền tự động bằng AI
+- Hỗ trợ chuyển nhanh 247 giá trị cao
+- Nâng cao trải nghiệm người dùng
+5.3.03
+21 May
+- Sao kê giao dịch
+- Cài đặt tài khoản đăng nhập mặc định
+- Nâng cao trải nghiệm khách hàng
+5.3.02
+22 Apr
+- Sao kê giao dịch
+- Cài đặt tài khoản đăng nhập mặc định
+- Nâng cao trải nghiệm khách hàng
+5.3.01
+10 Apr
+- Nâng cao trải nghiệm khách hàng
+5.3.00
+31 Mar
+- Nâng cao trải nghiệm khách hàng
+5.2.99
+11 Mar
+- Tăng cường bảo mật và nâng cao trải nghiệm khách hàng
+5.2.98
+3 Mar
+- Nhận tiền Western Union trực tiếp trên ứng dụng – nhanh chóng, an toàn, tiện lợi
+- Tối ưu trải nghiệm khách hàng
+5.2.97
+11 Feb
+- Nhận tiền Western Union trực tiếp trên ứng dụng – nhanh chóng, an toàn, tiện lợi
+- Tối ưu trải nghiệm khách hàng
+5.2.96
+3 Feb
+- Gia tăng tiện ích khách hàng tiểu thương, hộ kinh doanh
+- Thẻ jcb hybrid
+- Nâng cao trải nghiệm khách hàng
+5.2.95
+26 Jan
+- Nộp thuế theo mã số thuế
+- Ủy nhiệm thanh toán
+- Nâng cao trải nghiệm khách hàng
+5.2.94
+17/12/2025
+- Nộp thuế theo mã số thuế
+- Ủy nhiệm thanh toán
+- Nâng cao trải nghiệm khách hàng
+5.2.93
+15/12/2025
+- Nộp thuế theo mã số thuế
+- Ủy nhiệm thanh toán
+- Nâng cao trải nghiệm khách hàng
+5.2.92
+09/12/2025
+- Nâng cao trải nghiệm thanh toán thẻ JCB với Apple Pay
+- Liên kết dễ dàng và quản lý thuận tiện trên BIDV SmartBanking
+5.2.91
+02/12/2025
+- Mở tài khoản thanh toán siêu nhanh – hoàn toàn miễn phí, tùy chọn theo đúng nhu cầu của bạn.
+- Chuyển tiền định kỳ ngoài hệ thống dễ dàng, chủ động tạo và quản lý mọi lệnh chuyển chỉ trong vài bước.
+- Đầu tư chứng chỉ quỹ thông minh, hỗ trợ đầu tư định kỳ để tối ưu hoá lợi nhuận.
+- Nâng cấp trải nghiệm thẻ: chuyển đổi thẻ phi vật lý sang thẻ vật lý và nhận thẻ tại địa điểm bạn mong muốn.
+5.2.90
+26/11/2025
+- Mở tài khoản thanh toán siêu nhanh – hoàn toàn miễn phí, tùy chọn theo đúng nhu cầu của bạn.
+- Chuyển tiền định kỳ ngoài hệ thống dễ dàng, chủ động tạo và quản lý mọi lệnh chuyển chỉ trong vài bước.
+- Đầu tư chứng chỉ quỹ thông minh, hỗ trợ đầu tư định kỳ để tối ưu hoá lợi nhuận.
+- Nâng cấp trải nghiệm thẻ: chuyển đổi thẻ phi vật lý sang thẻ vật lý và nhận thẻ tại địa điểm bạn mong muốn.
+5.2.89
+18/11/2025
+- Tái cấp hạn mức thấu chi tự động
+- Tối ưu trải nghiệm cho khách hàng
+5.2.88
+12/11/2025
+- Dịch vụ ngoại tệ cạnh tranh
+- Chuyển tiền quốc tế đơn giản, nhanh chóng
+- Tối ưu trải nghiệm
+5.2.87
+06/10/2025
+- Bảo hiểm kèm Hành trình – Thêm an tâm, trọn vẹn mỗi hành trình. Miễn phí tháng đầu tiên.
+- Chứng chỉ tiền gửi An Phát – Linh hoạt mua bán, chủ động kế hoạch tài chính.
+- Chuyển tiền theo danh sách – Nhiều giao dịch, thực hiện dễ dàng trong một lần.
+- Trải nghiệm mượt mà hơn – Tối ưu hiệu năng, nâng tầm trải nghiệm trên toàn ứng dụng.
+more
+Version 5.3.11
+18 Aug
+2026-09-03 01:16:33,441 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:16:33,445 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:16:33,715 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:16:52,743 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:16:52,759 INFO agent.graph: Structure LLM call done in 19.77s for query: This is BIDV SmartBanking's App Store version history. Extract concrete release  | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 2695, 'output_tokens': 3969, 'total_tokens': 6664}
+2026-09-03 01:16:52,763 INFO service: [36/39] bidv_smartbanking_release_notes done in 20.71s (gate_passed=True, error=None)
+2026-09-03 01:17:22,803 INFO agent.gate: Gate passed: This is the MBBank app's App Store version history. Extract concrete release not
+2026-09-03 01:17:26,186 INFO agent.graph: Crawl done in 3.38s for url: https://apps.apple.com/vn/app/mb-bank/id1205807363
+2026-09-03 01:17:26,190 INFO agent.graph: Raw content fed to LLM for query: This is the MBBank app's App Store version history. Extract concrete release not
+What’s New
+Version History
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.94
+5 days ago
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.93
+21 Aug
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.92
+15 Aug
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.91
+7 Aug
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.90
+1 Aug
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.89
+24 Jul
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.88
+17 Jul
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.87
+10 Jul
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.86
+6 Jul
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.85
+4 Jul
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.84
+27 Jun
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.83
+20 Jun
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.82
+12 Jun
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.81
+5 Jun
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.80
+29 May
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.79
+22 May
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.78
+15 May
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.77
+8 May
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.76
+25 Apr
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.75
+20 Apr
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.74
+10 Apr
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.73
+6 Apr
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.72
+3 Apr
+This app has been updated by Apple to prepare for watchOS 27 compatibility. No new features are included.
+
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.71
+27 Mar
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+28.5.70
+20 Mar
+- 100% online registration with customized bank account number
+- 100% online opening virtual credit card
+- 100% free life-time both transfer fee & virtual credit card fee
+more
+Version 28.5.94
+5 days ago
+2026-09-03 01:17:26,535 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:17:26,537 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:17:26,942 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:17:41,330 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:17:41,342 INFO agent.graph: Structure LLM call done in 15.15s for query: This is the MBBank app's App Store version history. Extract concrete release not | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 2728, 'output_tokens': 3210, 'total_tokens': 5938}
+2026-09-03 01:17:41,346 INFO service: [37/39] mbbank_app_release_notes done in 18.57s (gate_passed=True, error=None)
+2026-09-03 01:18:11,578 INFO agent.gate: Gate passed: This is ACB ONE's App Store version history. Extract concrete release notes — th
+2026-09-03 01:18:13,405 INFO agent.graph: Crawl done in 1.82s for url: https://apps.apple.com/vn/app/acb-one/id950141024
+2026-09-03 01:18:13,414 INFO agent.graph: Raw content fed to LLM for query: This is ACB ONE's App Store version history. Extract concrete release notes — th
+What’s New
+Version History
+Version 3.55.0 What's new
+- New features: Smart term deposit, eSIM and train reservations.
+- Improve features: Online sign-up.
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.55.0
+26 Aug
+Version 3.54.0 What's new
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.54.0
+12 Aug
+Version 3.53.2 What's new
+- New features: Open household business account online, Domestic and cross-border payments through QR payment service
+- Improve features: Payment, transfer
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.53.2
+4 Aug
+Version 3.53.1 What's new
+- New features: Open household business account online, Domestic and cross-border payments through QR payment service
+- Improve features: Payment, transfer
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.53.1
+3 Aug
+Version 3.53.0 What's new
+- New features: Open household business account online, Domestic and cross-border payments through QR payment service
+- Improve features: Payment, transfer
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.53.0
+3 Aug
+Version 3.52.0 What's new
+- Improve features: Online savings, Auto-split Napas transfers
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.52.0
+2 Jul
+Version 3.51.2 What's new - Check out the latest updates on ACB ONE:
+- New feature: One click - checkout complete with Click to Pay via ACB VISA card.
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.51.2
+19 Jun
+Version 3.51.1 What's new - Check out the latest updates on ACB ONE:
+- New feature: One click - checkout complete with Click to Pay via ACB VISA card.
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.51.1
+16 Jun
+Version 3.51.0 What's new - Check out the latest updates on ACB ONE:
+- New feature: One click - checkout complete with Click to Pay via ACB VISA card.
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.51.0
+15 Jun
+Version 3.50.0 What's new - Check out the latest updates on ACB ONE:
+- New feature: One click - checkout complete with Click to Pay via ACB VISA card.
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.50.0
+1 Jun
+Version 3.49.0 What's new - Check out the latest updates on ACB ONE:
+- Improvements to online sign-up and online debit card issuance. 
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.49.0
+18 May
+Version 3.48.0 What's new - Check out the latest updates on ACB ONE:
+- New feature: International money transfer.
+- Improved money transfer functionality, with alerts for suspicious accounts during transactions.
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.48.0
+2 Apr
+Version 3.47.0 What's new - Check out the latest updates on ACB ONE:
+- New features: Fund certificate, instant phone transaction alerts, bigger referral rewards, Vietnamese family savings offer, and register credit card and account as a bundle.
+- Improvements: Online tax payments, video call services, and asset appraisal.
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.47.0
+11 Feb
+Version 3.46.0 - What's new? Check out the latest on ACB ONE:
+- New features: Identity verification with VNeID Level 2, loan rate discount, open a Tai Loc account for household businesses.
+- Improvements: ACB Rewards, certificates of deposit.
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.46.0
+4 Jan
+Version 3.45.0 - What's new? Check out the latest on ACB ONE:
+- New features: Napas QR payment, online agreement and document management.
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.45.0
+03/12/2025
+Version 3.44.0 - What's new? Check out the latest on ACB ONE:
+- New features: Pay bills using credit cards.
+- Enhanced features: Open Lotusmiles Pay card, increase credit card limit.
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.44.0
+17/11/2025
+Version 3.43.0 - What's new? Check out the latest on ACB ONE:
+- New features: Certificates of Deposit, PTI car insurance.
+- Enhanced features: Add a referral code when opening Online Savings, open a Payroll Account online
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.43.0
+06/10/2025
+Version 3.42.0: What's new? Download the ACB ONE app today!
+- Meet the new Home Screen: modern, youthful, and simpler than ever.
+-  New features: Asset appraisal, online tax payment.
+- Enhanced features: Online disbursement registration.
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.42.0
+03/09/2025
+Version 3.41.0: What's new? Download the ACB ONE app today!
+- Compliance with Circular No. 50/2024/TT-NHNN.
+- Enhanced features: Shop management.
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.41.0
+01/08/2025
+Version 3.40.0: What's new? Download the ACB ONE app today!
+- Bug fixes and performance boosts.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.40.0
+11/07/2025
+Version 3.39.0: What's new? Download the ACB ONE app today!
+- New features: Foreign exchange.
+- Improved features: Transfers.
+- Bug fixes and performance boosts.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.39.0
+23/06/2025
+Version 3.38.0: What's new? Download the ACB ONE app today!
+- New features: Auto-split Napas transfers, open an account with your lucky number, trip planning, hotel booking, amusement tickets and travel packages.
+- Improved features: Transfers, payments and online savings.
+- Bug fixes and performance boosts.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.38.0
+28/05/2025
+Version 3.37.1: What's new? Download the ACB ONE app today!
+- New features: Open a store account with your lucky number, bus booking, 4G/5G data top-up, Flex payment, ACB Rewards for mobile top-up, branch withdrawals for online deposits.
+- Improved features: Store management, increased QR Cash limits, card info viewing.
+- Compliant with Circular No. 50/2024/TT-NHNN.
+- Bug fixes and performance boosts.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.37.1
+25/04/2025
+Version 3.37.0: What's new? Download the ACB ONE app today!
+- New features: Open a store account with your lucky number, bus booking, 4G/5G data top-up, Flex payment, ACB Rewards for mobile top-up, branch withdrawals for online deposits.
+- Improved features: Store management, increased QR Cash limits, card info viewing.
+- Compliant with Circular No. 50/2024/TT-NHNN.
+- Bug fixes and performance boosts.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.37.0
+23/04/2025
+Version 3.36.1: What's new? Download the ACB ONE app today!
+- New features: ePass services; Expiring credit card reminder.
+- Optimized experience with bug fixes.
+Don't delay - update today! Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+3.36.1
+03/04/2025
+Version 3.55.0 What's new
+- New features: Smart term deposit, eSIM and train reservations.
+- Improve features: Online sign-up.
+- Bug fixes and performance improvements.
+Feedback mailbox: knhs.pvhvdvkh@acb.com.vn.
+more
+Version 3.55.0
+26 Aug
+2026-09-03 01:18:13,952 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:18:13,962 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:18:14,238 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:18:29,873 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:18:29,977 INFO agent.graph: Structure LLM call done in 16.56s for query: This is ACB ONE's App Store version history. Extract concrete release notes — th | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 3478, 'output_tokens': 3356, 'total_tokens': 6834}
+2026-09-03 01:18:29,990 INFO service: [38/39] acb_one_release_notes done in 18.51s (gate_passed=True, error=None)
+2026-09-03 01:19:00,037 INFO agent.gate: Gate passed: This is VPBank NEO's App Store version history. Extract concrete release notes —
+2026-09-03 01:19:01,707 INFO agent.graph: Crawl done in 1.66s for url: https://apps.apple.com/vn/app/vpbank-neo/id1209349510
+2026-09-03 01:19:01,714 INFO agent.graph: Raw content fed to LLM for query: This is VPBank NEO's App Store version history. Extract concrete release notes —
+What’s New
+Version History
+VPBank NEO với nhiều cải tiến giúp giao dịch thuận tiện, an toàn và trải nghiệm tốt hơn!
+- Chuyển tiền tiện lợi hơn
+- Quét QR dễ dàng hơn với khả năng zoom linh hoạt
+- Hiển thị thêm thông tin giao dịch giúp tra cứu thuận tiện
+- Theo dõi lãi suất tiền gửi ngay từ Trang chủ
+- Cải thiện trải nghiệm ưu đãi Hội viên Thịnh Vượng
+- Nâng cao hiệu năng và độ ổn định ứng dụng.
+8.8.2
+17 Aug
+Khám phá những điểm mới trên VPBank NEO:
+- Nâng cấp Hội viên Thịnh Vượng 3.0 với nhiều đặc quyền hấp dẫn.
+- Ra mắt tính năng Tiền lẻ sinh lời giúp tối ưu tiền nhàn rỗi.
+- Hoàn thiện hồ sơ Hộ Kinh Doanh thuận tiện hơn.
+- Tăng cường an toàn cho các giao dịch chuyển tiền giá trị lớn.
+- Tối ưu trải nghiệm đăng ký vay trực tuyến.
+Cập nhật ngay VPBank NEO để trải nghiệm những tiện ích mới nhất!
+8.7.5
+30 Jul
+Khám phá VPBank NEO phiên bản 8.7.4:
+
+- Nâng cấp trải nghiệm CardZone và quản lý thẻ.
+- Cập nhật chính sách trả góp thẻ tín dụng mới.
+- NEO Gen+ với giao diện chatbot hiện đại.
+- Ưu đãi Hoàn Tiền Thịnh Vượng.
+- Hành trình vay vốn số và Wealth Hub.
+8.7.4
+21 Jul
+Dễ dàng cập nhật thông tin CCCD và đăng ký Face ID trong một quy trình liền mạch, nhanh chóng với công nghệ NFC hiện đại, giúp giao dịch an toàn và thuận tiện hơn.
+8.7.3
+16 Jul
+Tận hưởng Super Sinh lời với eKash – tối ưu dòng tiền linh hoạt, rút tiền chủ động và chi hộ tự động thông minh
+8.7.2
+11 Jul
+Tối ưu hiệu năng và trải nghiệm người dùng
+8.7.1
+8 Jul
+Phiên bản mới mang đến trải nghiệm tiện lợi hơn khi quản lý khoản vay:
+- Cập nhật mẫu hợp đồng vay mới, giúp thông tin rõ ràng và dễ hiểu hơn
+- Hiển thị đầy đủ chi tiết tài khoản thấu chi và các phí liên quan ngay trên ứng dụng
+- Tối ưu nội dung hợp đồng theo từng sản phẩm, đảm bảo chính xác và nhất quán
+- Nâng cao trải nghiệm xem và quản lý hợp đồng trực tiếp trên app
+- Cải thiện hiệu năng và khắc phục lỗi nhỏ
+8.6.5
+30 Jun
+Trải nghiệm VPBank NEO tốt hơn trong phiên bản mới! 
+- Dễ dàng kích hoạt thẻ chỉ với 1 chạm từ email/web
+- Cá nhân hóa hiển thị chi tiêu rõ ràng, trực quan hơn
+- Cải tiến mạnh mẽ CardZone: xem giao dịch & quản lý thẻ nhanh hơn
+- Chatbot thông minh hơn: gợi ý đúng nhu cầu, hiển thị ưu đãi phù hợp
+- Nâng cấp các chương trình hoàn tiền & ưu đãi hấp dẫn
+Cập nhật ngay để tận hưởng trải nghiệm ngân hàng số mượt mà hơn mỗi ngày.
+8.6.4
+23 Jun
+Có gì mới trong phiên bản này:
+
+- Cải tiến trải nghiệm eKYC (xác thực điện tử) nhanh chóng và thuận tiện hơn
+- Nâng cấp luồng đăng ký và nhận thẻ linh hoạt tại chi nhánh
+- Ứng dụng phần mềm bán hàng trên Shop Thịnh vượng
+- Tối ưu giao diện và hiệu năng ứng dụng.
+8.6.3
+21 Jun
+VPBank NEO 8.6.1 – Nâng cấp trải nghiệm, tiện ích vượt trội!
+
+- Ra mắt bảo hiểm CyberRisk, bảo vệ tài sản số
+- Ưu đãi cá nhân hóa với Flash Deal, Prime Day
+- Bổ sung ví VETC & FlexPay tiện lợi
+- Giao dịch nhanh hơn với deeplink thông minh
+- Giao diện & CardZone cải tiến, dễ sử dụng
+- Tăng cường bảo mật, tối ưu hiệu năng
+
+Cập nhật ngay để trải nghiệm mượt mà hơn!
+8.6.1
+8 Jun
+Cập nhật để trải nghiệm mượt hơn, tiện hơn & an tâm hơn
+- Theo dõi “dấu chân carbon” cho thẻ tín dụng Mastercard giúp bạn nhìn lại tác động chi tiêu theo cách trực quan hơn.
+- Gửi yêu cầu tra soát từ lịch sử giao dịch và theo dõi trạng thái xử lý thuận tiện hơn.
+- Hỗ trợ Hộ kinh doanh mở tài khoản trực tiếp trên VPBank NEO.
+- Ưu đãi thẻ trên CardZone. 
+- Tối ưu luồng đăng ký/hủy SMS Biến động số dư.
+- Điều chỉnh thông báo Quên mật khẩu.
+8.5.4
+2 Jun
+Tối ưu hiệu năng và trải nghiệm người dùng chức năng Chứng chỉ tiền gửi.
+8.5.1
+5 May
+Tối ưu hiệu năng và trải nghiệm người dùng.
+8.4.3
+2 May
+VPBank NEO phiên bản mới mang đến nhiều cải tiến và tính năng mới
+- Nâng cấp QR thanh toán đa tiêu chuẩn cho Shop Thịnh Vượng
+- Cải tiến hiển thị và trải nghiệm tại các tính năng Shop
+- Hoàn tiền Thịnh Vượng
+- Điều chỉnh giao diện khởi động và tối ưu luồng đăng nhập, quên mật khẩu
+- Cải tiến hiệu năng giúp ứng dụng ổn định và mượt mà hơn
+8.4.2
+21 Apr
+VPBank NEO mang đến nhiều nâng cấp trải nghiệm, giúp giao dịch và quản lý tài chính nhanh chóng – tiện lợi – an tâm hơn.
+Nổi bật trong phiên bản này:
+- Cải thiện trải nghiệm Giới thiệu bạn bè, chia sẻ link thuận tiện hơn.
+- Chuyển tiền quốc tế dễ thao tác và rõ ràng hơn.
+- Nhập mã SWIFT nhanh chóng khi tạo người thụ hưởng.
+- Bổ sung tiện ích cho thẻ Visa với Visa Flexible Pay.
+- Nâng cấp trải nghiệm Apple Pay, thanh toán liền mạch hơn.
+- Cập nhật giao diện và trải nghiệm sử dụng.
+Cập nhật ngay VPBank NEO để trải nghiệm phiên bản mới nhất!
+8.4.1
+6 Apr
+Mở tài khoản mượt mà hơn với cải tiến xác thực sinh trắc học, giúp tăng độ an toàn và tiện lợi.
+8.3.5
+1 Apr
+Tối ưu hiệu năng và trải nghiệm người dùng
+8.3.4
+25 Mar
+- An tâm hơn – Trải nghiệm tốt hơn mỗi ngày cùng VPBank NEO
+- An toàn tối đa khi giao dịch
+- VPBank NEO được nâng cấp lớp bảo mật, giúp bảo vệ tài khoản và dữ liệu của bạn tốt hơn trong mọi tình huống.
+- Chuyển giao tiền gửi an tâm hơn
+- Bổ sung xác thực sinh trắc học, giúp mỗi giao dịch được bảo vệ chặt chẽ nhưng vẫn nhanh chóng và thuận tiện.
+- Trải nghiệm mới với Data 4G / Topup
+- Giao diện được làm mới hiện đại, trực quan, giúp bạn thao tác dễ dàng và nhanh hơn.
+- Thêm ưu đãi dành cho Coffee Member
+- Khám phá thẻ quà Coffee Member – thêm lựa chọn tận hưởng ưu đãi ngay trên VPBank NEO.
+Cập nhật ngay để tận hưởng trải nghiệm ngân hàng số an toàn, tiện lợi và hiện đại hơn!
+8.3.3
+24 Mar
+Chúng tôi mang đến bản cập nhật mới giúp Hộ Kinh Doanh mở tài khoản nhanh hơn, mượt mà hơn và ổn định hơn.
+Điểm nổi bật trong phiên bản này:
+- Mở tài khoản Hộ Kinh Doanh ngay từ lần đăng nhập đầu tiên – thao tác đơn giản, đúng nhu cầu.
+- Nâng cấp eKYC thông minh giúp xác thực nhanh, xử lý hồ sơ liền mạch và chính xác hơn.
+- Cải thiện độ ổn định trong quá trình đăng ký và kích hoạt tài khoản.
+- Sửa lỗi & tối ưu hệ thống để trải nghiệm sử dụng luôn an toàn và tin cậy.
+Hãy cập nhật lên phiên bản 8.3.2 để trải nghiệm hành trình mở tài khoản Hộ Kinh Doanh thuận tiện hơn mỗi ngày!
+8.3.2
+16 Mar
+VPBank NEO 8.3.1 mang đến nhiều cải tiến giúp Quý khách giao dịch thuận tiện hơn, nhận ưu đãi tốt hơn và an tâm hơn khi sử dụng ứng dụng.
+- Bổ sung tính năng Hoàn tiền QR với voucher áp dụng tại Merchant Shop Thịnh Vượng.
+- Xác nhận giao dịch giao vàng trực tiếp trên ứng dụng.
+- Hiển thị thông tin QR rõ ràng hơn và cập nhật thương hiệu chứng khoán.
+- Nâng cấp hệ thống và tối ưu độ ổn định của ứng dụng.
+Hãy cập nhật VPBank NEO để trải nghiệm đầy đủ các tính năng và cải tiến mới nhất.
+8.3.1
+10 Mar
+VPBank NEO đã nâng cấp hệ thống để tăng cường an toàn và bảo mật cho các dịch vụ số, đáp ứng các tiêu chuẩn mới nhất theo quy định của Ngân hàng Nhà nước Việt Nam. Dữ liệu và giao dịch của bạn luôn được bảo vệ ở mức cao nhất trong suốt quá trình sử dụng.
+Bản cập nhật này giúp nâng cao độ an toàn khi cài đặt, đăng nhập và giao dịch, mang lại trải nghiệm sử dụng ổn định, tin cậy và yên tâm hơn mỗi ngày.
+8.2.3
+27 Feb
+Tối ưu hiệu năng và trải nghiệm người dùng
+8.2.2
+12 Feb
+Có gì mới trong VPBank NEO phiên bản này?
+- Smart OTP mượt hơn: cải thiện luồng xác thực để thao tác nhanh, ổn định và liền mạch hơn trong các giao dịch thường nhật.
+- “Đi chơi dễ” ngay trên NEO: đặt vé rạp tại Shop Thịnh Vượng, giúp bạn săn suất chiếu và thanh toán tiện lợi chỉ trong vài chạm.
+- Tải/ chụp chứng từ linh hoạt hơn với từng bối cảnh, giảm thao tác lặp lại khi cần bổ sung hồ sơ.
+- Hiển thị thông minh cho thẻ ghi nợ nội địa để giao diện gọn gàng, đúng nhu cầu hơn.
+- Ổn định & hiệu năng: sửa lỗi & tối ưu hiệu năng cho cảm giác mượt mà hơn
+
+Hãy cập nhật để trải nghiệm phiên bản NEO mới nhé!
+8.2.1
+9 Feb
+Phiên bản mới, Mượt hơn – Nhanh hơn – Tiện hơn với các tính năng sau:
+- Thanh toán chủ động. Trải nghiệm mượt mà
+- Autobill siêu tiện – hóa đơn luôn đúng hẹn.
+- Danh sách hóa đơn tinh gọn – tìm gì cũng thấy.
+- Giao dịch nhanh hơn – app ổn định hơn.
+- An toàn nâng tầm – mỗi chạm là một lớp bảo vệ.
+8.1.3
+6 Feb
+Có gì mới trong bản cập nhật này:
+- Bảo mật & Riêng tư: Cập nhật quy trình thu thập đồng ý và chính sách xử lý dữ liệu cá nhân theo tiêu chuẩn mới nhất (PDPA), giúp thông tin của bạn luôn được bảo vệ an toàn và minh bạch.
+-  Một năm nhìn lại 2025: Cùng chúng tôi điểm lại những cột mốc đáng nhớ và hành trình giao dịch thú vị của bạn trong suốt năm vừa qua với tính năng "Year in Review" độc đáo.
+-  Cải thiện hiệu năng: Tối ưu hóa hệ thống và sửa các lỗi nhỏ để mang lại trải nghiệm mượt mà hơn.
+Hãy cập nhật phiên bản mới nhất ngay để trải nghiệm nhé!
+8.1.1
+12 Jan
+VPBank NEO với nhiều cải tiến giúp giao dịch thuận tiện, an toàn và trải nghiệm tốt hơn!
+- Chuyển tiền tiện lợi hơn
+- Quét QR dễ dàng hơn với khả năng zoom linh hoạt
+- Hiển thị thêm thông tin giao dịch giúp tra cứu thuận tiện
+- Theo dõi lãi suất tiền gửi ngay từ Trang chủ
+- Cải thiện trải nghiệm ưu đãi Hội viên Thịnh Vượng
+- Nâng cao hiệu năng và độ ổn định ứng dụng.
+more
+Version 8.8.2
+17 Aug
+2026-09-03 01:19:02,019 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:19:02,029 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 01:19:02,496 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 01:19:20,080 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 01:19:20,095 INFO agent.graph: Structure LLM call done in 18.38s for query: This is VPBank NEO's App Store version history. Extract concrete release notes — | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 4056, 'output_tokens': 3256, 'total_tokens': 7312}
+2026-09-03 01:19:20,106 INFO service: [39/39] vpbank_neo_release_notes done in 20.1s (gate_passed=True, error=None)
+2026-09-03 01:19:20,587 INFO service: Trigger finished in 6585.31s: 39/39 ok, 0 gate-rejected, 0 errored
+2026-09-03 01:19:20,587 INFO service: Full run summary written to /Users/dangngocbach/PycharmProjects/Market insight test/data/trigger_run_6c789d58-f769-4b44-afee-6019e7aff0f9.json

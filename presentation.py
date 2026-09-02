@@ -1,13 +1,13 @@
-"""Phase 4 presentation generator — a single HTML fragment (no doctype/
+"""Phase 4 presentation generator - a single HTML fragment (no doctype/
 html/head/body; published via the Artifact tool, which wraps it) in the
 same plain, functional visual language as review_dashboard.py (system
-fonts, flat borders, functional badges — deliberately not a "designed"
+fonts, flat borders, functional badges - deliberately not a "designed"
 marketing page). Pulls from the same data review_dashboard.py reads
-(data/raw_content.csv + data/signals.jsonl) — a live snapshot as of
+(data/raw_content.csv + data/signals.jsonl) - a live snapshot as of
 generation time; regenerate any time after a run to refresh.
 
 Usage: python presentation.py
-Output: presentation_fragment.html (repo root) — publish via Artifact,
+Output: presentation_fragment.html (repo root) - publish via Artifact,
 don't open directly (no doctype/head/body of its own by design).
 """
 
@@ -23,54 +23,54 @@ OUT_PATH = ROOT / "presentation_fragment.html"
 TECH_STACK = [
     ("Fetch engine", "crawl4ai", "HTTP + Playwright-based crawling, PDF text extraction"),
     ("Browser automation", "Playwright", "JS-rendered pages, click simulation, network-capture API discovery"),
-    ("Pipeline orchestration", "LangGraph", "StateGraph: checkpoint_gate → crawl → content_gate → structure"),
+    ("Pipeline orchestration", "LangGraph", "StateGraph: checkpoint_gate -> crawl -> content_gate -> structure"),
     ("LLM chat abstraction", "LangChain", "Unified interface across 4 providers, with .with_fallbacks()"),
-    ("Primary LLM", "Groq — openai/gpt-oss-120b", "Free tier, fast, rate-limited (TPM + daily TPD)"),
-    ("Fallback LLM 1", "Google Gemini — gemini-3.6-flash", ""),
-    ("Fallback LLM 2", "Mistral — mistral-small-2603", ""),
-    ("Fallback LLM 3", "OpenRouter — nvidia/nemotron-3-super-120b-a12b:free", "Last resort, free-tier models rotate"),
-    ("OCR", "Mistral OCR — mistral-ocr-latest, Batch mode", "Scanned / no-text-layer PDF recovery, ~$2/1,000 pages"),
+    ("Primary LLM", "Groq - openai/gpt-oss-120b", "Free tier, fast, rate-limited (TPM + daily TPD)"),
+    ("Fallback LLM 1", "Google Gemini - gemini-3.6-flash", ""),
+    ("Fallback LLM 2", "Mistral - mistral-small-2603", ""),
+    ("Fallback LLM 3", "OpenRouter - nvidia/nemotron-3-super-120b-a12b:free", "Last resort, free-tier models rotate"),
+    ("OCR", "Mistral OCR - mistral-ocr-latest, Batch mode", "Scanned / no-text-layer PDF recovery, ~$2/1,000 pages"),
     ("Structured output", "Pydantic", "MarketSignalBatch schema validation"),
     ("HTML parsing", "BeautifulSoup4 + lxml", "Content-selector scoping past nav/footer boilerplate"),
     ("PDF page analysis", "pypdf", "Partial-scan detection via real page counts"),
     ("HTTP client", "requests", "Raw PDF re-download for OCR / page-density checks"),
     ("API service", "FastAPI", "/trigger endpoint"),
-    ("Storage", "JSONL + CSV, flat files", "signals, raw content, provider calls, OCR job log — no database yet"),
+    ("Storage", "JSONL + CSV, flat files", "signals, raw content, provider calls, OCR job log - no database yet"),
 ]
 
 FURTHER_IMPROVEMENTS = [
-    "Full LLM-verification pass across all 47 sources — in progress; only 9 have a real, current-code run so far.",
-    "Prompt refactor grouped by content shape (financial-statement PDF / legal document / news article / app release notes) — deferred pending real evidence; the two weak-extraction candidates checked so far turned out to be stale pre-fix data, not current prompt problems.",
-    "Extend automatic OCR-eligibility to the remaining single-fetch chunked sources (Techcombank, ACB, 3 fee schedules) — only BIDV and MBB have it wired so far.",
-    "Reconsider blind pre-chunking of large documents (ACB's financial statement splits into 21 pieces, ~10-15 min just from pacing) — BIDV's own ~190K-char OCR'd document was handled in a single call by the fallback chain's larger-context providers; chunking may now be a pre-fallback-chain relic.",
-    "A real query layer (SQLite) for joining signals ↔ raw content ↔ run history — currently hand-rolled Python merges in every script that needs it.",
-    "Annual reports / AGM documents (Layer 3) — parked mid-discovery, deferred pending OCR effort (which now exists).",
-    "Vietcombank's own Layer 1 disclosures — Akamai-blocked, routed to manual ingestion per source_plan_mvp0.md §8, not automated.",
+    "Full LLM-verification pass across all 47 sources - in progress; only 9 have a real, current-code run so far.",
+    "Prompt refactor grouped by content shape (financial-statement PDF / legal document / news article / app release notes) - deferred pending real evidence; the two weak-extraction candidates checked so far turned out to be stale pre-fix data, not current prompt problems.",
+    "Extend automatic OCR-eligibility to the remaining single-fetch chunked sources (Techcombank, ACB, 3 fee schedules) - only BIDV and MBB have it wired so far.",
+    "Reconsider blind pre-chunking of large documents (ACB's financial statement splits into 21 pieces, ~10-15 min just from pacing) - BIDV's own ~190K-char OCR'd document was handled in a single call by the fallback chain's larger-context providers; chunking may now be a pre-fallback-chain relic.",
+    "A real query layer (SQLite) for joining signals <-> raw content <-> run history - currently hand-rolled Python merges in every script that needs it.",
+    "Annual reports / AGM documents (Layer 3) - parked mid-discovery, deferred pending OCR effort (which now exists).",
+    "Vietcombank's own Layer 1 disclosures - Akamai-blocked, routed to manual ingestion per source_plan_mvp0.md section 8, not automated.",
 ]
 
 BLOCKERS_FACED = [
-    "Anti-bot walls: Akamai (MBBank's, Vietcombank's own sites), intermittent WAF rejections (sbv.gov.vn) — routed around via aggregator mirrors or accepted as flaky, never evasion techniques.",
-    "AJAX-gapped listings (VPBank, ACB) where the real content loads via client-side API calls invisible to a plain fetch — solved via real Playwright network capture of an actual click, not scraping guesses.",
-    "Scanned / no-text-layer PDFs (BIDV, SBV legal directives, MBBank's Vietstock mirror) — needed a real OCR pipeline (Mistral Batch OCR) built from scratch this session.",
-    "A full Groq daily token-quota exhaustion (2026-08-31) — silently produced \"completed\" runs with zero real signals, before the current Groq → Gemini → Mistral → OpenRouter fallback chain existed to catch it.",
-    "robots.txt blocks naming ClaudeBot specifically (thuvienphapluat.vn, VNDirect) — routed to an equivalent aggregator instead of working around the block.",
-    "A corrupted-text auto-detection threshold with a real near-miss: MBBank's re-OCR'd mirror measured 0.0477 against a 0.05 cutoff — needed a manual per-source override, not a global threshold change.",
-    "Content that fetches successfully but is 100% navigation boilerplate (SBV statistics) — invisible to a basic reachability check; only caught by directly reading the fetched text.",
+    "Anti-bot walls: Akamai (MBBank's, Vietcombank's own sites), intermittent WAF rejections (sbv.gov.vn) - routed around via aggregator mirrors or accepted as flaky, never evasion techniques.",
+    "AJAX-gapped listings (VPBank, ACB) where the real content loads via client-side API calls invisible to a plain fetch - solved via real Playwright network capture of an actual click, not scraping guesses.",
+    "Scanned / no-text-layer PDFs (BIDV, SBV legal directives, MBBank's Vietstock mirror) - needed a real OCR pipeline (Mistral Batch OCR) built from scratch this session.",
+    "A full Groq daily token-quota exhaustion (2026-08-31) - silently produced \"completed\" runs with zero real signals, before the current Groq -> Gemini -> Mistral -> OpenRouter fallback chain existed to catch it.",
+    "robots.txt blocks naming ClaudeBot specifically (thuvienphapluat.vn, VNDirect) - routed to an equivalent aggregator instead of working around the block.",
+    "A corrupted-text auto-detection threshold with a real near-miss: MBBank's re-OCR'd mirror measured 0.0477 against a 0.05 cutoff - needed a manual per-source override, not a global threshold change.",
+    "Content that fetches successfully but is 100% navigation boilerplate (SBV statistics) - invisible to a basic reachability check; only caught by directly reading the fetched text.",
 ]
 
 BLOCKERS_AHEAD = [
-    "No formal spend cap on LLM/OCR usage yet — real financial exposure if the pipeline runs unattended at full scale.",
-    "More sources likely have SBV-statistics-style bugs (fetches fine, content is boilerplate) — only found by manual review so far, not systematically.",
-    "Provider API / model deprecations — already happened once mid-project (Groq retired llama-3.3-70b-versatile); the fallback chain helps but doesn't eliminate this.",
-    "Vietcombank's Layer 1 data has no automated path at all — needs a real manual-ingestion workflow that doesn't exist yet.",
-    "Chunked-source processing time scales badly — a single heavily-split document can take 10+ minutes from per-piece pacing alone.",
+    "No formal spend cap on LLM/OCR usage yet - real financial exposure if the pipeline runs unattended at full scale.",
+    "More sources likely have SBV-statistics-style bugs (fetches fine, content is boilerplate) - only found by manual review so far, not systematically.",
+    "Provider API / model deprecations - already happened once mid-project (Groq retired llama-3.3-70b-versatile); the fallback chain helps but doesn't eliminate this.",
+    "Vietcombank's Layer 1 data has no automated path at all - needs a real manual-ingestion workflow that doesn't exist yet.",
+    "Chunked-source processing time scales badly - a single heavily-split document can take 10+ minutes from per-piece pacing alone.",
 ]
 
 
 def _is_real_run(run: dict) -> bool:
     """See session notes 2026-09-02: excludes the 2026-08-31 Groq-daily-
     quota-outage fingerprint (gate_passed=True, error=None, 0 tokens,
-    0 signals) — every per-piece call silently failing before
+    0 signals) - every per-piece call silently failing before
     agent/llm_fallback.py existed, not a real completed attempt."""
     if run is None:
         return False
@@ -112,7 +112,7 @@ def _gather() -> dict:
 
 
 # Horizontal flow, two lanes (single-fetch on top, multi-piece on bottom),
-# sharing checkpoint_gate on the left and END on the right — same real
+# sharing checkpoint_gate on the left and END on the right - same real
 # node names as agent/graph.py, not a simplified version. The OCR
 # fallback sits above both content_gate boxes (elbow arrows up and back
 # down); the LLM fallback chain sits below both structure boxes; the
@@ -150,7 +150,7 @@ ARCHITECTURE_SVG = """
   <text x="140" y="181" text-anchor="middle" class="lbl small">validates the query</text>
   <path d="M43,170 L70,170" class="edge"></path>
 
-  <!-- top lane: single-fetch — y49-91 throughout, dedicated to this lane only -->
+  <!-- top lane: single-fetch - y49-91 throughout, dedicated to this lane only -->
   <rect x="280" y="49" width="130" height="42" rx="5" class="box"></rect>
   <text x="345" y="68" text-anchor="middle" class="lbl">crawl</text>
   <text x="345" y="80" text-anchor="middle" class="lbl small">single-fetch source</text>
@@ -169,7 +169,7 @@ ARCHITECTURE_SVG = """
   <text x="965" y="80" text-anchor="middle" class="lbl small">one LLM call</text>
   <path d="M610,70 L900,70" class="edge"></path>
 
-  <!-- bottom lane: multi-piece — y249-291 throughout, dedicated to this lane only -->
+  <!-- bottom lane: multi-piece - y249-291 throughout, dedicated to this lane only -->
   <rect x="280" y="249" width="130" height="42" rx="5" class="box"></rect>
   <text x="345" y="268" text-anchor="middle" class="lbl">crawl_multi</text>
   <text x="345" y="280" text-anchor="middle" class="lbl small">chunked / multi_pdf</text>
@@ -186,7 +186,7 @@ ARCHITECTURE_SVG = """
   <path d="M610,270 L660,270" class="edge"></path>
 
   <!-- ensure_ocr_text(): its own vertical lane, sandwiched directly between
-       content_gate (above) and content_gate_multi (below) — both arrows in,
+       content_gate (above) and content_gate_multi (below) - both arrows in,
        both arrows out, are short, symmetric straight verticals -->
   <rect x="460" y="150" width="150" height="40" rx="5" class="box ocr"></rect>
   <text x="535" y="166" text-anchor="middle" class="lbl">ensure_ocr_text()</text>
@@ -203,10 +203,10 @@ ARCHITECTURE_SVG = """
   <!-- LLM fallback chain: own lane below both structure nodes. Straight
        vertical drops from each (structure's is the long one, routed through
        the clear channel right of structure_multi's box), one straight line
-       back up to END — no diagonal crossing through this zone. -->
+       back up to END - no diagonal crossing through this zone. -->
   <rect x="650" y="340" width="360" height="52" rx="5" class="box"></rect>
-  <text x="830" y="358" text-anchor="middle" class="lbl">Groq → Gemini → Mistral</text>
-  <text x="830" y="371" text-anchor="middle" class="lbl">→ OpenRouter</text>
+  <text x="830" y="358" text-anchor="middle" class="lbl">Groq -> Gemini -> Mistral</text>
+  <text x="830" y="371" text-anchor="middle" class="lbl">-&gt; OpenRouter</text>
   <text x="830" y="384" text-anchor="middle" class="lbl small">first success wins</text>
   <path d="M965,91 L965,340" class="edge"></path>
   <path d="M725,291 L725,340" class="edge"></path>
@@ -260,11 +260,11 @@ def _source_sections_html(data: dict) -> str:
         body = "".join(
             f"<tr><td class='sid'>{r['source']['id']}</td><td>{r['source'].get('kind','')}</td>"
             f"<td>{_status_badge(r)}</td>"
-            f"<td class='num'>{len((r['run'].get('result') or {}).get('signals') or []) if r['run'] else '—'}</td></tr>"
+            f"<td class='num'>{len((r['run'].get('result') or {}).get('signals') or []) if r['run'] else '-'}</td></tr>"
             for r in rows
         )
         sections.append(
-            f"<h3>{html.escape(layer_name)} <span class='countnote'>({len(rows)} sources)</span></h3>"
+            f"<h3>{html.escape(layer_name.replace(' — ', ' - '))} <span class='countnote'>({len(rows)} sources)</span></h3>"
             f"<table class='srctable'><thead><tr><th>Source</th><th>Kind</th><th>Status</th><th>Signals</th></tr></thead>"
             f"<tbody>{body}</tbody></table>"
         )
@@ -319,22 +319,22 @@ footer {{ margin-top:2.5rem; padding-top:1rem; border-top:2px solid #ccc; font-s
 </style>
 
 <h1>Market Insight Pipeline</h1>
-<p class="dek">Vietnam banking market intelligence — a crawl → gate → extract pipeline over 47 real sources: bank IR pages, SBV statistics, legal circulars, industry research.</p>
-<p class="stats-note">Live snapshot, regenerated from data/signals.jsonl + raw_content.csv — not a fixed export. Run <code>python presentation.py</code> again any time to refresh.</p>
+<p class="dek">Vietnam banking market intelligence - a crawl -> gate -> extract pipeline over 47 real sources: bank IR pages, SBV statistics, legal circulars, industry research.</p>
+<p class="stats-note">Live snapshot, regenerated from data/signals.jsonl + raw_content.csv - not a fixed export. Run <code>python presentation.py</code> again any time to refresh.</p>
 
 <h2>Tech stack</h2>
 {_tech_table_html()}
 
 <h2>Architecture</h2>
-<p class="stats-note">The real graph shape — including the automatic OCR-recovery branch and the disabled search path still present in code, not a simplified version.</p>
+<p class="stats-note">The real graph shape - including the automatic OCR-recovery branch and the disabled search path still present in code, not a simplified version.</p>
 <div class="archwrap">{ARCHITECTURE_SVG}</div>
 
 <h2>Run summary</h2>
-<p class="stats-note">Counts reflect only genuinely completed structuring passes — stale entries from a 2026-08-31 provider-quota outage (before the current fallback chain existed) are excluded, not counted as real attempts.</p>
+<p class="stats-note">Counts reflect only genuinely completed structuring passes - stale entries from a 2026-08-31 provider-quota outage (before the current fallback chain existed) are excluded, not counted as real attempts.</p>
 <table class="srctable">{stats_table}</table>
 
 <h2>Sources, by Layer</h2>
-<p class="stats-note">source_plan_mvp0.md's 4 content layers — every one of the 47 configured sources, not just a count.</p>
+<p class="stats-note">source_plan_mvp0.md's 4 content layers - every one of the 47 configured sources, not just a count.</p>
 {_source_sections_html(data)}
 
 <h2>Further improvements</h2>
