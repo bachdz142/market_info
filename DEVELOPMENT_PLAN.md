@@ -359,6 +359,23 @@ Securities-firm research ends this pass at 3 of 4 named firms (SSI, VCBS, BSC), 
 - This row remains partially open: 1 of 4 named securities firms solved (SSI), 2 of 3 named consumer-research firms solved (Decision Lab, Q&Me) — both rows are usable but not fully populated. VCBS/BSC's SPA-routing problem and Cimigo's staleness are documented above for whoever picks this back up, rather than silently dropped.
 - Still open, unrelated to this pass: annual reports/AGM documents (Layer 3, parked mid-discovery — see `.scratch/layer3-annual-reports/spec.md`), GSO stats, app-store release notes (6 apps), Phase 3 structuring-prompt quality.
 
+## v0.14 — GSO/NSO stats (✅ done, domain migration found)
+
+First real work on `source_plan_mvp0.md` §6.3's GSO row. The plan's own listed domain (`gso.gov.vn`) turned out to be genuinely dead — confirmed live: DNS resolves and ICMP ping succeeds, but a raw TCP connect on port 443 times out (a dead host, not a WAF/anti-bot block, and not an environment-wide network issue, since `sbv.gov.vn` connects fine from the same check). GSO (General Statistics Office) was renamed NSO (National Statistics Office); the real, live successor site is `nso.gov.vn`.
+
+- [x] **`nso_data_and_statistics_official`** — a general releases-archive feed (matching the `chinhphu_legal_documents_official` "general feed + LLM filters for relevant topics" pattern), since NSO's dedicated GDP category page uses a PxWeb data-table interface (out of scope for this pass — a genuinely different, more complex integration than a crawlable HTML page). `SITE_CONFIGS["nso.gov.vn"]`'s `.archive-container` selector scopes past a large nav/category-tree menu. Confirmed live: real, current (Aug 2026) releases — CPI, industrial production index, exports/imports, socio-economic performance. CPI itself is already covered by the existing `vietnam_cpi_official`; this source is for whenever this general feed happens to carry GDP/VHLSS/labor figures instead.
+
+### Verification
+- [x] Import/build sanity check — `SOURCES` imports cleanly with the new entry (38 total sources), no id collisions.
+- [x] Full fetch → content-gate pipeline verified live via `fetch_preview.py`, fetch-only (zero LLM cost) — real, current, dated content confirmed.
+- [x] Offline test suite (`test_content_gate.py` + `test_tier_fact_opinion.py` + the pure-code subset of `test_bug_fixes.py`): 21/21 passing, unaffected by this change.
+- [ ] Full LLM-inclusive `pytest tests/test_sources.py` **not** run, per the fetch-dev-no-llm-by-default direction.
+
+### Further Notes
+- NSO's dedicated National Accounts (GDP) category page exists but serves data via PxWeb tables, not plain HTML — a genuinely different scraping problem (a structured statistical database interface) than anything else in this file. Worth a dedicated future pass if GDP-specific figures (not just whatever surfaces in the general releases feed) become a real requirement.
+- VHLSS (household income/expenditure survey) has its own dedicated page under NSO's "Health, Culture, Sport, Living standards..." category, not yet investigated — the general feed may or may not surface VHLSS releases depending on publication cadence (annual).
+- Still open: annual reports/AGM documents (Layer 3, parked mid-discovery — see `.scratch/layer3-annual-reports/spec.md`), app-store release notes (6 apps), Phase 3 structuring-prompt quality, and the single biggest cross-cutting gap — zero of this session's ~33 new sources have been LLM-verified yet.
+
 ## Maintenance fixes
 
 - [x] Swapped AI model: Groq shut down `llama-3.3-70b-versatile` (and `llama-3.1-8b-instant`) on 2026-08-16. Now defaults to `openai/gpt-oss-120b` (overridable via `GROQ_MODEL`).

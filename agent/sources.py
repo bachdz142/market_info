@@ -305,6 +305,39 @@ SOURCES = [
         ),
     },
     {
+        "id": "nso_data_and_statistics_official",
+        "kind": "quant",
+        "role": "citable",
+        # source_plan_mvp0.md §6.3 names gso.gov.vn — that domain is now
+        # genuinely dead (confirmed live: DNS/ping succeed but a raw TCP
+        # connect on port 443 times out, unlike sbv.gov.vn from the same
+        # check — a dead host, not a block). GSO was renamed NSO (National
+        # Statistics Office); nso.gov.vn is the real, live successor.
+        # .archive-container (SITE_CONFIGS["nso.gov.vn"]) scopes past a
+        # large nav/category-tree menu down to this page's 5 real dated
+        # entries. Confirmed live: real, current (Aug 2026) releases —
+        # CPI, industrial production index, exports/imports, socio-economic
+        # performance. CPI itself is already covered by vietnam_cpi_official
+        # elsewhere; this source is for the other named figures (GDP,
+        # household income/VHLSS, labor data) whenever this general feed
+        # happens to carry them — a general feed of ALL NSO releases, not
+        # scoped to one category, so most entries will be off-topic.
+        "url": "https://www.nso.gov.vn/en/data-and-statistics/",
+        "prompt": (
+            "Extract concrete GDP, household income/expenditure (VHLSS), "
+            "or labor/employment figures from the statistical releases "
+            "below — including the reference period each figure covers "
+            "and the date of issue. This is a general feed of all NSO "
+            "releases (industrial production, trade, prices, agriculture, "
+            "etc.), so most entries will be unrelated — skip those and "
+            "only report genuinely relevant ones; if none are relevant, "
+            "return an empty signals list rather than reporting unrelated "
+            "figures. Do not report CPI/inflation figures here even if "
+            "present — those are covered by a separate source. "
+            "source_code for these signals is \"NSO\"."
+        ),
+    },
+    {
         "id": "chinhphu_legal_documents_official",
         "kind": "qualitative",
         "role": "citable",

@@ -5,6 +5,20 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — GSO/NSO stats source (domain migration found)
+
+- The plan's listed domain (`gso.gov.vn`) is genuinely dead — confirmed
+  live: DNS/ping succeed, but a raw TCP connect on port 443 times out
+  (not a WAF block, not an environment issue — `sbv.gov.vn` connects
+  fine from the same check). GSO was renamed NSO (National Statistics
+  Office); the real site is `nso.gov.vn`.
+- Added `nso_data_and_statistics_official`, a general releases-archive
+  feed (same "general feed + LLM filters" pattern as
+  `chinhphu_legal_documents_official`). New
+  `SITE_CONFIGS["nso.gov.vn"]` entry, `.archive-container` selector.
+  Real, current (Aug 2026) content confirmed live. NSO's dedicated GDP
+  page uses a PxWeb data-table interface — out of scope for this pass.
+
 ## Unreleased — Tier 2 sources: securities-firm research + consumer research (partial)
 
 - Added `ssi_banking_sector_report` (SSI, a hand-verified PDF found via

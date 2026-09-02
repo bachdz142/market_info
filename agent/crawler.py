@@ -212,6 +212,22 @@ SITE_CONFIGS = {
         "pdf_link_selector": None,
         "pdf_link_limit": 1,
     },
+    # GSO (General Statistics Office) was renamed NSO (National Statistics
+    # Office); gso.gov.vn itself is now genuinely unreachable (confirmed
+    # live: DNS/ping succeed but a raw TCP connect on port 443 times out —
+    # a dead host, not a WAF/anti-bot block, and not an environment-wide
+    # issue since sbv.gov.vn connects fine from the same check). The real,
+    # current site is nso.gov.vn. .archive-container scopes past a large
+    # nav/category-tree menu (~85K chars unscoped on the archive listing)
+    # down to just that page's 5 real dated entries. Confirmed live: static
+    # fetch already returns real, current (Aug 2026) content, no JS needed.
+    "nso.gov.vn": {
+        "needs_js": False,
+        "wait_selector": None,
+        "content_selector": ".archive-container",
+        "pdf_link_selector": None,
+        "pdf_link_limit": 1,
+    },
 }
 DEFAULT_CONFIG = {
     "needs_js": False,
