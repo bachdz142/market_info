@@ -228,6 +228,22 @@ SITE_CONFIGS = {
         "pdf_link_selector": None,
         "pdf_link_limit": 1,
     },
+    # Layer 2 app-store release notes (source_plan_mvp0.md §4). Google
+    # Play's app detail page no longer has a "What's New" section at all —
+    # confirmed live: absent from the entire ~1.2MB rendered page for a
+    # real, live app (not a fetch/rendering issue, a real Play Store
+    # redesign). Apple's App Store still has one — #mostRecentVersion
+    # scopes to just that section (a curly-quote "What's New" heading, not
+    # a straight apostrophe — an earlier plain-text keyword search for
+    # "what's new" missed it for exactly this reason). Confirmed live
+    # across all 6 named apps: real, current version history with dates.
+    "apps.apple.com": {
+        "needs_js": False,
+        "wait_selector": None,
+        "content_selector": "#mostRecentVersion",
+        "pdf_link_selector": None,
+        "pdf_link_limit": 1,
+    },
 }
 DEFAULT_CONFIG = {
     "needs_js": False,

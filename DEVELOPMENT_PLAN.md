@@ -376,6 +376,23 @@ First real work on `source_plan_mvp0.md` §6.3's GSO row. The plan's own listed 
 - VHLSS (household income/expenditure survey) has its own dedicated page under NSO's "Health, Culture, Sport, Living standards..." category, not yet investigated — the general feed may or may not surface VHLSS releases depending on publication cadence (annual).
 - Still open: annual reports/AGM documents (Layer 3, parked mid-discovery — see `.scratch/layer3-annual-reports/spec.md`), app-store release notes (6 apps), Phase 3 structuring-prompt quality, and the single biggest cross-cutting gap — zero of this session's ~33 new sources have been LLM-verified yet.
 
+## v0.15 — App-store release notes, all 6 named apps (✅ done, Google Play dead end found)
+
+First real work on `source_plan_mvp0.md` §4's app-store release-notes row. Google Play's app detail page turned out to have genuinely lost its public "What's New" section — confirmed live: absent from the entire ~1.2MB rendered page for a real, live app (Techcombank Mobile), not a fetch/rendering problem. Apple's App Store still has one, so all 6 apps are sourced from there instead.
+
+- [x] **All 6 apps solved directly**: `techcombank_mobile_release_notes`, `vcb_digibank_release_notes`, `bidv_smartbanking_release_notes`, `mbbank_app_release_notes`, `acb_one_release_notes`, `vpbank_neo_release_notes`. `SITE_CONFIGS["apps.apple.com"]`'s `#mostRecentVersion` selector scopes to just the version-history section. One real gotcha along the way: the page's actual heading uses a curly right-single-quote ("What's New" with `’`, not `'`) — a first plain-text keyword search for "what's new" (straight apostrophe) missed it entirely and wrongly looked like the section didn't exist there either.
+- [x] Content quality genuinely varies by bank, confirmed live: BIDV and ACB give specific, real per-version feature notes (a new insurance product, certificate of deposit, smart term deposit, eSIM top-up); Techcombank/VCB/MB mostly repeat generic "faster, more stable, more secure" boilerplate release over release. Both kinds are included as-is — even the generic boilerplate is the bank's own genuine self-disclosed update cadence, which is what the plan's row actually asks for ("new features self-disclosed by the bank, update history").
+
+### Verification
+- [x] Import/build sanity check — `SOURCES` imports cleanly with all 6 new entries (44 total sources), no id collisions.
+- [x] Every new source's full fetch → content-gate pipeline verified live via `fetch_preview.py`, fetch-only (zero LLM cost) — all 6 pass `check_content_usable()`, real current version history confirmed for each, none need chunking (2.1K-11.4K chars).
+- [x] Offline test suite (`test_content_gate.py` + `test_tier_fact_opinion.py` + the pure-code subset of `test_bug_fixes.py`): 21/21 passing, unaffected by this change.
+- [ ] Full LLM-inclusive `pytest tests/test_sources.py` **not** run, per the fetch-dev-no-llm-by-default direction.
+
+### Further Notes
+- This closes out every named source-discovery row in `source_plan_mvp0.md` except annual reports/AGM documents (Layer 3, still parked mid-discovery — see `.scratch/layer3-annual-reports/spec.md`) and Layer 4's VHLSS/GDP-specific figures (NSO's dedicated pages use a PxWeb data-table interface, see v0.14).
+- The single biggest remaining cross-cutting gap: zero of this session's ~39 new sources have been LLM-verified yet — every one of them (this entry included) is fetch-only-confirmed. A real-LLM spot-check across a representative sample is the natural next step before calling any of this "shippable."
+
 ## Maintenance fixes
 
 - [x] Swapped AI model: Groq shut down `llama-3.3-70b-versatile` (and `llama-3.1-8b-instant`) on 2026-08-16. Now defaults to `openai/gpt-oss-120b` (overridable via `GROQ_MODEL`).

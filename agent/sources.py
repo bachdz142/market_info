@@ -1141,4 +1141,121 @@ SOURCES = [
             "signals is \"QANDME\"."
         ),
     },
+
+    # ------------------------------------------------------------------
+    # Layer 2 — app-store release notes (source_plan_mvp0.md §4), all 6
+    # named apps. Google Play's app detail page no longer has a "What's
+    # New" section at all — confirmed live: absent from the entire
+    # ~1.2MB rendered page for a real, live app. This is a genuine Play
+    # Store redesign (Google appears to have removed the public-facing
+    # changelog), not a fetch/rendering problem — so Apple's App Store is
+    # used instead for all 6, via SITE_CONFIGS["apps.apple.com"]'s
+    # #mostRecentVersion selector. Confirmed live for every app: real,
+    # current version history with dates — content quality varies by
+    # bank (BIDV and ACB give genuinely specific per-version feature
+    # notes; Techcombank/VCB/MB mostly repeat generic "faster, more
+    # secure" boilerplate release over release — both are the bank's own
+    # authentic self-disclosure either way, so both are included as-is).
+    {
+        "id": "techcombank_mobile_release_notes",
+        "kind": "qualitative",
+        "role": "citable",
+        "url": "https://apps.apple.com/vn/app/techcombank-mobile/id1548623362",
+        "prompt": (
+            "This is Techcombank Mobile's App Store version history. "
+            "Extract concrete release notes — the version number, "
+            "release date, and any specific new feature or change named "
+            "(not just generic \"faster and more secure\" boilerplate, "
+            "if a specific feature is also mentioned). If a version's "
+            "notes are pure generic boilerplate with no specific feature "
+            "named, still report it as a signal (it's the bank's genuine "
+            "self-disclosed update cadence) but keep the summary honest "
+            "about there being no specific feature disclosed. "
+            "data_basis is \"not_applicable\". source_code for these "
+            "signals is \"TCB\"."
+        ),
+    },
+    {
+        "id": "vcb_digibank_release_notes",
+        "kind": "qualitative",
+        "role": "citable",
+        "url": "https://apps.apple.com/vn/app/vcb-digibank/id561433133",
+        "prompt": (
+            "This is VCB Digibank's App Store version history. Extract "
+            "concrete release notes — the version number, release date, "
+            "and any specific new feature or change named (not just "
+            "generic performance-improvement boilerplate, if a specific "
+            "feature is also mentioned). If a version's notes are pure "
+            "generic boilerplate with no specific feature named, still "
+            "report it as a signal (it's the bank's genuine self-"
+            "disclosed update cadence) but keep the summary honest about "
+            "there being no specific feature disclosed. data_basis is "
+            "\"not_applicable\". source_code for these signals is "
+            "\"VCB\"."
+        ),
+    },
+    {
+        "id": "bidv_smartbanking_release_notes",
+        "kind": "qualitative",
+        "role": "citable",
+        "url": "https://apps.apple.com/vn/app/bidv-smartbanking/id1061867449",
+        "prompt": (
+            "This is BIDV SmartBanking's App Store version history. "
+            "Extract concrete release notes — the version number, "
+            "release date, and each specific new feature or product "
+            "named (e.g. a new insurance product, certificate of "
+            "deposit, or transfer feature) — this app's release notes "
+            "tend to be genuinely specific, not generic boilerplate. "
+            "data_basis is \"not_applicable\". source_code for these "
+            "signals is \"BID\"."
+        ),
+    },
+    {
+        "id": "mbbank_app_release_notes",
+        "kind": "qualitative",
+        "role": "citable",
+        "url": "https://apps.apple.com/vn/app/mb-bank/id1205807363",
+        "prompt": (
+            "This is the MBBank app's App Store version history. Extract "
+            "concrete release notes — the version number, release date, "
+            "and any specific new feature or change named (not just "
+            "generic boilerplate, if a specific feature is also "
+            "mentioned). If a version's notes are pure generic "
+            "boilerplate with no specific feature named, still report it "
+            "as a signal (it's the bank's genuine self-disclosed update "
+            "cadence) but keep the summary honest about there being no "
+            "specific feature disclosed. data_basis is \"not_applicable\". "
+            "source_code for these signals is \"MBB\"."
+        ),
+    },
+    {
+        "id": "acb_one_release_notes",
+        "kind": "qualitative",
+        "role": "citable",
+        "url": "https://apps.apple.com/vn/app/acb-one/id950141024",
+        "prompt": (
+            "This is ACB ONE's App Store version history. Extract "
+            "concrete release notes — the version number, release date, "
+            "and each specific new feature named (e.g. smart term "
+            "deposit, eSIM top-up, train reservations, online sign-up "
+            "improvements) — this app's release notes tend to be "
+            "genuinely specific, not generic boilerplate. data_basis is "
+            "\"not_applicable\". source_code for these signals is "
+            "\"ACB\"."
+        ),
+    },
+    {
+        "id": "vpbank_neo_release_notes",
+        "kind": "qualitative",
+        "role": "citable",
+        "url": "https://apps.apple.com/vn/app/vpbank-neo/id1209349510",
+        "prompt": (
+            "This is VPBank NEO's App Store version history. Extract "
+            "concrete release notes — the version number, release date, "
+            "and each specific new feature or change named (e.g. a "
+            "transfer improvement, QR scanning change, deposit-rate "
+            "tracking feature). data_basis is \"not_applicable\". "
+            "source_code for these signals is \"VPB\"."
+        ),
+    },
 ]

@@ -5,6 +5,25 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — App-store release notes, all 6 named apps (Google Play dead end found)
+
+- Google Play's app detail page no longer has a public "What's New"
+  section at all — confirmed live: absent from the entire ~1.2MB
+  rendered page for a real, live app. A genuine Play Store redesign,
+  not a fetch/rendering issue. Apple's App Store still has one, so all
+  6 apps (Techcombank Mobile, VCB Digibank, BIDV SmartBanking, MBBank,
+  ACB ONE, VPBank NEO) are sourced from there instead. New
+  `SITE_CONFIGS["apps.apple.com"]` entry, `#mostRecentVersion`
+  selector.
+- Gotcha: the section's actual heading uses a curly right-single-quote
+  ("What's New" with `’`), not a straight apostrophe — a first
+  plain-text keyword search missed it and looked like a dead end that
+  wasn't real.
+- Content quality varies by bank (confirmed live): BIDV and ACB give
+  specific per-version feature notes; Techcombank/VCB/MB mostly repeat
+  generic boilerplate. Both included as-is — either way it's the
+  bank's own genuine self-disclosed update cadence.
+
 ## Unreleased — GSO/NSO stats source (domain migration found)
 
 - The plan's listed domain (`gso.gov.vn`) is genuinely dead — confirmed
