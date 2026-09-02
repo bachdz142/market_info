@@ -77,6 +77,7 @@ class AgentState(TypedDict):
     chunked: Optional[bool]
     tier: Optional[str]
     source_id: Optional[str]
+    assume_scan: Optional[bool]
 
 
 
@@ -209,13 +210,33 @@ def _content_gate_multi_node(state: AgentState) -> dict:
     failures, so they're dropped exactly as before. This only runs here
     (the multi-PDF path): pdf_texts already carries each document's real
     PDF URL; the single-fetch path (_content_gate_node) doesn't have that
-    URL available yet — see agent/ocr.py's module docstring."""
+    URL available yet — see agent/ocr.py's module docstring.
+
+    A source with state["assume_scan"] set (e.g. mbb_financial_statements
+    — see agent/sources.py's own comment: a real, measured
+    corrupted_token_ratio of 0.0477 sits just under the 0.05 "scan"
+    threshold, so it silently passes as "usable" despite being a genuine
+    re-OCR'd mirror) tries ensure_ocr_text() FIRST, before the normal
+    check even runs — not gated on check_content_usable() flagging it,
+    since the whole point is that it doesn't reliably flag this source.
+    Falls back to the normal per-piece checks below if OCR itself doesn't
+    help, so this is strictly additive, never worse than before."""
     from agent.ocr import ensure_ocr_text
 
     source_id = state.get("source_id") or (state.get("query") or "")[:40]
     documents = state.get("pdf_texts") or []
+    assume_scan = bool(state.get("assume_scan"))
     kept = []
     for piece_url, piece_text in documents:
+        if assume_scan:
+            ocr_text = ensure_ocr_text(source_id, piece_url)
+            recheck = check_content_usable(ocr_text or "")
+            if recheck["usable"]:
+                logger.info("assume_scan: used OCR for %s regardless of content_gate's own verdict", piece_url)
+                kept.append((piece_url, ocr_text))
+                continue
+            logger.info("assume_scan set for %s but OCR did not help — falling back to normal content_gate checks", piece_url)
+
         result = check_content_usable(piece_text)
         if result["usable"]:
             kept.append((piece_url, piece_text))

@@ -206,6 +206,23 @@ SOURCES = [
         # 55-page scan with zero extractable text) and was NOT added for
         # that reason.
         "chunked": True,
+        # Reopened 2026-09-02 (user review of the actual fetched text:
+        # "Oja chi: s6 18 Le Van LLl'O'ngPhU'O'ng Yen Hoa..." — real
+        # Vietnamese-diacritic mangling from this mirror's own OCR pass,
+        # not born-digital text). Measured live: corrupted_token_ratio is
+        # 0.0477 — just under content_gate's 0.05 "scan" threshold, so it
+        # was silently passing as "usable" despite being a genuine re-OCR'd
+        # scan (this Vietstock copy is itself an OCR'd mirror, per the
+        # comment above, not a one-off measurement fluke). assume_scan
+        # tells _content_gate_node to always try agent/ocr.py's
+        # ensure_ocr_text() for this source regardless of what the generic
+        # ratio check says, rather than lowering the shared 0.05 threshold
+        # (validated against other sources, real risk of new false
+        # positives elsewhere) or hardcoding a source-id check deep in
+        # graph.py. Falls back to the existing (garbled but numerically-
+        # usable, per this source's own prompt below) extraction if OCR
+        # itself fails, same as any other OCR attempt.
+        "assume_scan": True,
         "prompt": (
             "Extract MB Bank's quarterly quantitative benchmarks from the "
             "consolidated financial statement content below — customer "
@@ -224,17 +241,34 @@ SOURCES = [
         "id": "sbv_portal_statistics",
         "kind": "quant",
         "role": "citable",
-        "url": "https://sbv.gov.vn/en/statistics",
-        # Confirmed live: this page's generic-markdown text alone (42K+
-        # chars) exceeds Groq's free-tier 8,000-tokens-per-request ceiling
-        # in a single structure call (413 rate_limit_exceeded).
-        "chunked": True,
+        # Reopened and fixed 2026-09-02 (user found it via a live hover on
+        # the Vietnamese site's own "Dữ liệu thống kê" nav dropdown — the
+        # previous URL, /en/statistics, was ALWAYS pure nav/footer
+        # boilerplate, confirmed live, no real statistic content in it at
+        # all; see SITE_CONFIGS's own comment on this URL in
+        # agent/crawler.py for the full discovery). This one URL is one of
+        # ~199 monthly/quarterly system-wide banking reports under this
+        # nav section — basic indicators (total assets, charter capital,
+        # funding ratios, loan-to-deposit ratio) per institution type, plus
+        # a system-wide total row. Confirmed live: real, current (as of
+        # 30/06/2026) data, only 2,286 chars once scoped — no longer needs
+        # chunking either (removed below). Other report types under the
+        # same nav section (CAR, ROA/ROE) are real too but not pulled in
+        # this pass — deliberately scoped to one report, not a rewrite
+        # into a multi-document source.
+        "url": "https://sbv.gov.vn/vi/thong-ke-mot-so-chi-tieu-co-ban",
         "prompt": (
-            "Extract concrete system-wide monetary/banking statistics from "
-            "the content below — interest rates, credit institution system "
-            "figures, balance of payments, exchange rates, or credit growth "
-            "— including the reference period and date of issue for each "
-            "figure. source_code for these signals is \"SBV\"."
+            "This is NHNN's (State Bank of Vietnam) 'Basic indicators "
+            "statistics' report for the credit institution system, as of "
+            "the date stated in the table. Extract each institution type's "
+            "row as its own signal (or a combined one where that reads "
+            "more naturally) — total assets (absolute value and growth "
+            "rate), charter capital (absolute value and growth rate), the "
+            "short-term-funds-for-medium/long-term-lending ratio, and the "
+            "loan-to-deposit ratio — plus the 'Toàn hệ thống' (whole "
+            "system) total row as its own signal. Note the as-of date "
+            "exactly as given. data_basis is \"not_applicable\". "
+            "source_code for these signals is \"SBV\"."
         ),
     },
     {
@@ -242,10 +276,18 @@ SOURCES = [
         "kind": "quant",
         "role": "citable",
         "url": "https://iav.vn/News/Listtt/202?page=1",
-        # Confirmed live: this page's fetched text exceeds Groq's free-tier
-        # 8,000-tokens-per-request ceiling in a single structure call (413
-        # rate_limit_exceeded).
-        "chunked": True,
+        # Fixed 2026-09-02 (user review: "you loaded the news homepage and
+        # only the text from there, you have to click into the article,
+        # its just a summary of article headline"). The URL was always the
+        # right category — real, dated "Tổng quan thị trường bảo hiểm Việt
+        # Nam ..." (Insurance Market Overview) quarterly/semi-annual/annual
+        # reports are listed right there — the bug was never following
+        # into them. See agent/crawler.py's
+        # _fetch_iav_market_overview_parts(): follows the 3 most recent
+        # article links instead of just reading the listing's own text.
+        # multi_pdf (not chunked — these are genuinely separate documents,
+        # not one oversized page needing arbitrary splitting).
+        "multi_pdf": True,
         # Per source_plan_mvp0.md §3.4: no source discloses per-bank APE —
         # that figure is out of agent scope entirely (manual/internal only,
         # via data/manual). iav.vn only ever publishes the TOTAL market

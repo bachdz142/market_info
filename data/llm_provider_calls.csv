@@ -70,3 +70,13 @@ timestamp,provider,model,success,query_preview,error
 2026-09-02T20:03:20.033553+07:00,mistral,mistral-small-2603,True,Extract BIDV's quarterly quantitative benchmarks from the consolidated financial,
 2026-09-02T20:09:23.261811+07:00,none,none,False,Extract BIDV's quarterly quantitative benchmarks from the consolidated financial,"Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-120b` in organization `org_01m0hpewc9efk8bh39pdvjjbgq` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 56529, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
 2026-09-02T20:10:33.815511+07:00,gemini,gemini-3.6-flash,True,Extract BIDV's quarterly quantitative benchmarks from the consolidated financial,
+2026-09-02T21:40:34.081597+07:00,groq,openai/gpt-oss-120b,True,This is NHNN's (State Bank of Vietnam) 'Basic indicators statistics' report for ,
+2026-09-02T21:40:54.973617+07:00,mistral,mistral-small-2603,True,Extract the total Vietnam life insurance market figures from the content below —,
+2026-09-02T21:41:30.270925+07:00,mistral,mistral-small-2603,True,Extract MB Bank's quarterly quantitative benchmarks from the consolidated financ,
+2026-09-02T21:41:34.732409+07:00,mistral,mistral-small-2603,True,Extract the total Vietnam life insurance market figures from the content below —,
+2026-09-02T21:42:38.965702+07:00,mistral,mistral-small-2603,True,Extract the total Vietnam life insurance market figures from the content below —,
+2026-09-02T21:43:20.465300+07:00,groq,openai/gpt-oss-120b,True,This is NHNN's (State Bank of Vietnam) 'Basic indicators statistics' report for ,
+2026-09-02T21:44:08.752675+07:00,mistral,mistral-small-2603,True,Extract the total Vietnam life insurance market figures from the content below —,
+2026-09-02T21:44:51.650192+07:00,mistral,mistral-small-2603,True,Extract the total Vietnam life insurance market figures from the content below —,
+2026-09-02T21:45:55.249027+07:00,mistral,mistral-small-2603,True,Extract the total Vietnam life insurance market figures from the content below —,
+2026-09-02T21:46:43.146103+07:00,mistral,mistral-small-2603,True,Extract MB Bank's quarterly quantitative benchmarks from the consolidated financ,

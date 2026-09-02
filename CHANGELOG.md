@@ -5,6 +5,43 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — Three real, user-found content bugs (SBV stats, IAV, MBB)
+
+All three found by the user directly reviewing the Phase 1 review dashboard
+(raw vs. extracted, side by side) — not from a heuristic or a test.
+
+- `sbv_portal_statistics` was always pure nav/footer boilerplate — never
+  real statistics, on every fetch since it was added. Found via a real
+  hover on the Vietnamese site's own "Dữ liệu thống kê" nav dropdown
+  (~199 real report pages surfaced). Swapped to
+  `sbv.gov.vn/vi/thong-ke-mot-so-chi-tieu-co-ban` (basic indicators —
+  total assets, charter capital, funding ratios, loan-to-deposit ratio,
+  per institution type). New `SITE_CONFIGS` entry (`content_selector:
+  "article"`, `needs_js: True`). No longer needs chunking either.
+- `iav_bancassurance` only ever scraped the listing page's own text
+  (titles + dates) — the URL was already the right category, it just
+  never followed into articles. New
+  `_fetch_iav_market_overview_parts()` follows the 3 most recent real
+  "Tổng quan thị trường bảo hiểm..." articles. Switched from `chunked`
+  to `multi_pdf` (genuinely separate documents now).
+- `mbb_financial_statements`'s real corrupted-token ratio measured at
+  0.0477 — just under the 0.05 auto-detect threshold, so it silently
+  passed despite being a genuine re-OCR'd scan mirror. New declarative
+  `"assume_scan": True` source flag (not a threshold change, not a
+  hardcoded source-id check) makes `_content_gate_multi_node` try OCR
+  first, regardless of content_gate's own verdict. Also threads the
+  Vietstock PDF's real URL through (previously discarded).
+- Real regression caught before shipping: `_crawl_chunked_async()` (used
+  by every `chunked: True` source) was still unpacking `_crawl_async()`'s
+  old single-value return after a signature change two commits back —
+  every chunked source would have crashed on its next run. Fixed while
+  tracing MBB's fix; no test caught it.
+- All three verified fully live: `sbv_portal_statistics` (9 real signals,
+  zero before), `iav_bancassurance` (3 real signals with real premium
+  figures + YoY growth, headline-only before), `mbb_financial_statements`
+  (5 real, internally-consistent signals via a correctly auto-triggered
+  OCR job).
+
 ## Unreleased — BIDV's real failure mode: partial-scan detection + single-fetch OCR wiring
 
 - BIDV's actual live failure isn't a corrupted-OCR "scan" — it's a clean,

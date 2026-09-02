@@ -74,6 +74,7 @@ def _run_item(graph, item: dict, index: int, total: int, extra_state: dict = Non
         "chunked": False,
         "tier": None,
         "source_id": None,
+        "assume_scan": False,
     }
     if extra_state:
         state.update(extra_state)
@@ -168,6 +169,7 @@ def trigger() -> dict:
                 "chunked": source.get("chunked", False),
                 "tier": source.get("tier", "tier_1"),
                 "source_id": source["id"],
+                "assume_scan": source.get("assume_scan", False),
             },
         )
         append_topic_jsonl(triggered_at, run_id, result)

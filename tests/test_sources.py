@@ -39,6 +39,8 @@ def _run_source(source: dict) -> dict:
         "pdf_texts": None,
         "chunked": source.get("chunked", False),
         "tier": source.get("tier", "tier_1"),
+        "source_id": source["id"],
+        "assume_scan": source.get("assume_scan", False),
     }
     return graph.invoke(state, config={"configurable": {"thread_id": f"{source['id']}-{uuid.uuid4()}"}})
 

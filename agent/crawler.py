@@ -81,6 +81,31 @@ SITE_CONFIGS = {
         "pdf_link_selector": "a.doc-icon",
         "pdf_link_limit": 3,
     },
+    # sbv_portal_statistics's real fix (2026-09-02): the previous URL
+    # (sbv.gov.vn/en/statistics) was ALWAYS pure nav/footer boilerplate —
+    # confirmed live the real statistic content was never in that page's
+    # text at all, not just too large to chunk (the "chunked: True" flag
+    # was masking a content problem, not solving a size one). Found via
+    # real hover on the Vietnamese site's own "Dữ liệu thống kê" nav item
+    # (not the English one, which has no equivalent dropdown): this URL is
+    # one of ~199 monthly/quarterly system-wide banking statistics reports
+    # under "Hoạt động của hệ thống các TCTD" (basic indicators — total
+    # assets, charter capital, short-term-funds-for-long-term-lending
+    # ratio, loan-to-deposit ratio, per institution type). Client-side
+    # rendered (needs_js) — the real data lives in the page's first
+    # <article> element; a second <article> right after it is just a
+    # "related reports" list (CAR, ROA/ROE, other months) — bare `article`
+    # as a selector picks the first one only (BeautifulSoup's
+    # select_one()), which is the one with real data. Confirmed live:
+    # 2,286 chars once scoped — small enough that this no longer needs
+    # chunking either (see agent/sources.py — chunked: True removed).
+    "https://sbv.gov.vn/vi/thong-ke-mot-so-chi-tieu-co-ban": {
+        "needs_js": True,
+        "wait_selector": "article",
+        "content_selector": "article",
+        "pdf_link_selector": None,
+        "pdf_link_limit": 1,
+    },
     # The document list (AEM "list-view-documents" component) is empty in
     # the raw static HTML — it's populated client-side, so this needs the
     # full browser strategy even though the page itself isn't otherwise
@@ -733,6 +758,65 @@ VCB_FEE_PDF_URLS = [
 ]
 
 
+# iav.vn's listing page (Layer 1 bancassurance) was only ever scraped for
+# its own text — real article titles/dates, never the article bodies
+# themselves (confirmed live 2026-09-02, user review of the fetched
+# content: "you loaded the news homepage and only the text from there").
+# The current URL already points at the right category (202, "Tổng quan,
+# số liệu thị trường Bảo hiểm" — Insurance Market Overview/Data) per
+# source_plan_mvp0.md §3.4's total-market-only scope; the real fix is
+# following into the article links this page already lists, not finding
+# a different page. Confirmed live: real, dated quarterly/semi-annual/
+# annual "Tổng quan thị trường bảo hiểm Việt Nam ..." reports — exactly
+# the total premium/growth figures the prompt asks for.
+IAV_BANCASSURANCE_URL = "https://iav.vn/News/Listtt/202?page=1"
+IAV_ARTICLE_LIMIT = 3
+
+
+async def _fetch_iav_market_overview_parts() -> Tuple[str, List[Tuple[str, str]]]:
+    async with AsyncWebCrawler(crawler_strategy=AsyncHTTPCrawlerStrategy()) as crawler:
+        _throttle(_domain(IAV_BANCASSURANCE_URL))
+        listing = await crawler.arun(url=IAV_BANCASSURANCE_URL, config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS))
+        if not listing.success:
+            raise RuntimeError(f"Failed to fetch {IAV_BANCASSURANCE_URL}: {listing.error_message}")
+
+        # Real overview-article links carry this URL slug (confirmed live:
+        # /tong-quan,-so-lieu-thi-truong-bao-hiem/{id}-{slug}), distinct
+        # from the ~190 nav/category/partner-site links on the same page.
+        # The listing is already newest-first, so the first
+        # IAV_ARTICLE_LIMIT distinct matches are the most recent reports.
+        soup = BeautifulSoup(listing.html, "lxml")
+        seen = set()
+        article_urls: List[str] = []
+        for a in soup.select("a[href*='tong-quan-so-lieu-thi-truong-bao-hiem'], a[href*='tong-quan,-so-lieu-thi-truong-bao-hiem']"):
+            href = a.get("href")
+            if not href:
+                continue
+            article_url = urljoin(IAV_BANCASSURANCE_URL, href)
+            if article_url in seen:
+                continue
+            seen.add(article_url)
+            article_urls.append(article_url)
+            if len(article_urls) >= IAV_ARTICLE_LIMIT:
+                break
+
+        documents: List[Tuple[str, str]] = []
+        for article_url in article_urls:
+            _throttle(_domain(article_url))
+            article = await crawler.arun(url=article_url, config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS))
+            if not article.success:
+                logger.info("Failed to fetch iav article %s, skipping", article_url)
+                continue
+            text = (article.markdown or "").strip()
+            if len(text) < 50:
+                logger.info("Near-empty iav article %s, skipping", article_url)
+                continue
+            documents.append((article_url, text))
+
+    list_text = (listing.markdown or "").strip()
+    return list_text, documents
+
+
 async def _fetch_vcb_fee_parts() -> Tuple[str, List[Tuple[str, str]]]:
     documents = []
     async with AsyncWebCrawler(crawler_strategy=PDFCrawlerStrategy()) as crawler:
@@ -867,12 +951,16 @@ def _vietstock_statement_candidates(ticker: str) -> Iterator[str]:
             quarter, year = 4, year - 1
 
 
-async def _fetch_vietstock_statement_text(ticker: str) -> str:
+async def _fetch_vietstock_statement_text(ticker: str) -> Tuple[str, str]:
+    """Returns (text, pdf_url) — the winning candidate's own URL is
+    surfaced now (previously discarded, text-only) so content_gate can run
+    OCR-eligibility checks against a specific PDF, the same way the
+    multi-PDF path's pdf_texts already lets it."""
     last_error: Optional[Exception] = None
     async with AsyncWebCrawler(crawler_strategy=PDFCrawlerStrategy()) as crawler:
         for url in _vietstock_statement_candidates(ticker):
             try:
-                return await _fetch_pdf_text(crawler, url)
+                return await _fetch_pdf_text(crawler, url), url
             except Exception as exc:
                 logger.info("No usable statement at %s (%s), trying an earlier quarter", url, exc)
                 last_error = exc
@@ -923,6 +1011,8 @@ async def _fetch_selected_pdfs(url: str, node: Any, config: dict) -> List[Tuple[
 async def _crawl_parts_async(url: str) -> Tuple[str, List[Tuple[str, str]]]:
     if url == VCB_FEE_URL:
         return await _fetch_vcb_fee_parts()
+    if url == IAV_BANCASSURANCE_URL:
+        return await _fetch_iav_market_overview_parts()
 
     config = _resolve_site_config(url)
     html, generic_text = await _fetch_html(url, config["needs_js"], config["wait_selector"])
@@ -993,7 +1083,8 @@ async def _crawl_async(url: str) -> Tuple[str, List[Tuple[str, str]]]:
     if url in (NSO_GDP_KEY_INDICATORS_URL, NSO_VHLSS_INCOME_URL, NSO_VHLSS_EXPENDITURE_URL):
         return await _fetch_nso_pxweb_table_text(url), []
     if url in VIETSTOCK_FALLBACK_TICKERS:
-        return await _fetch_vietstock_statement_text(VIETSTOCK_FALLBACK_TICKERS[url]), []
+        text, pdf_url = await _fetch_vietstock_statement_text(VIETSTOCK_FALLBACK_TICKERS[url])
+        return text, [(pdf_url, text)]
 
     config = _resolve_site_config(url)
 
@@ -1074,8 +1165,25 @@ def _chunk_text(text: str, max_chars: int) -> List[str]:
 
 
 async def _crawl_chunked_async(url: str) -> Tuple[str, List[Tuple[str, str]]]:
-    text = await _crawl_async(url)
-    return "", [(url, chunk) for chunk in _chunk_text(text, MAX_CHUNK_CHARS)]
+    # Real bug fixed here (2026-09-02): _crawl_async's return type changed
+    # to (text, pdf_texts) for the single-fetch path's OCR wiring, but this
+    # caller wasn't updated — `text = await _crawl_async(url)` bound the
+    # whole tuple to `text`, breaking every chunked source (Techcombank,
+    # ACB, MBB, BIDV/ACB/MBBank fee schedules) the moment it shipped.
+    # Caught by mbb_financial_statements' own OCR-eligibility fix needing
+    # to trace this same path, not by a test — there is no offline test
+    # covering crawl_chunked()'s real behavior (see test_sources.py's own
+    # "no mocking, real network" testing decision).
+    text, pdf_texts = await _crawl_async(url)
+    # If the fetch already resolved to one real document URL (not the
+    # source's own landing page) — e.g. MBB's Vietstock mirror, or
+    # Techcombank's own generic-SITE_CONFIGS PDF fetch — tag every chunk
+    # with THAT real URL instead, so content_gate's per-piece OCR-
+    # eligibility check has something real to download and OCR. Falls
+    # back to the landing page URL (previous behavior, unchanged) when no
+    # single real document URL is known.
+    chunk_url = pdf_texts[0][0] if len(pdf_texts) == 1 else url
+    return "", [(chunk_url, chunk) for chunk in _chunk_text(text, MAX_CHUNK_CHARS)]
 
 
 def crawl_chunked(url: str) -> Tuple[str, List[Tuple[str, str]]]:
