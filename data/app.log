@@ -32226,3 +32226,2456 @@ The allowance for credit losses and allowance for diminution in value of held-to
 2026-09-02 23:12:03,717 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
 2026-09-02 23:12:03,733 INFO agent.graph: Structure LLM call done in 1.38s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 3391, 'output_tokens': 256, 'total_tokens': 3647, 'output_token_details': {'reasoning': 125}}
 2026-09-02 23:12:03,752 INFO agent.graph: Per-piece structure call 6/21 done
+2026-09-02 23:29:34,810 INFO service: Trigger started (run_id=6c789d58-f769-4b44-afee-6019e7aff0f9): 0 topics, 39 sources (filtered to 39 requested ids)
+2026-09-02 23:29:34,842 INFO agent.gate: Gate passed: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+2026-09-02 23:29:37,066 INFO agent.crawler: Fetching ACB PDF -> https://acb.com.vn/acbwebsite/files/ACB FS CONSOL HY 2026_searchable.pdf
+2026-09-02 23:29:37,111 INFO agent.crawler: Throttling request to acb.com.vn, waiting 3.8s
+2026-09-02 23:29:53,288 INFO agent.graph: Multi-crawl done in 18.44s for url: https://acb.com.vn/en/investors/financial-statements (21 documents)
+2026-09-02 23:29:53,840 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+Asia Commercial Joint Stock Bank Consolidated interim financial statements for the six-month period ended 30 June 2026
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026
+* * *
+CONTENTS PAGES
+* * *
+Bank information 1
+* * *
+Statement of the Board of Management 2
+* * *
+Interim financial statements review report 3
+* * *
+The consolidated interim statement of financial position (Form B02a/TCTD-HN issued in accordance with Circular No. 49/2014/TT-NHNN dated 31 December 2014 and amended and supplemented by Circular No. 27/2021/TT-NHNN dated 31 December 2021 (“Form B02a/TCTD HN”)) 5
+* * *
+The consolidated interim statement of profit or loss (Form B03a/TCTD-HN issued in accordance with Circular No. 49/2014/TT-NHNN dated 31 December 2014 and amended and supplemented by Circular No. 27/2021/TT-NHNN dated 31 December 2021 (“Form B03a/TCTD-HN”)) 8
+* * *
+The consolidated interim statement of cash flows (Form B04a/TCTD-HN issued in accordance with Circular No. 49/2014/TT-NHNN dated 31 December 2014 and amended and supplemented by Circular No. 27/2021/TT-NHNN dated 31 December 2021 (“Form B04a/TCTD-HN”)) 9
+* * *
+Notes to the consolidated interim financial statements (Form B05a/TCTD-HN issued in accordance with Circular No. 49/2014/TT-NHNN dated 31 December 2014 and amended and supplemented by Circular No. 27/2021/TT-NHNN dated 31 December 2021 (“Form B05a/TCTD-HN”)) 11
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+1 BANK INFORMATION
+* * *
+Establishment and Operation Licence for Commercial Bank No. 91/GP-NHNN dated 19 September 2018
+* * *
+The Establishment and Operation Licence for Commercial Bank issued by the State Bank of Vietnam has been amended several times with the latest licence dated 15 July 2026. In accordance with the Establishment and Operation Licence for Commercial Bank, the operation period of the Bank is 50 years from 24 April 1993.
+* * *
+Board of Directors Mr. Tran Hung Huy Chairman Mr. Nguyen Thanh Long Vice Chairman Mr. Hiep Van Vo Member Ms. Dinh Thi Hoa Member Ms. Dang Thu Thuy Member Mr. Dam Van Tuan Member Mr. Do Minh Toan Member Mr. Nguyen Van Hoa Member Mr. Trinh Bao Quoc Independent Member
+* * *
+Supervisory Board Mr. Huynh Nghia Hiep Head of Supervisory Board Ms. Nguyen Thi Minh Lan Specialised Member Ms. Hoang Ngan Specialised Member
+* * *
+Board of Management Mr. Tu Tien Phat General Director Mr. Dam Van Tuan Deputy General Director Mr. Bui Tan Tai Deputy General Director Mr. Nguyen Duc Thai Han Deputy General Director Ms. Nguyen Thi Hai Deputy General Director Ms. Nguyen Thi Tuyet Van Deputy General Director Mr. Nguyen Van Hoa Deputy General Director Mr. Nguyen Khac Nguyen Deputy General Director Mr. Ngo Tan Long Deputy General Director
+* * *
+Legal Representative Mr. Tu Tien Phat General Director
+* * *
+Registered office 442 Nguyen Thi Minh Khai Street, Ban Co Ward Ho Chi Minh City, Vietnam
+* * *
+Auditor KPMG Limited Vietnam
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+2 STATEMENT OF THE BOARD OF MANAGEMENT
+* * *
+THE BOARD OF MANAGEMENT’S RESPONSIBILITY IN RESPECT OF THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS
+* * *
+The Board of Management of Asia Commercial Joint Stock Bank (“the Bank”) is responsible for preparation and presentation of the consolidated interim financial statements as set out on pages 5 to 93 which give a true and fair view of the consolidated financial position of the Bank and its subsidiaries (collectively referred to as “the Group”) as at 30 June 2026 and the consolidated results of operations and the consolidated cash flows for the six-month period then ended. In preparing these consolidated interim financial statements, the Board of Management is required to:
+* * *
+• select suitable accounting policies and then apply them consistently; • make judgments and estimates that are reasonable and prudent; and • prepare the consolidated interim financial statements on the going concern basis unless it is inappropriate to presume that the Group will continue in business.
+* * *
+The Board of Management is responsible for ensuring that proper accounting records are maintained which disclose, with reasonable accuracy at any time, the consolidated financial position of the Group and which enable the consolidated interim financial statements to be prepared in compliance with the basis of accounting set out in Note 2 to the consolidated interim financial statements. The Board of Management is also responsible for safeguarding the assets of the Group and hence for taking reasonable steps for the prevention and detection of fraud and other irregularities.
+* * *
+APPROVAL OF THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS
+* * *
+I, Tu Tien Phat, on behalf of the Board of Management, hereby approve the accompanying consolidated interim financial statements as set out on pages 5 to 93 which give a true and fair view of the consolidated financial position of the Group as at 30 June 2026, the consolidated results of operations and the consolidated cash flows for the six-month period then ended in accordance with Vietnamese Accounting Standards, the Vietnamese Accounting System and the relevant statutory requirements on preparation and presentation of interim financial statements applicable to credit institutions operating in Vietnam.
+* * *
+On behalf of the Board of Management
+* * *
+─────────── Tu Tien Phat General Director
+* * *
+Ho Chi Minh City, Vietnam
+* * *
+## _12 August 2026_
+3
+* * *
+INTERIM FINANCIAL STATEMENTS REVIEW REPORT
+* * *
+To the Shareholders Asia Commercial Joint Stock Bank
+* * *
+We have reviewed the accompanying consolidated interim financial statements of Asia Commercial Joint Stock Bank (“the Bank”) and its subsidiaries (collectively referred to as “the Group”), which comprise the consolidated interim statement of financial position as at 30 June 2026, the consolidated interim statement of profit or loss and the consolidated interim statement of cash flows for the six-month period then ended and the explanatory notes thereto which were authorised for issue by the Bank’s Board of Management on 12 August 2026, as set out on pages 5 to 93.
+* * *
+The Board of Management’s Responsibility
+* * *
+The Bank’s Board of Management is responsible for the preparation and true and fair presentation of these consolidated interim financial statements in accordance with Vietnamese Accounting Standards, the Vietnamese Accounting System for credit institutions stipulated by the State Bank of Vietnam and the relevant statutory requirements applicable to interim financial reporting, and for such internal control as the Board of Management determines is necessary to enable the preparation of consolidated interim financial statements that are free from material misstatement, whether due to fraud or error.
+* * *
+Auditor’s Responsibility
+* * *
+Our responsibility is to express a conclusion on these consolidated interim financial statements based on our review. We conducted our review in accordance with Vietnamese Standard on Review Engagements No. 2410 – Review of interim financial information performed by the independent auditor of the entity.
+* * *
+A review of interim financial information consists of making inquiries, primarily of persons responsible for financial and accounting matters, and applying analytical and other review procedures. A review is substantially less in scope than an audit conducted in accordance with Vietnamese Standards on Auditing and consequently does not enable us to obtain assurance that we would become aware of all significant matters that might be identified in an audit. Accordingly, we do not express an audit opinion.
+* * *
+4 Auditor’s Conclusion
+* * *
+Based on our review, nothing has come to our attention that causes us to believe that the accompanying consolidated interim financial statements do not give a true and fair view, in all material respects, of the consolidated financial position of Asia Commercial Joint Stock Bank and its subsidiaries as at 30 June 2026 and of their consolidated results of operations and their consolidated cash flows for the six-month period then ended in accordance with Vietnamese Accounting Standards, the Vietnamese Accounting System for credit institutions stipulated by the State Bank of Vietnam and the relevant statutory requirements applicable to interim financial reporting.
+* * *
+KPMG Limited Branch Vietnam Review Report No.: 26-01-00478-26-2
+* * *
+______________________________ ______________________________ Nguyen Thi Thu Ha Pham Huy Cuong Practicing Auditor Registration Practicing Auditor Registration Certificate No. 2236-2023-007-1 Certificate No.
+2026-09-02 23:29:56,304 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:29:56,344 INFO agent.graph: Structure LLM call done in 2.5s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 2884, 'output_tokens': 253, 'total_tokens': 3137, 'output_token_details': {'reasoning': 122}}
+2026-09-02 23:29:56,351 INFO agent.graph: Per-piece structure call 1/21 done
+2026-09-02 23:30:26,361 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+2675-2024-007-1 Deputy General Director
+* * *
+Ho Chi Minh City, 12 August 2026
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+5 Form B02a/TCTD-HN
+* * *
+THE CONSOLIDATED INTERIM STATEMENT OF FINANCIAL POSITION
+* * *
+As at
+* * *
+Note 30.6.2026 VND million 31.12.2025 VND million
+* * *
+A ASSETS
+* * *
+I Cash on hand, gold and gemstones 4 6,151,699 8,624,548
+* * *
+II Balances with the State Bank of Vietnam 5 5,827,087 16,574,958
+* * *
+III Deposits with and loans to other credit institutions 6 123,441,277 149,990,681
+* * *
+## _1 Deposits with other credit institutions 117,048,437 149,990,681_
+## _2 Loans to other credit institutions 6,392,840 -_
+IV Held-for-trading securities 7 5,762,110 6,544,882
+* * *
+## _1 Held-for-trading securities 7.1 5,933,956 6,708,358_
+## _2 Allowance for losses on held-for-trading securities 7.4 (171,846) (163,476)_
+V Derivatives and other financial assets 8 114,911 324,298
+* * *
+VI Loans to customers 737,693,959 679,152,623
+* * *
+## _1 Loans to customers 9 745,759,303 686,777,352_
+## _2 Allowance for losses on loans to customers 9.7 (8,065,344) (7,624,729)_
+VIII Investment securities 10 166,277,169 144,164,116
+* * *
+## _1 Available-for-sale securities 154,911,224 132,778,839_
+## _2 Held-to-maturity securities 11,377,195 11,396,527_
+## _3 Allowance for losses on investment securities (11,250) (11,250)_
+IX Long-term investments 11 74,311 74,699
+* * *
+## _4 Other long-term investments 11.2 233,739 233,739_
+## _5 Allowance for diminution in value of long-term investments 11.3 (159,428) (159,040)_
+X Fixed assets 5,698,923 5,438,550
+* * *
+## _1 Tangible fixed assets 12.1 3,410,641 3,200,487_
+a Cost 7,212,349 6,806,108
+* * *
+b Accumulated depreciation (3,801,708) (3,605,621)
+* * *
+## Intangible fixed assets 12.2 2,288,282 2,238,063
+a Cost 3,234,167 3,117,527
+* * *
+b Accumulated amortisation (945,885) (879,464)
+* * *
+XI Investment properties 13 171,692 149,673 a Cost 171,755 149,692 b Accumulated depreciation (63) (19)
+* * *
+XII Other assets 16,631,937 14,811,099
+* * *
+## _1 Receivables 14.1 5,225,286 6,743,073_
+## _2 Accrued interest and fee receivables 7,769,205 6,819,629_
+## _3 Deferred tax assets 14.2 45,661 17,263_
+## _4 Other assets 14.3 3,721,084 1,414,349_
+## _5 Allowance for losses on other assets 14.4 (129,299) (183,215)_
+───────── ─────────
+* * *
+TOTAL ASSETS 1,067,845,075 1,025,850,127 ═════════ ═════════
+* * *
+The notes on pages 11 to 93 are an integral part of these consolidated interim financial statements.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+6 Form B02a/TCTD-HN
+* * *
+THE CONSOLIDATED INTERIM STATEMENT OF FINANCIAL POSITION (continued)
+* * *
+As at
+* * *
+Note 30.6.2026 VND million 31.12.2025 VND million
+* * *
+B LIABILITIES AND OWNERS’ EQUITY
+* * *
+I Due to the Government and the State Bank of Vietnam 15 21,018,876 32,976,139
+* * *
+## _1 Deposits and borrowings from the Government and the_
+State Bank of Vietnam
+* * *
+15,406,908 31,170,978
+* * *
+## _2 Government bond repurchase transactions with the_
+State Treasury
+* * *
+5,611,968 1,805,161
+* * *
+II Deposits and borrowings from other credit institutions 16 148,360,218 154,999,539
+* * *
+## _1 Deposits from other credit institutions 105,070,999 121,314,141_
+## _2 Borrowings from other credit institutions 43,289,219 33,685,398_
+III Deposits from customers 17 576,603,602 585,180,175
+* * *
+V Funds and entrusted investments received from the Government, international and other credit institutions 18 14,546 19,079
+* * *
+VI Valuable papers issued 19 199,012,993 133,294,422
+* * *
+VII Other liabilities 23,520,322 24,861,054
+* * *
+## _1 Accrued interest and fee payables 12,291,466 8,969,078_
+## _3 Other liabilities 20 11,228,856 15,891,976_
+──────── ────────
+* * *
+TOTAL LIABILITIES 968,530,557 931,330,408 ──────── ────────
+* * *
+VIII Owners’ equity 21 99,314,518 94,519,719
+* * *
+## _1 Capital 58,315,999 51,638,345_
+a Charter capital 51,366,566 51,366,566
+* * *
+c Share premium 271,779 271,779 g Other capital 6,677,654
+* * *
+## _2 Reserves 17,583,061 17,583,061_
+## _3 Foreign exchange revaluation reserve (122,407) -_
+## _5 Retained profits 23,537,865 25,298,313_
+a Net profits for the current period/year 8,612,866 12,831,206
+* * *
+b Retained profits accumulated to the prior year 14,924,999 12,467,107 ───────── ──────── TOTAL OWNERS’ EQUITY 99,314,518 94,519,719 ───────── ───────── TOTAL LIABILITIES AND OWNERS’ EQUITY 1,067,845,075 1,025,850,127 ═════════ ═════════
+* * *
+The notes on pages 11 to 93 are an integral part of these consolidated interim financial statements.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+7 Form B02a/TCTD-HN
+* * *
+THE CONSOLIDATED INTERIM STATEMENT OF FINANCIAL POSITION (continued)
+* * *
+OFF-BALANCE SHEET ITEMS
+* * *
+As at
+* * *
+Note 30.6.2026 VND million 31.12.2025 VND million
+* * *
+## Borrowing guarantees 35.1 72,692 83,036
+## _2 Commitments on foreign exchange transactions 35.1 209,313,359 165,444,063_
+Commitments on purchases of foreign currency 3,189,223 3,176,017
+* * *
+Commitments on sales of foreign currency 4,746,478 2,189,273 Commitments on swap transactions 201,377,658 160,078,773
+* * *
+## _4 Letters of credit 35.1 6,849,052 6,666,479_
+## _5 Other guarantees 35.1 22,640,795 19,772,573_
+## _6 Other commitments 35.1 38,183,409 25,031,882_
+## _7 Overdue interest and fee receivables not collected yet 36 1,536,356 1,603,488_
+## _8 Written-off bad debts 37 10,065,408 8,618,443_
+## _9 Assets and other documents 38 1,241,747 2,207,595_
+═══════ ═══════
+* * *
+────────────── Luong Thi Thanh Van Preparer ──────────── Duong Thi Nguyet Chief Accountant ─────────── Tu Tien Phat General Director
+* * *
+## _12 August 2026_
+The notes on pages 11 to 93 are an integral part of these consolidated interim financial statements.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+8 Form B03a/TCTD-HN
+* * *
+THE CONSOLIDATED INTERIM STATEMENT OF PROFIT OR LOSS
+* * *
+The six-month period ended
+* * *
+Note 30.6.2026 VND million 30.6.2025 VND million
+* * *
+## Interest and similar income 22 37,300,500 27,626,001
+## _2 Interest and similar expenses 23 (22,526,647) (14,583,288)_
+─────── ───────
+* * *
+I Net interest income 14,773,853 13,042,713
+* * *
+## Fee and commission income 2,724,773 2,496,438
+## _4 Fee and commission expenses (906,430) (1,039,394)_
+─────── ───────
+* * *
+II Net fee and commission income 1,818,343 1,457,044
+* * *
+III Net gain from trading of foreign currencies 24 775,933 1,145,595
+* * *
+IV Net gain from trading of held-for-trading securities 25 226,898 60,389
+* * *
+V Net (loss)/gain from trading of investment securities 26 (21,896) 444,596
+* * *
+## Other income 709,912 1,447,881
+## _6 Other expenses (303,537) (452,773)_
+─────── ───────
+* * *
+VI Net other income 27 406,375 995,108
+* * *
+VII Income from investments in other entities 28 68,059 61,727
+* * *
+VIII Operating expenses 29 (5,566,330) (5,428,052) ─────── ─────── IX Operating profit before allowance expenses for credit losses
+* * *
+12,481,235 11,779,120
+* * *
+X Allowance expenses for credit losses 30 (1,746,196) (1,089,167) ─────── ─────── XI Profit before tax 10,735,039 10,689,953
+* * *
+## Current corporate income tax expense (2,150,571) (2,169,251)
+## _8 Deferred corporate income tax benefit 28,398 38,723_
+─────── ───────
+* * *
+XII Total corporate income tax expense (2,122,173) (2,130,528) ─────── ─────── XIII Profit after tax 8,612,866 8,559,425 ═══════ ═══════ XV Earnings per share (VND/share) 31 1,467 1,457 ════ ════
+* * *
+────────────── Luong Thi Thanh Van Preparer ──────────── Duong Thi Nguyet Chief Accountant ─────────── Tu Tien Phat General Director
+* * *
+## _12 August 2026_
+The notes on pages 11 to 93 are an integral part of these consolidated interim financial statements.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+9 Form B04a/TCTD-HN
+* * *
+THE CONSOLIDATED INTERIM STATEMENT OF CASH FLOWS (Direct method)
+* * *
+The six-month period ended
+* * *
+Note 30.6.2026 VND million 30.6.2025 VND million
+* * *
+CASH FLOWS FROM OPERATING ACTIVITIES
+* * *
+## _01 Interest and similar income received 36,350,924 26,635,623_
+## _02 Interest and similar expenses paid (21,511,556) (13,005,627)_
+## _03 Net fee and commission income received 1,535,010 1,173,710_
+## _04 Net receipts from trading activities (foreign currencies, gold_
+and securities)
+* * *
+989,305 1,704,286
+* * *
+## _05 Other income 149,863 401,435_
+## _06 Collection of bad debts previously written-off 258,133 689,850_
+## _07 Salaries and operating expenses paid (5,625,860) (5,584,991)_
+## _08 Income tax paid during the period (3,102,702) (3,419,335)_
+CASH FLOWS FROM OPERATING ACTIVITIES BEFORE
+* * *
+CHANGES IN OPERATING ASSETS AND LIABILITIES
+* * *
+9,043,117 8,594,951
+* * *
+Changes in operating assets
+* * *
+## _09 Increase in deposits with and loans to other credit institutions (6,910,625) (3,894,445)_
+## _10 Increase in held-for-trading securities and investment securities (21,338,651) (25,364,033)_
+## _11 Decrease in derivatives and other financial assets 209,387 55,992_
+## _12 Increase in loans to customers (58,981,951) (53,062,435)_
+## _13 Utilisation of allowance for losses (1,305,430) (1,793,325)_
+## _14 Decrease/(increase) in other operating assets 1,603,062 (422,012)_
+Changes in operating liabilities
+* * *
+15 (Decrease)/increase in due to the Government and the State Bank of Vietnam
+* * *
+(11,957,263) 13,071,925
+* * *
+## _16 Decrease in deposits and borrowings from_
+other credit institutions (6,639,321) (15,332,394)
+* * *
+17 (Decrease)/increase in deposits from customers (8,576,573) 30,102,282
+* * *
+## _18 Increase in valuable papers issued 65,715,770 37,899,600_
+## _19 Decrease in funds and entrusted investments received from_
+the Government, international and other credit institutions
+* * *
+(4,533) (3,461)
+* * *
+## _20 Increase in derivatives and other financial liabilities318,849_
+21 (Decrease)/increase in other operating liabilities (3,214,962) 50,650
+* * *
+## _22 Utilisation of reserves (16,861) (22,434)_
+──────── ────────
+* * *
+I NET CASH FLOWS FROM OPERATING ACTIVITIES (42,374,834) (9,800,290)
+* * *
+The notes on pages 11 to 93 are an integral part of these consolidated interim financial statements.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+10 Form B04a/TCTD-HN
+* * *
+THE CONSOLIDATED INTERIM STATEMENT OF CASH FLOWS (Direct method) (continued)
+* * *
+The six-month period ended
+* * *
+Note 30.6.2026 VND million 30.6.2025 VND million
+* * *
+CASH FLOWS FROM INVESTING ACTIVITIES
+* * *
+## _01 Payments for purchases of fixed assets (446,854) (282,131)_
+## _02 Proceeds from disposals of fixed assets 1,247 71,966_
+## _04 Payments for purchases of investment properties (202,188) (80,950)_
+## _05 Proceeds from disposals of investment properties5,000_
+## _09 Receipts of dividends and distributions of profits from_
+long-term investments
+* * *
+59,947 62,643 ──────── ──────── II NET CASH FLOWS FROM INVESTING ACTIVITIES (587,848) (223,472)
+* * *
+CASH FLOWS FROM FINANCING ACTIVITIES
+* * *
+## _04 Payments of dividends (3,595,660) (4,466,658)_
+──────── ────────
+* * *
+III NET CASH FLOWS FROM FINANCING ACTIVITIES (3,595,660) (4,466,658)
+* * *
+IV NET CASH FLOWS FOR THE PERIOD (46,558,342) (14,490,420)
+* * *
+V CASH AND CASH EQUIVALENTS AT THE BEGINNING OF THE PERIOD
+* * *
+163,213,792 139,824,608
+* * *
+VI EFFECT OF EXCHANGE RATE FLUCTUATIONS (122,407) (243,816) ──────── ──────── VII CASH AND CASH EQUIVALENTS AT THE END OF THE PERIOD 32 116,533,043 125,090,372 ════════ ════════
+* * *
+────────────── Luong Thi Thanh Van Preparer ──────────── Duong Thi Nguyet Chief Accountant ─────────── Tu Tien Phat General Director
+* * *
+## _12 August 2026_
+The notes on pages 11 to 93 are an integral part of these consolidated interim financial statements.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026
+* * *
+11 These notes are an integral part of and should be read in conjunction with the accompanying consolidated interim financial statements.
+* * *
+## THE REPORTING ENTITY
+(a) Establishment and operation
+* * *
+2026-09-02 23:30:29,621 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:30:29,647 INFO agent.graph: Structure LLM call done in 3.29s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 5094, 'output_tokens': 946, 'total_tokens': 6040, 'output_token_details': {'reasoning': 560}}
+2026-09-02 23:30:29,672 INFO agent.graph: Per-piece structure call 2/21 done
+2026-09-02 23:30:59,679 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+Asia Commercial Joint Stock Bank (“the Bank”) is a commercial joint stock bank incorporated in the Socialist Republic of Vietnam.
+* * *
+The Bank was established under the Operation Licence No. 0032/NH-GP issued by the State Bank of Vietnam (“the SBV”) on 24 April 1993 for a period of 50 years from the licence date. On
+* * *
+## _19 September 2018, the SBV issued the Establishment and Operation Licence for Commercial_
+Bank No. 91/GP-NHNN to replace the Operation Licence No. 0032/NH-GP. The operation period
+* * *
+of the Bank remains unchanged in the new licence. The Bank’s shares are listed on the Ho Chi Minh Stock Exchange with the stock symbol being ACB.
+* * *
+The principal activities of the Bank and its subsidiaries (collectively referred to as “the Group”) are to mobilise short, medium and long-term funds in the form of term deposits, demand deposits; to receive entrusted investment and development funds from domestic credit institutions; to borrow from other financial institutions; to grant short, medium and long-term loans; to discount commercial papers, bonds and other valuable papers; to provide settlement services to customers; to trade foreign currencies, gold; to provide trade finance services; to mobilise overseas funds and to perform other type of services when dealing with overseas counterparties in accordance with the approval of the SBV; to conduct debt factoring activities; to trade bonds; trusted activities and fiduciary activities; to provide commodity derivatives; insurance agent services; securities depository; providing clearing and settlement services for securities transactions; supervisory bank under securities legislation; to provide finance leasing; to trade securities; to provide consultancy services for securities investment; to provide securities deposit services, corporate finance consultancy services and securities underwriting services; to provide investment fund and asset management services and to provide other banking services.
+* * *
+(b) Charter capital
+* * *
+As at 30 June 2026, the Bank’s charter capital was VND51,366,565,990,000 (31.12.2025: VND51,366,565,990,000). As at 30 June 2026, the Bank issued 5,804,421,957 ordinary shares (31.12.2025: 5,136,656,599 ordinary shares) with a par value of VND10,000 per share.
+* * *
+(c) Location and operational network
+* * *
+The Bank’s Head Office is located at 442 Nguyen Thi Minh Khai Street, Ban Co Ward, Ho Chi Minh City, Vietnam. As at 30 June 2026, the Bank had 1 head office, 388 branches and sub branches nation-wide (31.12.2025: 1 head office, 389 branches and sub-branches nation-wide).
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 12
+* * *
+## THE REPORTING ENTITY (continued)
+(d) Group structure
+* * *
+The consolidated interim financial statements for the six-month period ended 30 June 2026 included the financial statements of the Bank and its subsidiaries.
+* * *
+As at 30 June 2026 and 31 December 2025, the Bank had the following subsidiaries:
+* * *
+Subsidiary Operation Licence Nature of business Percentage of ownership and voting rights 30.6.2026 31.12.2025
+* * *
+ACB Securities Company Limited (“ACBS”) 06/GPHDKD Securities 100% 100% Asia Commercial Bank Asset Management Company Limited (“ACBA”) 1349/NHNN HCM.02 Asset management 100% 100% Asia Commercial Bank Leasing Company Limited (“ACBL”) 06/GP-NHNN Finance leasing 100% 100% ACB Capital Management Company Limited (“ACBC”) (*) 41/UBCK-GP Fund management 100% 100% ════ ════
+* * *
+(*) ACBC is a wholly owned subsidiary of ACBS.
+* * *
+All of the subsidiaries are established in Vietnam.
+* * *
+(e) Number of employees
+* * *
+As at 30 June 2026, the Group had 13,154 employees (31.12.2025: 13,229 employees).
+* * *
+## BASIS OF PREPARATION
+(a) Statement of compliance
+* * *
+The consolidated interim financial statements are prepared in accordance with Vietnamese Accounting Standards, the Vietnamese Accounting System and the relevant statutory requirements on the preparation and presentation of interim financial statements applicable to credit institutions operating in Vietnam. These standards and statutory requirements may differ in some material respects from International Financial Reporting Standards and generally accepted accounting principles and standards in other countries. Accordingly, the accompanying consolidated interim financial statements are not intended to present the consolidated financial position and consolidated results of operations and consolidated cash flows in accordance with generally accepted accounting principles and practices in countries or jurisdictions other than Vietnam. Furthermore, their utilisation is not designed for those who are not informed about Vietnam’s accounting principles, procedures and practices applicable to credit institutions.
+* * *
+(b) Basis of measurement
+* * *
+The consolidated interim financial statements, except for the consolidated interim statement of cash flows, are prepared on the accrual basis using the historical cost concept. The consolidated interim statement of cash flows is prepared using the direct method.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 13
+* * *
+## BASIS OF PREPARATION (continued)
+(c) Annual accounting period
+* * *
+The annual accounting period of the Group is from 1 January to 31 December.
+* * *
+The consolidated interim financial statements are prepared for the six-month period ended 30 June 2026.
+* * *
+(d) Accounting and presentation currency
+* * *
+The Group’s accounting currency is Vietnam Dong (“VND”). The consolidated interim financial statements are prepared and presented in VND rounded to the nearest million (“VND million”).
+* * *
+(e) Form of records applied
+* * *
+The Group uses accounting software to record its transactions.
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES
+The following significant accounting policies have been adopted by the Group in the preparation
+* * *
+of these consolidated interim financial statements.
+* * *
+The accounting policies that have been adopted by the Group in the preparation of these consolidated interim financial statements are consistent with those adopted in the preparation of the latest annual consolidated financial statements.
+* * *
+(a) Basis of consolidation
+* * *
+(i) Subsidiaries
+* * *
+Subsidiaries are entities controlled by the Group. Control exists when the Group has the power to govern the financial and operating policies of an entity in order to obtain economic benefits from its activities. The financial statements of subsidiaries are included in the consolidated interim financial statements from the date that control commences until the date that control ceases.
+* * *
+Where the accounting policies of subsidiaries are different from those adopted by the Bank, adjustments have been made where necessary to ensure consistency of accounting policies for consolidated interim financial statements purpose.
+* * *
+(ii) Transactions eliminated on consolidation
+* * *
+Intra-group balances and any unrealised income and expenses arising from intra-group transactions are eliminated in preparing the consolidated interim financial statements.
+* * *
+(b) Foreign currency transactions
+* * *
+All transactions are recognised in original currencies. Monetary assets and liabilities denominated in currencies other than VND are translated into VND at rates of exchange ruling at the reporting date. Transactions in currencies other than VND during the period have been translated into VND at rates ruling on transaction dates.
+* * *
+Foreign exchange differences arising from monthly revaluation of foreign currency trading position are recognised in the foreign exchange revaluation reserve on the consolidated statement of financial position at each month-end and are transferred to the consolidated statement of profit or loss at the year-end.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 14
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(c) Interest income and expenses
+* * *
+Interest income and expenses are recognised on an accrual basis, except for interest income from held-for-trading securities which is recognised in the consolidated statement of profit or loss upon receipt. Interest income is derecognised and recognised into off-balance sheet items when a loan becomes overdue or is not classified as Current loan as described in Note 3(g), 3(j) and 3(p) or is subject to retention of loan group as Current loan in compliance with policies of the State. Interest income from these loans is recognised in the consolidated statement of profit or loss upon receipt.
+* * *
+(d) Fee and commission income and expenses
+* * *
+(i) Fee and commission income
+* * *
+Fee and commission income from settlement services, treasury services, insurance agency activities and other services are recognised in the consolidated statement of profit or loss on an accrual basis.
+* * *
+(ii) Revenue from securities brokerage activities
+* * *
+Revenue from securities brokerage activities is recognised in the consolidated statement of profit or loss when the securities transaction of the customer is completed.
+* * *
+(iii) Fee and commission expenses
+* * *
+Fee and commission expenses are recognised in the consolidated statement of profit or loss when they are incurred.
+* * *
+(e) Dividend income
+* * *
+Cash dividends are recognised in the consolidated statement of profit or loss when the Group’s right to receive payment is established.
+* * *
+Share dividends and bonus shares are not recognised as an increase in investments corresponding with income in the consolidated statement of profit or loss. The Group only keeps record of the increase in the number of shares.
+* * *
+Dividends received which are attributable to the period before investment acquisition date are deducted from the carrying amount of the investment.
+* * *
+(f) Income and expenses from sale of debts
+* * *
+Income and expenses from sale of debts are recognised in accordance with Circular No. 09/2015/TT-NHNN dated 17 July 2015 issued by the SBV regulating the debt trading activities of credit institutions, foreign banks’ branches (“Circular 09”) and Circular No.
+2026-09-02 23:31:01,005 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:31:01,017 INFO agent.graph: Structure LLM call done in 1.34s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 3234, 'output_tokens': 245, 'total_tokens': 3479, 'input_token_details': {'cache_read': 3072}, 'output_token_details': {'reasoning': 114}}
+2026-09-02 23:31:01,032 INFO agent.graph: Per-piece structure call 3/21 done
+2026-09-02 23:31:31,039 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+18/2022/TT-NHNN issued by the SBV on 26 December 2022 on amendments to certain articles of Circular 09.
+* * *
+For debts recognised on the balance sheet
+* * *
+- Where the selling price is higher than its book value, the difference is recognised as other income in the consolidated statement of profit or loss;
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 15
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(f) Income and expenses from sale of debts (continued)
+* * *
+For debts recognised on the balance sheet (continued)Where the selling price is lower than its book value, the difference is compensated from the individual or collective indemnity (in case of the loss being determined to be caused by any individual or collective and the compensation therefore is required in accordance with regulations), from the insurance claim, from the allowance for losses which has been appropriated in expenses and the financial reserve, the remaining deficit is recognised as other expenses in the consolidated statement of profit or loss.
+* * *
+For debts recognised as off-balance sheet items or derecognised from off-balance sheet items
+* * *
+The proceeds from sale of debts are recognised as other income in the consolidated statement of profit or loss.
+* * *
+(g) Loans to customers
+* * *
+The accounting policies represented in this note from (i) to (iv) do not apply to loans for margin trading activities and advances to customers arising from securities trading services.
+* * *
+(i) Measurement and recognition of loans to customers
+* * *
+Short-term loans are those with repayment term within one year from the loan disbursement date; medium-term loans are those with repayment term over one year to five years from the loan disbursement date and long-term loans are those with repayment term of more than five years from the loan disbursement date.
+* * *
+Loans to customers are stated at the amount of principal outstanding less allowance for credit losses.
+* * *
+(ii) Classification of loans to customers
+* * *
+Loan classification and allowance for credit losses on loans to customers are made in accordance with Circular No. 31/2024/TT-NHNN dated 30 June 2024 issued by the SBV regulating the classification of assets in operation of commercial banks, non-bank credit institutions, and foreign banks’ branches (“Circular 31”).
+* * *
+The Bank obtained approval of the SBV to classify loans to customers in accordance with the qualitative method as permitted in Official letter No. 6524/NHNN-TTGSNH dated 27 August 2010.
+* * *
+The Group classifies loans to customers in accordance with the quantitative method as stipulated in Article 10 of Circular 31. In case where there is difference between the result of loan group classified in accordance with the qualitative method and the quantitative method then such loans to customers are required to be classified into loan group with higher level of risk.
+* * *
+Loan classification in accordance with Article 11 of Circular 31
+* * *
+Loans to customers are classified into five loan groups based on the internal rating system as follows:
+* * *
+Classification per the Group’s internal rating system Loan classification per Circular 31
+* * *
+AAA, AA, A credit rating Group 1Current loans BBB, BB, B credit rating Group 2Special-mentioned loans CCC, CC credit rating Group 3Sub-standard loans C credit rating Group 4Doubtful loans D credit rating Group 5Loss loans
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 16
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(g) Loans to customers (continued)
+* * *
+(ii) Classification of loans to customers (continued)
+* * *
+Loan classification in accordance with Article 10 of Circular 31
+* * *
+Loans to customers are classified into five loan groups in accordance with the collection status and the quantitative method as follows:
+* * *
+Group Overdue status
+* * *
+## _1 Current_
+loans
+* * *
+(a) Current loans assessed as fully and timely recoverable, both principals and interest; or (b) Loans overdue less than 10 days and assessed as fully recoverable, both overdue principals and interest, and fully and timely recoverable, both remaining principals and interest; or (c) Loans classified into Group 1 as meeting criteria to be classified into a group with lower level of risk.
+* * *
+## _2 Special-_
+mentioned
+* * *
+loans (a) Loans overdue up to 90 days, except for those specified in point (b) of Current loans and those classified into a group with higher level of risk as prescribed; or (b) Loans rescheduled for the first time and repaid on schedule, except those meeting criteria to be classified into a group with lower level of risk and those classified into a group with higher level of risk as prescribed; or (c) Loans classified into Group 2 as meeting criteria to be classified into a group with lower level of risk or loans classified into a group with higher level of risk as prescribed.
+* * *
+## _3 Sub-_
+standard
+* * *
+loans (a) Loans overdue between 91 days and 180 days, except those classified into a group with higher level of risk as prescribed; or (b) Loans extended for the first time and repaid on schedule, except those meeting criteria to be classified into a group with lower level of risk and those classified into a group with higher level of risk as prescribed; or (c) Loans having interest exempted or reduced because customers are not able to pay the interest in full according to credit contracts, except those classified into a group with higher level of risk as prescribed; or (d) Loans falling in one of the following cases that have not yet been collected within less than 30 days from the issuance date of recovery decision:  Loans having violated regulations specified in clauses 1, 3, 4, 5, 6 of Article 134 of Law on credit institutions; or  Loans having violated regulations specified in clauses 1, 2, 3, 4 of Article 135 of Law on credit institutions; or  Loans having violated regulations specified in clauses 1, 2, 5, 9 of Article 136 of Law on credit institutions.
+2026-09-02 23:31:32,415 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:31:32,426 INFO agent.graph: Structure LLM call done in 1.39s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 2417, 'output_tokens': 214, 'total_tokens': 2631, 'output_token_details': {'reasoning': 83}}
+2026-09-02 23:31:32,430 INFO agent.graph: Per-piece structure call 4/21 done
+2026-09-02 23:32:02,448 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+(e) Loans in the collection process under inspection conclusions; or (f) Loans recovered under premature debt recovery decisions of the Group due to customers’ breach of agreements without being collected within less than 30 days from the issuance date of recovery decision; or (g) Loans classified into Group 3 as meeting criteria to be classified into a group with lower level of risk or loans classified into a group with higher level of risk as prescribed; or (h) Loans classified into Group 3 as required by the SBV corresponding to the level of risk based on inspection and supervision results and relevant credit information.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 17
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(g) Loans to customers (continued)
+* * *
+(ii) Classification of loans to customers (continued)
+* * *
+Loan classification in accordance with Article 10 of Circular 31 (continued)
+* * *
+Group Overdue status
+* * *
+## _4 Doubtful_
+loans
+* * *
+(a) Loans overdue between 181 days and 360 days, except those classified into a group with higher level of risk as prescribed; or (b) Loans restructured for the first time and overdue up to 90 days according to the first restructured terms, except those classified into a group with higher level of risk as prescribed; or (c) Loans restructured for the second time and repaid on schedule, except those meeting criteria to be classified into a group with lower level of risk and those classified into a group with higher level of risk as prescribed; or (d) Loans specified in point (d) of Sub-standard loans without being collected for between 30 days and 60 days from the issuance date of recovery decisions; or (e) Loans in the collection process under inspection conclusions but being overdue up to 60 days according to recovery term; or (f) Loans recovered under premature debt recovery decisions of the Group due to customers’ breach of agreements without being collected for between 30 days and 60 days from the issuance date of recovery decisions; or (g) Loans classified into Group 4 as meeting criteria to be classified into a group with lower level of risk or loans classified into a group with higher level of risk as prescribed; or (h) Loans classified into Group 4 as required by the SBV corresponding to the level of risk based on inspection and supervision results and relevant credit information.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 18
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(g) Loans to customers (continued)
+* * *
+(ii) Classification of loans to customers (continued)
+* * *
+Loan classification in accordance with Article 10 of Circular 31 (continued)
+* * *
+Group Overdue status
+* * *
+## _5 Loss loans (a) Loans overdue more than 360 days; or_
+(b) Loans restructured for the first time and overdue from 91 days according
+* * *
+to the first restructured terms of repayments; or (c) Loans restructured for the second time and overdue according to the second restructured terms of repayments; or (d) Loans restructured for the third time or more, except those meeting criteria to be classified into a group with lower level of risk as prescribed; or (e) Loans specified in point (d) of Sub-standard loans without being collected for more than 60 days from the issuance date of recovery decision; or (f) Loans in the collection process under inspection conclusions but being overdue for more than 60 days according to recovery term; or (g) Loans recovered under premature debt recovery decisions of the Group due to customers’ breach of agreements without being collected for more than 60 days from the issuance date of recovery decisions; or (h) Loans to other credit institutions announced under special control status, or to foreign banks’ branches of which capital and assets are blockaded; or (i) Loans classified into Group 5 as meeting criteria to be classified into a group with higher level of risk as prescribed; or (j) Loans classified into Group 5 as required by the SBV corresponding to the level of risk based on inspection and supervision results and relevant credit information.
+* * *
+For payments on behalf under off-balance sheet commitments, the Group classifies such debts based on the number of days past due since the date on which the Group performs the obligations under the commitments:
+* * *
+- Group 3 – Sub-standard loans: if debts are overdue less than 30 days;Group 4 – Doubtful loans: if debts are overdue from 30 days to less than 90 days;Group 5 – Loss loans: if debts are overdue from 90 days or more.
+* * *
+Debts shall be classified in a group with lower level of risk (including Group 1) in the following cases:
+* * *
+Overdue debts
+* * *
+- Customers have made full repayment of the overdue principal and interest (including interest on overdue principal) and the principal and interest of the following payment periods, for at least three months in respect of long-term and medium-term debts and one month in respect of short-term debts, since the date the overdue principal and interest are fully repaid;There are documents and records proving that customers have paid the debt; andThe Group has sufficient basis of information and documents to assess and to conclude that customers are capable of fully repaying the principal and interest in a timely manner.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 19
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(g) Loans to customers (continued)
+* * *
+(ii) Classification of loans to customers (continued)
+* * *
+Debts shall be classified in a group with lower level of risk (including Group 1) in the following cases (continued):
+* * *
+Restructured debts
+* * *
+- Customers have made full repayment of the principal or interest under the restructured repayment term for at least three months in respect of long-term and medium-term debts and one month in respect of short-term debts since the date the principal or interest under the restructured repayment term are fully paid;
+* * *
+- There are documents and records proving that customers have paid the debt; and
+* * *
+- The Group has sufficient basis of information and documents to assess and to conclude that customers are capable of fully repaying the principal and interest in a timely manner.
+* * *
+Debts shall be classified into a group with higher level of risk in the following cases :
+* * *
+- Norms on profitability, solvency, ratio of debts to capital, cash flows lead to capability of customers to pay debts deteriorating continuously for three consecutive times of assessment or debt classification;
+* * *
+- Customers fail to supply fully, timely and truly information at the request of the Group for an assessment regarding the capability of customers to pay their debts;
+* * *
+- Debts which have been classified into Group 2, Group 3, Group 4 for one year or longer but not qualified to classify into a group with lower level of risk.
+* * *
+- Debts whose credit extension is administratively sanctioned as prescribed by law.
+* * *
+Non-performing loans are loans classified into Group 3, 4 and 5.
+* * *
+The Group is required to use the results of loan classification as provided by the National Credit Information Center of Vietnam (“the CIC”) to classify its loans to customers into a group with higher level of risk as determined by the Group and provided by the CIC.
+* * *
+Where a customer owes more than one debt to the Group, and has any debt classified into a group with higher level of risk, the Group classifies the remaining debts of such customer into such group with higher level of risk.
+* * *
+Where the Group participates in a syndicated loan, the Group reclassifies all debts (including the outstanding syndicated loan) of the customer into the highest risk group as determined by the lenders.
+* * *
+(iii) Allowance for losses on loans to customers
+* * *
+Allowance for losses on loans to customers is determined in accordance with Decree No. 86/2024/ND-CP dated 11 July 2024 issued by the Government regulating the credit loss allowance level, allowance method and utilisation of allowance in operation of credit institutions, foreign banks’ branches and cases where credit institutions allocate interest receivable to be reverted (“Decree 86”).
+* * *
+Allowance for losses on loans to customers includes specific allowance and general allowance.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 20
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(g) Loans to customers (continued)
+* * *
+(iii) Allowance for losses on loans to customers (continued)
+* * *
+Specific allowance
+* * *
+Specific allowance for losses on loans to customers is calculated using allowance rates applied to each loan group as follows: Allowance rates
+* * *
+Group 1 – Current loans 0% Group 2 – Special-mentioned loans 5% Group 3 – Sub-standard loans 20% Group 4 – Doubtful loans 50% Group 5 – Loss loans 100% ═══════
+* * *
+Specific allowance is calculated based on the borrower’s loan balance on the last day of each month less the discounted value of collateral assets.
+* * *
+Maximum discounted ratio of collateral assets is determined as follows: Type of collateral assets Maximum discounted ratio (a) Deposits, certificates of deposit from customers in VND at the Group 100% (b) Government bonds, gold billets in accordance with law on gold trading activities; deposits, certificates of deposit from customers in foreign currencies at the Group
+* * *
+95% (c) Municipal bonds, Government-guaranteed bonds; negotiable instruments, bonds issued by the Group; deposits, certificates of deposit issued by other credit institutions:
+* * *
+ With a remaining term of less than 1 year 95%  With a remaining term of between 1 year to 5 years 85%  With a remaining term of over 5 years 80% (d) Securities issued by other credit institutions and listed on a stock exchange 70% (e) Securities issued by enterprises and listed on a stock exchange 65% (f) Unlisted securities and valuable papers, except for the types of securities specified in (c), issued by other credit institutions listing stock on a stock exchange;
+* * *
+50% Unlisted securities and valuable papers, except for the types of securities specified in (c), issued by other credit institutions not listing stock on a stock exchange 30% (g) Unlisted securities and valuable papers issued by enterprises listing stock on a stock exchange; 30% Unlisted securities and valuable papers issued by enterprises not listing stock on a stock exchange; 10% (h) Real estate 50% (i) Others 30%
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 21
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(g) Loans to customers (continued)
+* * *
+(iii) Allowance for losses on loans to customers (continued)
+* * *
+Specific allowance (continued)
+* * *
+Collateral assets with value of VND50 billion or more against loans to the Group’s related parties or other parties as prescribed in Article 135 of the Law on Credit Institutions and collateral assets with value of VND200 billion or more which are movable assets, real estate and others, excluding gold billets, securities, Government bonds, municipal bonds, Government-guaranteed bonds, registered and listed enterprise bonds, deposits, certificates of deposit, finance lease assets must be valued by a licenced valuing organisation.
+2026-09-02 23:32:05,016 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:32:05,030 INFO agent.graph: Structure LLM call done in 2.58s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 3667, 'output_tokens': 228, 'total_tokens': 3895, 'input_token_details': {'cache_read': 768}, 'output_token_details': {'reasoning': 97}}
+2026-09-02 23:32:05,035 INFO agent.graph: Per-piece structure call 5/21 done
+2026-09-02 23:32:35,041 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+Other than these cases, collateral assets are valued in accordance with the Group’s internal policies and process.
+* * *
+Collateral assets that do not satisfy the conditions as specified in Clause 4 and Clause 5, Article 4 of Decree 86 are deemed to have zero value.
+* * *
+General allowance
+* * *
+General allowance is made at 0.75% of the outstanding balance of loans to customers on the last day of each month, excluding the total balance of loans to customers which are classified as loss loans.
+* * *
+(iv) Writing off loans to customers classified as bad debts
+* * *
+Loans are written off at the discretion of the Risk Resolution Committee when all reasonable efforts for recovery of bad debts, including legal actions, have been exhausted.
+* * *
+Loans to customers are written off against allowance when loans to customers have been classified into Group 5 or when borrowers have been declared bankrupt or dissolved (for borrowers being enterprises) or borrowers are deceased or missing (for borrowers being individuals).
+* * *
+Loans written off against allowance are recognised as off-balance sheet items for following up and collection. The amount collected from previously written-off loans, including the amount from sales of collaterals against those loans, is recognised in the consolidated statement of profit or loss upon receipt.
+* * *
+(v) Loans for margin trading activities and advances
+* * *
+Measurement and recognition of loans for margin trading activities and advances
+* * *
+Loans for margin trading activities are amounts lending to customers for purchasing stocks. Loans for margin trading activities are initially recorded at cost and subsequently measured at amortised cost using the effective interest rate method.
+* * *
+Advances are the amounts advanced to customers for their matched selling orders at the trading date. The due dates of these advances are within two trading days.
+* * *
+Allowance for losses on loans for margin trading activities
+* * *
+Loans for margin trading activities are provided for impairment loss when there is any objective evidence of impairment. Allowance for losses on loans for margin trading activities is determined at the negative difference of market value of collaterals and the carrying value of loans for margin trading at the reporting date.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 22
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(h) Off-balance sheet commitments
+* * *
+Off-balance sheet commitments consist of guarantees, settlement acceptance and irrevocable loan commitments.
+* * *
+Off-balance sheet commitments are classified into five groups as follows:
+* * *
+Group Definition
+* * *
+## _1 Current commitments_
+ Commitments which, according to the Group’s
+* * *
+assessment, could be fully settled when they fall due.
+* * *
+## _2 Special-mentioned_
+commitments
+* * *
+ Commitments which, according to the Group’s assessment, could be fully settled when they fall due but there are indicators of declining capability to settle the commitments.
+* * *
+## _3 Sub-standard commitments  Commitments which, according to the Group’s_
+assessment, could not be fully settled when they fall
+* * *
+due.
+* * *
+## _4 Doubtful commitments  Commitments which, according to the Group’s_
+assessment, are not highly probably settled by
+* * *
+customers.
+* * *
+## _5 Loss commitments  Commitments which, according to the Group’s_
+assessment, could not be settled.
+* * *
+The classification of off-balance sheet commitments is conducted solely for risk management,
+* * *
+credit quality supervision of credit granting activities. No provision is made for off-balance sheet commitments, except where the Group has been required to make payment under the guarantee contract, in which case the payment on behalf is classified and allowance for credit losses is made in accordance with the accounting policy as described in Note 3(g) (ii) and 3g(iii).
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 23
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(i) Held-for-trading securities
+* * *
+Classification
+* * *
+Held-for-trading securities are debt securities or equity securities acquired principally for the purpose of selling in the short-term, not over one year, for the purpose of short-term profit-taking.
+* * *
+Recognition
+* * *
+The Group recognises held-for-trading securities on the date it becomes a party to the contractual provisions of these securities (trade date accounting).
+* * *
+Measurement
+* * *
+Held-for-trading securities which are certificates of deposit and unlisted bonds are stated at cost less allowance for credit losses. Credit risk classification of these investments and allowance thereof are made in accordance with the same accounting policy applied for loans to customers as described in Note 3(g) (ii) and 3(g) (iii). According to Decree 86, the Group does not make general allowance for certificates of deposit and bonds issued by other credit institutions.
+* * *
+Other held-for-trading securities are stated at cost less allowance for diminution in value. Allowance for diminution in value is made when the market value is lower than the book value. The Group does not make allowance for diminution in value of Government bonds, Government guaranteed bonds and municipal bonds.
+* * *
+Interest income during the holding period of held-for-trading debt securities is recognised in the consolidated statement of profit or loss upon receipt.
+* * *
+The allowance for credit losses and allowance for diminution in value of held-for-trading securities as described above are reversed if the recoverable amount of the securities subsequently increases after the allowance was recognised. An allowance is reversed only to the extent that the investment’s carrying amount does not exceed the carrying amount that would have been determined if no allowance had been recognised.
+* * *
+Derecognition
+* * *
+Held-for-trading securities are derecognised when the rights to receive cash flows from these securities have expired or the Group has transferred substantially all risks and rewards of ownership.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 24
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(j) Investment securities
+* * *
+(i) Available-for-sale securities
+* * *
+Classification
+* * *
+Available-for-sale securities are debt securities or equity securities which are intended to be held for an indefinite period and may be sold at any time.
+* * *
+Recognition
+* * *
+The Group recognises available-for-sale securities on the date it becomes a party to the contractual provisions of these securities (trade date accounting).
+* * *
+Measurement
+* * *
+Available-for-sale securities which are certificates of deposit and unlisted bonds are stated at cost less allowance for credit losses. Credit risk classification of these investments and allowance thereof are made in accordance with the same accounting policy applied for loans to customers as described in Note 3(g) (ii) and 3(g) (iii). According to Decree 86, the Group does not make general allowance for certificates of deposit and bonds issued by other credit institutions.
+* * *
+Other available-for-sale securities are stated at cost less allowance for diminution in value. Allowance for diminution in value is made when the market value is lower than the book value. The Group does not make allowance for diminution in value of Government bonds, Government guaranteed bonds and municipal bonds.
+* * *
+Premiums and discounts arising from purchases of available-for-sale debt securities are amortised to the consolidated statement of profit or loss using the straight-line method over the period from the acquisition date to the maturity date, in cases these available-for-sale debt securities would be sold before their maturity dates, the unamortised premiums and discounts are recognised fully in the consolidated statement of profit or loss at the sale date.
+* * *
+Post-acquisition interest income of available-for-sale debt securities is recognised in the consolidated statement of profit or loss on an accrual basis, except for debt securities not classified as Group 1. Interest income received which is attributable to the period before acquisition date of available-for-sale debt securities is deducted from the carrying amount of available-for-sale debt securities.
+* * *
+The allowance for credit losses and allowance for diminution in value of available-for-sale securities as described above are reversed if the recoverable amount of the securities subsequently increases after the allowance was recognised. An allowance is reversed only to the extent that the investment’s carrying amount does not exceed the carrying amount that would have been determined if no allowance had been recognised.
+* * *
+Derecognition
+* * *
+Available-for-sale securities are derecognised when the rights to receive cash flows from these securities have expired or the Group has transferred substantially all risks and rewards of ownership.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 25
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(j) Investment securities (continued)
+* * *
+(ii) Held-to-maturity securities
+* * *
+Classification
+* * *
+Held-to-maturity securities are debt securities with fixed or determinable payments and fixed maturities where the Group’s management has the positive intention and ability to hold until maturity.
+* * *
+Recognition
+* * *
+The Group recognises held-to-maturity securities on the date it becomes a party to the contractual provisions of these securities (trade date accounting).
+* * *
+Measurement
+* * *
+Held-to-maturity securities which are certificates of deposit and unlisted bonds are stated at cost less allowance for credit losses. Credit risk classification of these investments and allowance thereof are made in accordance with the same accounting policy applied for loans to customers as described in Note 3(g) (ii) and 3(g) (iii). According to Decree 86, the Group does not make general allowance for certificates of deposit and bonds issued by other credit institutions.
+* * *
+Other held-to-maturity securities are stated at cost less allowance for diminution in value. Allowance for diminution in value is made based on the recoverability of held-to-maturity securities.
+* * *
+Premiums and discounts arising from purchases of held-to-maturity securities are amortised to the consolidated statement of profit or loss using the straight-line method over the period from the acquisition date to the maturity date.
+* * *
+Post-acquisition interest income of held-to-maturity securities is recognised in the consolidated statement of profit or loss on an accrual basis, except for debt securities not classified as Group 1. Interest income received which is attributable to the period before acquisition date of held-to maturity securities is deducted from the carrying amount of held-to-maturity securities.
+* * *
+The allowance for credit losses and allowance for diminution in value of held-to-maturity securities as described above are reversed if the recoverable amount of the securities subsequently increases after the allowance was recognised.
+2026-09-02 23:32:36,416 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:32:36,710 INFO agent.graph: Structure LLM call done in 1.67s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 3391, 'output_tokens': 225, 'total_tokens': 3616, 'output_token_details': {'reasoning': 94}}
+2026-09-02 23:32:36,716 INFO agent.graph: Per-piece structure call 6/21 done
+2026-09-02 23:33:06,724 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+An allowance is reversed only to the extent that the investment’s carrying amount does not exceed the carrying amount that would have been determined if no allowance had been recognised.
+* * *
+Derecognition
+* * *
+Held-to-maturity securities are derecognised when the rights to receive cash flows from these securities have expired or the Group has transferred substantially all risks and rewards of ownership.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 26
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(k) Other long-term investments
+* * *
+Classification
+* * *
+Other long-term investments are investments in equity instruments where the Group has no control or significant influence. These investments must have a period of holding, recovering or paying off more than one year.
+* * *
+Recognition
+* * *
+The Group recognises other long-term investments on the date it becomes a party to the contractual provisions of these investments (trade date accounting).
+* * *
+Measurement
+* * *
+These long-term investments are stated at cost less allowance for diminution in value. Allowance for diminution in value is made when there is an indicator of devaluation in investments. Accordingly, the allowance is equal to the difference between the total contributed capital and the owners’ equity multiplied (x) by the proportion of the Group’s actual contributed capital to the total contributed capital of the investors. An allowance is reversed when the investee subsequently made a profit that offsets the previous loss for which the allowance had been made. An allowance is reversed only to the extent that the investment’s carrying amount does not exceed the carrying amount that would have been determined if no allowance had been recognised.
+* * *
+Derecognition
+* * *
+Other long-term investments are derecognised when the rights to receive cash flows from these investments have expired or the Group has transferred substantially all risks and rewards of ownership.
+* * *
+(I) Derivative financial instruments
+* * *
+(i) Currency forward and currency swap contracts
+* * *
+Currency forward and currency swap contracts are recognised at contract value in the consolidated interim financial statements. Differences between the currency amounts which are committed to buy/sell at the contractual exchange rate and the buy/sell committed currency amounts translated at the spot exchange rate at the effective dates of the currency forward contracts and currency swap contracts are amortised to the consolidated statement of profit or loss on a straight-line basis over the terms of the contracts.
+* * *
+Currency forward contracts are revalued at the spot exchange rate at the month-end. Any unrealised gains/losses are recognised in the foreign exchange revaluation reserve on the consolidated statement of financial position at each month-end and are transferred to the consolidated statement of profit or loss at the year-end.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 27
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(I) Derivative financial instruments (continued)
+* * *
+(ii) Interest rate swap contracts
+* * *
+Interest rate swap contracts are recognised at contract value in the consolidated interim financial statements. The balance with foreign currency positions is revalued at the spot exchange rate at month-end. Any unrealised gains/losses are recognised in the foreign exchange revaluation reserve on the consolidated statement of financial position at each month-end and are transferred to the consolidated statement of profit or loss at the year-end. Interest income and expenses are recognised in the consolidated statement of profit or loss on an accrual basis.
+* * *
+(iii) Currency option contracts
+* * *
+The committed value in currency option contracts is not recognised in the consolidated statement of financial position. Any paid or received option premium is recognised as deferred expense or revenue and amortised to the consolidated statement of profit or loss on a straight-line basis over the contractual term.
+* * *
+Currency option contracts are revalued at the spot exchange rate at the month-end. Any unrealised gains/losses are recognised in the foreign exchange revaluation reserve on the consolidated statement of financial position at each month-end and are transferred to the consolidated statement of profit or loss at the year-end.
+* * *
+(m) Repurchase and reverse repurchase agreements
+* * *
+Securities sold under agreements to repurchase at a specific date in the future are recognised in the consolidated statement of financial position. The proceeds from these agreements are recognised as a liability on the consolidated statement of financial position and the difference between selling price and the committed repurchase price is amortised to the consolidated statement of profit or loss using the straight-line method over the contractual term.
+* * *
+Securities purchased under agreements to resell at a specific date in the future are not recognised in the consolidated statement of financial position. The cash payment under the agreements is recognised as a loan on the consolidated statement of financial position and the difference between the purchase price and committed reselling price is amortised to the consolidated statement of profit or loss using the straight-line method over the contractual term.
+* * *
+(n) Gold
+* * *
+Gold is revalued at the spot exchange rate at each month-end. Differences from the monthly revaluation are recognised in the foreign exchange revaluation reserve on the consolidated statement of financial position at each month-end and are transferred to the consolidated statement of profit or loss at the year-end.
+* * *
+(o) Cash and cash equivalents
+* * *
+For the presentation of the consolidated statement of cash flows, cash and cash equivalents comprise cash on hand, gold and gemstones, demand deposits at the SBV, treasury bills and other short-term valuable papers qualified to be discounted at the SBV, securities which have maturity date within three months from purchase date, and demand deposits and term deposits with other credit institutions with original maturity of three months or less.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 28
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(p) Deposits with and loans to other credit institutions
+* * *
+(i) Deposits with other credit institutions
+* * *
+Deposits with other credit institutions include demand deposits and term deposits.
+* * *
+Demand deposits with other credit institutions are stated at the amount of principal outstanding.
+* * *
+Term deposits with other credit institutions are stated at the amount of principal outstanding less specific allowance.
+* * *
+In accordance with Circular No. 21/2012/TT-NHNN dated 18 June 2012 issued by the SBV (“Circular 21”) and Circular No. 01/2013/TT-NHNN dated 7 January 2013 issued by the SBV to amend and supplement certain articles of Circular 21, credit institutions are only allowed to undertake deposits for which the maximum term is three months with other credit institutions.
+* * *
+Credit risk classification of term deposits with other credit institutions and allowance thereof are made in accordance with the accounting policy on loans to other credit institutions as described in Note 3(p)(ii).
+* * *
+(ii) Loans to other credit institutions
+* * *
+Loans to other credit institutions are loans with original term of less than one year.
+* * *
+Loans to other credit institutions are stated at the amount of principal outstanding less specific allowance.
+* * *
+The Group classifies loans to other credit institutions in accordance with the quantitative method as stipulated in Article 10 of Circular 31. Loan classification and specific allowance for losses on loans to other credit institutions are determined in accordance with the accounting policy applied to loans to customers as described in Note 3(g)(ii) and 3(g)(iii).
+* * *
+Specific allowance is calculated based on each other credit institution’s loan balance on the last day of each month less the discounted value of collateral assets. The discounted value of collateral assets is determined in accordance with the principles as set out in Decree 86 as described in Note 3(g)(iii).
+* * *
+According to Decree 86, the Group is not required to make general allowance for term deposits with and loans to other credit institutions.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 29
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(q) Receivables
+* * *
+Receivables classified as credit-risk bearing assets are carried at cost less allowance for credit losses. The Group classifies these receivables in accordance with the quantitative method as stipulated in Article 10 of Circular 31. Credit risk classification and allowance for credit losses of these receivables are made in accordance with the accounting policy applied to loans to customers as described in Note 3(g)(ii) and 3(g)(iii).
+* * *
+Other receivables not classified as credit-risk bearing assets are recorded at cost less allowance for losses. These receivables are considered for allowance for losses based on the expected loss level that may occur or on the overdue status of the receivables with allowance rates as follows:
+* * *
+Overdue status Allowance rates
+* * *
+From 6 months to below 1 year 30% From 1 year to below 2 years 50% From 2 years to below 3 years 70% From 3 years and above 100%
+* * *
+Allowance for losses on receivables not classified as credit-risk bearing assets is recognised as operating expenses in the consolidated statement of profit or loss when incurred.
+* * *
+(r) Classification of financial instruments
+* * *
+Solely for the purpose of providing disclosures about the significance of financial instruments to the Group’s financial position and results of operations and the nature and extent of risk arising from financial instruments, the Group classifies its financial instruments as follows:
+* * *
+(i) Financial assets
+* * *
+Financial assets at fair value through profit or loss
+* * *
+A financial asset at fair value through profit or loss is a financial asset that meets either of the following conditions:
+* * *
+ It is classified by the Group as held for trading.
+2026-09-02 23:33:08,235 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:33:08,246 INFO agent.graph: Structure LLM call done in 1.52s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 3222, 'output_tokens': 226, 'total_tokens': 3448, 'input_token_details': {'cache_read': 768}, 'output_token_details': {'reasoning': 95}}
+2026-09-02 23:33:08,252 INFO agent.graph: Per-piece structure call 7/21 done
+2026-09-02 23:33:38,260 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+A financial asset is classified as held for trading if:
+* * *
+- it is acquired principally for the purpose of selling it in the near term;there is evidence of a recent pattern of short-term profit-taking; orit is a derivative (except for a derivative that is financial guarantee contract or a designated and effective hedging instrument).
+* * *
+ Upon initial recognition, it is designated by the Group as a financial asset at fair value through profit or loss.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 30
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(r) Classification of financial instruments (continued)
+* * *
+(i) Financial assets (continued)
+* * *
+Held-to-maturity investments
+* * *
+Held-to-maturity investments are non-derivative financial assets with fixed or determinable payments and fixed maturity that the Group has the positive intention and ability to hold to maturity, other than:
+* * *
+ those that the Group, upon initial recognition, designates as financial assets at fair value through profit or loss;  those that the Group designates as available-for-sale; and  those that meet the definition of loans and receivables.
+* * *
+Loans and receivables
+* * *
+Loans and receivables are non-derivative financial assets with fixed or determinable payments that are not quoted in an active market, other than those:
+* * *
+ that the Group intends to sell immediately or in the near term, which are classified as held for trading and those that the Group, on initial recognition, designates as financial assets at fair value through profit or loss;  that the Group, upon initial recognition, designates as available-for-sale; or  for which the Group may not recover substantially all of its initial investment, other than because of credit deterioration, which are classified as available-for-sale.
+* * *
+Available-for-sale financial assets
+* * *
+Available-for-sale financial assets are non-derivative financial assets that are designated as available for sale or those are not classified as:
+* * *
+ loans and receivables;  held-to-maturity investments; or  financial assets at fair value through profit or loss.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 31
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(r) Classification of financial instruments (continued)
+* * *
+(ii) Financial liabilities
+* * *
+Financial liabilities at fair value through profit or loss
+* * *
+A financial liability at fair value through profit or loss is a financial liability that meets either of the following conditions:
+* * *
+ It is considered by the Group as held for trading. A financial liability is classified as held for trading if:
+* * *
+- it is incurred principally for the purpose of repurchasing it in the near term;there is evidence of a recent pattern of short-term profit-taking; orit is a derivative (except for a derivative that is financial guarantee contract or a designated and effective hedging instrument).
+* * *
+ Upon initial recognition, it is designated by the Group as a financial liability at fair value through profit or loss.
+* * *
+Financial liabilities carried at amortised cost
+* * *
+Financial liabilities which are not classified as financial liabilities at fair value through profit or loss are classified as financial liabilities carried at amortised cost.
+* * *
+The classification of financial assets and financial liabilities described above is solely for presentation and disclosure purposes and is not intended to be a description of how the financial instruments are measured. Accounting policies for measurement of financial assets and financial liabilities are disclosed in other relevant notes.
+* * *
+(s) Tangible fixed assets
+* * *
+(i) Cost
+* * *
+Tangible fixed assets are stated at cost less accumulated depreciation. The initial cost of a tangible fixed asset comprises its purchase price, import duties, non-refundable purchase taxes and any directly attributable costs of bringing the asset to its working condition and location for its intended use. Expenditure incurred after the tangible fixed assets have been put into operation, such as repairs and maintenance and overhaul costs, is charged to the consolidated statement of profit or loss in the period in which the costs are incurred. In situations where it can be clearly demonstrated that the expenditure has resulted in an increase in the future economic benefits expected to be obtained from the use of tangible fixed assets beyond its originally assessed standard of performance, the expenditure is capitalised as an additional cost of tangible fixed assets.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 32
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(s) Tangible fixed assets (continued)
+* * *
+(ii) Depreciation
+* * *
+Depreciation is computed on a straight-line basis over the estimated useful lives of tangible fixed assets. The estimated useful lives are as follows:
+* * *
+Buildings and structures 2540 years Office equipment 38 years Motor vehicles 610 years Others 36 years
+* * *
+(iii) Disposals
+* * *
+Gains and losses on disposals of tangible fixed assets are determined by comparing net disposal proceeds with the carrying amounts. The disposal proceeds are recognised as other income in the consolidated statement of profit or loss. Expenses on disposal of assets and the carrying amounts are recognised as other expenses in the consolidated statement of profit or loss.
+* * *
+(t) Intangible fixed assets
+* * *
+(i) Land use rights
+* * *
+Land use rights comprise those acquired in a legitimate transfer with definite and long terms. Definite land use rights are stated at cost and are amortised on a straight-line basis based on the Group’s permissible useful life. Long-term land use rights are stated at cost and without amortisation. Initial cost of a land use right comprises its purchase price and any directly attributable costs incurred in conjunction with securing the land use rights.
+* * *
+(ii) Software
+* * *
+Cost of acquiring new software, which is not an integral part of the related hardware, is capitalised and recognised as an intangible fixed asset. Software costs are amortised on a straight-line basis over 3 to 8 years.
+* * *
+(iii) Disposals
+* * *
+Gains and losses on disposals of intangible fixed assets are determined by comparing net disposal proceeds with the carrying amounts. The disposal proceeds are recognised as other income in the consolidated statement of profit or loss. Expenses on disposal of assets and the carrying amounts are recognised as other expenses in the consolidated statement of profit or loss.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 33
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(u) Investment properties
+* * *
+(i) Investment property held to earn rentals
+* * *
+Cost
+* * *
+Investment property held to earn rentals is stated at cost less accumulated depreciation. The initial cost of an investment property held to earn rentals comprises its purchase price, cost of land use rights and any directly attributable expenditures of bringing the property to the condition necessary for it to be capable of operating in the manner intended by the Group. Expenditure incurred after the investment property held to earn rentals has been put into operation, such as repairs and maintenance, is charged to the consolidated statement of profit or loss in the period in which the expenditure is incurred. In situations where it can be clearly demonstrated that the expenditure has resulted in future economic benefits in excess of the originally assessed standard of performance of the existing investment property held to earn rentals, the expenditure is capitalised as an additional cost of the investment property held to earn rentals.
+* * *
+Depreciation
+* * *
+Depreciation is computed on a straight-line basis over the estimated useful lives of investment property held to earn rentals. The estimated useful lives are as follows:
+* * *
+Buildings 25 years
+* * *
+Disposals
+* * *
+Gains and losses on disposal of investment property held to earn rentals are determined by comparing net proceeds from disposals with the carrying amount of investment property held to earn rentals. The disposal proceeds are recognised as other income in the consolidated statement of profit or loss. Expenses on disposal of assets and the carrying amounts are recognised as other expenses in the consolidated statement of profit or loss.
+* * *
+(ii) Investment property held for capital appreciation
+* * *
+Investment property held for capital appreciation is stated at cost less any devaluation in market price. The carrying amount of an investment property held for capital appreciation is reduced when there is evidence that its market price falls below its carrying amount and the loss can be measured reliably. Any reduction in value of investment property held for capital appreciation is recognised as other expenses in the consolidated statement of profit or loss.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 34
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(v) Deposits from customers
+* * *
+Deposits from customers are stated at cost.
+* * *
+(w) Valuable papers issued
+* * *
+Valuable papers issued are stated at cost. The cost of valuable papers issued includes the proceeds from the issuance less any direct costs.
+* * *
+(x) Other payables
+* * *
+Other payables are stated at cost.
+* * *
+(y) Provisions
+* * *
+A provision is recognised if, as a result of a past event, the Group has a present legal or constructive obligation that can be estimated reliably, and it is probable that an outflow of economic benefits will be required to settle the obligation. Provisions are not recognised for future operating losses.
+* * *
+Where there are a number of similar obligations, the likelihood that an outflow will be required in settlement is determined by considering the class of obligations as a whole. A provision is recognised even if the likelihood of an outflow with respect to any one item included in the same class of obligations may be small.
+* * *
+Provisions are determined by discounting the expected future cash flows at a pre-tax rate that reflects current market assessments of the time value of money and the risks specific to the liability.
+* * *
+(z) Severance allowance
+* * *
+Under the Vietnamese Labour Code, when an employee who has worked for 12 months or more (“the eligible employee”) voluntarily terminates his/her labour contract, the Group is required to pay the eligible employee severance allowance. The working period used for the calculation of severance allowance is the period during which the employee actually works for the Group less the period during which the employee participates in the unemployment insurance scheme in accordance with the labour regulations and the period during which the severance allowance was paid. The average monthly salary for calculating the severance allowance is based on the average salary of the six consecutive months preceding the resignation of the eligible employees.
+* * *
+On 9 August 2013, the Ministry of Finance issued Official letter No. 10441/BTC-TCDN guiding the Bank on accounting for severance allowance. According to this Official letter, the Ministry of Finance does not allow the Bank to make provision for severance allowance to employees.
+2026-09-02 23:33:40,357 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:33:40,387 INFO agent.graph: Structure LLM call done in 2.13s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 3497, 'output_tokens': 230, 'total_tokens': 3727, 'input_token_details': {'cache_read': 768}, 'output_token_details': {'reasoning': 99}}
+2026-09-02 23:33:40,397 INFO agent.graph: Per-piece structure call 8/21 done
+2026-09-02 23:34:10,400 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+Accordingly, the Group has discontinued making any provision for severance allowance since 2013. The Group pays severance allowance to the eligible employee at the time the employee leaves.
+* * *
+Pursuant to Law on Social Insurance, effective from 1 January 2009, the Group and its employees are required to contribute to the unemployment insurance fund managed by the Vietnam Social Insurance Agency.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 35
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(aa) Taxation
+* * *
+Income tax comprises current and deferred tax. Income tax is recognised in the consolidated statement of profit or loss except for the extent that it relates to items recognised directly to equity, in which case it is recognised in equity.
+* * *
+Current tax is the expected tax payable on the taxable income for the period, using tax rates enacted at the reporting date, and any adjustment to tax payable in respect of previous periods.
+* * *
+Deferred tax is provided using the financial position statement method, providing for temporary differences between the carrying amounts of assets and liabilities for financial reporting purposes and the amounts used for taxation purposes. The amount of deferred tax provided is based on the expected manner of realisation or settlement of the carrying amount of assets and liabilities using tax rates enacted or substantively enacted at the reporting date.
+* * *
+Deferred tax assets are recognised only to the extent that it is probable that future taxable profits will be available against which the asset can be utilised. Deferred tax assets are reduced to the extent that it is no longer probable that the related tax benefit will be realised.
+* * *
+(bb) Capital
+* * *
+(i) Share capital
+* * *
+Ordinary shares are classified as equity. Incremental costs directly attributable to the issue of ordinary shares are recognised as a deduction from equity.
+* * *
+(ii) Share premium
+* * *
+On receipt of capital from shareholders, the difference between issue price and par value of issued shares is recognised as the share premium account in equity.
+* * *
+(iii) Treasury shares
+* * *
+When the Bank repurchases its ordinary shares, these repurchased shares are cancelled and the Bank recognises a reduction in its charter capital, except for cases as stipulated by law. The difference between the par value of the repurchased shares and the amount of consideration paid, which includes directly attributable costs, less taxes, is recognised in share premium.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 36
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(cc) Reserves
+* * *
+(i) The Bank
+* * *
+Pursuant to the Law on Credit Institutions No. 32/2024/QH15 issued by the National Assembly of Vietnam on 18 January 2024 (“Law on Credit Institutions 2024”) and Decree No. 135/2025/ND-CP issued by the Government on 12 June 2025 (“Decree 135”) effective from 1 August 2025, the Bank is required to make the following reserves before distribution of profits:
+* * *
+Percentage of annual allocation
+* * *
+Maximum balance
+* * *
+Reserve to supplement charter capital 10% of profit after tax Charter capital Financial reserve 10% of remaining profit after tax after appropriation to the reserve to supplement charter capital Not specified
+* * *
+The purpose of financial reserve is to offset residual asset losses and damage occurring in the course of business after such losses have been offset with compensation paid by the organisations, individuals who caused them, indemnity paid by insurers and with the allowance set up and accounted for in expenses, and shall be used for other purposes in accordance with the law.
+* * *
+Reserves are used for specific purposes and are appropriated from profit after tax of the Bank according to the proportion prescribed below:
+* * *
+- Reserve to supplement charter capital;Financial reserve;Other reserves: appropriated according to the resolution of the General Meeting of Shareholders. The appropriation rates of these reserves are determined by the General Meeting of Shareholders in accordance with the law.
+* * *
+The remaining profit after the appropriation of the above reserves, bonus and welfare fund and distribution of dividends to the shareholders is recognised as retained profit of the Bank.
+* * *
+The Bank only appropriates reserve to supplement charter capital and financial reserve at the year-end.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 37
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(cc) Reserves (continued)
+* * *
+(ii) Asia Commercial Bank Leasing Company Limited
+* * *
+Pursuant to Law on Credit Institutions 2024 and Decree 135, ACBL is required to make the following reserves before distribution of profits: Percentage of annual allocation
+* * *
+Maximum balance
+* * *
+Reserve to supplement charter capital 10% of profit after tax Charter capital Financial reserve 10% of remaining profit after tax after appropriation to the reserve to supplement charter capital Not specified
+* * *
+ACBL only appropriates reserve to supplement charter capital and financial reserve at the year end. The reserve to supplement charter capital and the financial reserve of ACBL are recognised as other reserves in the consolidated statement of financial position.
+* * *
+(iii) ACB Securities Company Limited
+* * *
+According to Circular No. 114/2021/TT-BTC dated 17 December 2021 issued by the Ministry of Finance (“Circular 114”) to replace Circular No. 146/2014/TT-BTC dated 6 October 2014 (“Circular 146”), providing guidance on the financial regime applicable to securities companies and fund management companies:
+* * *
+- Securities companies and fund management companies are not required to make additional appropriations to the reserve to supplement charter capital and financial reserve.
+* * *
+- The balance of the reserve to supplement charter capital appropriated in accordance with Circular 146 shall be used to supplement charter capital in accordance with the Law on Securities No. 54/2019/QH14 and other relevant regulations.
+* * *
+- The balance of the financial reserve appropriated in accordance with Circular 146 shall be used to supplement charter capital or other purposes in accordance with the Law on Securities No. 54/2019/QH14 and other relevant regulations.
+* * *
+As of the date of these consolidated interim financial statements, the Members’ Council of ACBS has not made any decision regarding the balance of the reserve to supplement charter capital and the financial reserve.
+* * *
+The reserve to supplement charter capital and the financial reserve of ACBS are recognised as other reserves in the consolidated statement of financial position.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 38
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(cc) Reserves (continued)
+* * *
+(iv) Asia Commercial Bank Asset Management Company Limited Pursuant to the Law on Credit Institutions 2024, Decree 135 and Circular No. 27/2002/TT-BTC dated 22 March 2002 issued by the Ministry of Finance (“Circular 27”), ACBA is required to make the following reserves before distribution of profits: Percentage of annual allocation
+* * *
+Maximum balance
+* * *
+Reserve to supplement charter capital 10% of profit after tax Charter capital Financial reserve 10% of remaining profit after tax after appropriation to the reserve to supplement charter capital Not specified
+* * *
+ACBA only appropriates reserve to supplement charter capital and financial reserve at the year end. Reserve to supplement charter capital and financial reserve of ACBA are recognised as other reserves in the consolidated statement of financial position.
+* * *
+(v) ACB Capital Management Company Limited
+* * *
+According to Circular 114, ACBC has ceased appropriation of reserve to supplement charter capital and financial reserve since the year ended 31 December 2022.
+* * *
+As of the date of preparation of these consolidated interim financial statements, the Members’ Council of ACBC has not made any decision regarding the balance of the reserve to supplement charter capital and the financial reserve.
+* * *
+The reserve to supplement charter capital and the financial reserve of ACBC are recognised as other reserves in the consolidated statement of financial position.
+* * *
+(dd) Other funds
+* * *
+(i) Bonus and welfare fund
+* * *
+Bonus and welfare fund is established by appropriating from profit after tax according to the resolution of the General Meeting of Shareholders. Bonus and welfare fund is recognised as other liabilities in the consolidated statement of financial position.
+* * *
+(ii) Science and technology development fund
+* * *
+Science and technology development fund is established according to the resolution of the General Meeting of Shareholders and recognised as other liabilities in the consolidated statement of financial position. The appropriation, expenditure and supervision of the science and technology development fund are carried out in accordance with prevailing laws and regulations. The Group recognises the appropriation of science and technology development fund as operating expenses in the consolidated statement of profit or loss, which does not exceed 20% of taxable income in accordance with prevailing laws and regulations. At the end of five-year period starting from recognition date, when the fund is not spent up to 70% of the total of the fund appropriated by the Group and the fund financed by others (if any), the Group must pay corporate income tax imposed on unused amount of the fund and an interest on such corporate income tax.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 39
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(ee) Related parties
+* * *
+Related parties include enterprises and individuals that directly or indirectly through one or more intermediaries, control, or are controlled by, or are under common control with the Group. The enterprises in which the Group has significant influence, enterprises and individuals owning, directly or indirectly, an interest in the voting power of the Group that gives them significant influence over the Group, key management personnel, including members of Board of Directors, members of Supervisory Board, members of Board of Management, Chief Accountant and close members of the family of these individuals and companies which these individuals directly or indirectly hold significant voting right or have significant influence over also constitute related parties.
+* * *
+In considering each possible related party relationship, the Group pays attention to the substance of the relationship, and not merely the legal form.
+* * *
+(ff) Fiduciary activities
+* * *
+The Group acts as a trustee and in other fiduciary capacities that result in the holding or placing of assets, loans on behalf of individuals, corporates and other credit institutions.
+* * *
+The value of investment trusts and trust funds received are recognised when the trust contracts have been signed and trust funds have been realised.
+2026-09-02 23:34:12,021 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:34:12,036 INFO agent.graph: Structure LLM call done in 1.64s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 3460, 'output_tokens': 248, 'total_tokens': 3708, 'output_token_details': {'reasoning': 117}}
+2026-09-02 23:34:12,044 INFO agent.graph: Per-piece structure call 9/21 done
+2026-09-02 23:34:42,051 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+Rights and obligations of the trustor and trustee relating to profit and profit sharing, trust fee, other rights and obligations are in compliance with the terms of the contracts.
+* * *
+Based on the terms of the contracts, fiduciary activities of the Group comprise:
+* * *
+Fiduciary activities at no risk
+* * *
+The Group acts as a trustee and in other fiduciary capacities that result in holding assets on behalf of customers, entrusted investments and loans to customers in which trustors bear all risks of fiduciary activities. These assets are excluded from the Group’s consolidated interim financial statements as they are not assets of the Group. Entrusted funds received from trustors but not yet disbursed are recognised as other liabilities in the consolidated statement of financial position. After the disbursement is made, the Group recognises entrusted funds as off-balance sheet items in accordance with Circular No. 30/2014/TT-NHNN dated 6 November 2014 issued by the SBV.
+* * *
+Fiduciary activities at risk
+* * *
+The Group acts as a trustee receiving funds from the Government, international and other credit institutions to make loans to customers. The Group recognises the received fund as an entrusted fund and recognises loans to customers financed by these funds as its loans to customers. The accounting policy of these loans to customers are in accordance with the regulations issued by the SBV (Note 3(g)).
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 40
+* * *
+## SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES (continued)
+(gg) Dividend distribution
+* * *
+Dividend distribution to the Bank’s shareholders is recognised as a liability in the consolidated interim financial statements when the dividends are approved in accordance with regulations of the Bank’s Charter.
+* * *
+(hh) Earnings per share
+* * *
+The Group presents basic and diluted earnings per share (EPS) for its ordinary shares. Basic EPS is calculated by dividing the net profit attributable to the ordinary shareholders of the Bank, after deducting the bonus and welfare fund made during the period, by the weighted average number of ordinary shares outstanding during the period. Diluted EPS is determined by adjusting the profit or loss attributable to the ordinary shareholders and the weighted average number of ordinary shares outstanding for the effect of all dilutive potential ordinary shares.
+* * *
+(ii) Segment reporting
+* * *
+A segment is a distinguishable component of the Group that is engaged either in providing related products or services (business segment), or in providing products or services within a particular economic environment (geographical segment), which is subject to risks and rewards that are different from those of other segments. The Group’s primary format for segment reporting is based on business segment. The Group’s secondary format for segment reporting is based on geographical segment.
+* * *
+(jj) Nil balance
+* * *
+Items or balances required by Circular No. 49/2014/TT-NHNN dated 31 December 2014 issued by the SBV (“Circular 49”) and Circular No. 27/2021/TT-NHNN dated 31 December 2021 issued by the SBV to amend and to supplement Circular 49 that are not shown in these consolidated interim financial statements indicate nil balances.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 41
+* * *
+## CASH ON HAND, GOLD AND GEMSTONES
+#### 31.12.2025
+VND million VND million
+* * *
+Cash in VND 4,575,604 6,834,569 Cash in foreign currencies 1,469,964 1,778,776 Gold 106,131 11,203 ─────── ─────── 6,151,699 8,624,548 ═══════ ═══════
+* * *
+## BALANCES WITH THE STATE BANK OF VIETNAM
+#### 31.12.2025
+VND million VND million
+* * *
+Demand deposits with the SBVIn VND 5,300,494 14,882,677In foreign currencies 526,593 1,692,281 ─────── ─────── 5,827,087 16,574,958 ═══════ ═══════
+* * *
+Under the SBV’s regulations relating to the compulsory reserve, credit institutions are required to maintain a compulsory reserve requirement (“CRR”) in demand deposits with the SBV. The monthly average balance of demand deposits with the SBV of the Group must not be less than relevant CRR rates multiplied by the preceding month’s average balances of deposits in scope as follows:
+* * *
+CRR rates applicable to preceding month’s average balances of:
+* * *
+#### 31.12.2025
+% %
+* * *
+Deposits from customers:Deposits in foreign currencies with term of less than 12 months 8.00 8.00Deposits in foreign currencies with term of 12 months and above 6.00 6.00Deposits in VND with term of less than 12 months 3.00 3.00Deposits in VND with term of 12 months and above 1.00 1.00
+* * *
+Deposits from foreign credit institutions:Deposits in foreign currencies 1.00 1.00 ═══ ═══
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 42
+* * *
+## DEPOSITS WITH AND LOANS TO OTHER CREDIT INSTITUTIONS
+6.1 Deposits with and loans to other credit institutions
+* * *
+30.6.2026 31.12.2025 VND million VND million Deposits with other credit institutions Demand depositsIn VND 12,834,486 22,160,438In foreign currencies 10,342,119 7,824,462 ──────── ──────── 23,176,605 29,984,900 ──────── ──────── Term deposits (i)In VND 87,903,321 107,959,785In foreign currencies 5,968,511 12,045,996 ──────── ──────── 93,871,832 120,005,781 ──────── ──────── Total deposits with other credit institutions 117,048,437 149,990,681 ──────── ────────
+* * *
+Loans to other credit institutions (i) In VND 6,392,840 In which:Discount, rediscount 892,840 ──────── ──────── Total loans to other credit institutions 6,392,840 ──────── ──────── Total deposits with and loans to other credit institutions 123,441,277 149,990,681 ════════ ════════
+* * *
+(i) Included in deposits with and loans to other credit institutions as at 30 June 2026 were:  VND300,000 million of term deposits with other credit institutions and VND2,000,000 million of loans to other credit institutions of the Bank (31.12.2025: VND4,000,000 million of term deposits with other credit institutions) which were pledged as collaterals for deposits from other credit institutions with the amount of VND2,261,427 million (31.12.2025: VND4,002,301 million) (Note 16(i) and Note 34.2).  VND9,513,671 million of term deposits with other credit institutions of ACBS (31.12.2025: VND10,007,585 million) which were pledged as collaterals for borrowings from other credit institutions with the amount of VND9,181,000 million (31.12.2025: VND9,513,000 million) (Note 16(i) and Note 34.2).  VND18,750 million of term deposits with other credit institutions of ACBL (31.12.2025: VND18,250 million) which were pledged as collaterals for borrowings from other credit institutions with the amount of VND135,000 million (31.12.2025: VND245,000 million) (Note 16(i) and Note 34.2).
+2026-09-02 23:34:45,354 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-09-02 23:34:45,691 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-02 23:34:45,692 WARNING google_genai.models: Direct use of automatic function calling (AFC) in Models.generate_content is not recommended. Instead, we recommend to use AFC in Chat.send_message. Similarly, direct use of AFC in Models.generate_content_stream is not recommended. Instead, we recommend to use AFC in Chat.send_message_stream.
+2026-09-02 23:35:15,348 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 499 Client Closed Request"
+2026-09-02 23:35:16,651 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:35:16,665 INFO agent.graph: Structure LLM call done in 34.61s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 3540, 'output_tokens': 81, 'total_tokens': 3621}
+2026-09-02 23:35:16,669 INFO agent.graph: Per-piece structure call 10/21 done
+2026-09-02 23:35:46,680 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+ VND397,500 million of term deposits with other credit institutions of ACBS (31.12.2025: VND842,550 million) which were pledged as collaterals for settlement of covered warrants (Note 34.2).
+* * *
+### Analysis of quality of term deposits with and loans to other credit institutions
+#### 31.12.2025
+VND million VND million
+* * *
+Group 1 – Current loans 100,264,672 120,005,781 ════════ ════════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 43
+* * *
+## HELD-FOR-TRADING SECURITIES
+### Held-for-trading securities
+#### 31.12.2025
+VND million VND million
+* * *
+Debt securities Government securities 1,474,269 1,274,577 Debt securities issued by other domestic credit institutions (i) 1,052,230 1,000,000 Debt securities issued by domestic economic entities (i) 270,308 270,000
+* * *
+Equity securities Equity securities issued by other domestic credit institutions 1,408,698 1,866,996 Equity securities issued by domestic economic entities 1,527,083 2,296,785
+* * *
+Other securities 201,368 ────── ────── Total held-for-trading securities 5,933,956 6,708,358 ────── ────── Allowance for losses on held-for-trading securities Allowance for diminution in value of held-for-trading securities (171,846) (163,476) ────── ────── 5,762,110 6,544,882 ══════ ══════ (i) Included in held-for-trading debt securities as at 30 June 2026 were VND500,000 million of debt securities issued by other domestic credit institutions of ACBS (31.12.2025: VND500,000 million of debt securities issued by other domestic credit institutions and VND270,000 million of debt securities issued by domestic economic entities) which were pledged as collaterals for borrowings from other credit institutions with the amount of VND490,000 million (31.12.2025: VND589,000 million) (Note 16(i) and Note 34.2).
+* * *
+### Analysis of quality of held-for-trading securities classified as credit-risk bearing assets
+#### 31.12.2025
+VND million VND million
+* * *
+Group 1Current loans 1,322,538 1,270,000 ═══════ ═══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 44
+* * *
+## HELD-FOR-TRADING SECURITIES (continued)
+### Listing status
+#### 31.12.2025
+VND million VND million
+* * *
+Debt securities Listed 1,474,269 1,274,577 Unlisted 1,322,538 1,270,000
+* * *
+Equity securities Listed 2,911,829 4,137,322 Unlisted 23,952 26,459
+* * *
+Other securities Listed 1,368 Unlisted 200,000 ─────── ─────── 5,933,956 6,708,358 ═══════ ═══════
+* * *
+### Allowance for losses on held-for-trading securities
+Allowance for diminution in
+* * *
+value of held-for-trading securities VND million
+* * *
+As at 1 January 2025 147,937 Allowance made during the year 15,539 ───── As at 31 December 2025 163,476 Allowance made during the period (Note 25) 8,370 ───── As at 30 June 2026 171,846 ═════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 45
+* * *
+## DERIVATIVES AND OTHER FINANCIAL ASSETS/LIABILITIES
+As at 30 June 2026
+* * *
+Total contract value (at foreign exchange rate at the contract date) Total carrying value (at foreign exchange rate as at 30 June 2026) Assets Liabilities Total VND million VND million VND million VND million
+* * *
+Currency derivatives Currency forward contracts 7,897,725(120,159) (120,159) Currency swap contracts 100,716,158 275,578275,578
+* * *
+Other derivatives Interest rate swap contracts 7,734,608(40,508) (40,508) ──────── ───── ────── ────── 116,348,491 275,578 (160,667) 114,911 ════════ ═════ ══════ ══════
+* * *
+As at 31 December 2025 Total contract value (at foreign exchange rate at the contract date) Total carrying value (at foreign exchange rate as at 31 December 2025) Assets Liabilities Total VND million VND million VND million VND million
+* * *
+Currency derivatives Currency forward contracts 3,646,093(31,284) (31,284) Currency swap contracts 80,034,373 350,144350,144
+* * *
+Other derivatives Interest rate swap contracts 3,104,030 5,4385,438 ─────── ───── ───── ───── 86,784,496 355,582 (31,284) 324,298 ═══════ ═════ ═════ ═════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 46
+* * *
+## LOANS TO CUSTOMERS
+### By type of loans
+#### 31.12.2025
+VND million VND million
+* * *
+Loans to domestic economic entities and individuals 721,576,097 666,394,943 Discounted negotiable instruments and valuable papers 397,868 325,828 Finance leases 3,104,447 2,685,219 Payments on behalf of customers 36,338 30,657 Margin loans and advances 20,644,553 17,340,705 ──────── ──────── 745,759,303 686,777,352 ════════ ════════
+* * *
+### By type of customers
+#### 31.12.2025
+VND million VND million
+* * *
+State-owned enterprises 10,302,201 9,680,562 Foreign-invested enterprises 19,365,045 12,513,936 Joint stock companies, limited liability companies and other enterprises 268,715,394 238,758,130 Cooperatives 422,397 403,575 Individuals 446,681,367 425,070,500 Others 272,899 350,649 ──────── ──────── 745,759,303 686,777,352 ════════ ════════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 47
+* * *
+## LOANS TO CUSTOMERS (continued)
+### By loan group
+#### 31.12.2025
+VND million VND million
+* * *
+Group 1Current loans 712,635,450 660,272,034 Group 2Special-mentioned loans 4,821,891 2,493,226 Group 3Sub-standard loans 1,350,279 764,791 Group 4Doubtful loans 1,339,763 770,229 Group 5Loss loans 4,967,367 5,136,367 Margin loans and advances 20,644,553 17,340,705 ──────── ──────── 745,759,303 686,777,352 ════════ ════════
+* * *
+### By term
+#### 31.12.2025
+VND million VND million
+* * *
+Short-term loans 465,850,819 444,709,964 Medium-term loans 23,334,200 21,569,837 Long-term loans 256,574,284 220,497,551 ──────── ──────── 745,759,303 686,777,352 ════════ ════════
+* * *
+### By currency
+#### 31.12.2025
+VND million VND million
+* * *
+Denominated in VND 715,100,448 668,933,408 Denominated in foreign currencies 30,658,855 17,843,944 ──────── ──────── 745,759,303 686,777,352 ════════ ════════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 48
+* * *
+## LOANS TO CUSTOMERS (continued)
+### By business sector of customers
+#### 31.12.2025
+VND million VND million
+* * *
+Trading 133,861,232 120,134,692 Manufacturing and processing 53,100,866 44,060,495 Construction 25,957,856 22,131,494 Individual and community services 21,572,014 21,432,988 Real estate advisory and trading 14,509,921 12,306,608 Warehousing, transportation and communication 7,143,453 6,491,487 Hotels and restaurants 2,051,327 1,945,595 Agriculture and forestry 3,626,547 2,498,470 Training and education 623,653 589,450 Financial services 21,074,050 20,750,638 Science and technology 5,531,441 2,882,869 Healthcare and social assistance 1,284,700 926,245 Other business sectors 455,422,243 430,626,321 ──────── ──────── 745,759,303 686,777,352 ════════ ════════
+* * *
+### Allowance for losses on loans to customers
+Specific
+* * *
+allowance General allowance Allowance for losses on loans for margin trading activities Total VND million VND million VND million VND million
+* * *
+As at 1 January 2025 2,383,004 4,239,076 117,476 6,739,556 Allowance made during the year 2,592,268 743,1743,335,442 Allowance utilised during the year (2,450,269)- (2,450,269) ─────── ────── ───── ─────── As at 31 December 2025 2,525,003 4,982,250 117,476 7,624,729 Allowance made during the period (Note 30) 1,327,192 418,8531,746,045 Allowance utilised during the period (1,305,430)- (1,305,430) ─────── ─────── ───── ─────── As at 30 June 2026 2,546,765 5,401,103 117,476 8,065,344 ═══════ ═══════ ═════ ═══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 49
+* * *
+## INVESTMENT SECURITIES
+### Investment securities
+#### 31.12.2025
+VND million VND million
+* * *
+Available-for-sale securities Debt securities Government securities (i) 40,155,963 39,410,741 Debt securities issued by other domestic credit institutions (i) 113,190,915 91,803,872 Debt securities issued by domestic economic entities 1,500,000 1,500,000
+* * *
+Equity securities Overseas equity securities 64,346 64,226
+* * *
+Allowance for losses on available-for-sale securities General allowance (11,250) (11,250) ──────── ──────── Total available-for-sale securities 154,899,974 132,767,589 ──────── ────────
+* * *
+Held-to-maturity securities (excluding special bonds issued by VAMC) Debt securities Government securities (i) 10,877,195 10,896,527 Debt securities issued by other domestic credit institutions (i) 500,000 500,000 ──────── ──────── Total held-to-maturity securities (excluding special bonds issued by VAMC) 11,377,195 11,396,527 ──────── ──────── Total investment securities 166,277,169 144,164,116 ════════ ════════
+* * *
+(i) Included in investment securities as at 30 June 2026 were:
+* * *
+ VND17,878,867 million of Government securities (31.12.2025: VND36,210,885 million) which were pledged as collaterals for borrowings from the SBV with the amount of VND15,376,131 million (31.12.2025: VND31,152,220 million) (Note 15(i) and Note 34.2).  VND6,496,394 million of Government securities (31.12.2025: VND1,953,716 million) which were pledged as collaterals for Government bond repurchase transactions with the State Treasury with the amount of VND5,611,968 million (31.12.2025: VND1,805,161 million) (Note 15(ii) and Note 34.2).  VND13,550,183 million of Government securities (31.12.2025: VND4,978,263 million) and VND1,002,780 million of debt securities issued by other domestic credit institutions (31.12.2025: VND1,003,538 million) which were pledged as collaterals for deposits and borrowings from other credit institutions with the amount of VND12,967,110 million (31.12.2025: VND5,203,249 million) (Note 16(i) and Note 34.2).  VND2,551,846 million of Government securities (31.12.2025: VND2,556,085 million) which were pledged as collaterals for valuable papers issued with the amount of VND2,191,845 million (31.12.2025: VND2,190,210 million) (Note 34.2).  VND2,533,355 million of Government securities (31.12.2025: VND2,377,669 million) which were pledged as collaterals for interbank electronic clearing transactions (Note 34.2).
+2026-09-02 23:35:50,695 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:35:50,757 INFO agent.graph: Structure LLM call done in 4.08s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 4558, 'output_tokens': 1281, 'total_tokens': 5839, 'input_token_details': {'cache_read': 768}, 'output_token_details': {'reasoning': 899}}
+2026-09-02 23:35:50,774 INFO agent.graph: Per-piece structure call 11/21 done
+2026-09-02 23:36:20,784 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+ VND942,939 million of Government securities (31.12.2025: VND944,076 million) which were pledged as collaterals for the threshold and interbank overdraft at the SBV (Note 34.2).
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 50
+* * *
+## INVESTMENT SECURITIES (continued)
+### Analysis of quality of investment securities classified as credit-risk bearing assets
+#### 31.12.2025
+VND million VND million
+* * *
+Group 1Current loans 114,690,915 93,303,872 ════════ ═══════
+* * *
+### Listing status
+#### 31.12.2025
+VND million VND million
+* * *
+Available-for-sale securities Debt securities Listed 40,155,963 39,410,741 Unlisted 114,690,915 93,303,872 ──────── ──────── 154,846,878 132,714,613 ──────── ──────── Equity securities Listed 64,346 64,226 ──────── ──────── 154,911,224 132,778,839 ════════ ════════
+* * *
+Held-to-maturity securities (excluding special bonds issued by VAMC) Debt securities Listed 11,377,195 11,396,527 ════════ ════════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 51
+* * *
+## LONG-TERM INVESTMENTS
+### By type of investments
+Note
+* * *
+30.6.2026 VND million 31.12.2025 VND million
+* * *
+Other long-term investments 11.2 233,739 233,739 Allowance for diminution in value of long-term investments 11.3 (159,428) (159,040) ───── ───── 74,311 74,699 ═════ ═════
+* * *
+### Other long-term investments
+#### 31.12.2025
+VND million VND million
+* * *
+Investments in domestic economic entities Listed 177,739 177,739 Unlisted 56,000 56,000 ───── ───── 233,739 233,739 ═════ ═════
+* * *
+### Allowance for diminution in value of long-term investments
+VND million
+* * *
+As at 1 January 2025 167,932 Allowance reversed during the year (8,892) ───── As at 31 December 2025 159,040 Allowance made during the period (Note 29(i)) 388 ───── As at 30 June 2026 159,428 ═════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 52
+* * *
+## FIXED ASSETS
+### Tangible fixed assets
+Buildings and
+* * *
+structures Office equipment Motor vehicles Others Total VND million VND million VND million VND million VND million
+* * *
+Cost As at 1 January 2026 3,057,473 2,851,403 702,721 194,511 6,806,108 Additions 943 61,207 12,908 8,292 83,350 Transfer from construction in progress (Note 14.1(ii)) 369,490 7,036- 376,526 Disposals (6,160) (12,982) (10,839) (202) (30,183) Reclassifications (Note 12.2) (23,189)-(23,189) Other movements (263)-(263) ────── ────── ───── ───── ────── As at 30 June 2026 3,398,294 2,906,664 704,790 202,601 7,212,349 ────── ────── ───── ───── ──────
+* * *
+Accumulated depreciation As at 1 January 2026 892,049 2,186,831 367,156 159,585 3,605,621 Charge for the period 43,519 141,862 31,316 6,705 223,402 Disposals (3,407) (12,867) (10,839) (202) (27,315) ────── ────── ───── ───── ────── As at 30 June 2026 932,161 2,315,826 387,633 166,088 3,801,708 ────── ────── ───── ───── ──────
+* * *
+Net book value As at 1 January 2026 2,165,424 664,572 335,565 34,926 3,200,487 ═══════ ══════ ═════ ═════ ══════ As at 30 June 2026 2,466,133 590,838 317,157 36,513 3,410,641 ═══════ ══════ ═════ ═════ ══════
+* * *
+Other information about tangible fixed assets was as follows:
+* * *
+#### 31.12.2025
+VND million VND million
+* * *
+Cost of tangible fixed assets which were fully depreciated but still in use 1,782,860 1,717,938 ═══════ ═══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 53
+* * *
+## FIXED ASSETS (continued)
+### Intangible fixed assets
+Land use rights Software Total
+* * *
+VND million VND million VND million
+* * *
+Cost As at 1 January 2026 1,827,344 1,290,183 3,117,527 Additions47,866 47,866 Transfer from construction in progress (Note 14.1(ii)) 21,455 24,137 45,592 Reclassifications (Note 12.1) 23,18923,189 Other movements (7)(7) ────── ────── ────── As at 30 June 2026 1,871,981 1,362,186 3,234,167 ────── ────── ──────
+* * *
+Accumulated amortisation As at 1 January 2026 12,877 866,587 879,464 Charge for the period 1,439 64,982 66,421 ────── ────── ────── As at 30 June 2026 14,316 931,569 945,885 ────── ────── ──────
+* * *
+Net book value As at 1 January 2026 1,814,467 423,596 2,238,063 ══════ ══════ ══════ As at 30 June 2026 1,857,665 430,617 2,288,282 ══════ ══════ ══════
+* * *
+Other information about intangible fixed assets was as follows:
+* * *
+#### 31.12.2025
+VND million VND million
+* * *
+Cost of intangible fixed assets which were fully amortised but still in use 545,280 536,070 ══════ ══════
+* * *
+## INVESTMENT PROPERTIES
+#### 31.12.2025
+VND million VND million
+* * *
+Investment properties held to earn rentals 38,904 38,948 Investment properties held for capital appreciation 132,788 110,725 ───── ───── 171,692 149,673 ═════ ═════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 54
+* * *
+## INVESTMENT PROPERTIES (continued)
+### Investment properties held to earn rentals
+Land use rights Buildings Total
+* * *
+VND million VND million VND million
+* * *
+Cost As at 1 January 2026 and 30 June 2026 37,080 1,887 38,967
+* * *
+Accumulated depreciation As at 1 January 202619 19 Charge for the period44 44 ───── ───── ───── As at 30 June 202663 63 ───── ───── ─────
+* * *
+Net book value As at 1 January 2026 37,080 1,868 38,948 ═════ ═════ ═════ As at 30 June 2026 37,080 1,824 38,904 ═════ ═════ ═════
+* * *
+### Investment properties held for capital appreciation
+Land use rights Buildings Total
+* * *
+VND million VND million VND million
+* * *
+As at 1 January 2026 103,380 7,345 110,725 Transfer from construction in progress (Note 14.1(ii)) 22,06322,063 ───── ──── ───── As at 30 June 2026 125,443 7,345 132,788 ═════ ════ ═════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 55
+* * *
+## OTHER ASSETS
+### Receivables
+#### 31.12.2025
+VND million VND million
+* * *
+External receivables (i) 3,841,103 5,594,255 Construction in progress (ii) 880,061 806,530 Advances and internal receivables 477,142 333,182 Receivables from the State Budget 16,768 7,006Personal income tax refund (Note 33) 9,762Interest subsidy receivables 7,006 7,006 Dividend receivables 10,212 2,100 ────── ────── 5,225,286 6,743,073 ══════ ══════
+* * *
+(i) Included in external receivables as at 30 June 2026 were:  Advances to suppliers with the amount of VND911,389 million (31.12.2025: VND1,126,970 million).
+2026-09-02 23:36:24,325 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:36:24,333 INFO agent.graph: Structure LLM call done in 3.55s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 3536, 'output_tokens': 261, 'total_tokens': 3797, 'input_token_details': {'cache_read': 768}, 'output_token_details': {'reasoning': 130}}
+2026-09-02 23:36:24,341 INFO agent.graph: Per-piece structure call 12/21 done
+2026-09-02 23:36:54,348 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+ Receivables from outright purchase without recourse of a set of documents presented under a letter of credit with the amount of VND846,401 million (31.12.2025: VND804,440 million).
+* * *
+(ii) The movements of construction in progress during the period/year were as follows:
+* * *
+The six-month period ended 30.6.2026 The year ended 31.12.2025 VND million VND million
+* * *
+Opening balance 806,530 740,684 Additions 517,712 511,155 Transfer to tangible fixed assets (Note 12.1) (376,526) (235,497) Transfer to intangible fixed assets (Note 12.2) (45,592) (122,430) Transfer to investment properties (Note 13.2) (22,063) (87,382) ────── ────── Closing balance 880,061 806,530 ══════ ══════
+* * *
+Major constructions in progress were:
+* * *
+30.6.2026 VND million 31.12.2025 VND million
+* * *
+Purchasing and constructing office buildings 557,160 615,999 ═════ ═════
+* * *
+(iii) Analysis of the quality of other assets classified as credit-risk bearing assets:
+* * *
+30.6.2026 VND million 31.12.2025 VND million
+* * *
+Group 1Current loans 34,529 14,359 ═════ ═════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 56
+* * *
+## OTHER ASSETS (continued)
+### Deferred tax assets
+#### 31.12.2025
+VND million VND million
+* * *
+Deferred tax assets related to deductible temporary differences 45,661 17,263 ═════ ═════
+* * *
+The movements in deferred tax assets during the period/year were as follows:
+* * *
+The six-month period ended 30.6.2026 The year ended 31.12.2025 VND million VND million
+* * *
+Opening balance 17,263 17,318 Increase in deferred tax assets during the period/year 43,256 14,858 Reversal of deferred tax assets recognised in previous years (14,858) (14,913) ───── ───── Closing balance 45,661 17,263 ═════ ═════
+* * *
+During the six-month period ended 30 June 2026, deferred tax assets were calculated at the tax rate of 20% (in 2025: 20%).
+* * *
+### Other assets
+30.6.2026
+* * *
+VND million 31.12.2025 VND million
+* * *
+Prepaid expenses 3,630,678 1,330,233 Foreclosed assets of which ownership was transferred to the Bank and awaiting for settlement (i) 1,230
+* * *
+1,230 Other assets 89,176 82,886 ────── ────── 3,721,084 1,414,349 ══════ ══════
+* * *
+(i) Foreclosed assets of which ownership was transferred to the Bank and awaiting for settlement:
+* * *
+#### 31.12.2025
+VND million VND million
+* * *
+Real estate 1,230 1,230 ══════ ══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 57
+* * *
+## OTHER ASSETS (continued)
+### Allowance for losses on other assets
+#### 31.12.2025
+VND million VND million
+* * *
+Allowance for receivables classified as credit-risk bearing assets 258 107General allowance 258 107 Allowance for other assets 129,041 183,108 ───── ───── 129,299 183,215 ═════ ═════
+* * *
+The movements of allowance for losses on other assets during the period/year were as follows:
+* * *
+VND million
+* * *
+As at 1 January 2025 178,379 General allowance for receivables classified as credit-risk bearing assets reversed during the year (694) Allowance for other assets made during the year 5,530 ────── As at 31 December 2025 183,215 General allowance for receivables classified as credit-risk bearing assets made during the period (Note 30) 151 Allowance for other assets reversed during the period (Note 29(i)) (54,067) ────── As at 30 June 2026 129,299 ══════
+* * *
+## DUE TO THE GOVERNMENT AND THE STATE BANK OF VIETNAM
+#### 31.12.2025
+VND million VND million
+* * *
+Borrowings from the State Bank of Vietnam Borrowings pledged by valuable papers (i) 15,376,131 31,152,220
+* * *
+Deposits from the State Treasury Demand deposits in VND 30,777 18,758
+* * *
+Government bond repurchase transactions with the State Treasury (ii) 5,611,968
+* * *
+1,805,161 ─────── ─────── Total due to the Government and the State Bank of Vietnam 21,018,876 32,976,139 ═══════ ═══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 58
+* * *
+## DUE TO THE GOVERNMENT AND THE STATE BANK OF VIETNAM (continued)
+(i) Borrowings from the State Bank of Vietnam were secured by VND17,878,867 million of Government
+* * *
+securities (31.12.2025: VND36,210,885 million) (Note 10.1(i)).
+* * *
+(ii) Government bond repurchase transactions with the State Treasury were secured by VND6,496,394 million of Government securities (31.12.2025: VND1,953,716 million) (Note 10.1(i)).
+* * *
+## DEPOSITS AND BORROWINGS FROM OTHER CREDIT INSTITUTIONS
+#### 31.12.2025
+VND million VND million
+* * *
+Deposits from other credit institutions Demand depositsIn VND 7,541,838 5,107,445In foreign currencies 7,321 6,236 ──────── ──────── 7,549,159 5,113,681 ──────── ──────── Term deposits (i)In VND 83,690,372 104,252,589In foreign currencies 13,831,468 11,947,871 ──────── ──────── 97,521,840 116,200,460 ──────── ──────── Total deposits from other credit institutions 105,070,999 121,314,141 ──────── ────────
+* * *
+Borrowings from other credit institutions In VND 35,959,511 28,000,090 In which:Discount, rediscount (i) 12,067,110 4,503,249Mortgage, pledge (i) 9,906,000 11,630,840 In foreign currencies 7,329,708 5,685,308 ──────── ──────── Total borrowings from other credit institutions 43,289,219 33,685,398 ──────── ──────── Total deposits and borrowings from other credit institutions 148,360,218 154,999,539 ════════ ════════
+* * *
+(i) Term deposits and borrowings from other credit institutions were secured by the following assets:
+* * *
+#### 31.12.2025
+VND million VND million
+* * *
+Term deposits with other credit institutions (Note 6.1(i)) 9,832,421 14,025,835 Loans to other credit institutions (Note 6.1(i)) 2,000,000 Held-for-trading debt securities (Note 7.1(ii)) 500,000 770,000 Investment securities (Note 10.1(i)) 14,552,963 5,981,801 ═══════ ═══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 59
+* * *
+## DEPOSITS FROM CUSTOMERS
+### By type of deposits
+#### 31.12.2025
+VND million VND million
+* * *
+Demand depositsIn VND 99,924,470 111,715,178In foreign currencies 15,568,014 12,823,805 Term depositsIn VND 143,528,787 159,296,370In foreign currencies 661,444 1,052,565 Demand savingsIn VND 126,086 573,909In foreign currencies 7,859,121 5,210,013 Term savingsIn VND 302,998,978 289,874,053In foreign currencies 2,788,399 1,501,370 Margin depositsIn VND 2,568,065 2,564,158In foreign currencies 276,969 241,061 Specialised capital depositsIn VND 112,310 105,792In foreign currencies 190,959 221,901 ──────── ──────── 576,603,602 585,180,175 ════════ ════════
+* * *
+### By type of customers
+30.6.2026 31.12.2025
+* * *
+VND million VND million
+* * *
+State-owned enterprises 2,988,785 1,673,146 Foreign-invested enterprises 8,703,912 10,634,177 Joint-stock companies, limited liability companies and other enterprises 106,227,678 102,644,034 Cooperatives 141,919 98,369 Individuals and business households 445,708,354 455,461,007 Others 12,832,954 14,669,442 ──────── ──────── 576,603,602 585,180,175 ════════ ════════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 60
+* * *
+## FUNDS AND ENTRUSTED INVESTMENTS RECEIVED FROM THE GOVERNMENT,
+INTERNATIONAL AND OTHER CREDIT INSTITUTIONS
+* * *
+#### 31.12.2025
+VND million VND million
+* * *
+Funds received from Japan Bank for International Cooperation in VND (i) 4,999 8,320 Funds received from Japan Bank for International Cooperation in foreign currencies (ii) 9,547 10,759
+* * *
+14,546 19,079 ═══════ ═══════
+* * *
+Funds received from Japan Bank for International Cooperation (“JBIC”) are financed by the Japanese Government via JBIC. These funds are granted to small and medium enterprises with maximum period of ten years for medium-term and long-term loans and with maximum period of one year for short-term loans in accordance with the lending agreement signed between the SBV and the Bank:
+* * *
+(i) Outstanding balances of funds received from JBIC in VND bore interest rates from 4.20% to 5.04% per annum during the six-month period ended 30 June 2026 (in 2025: from 3.61% to 3.76% per annum).
+* * *
+(ii) Outstanding balances of funds received from JBIC in foreign currencies bore interest rates of 1.91% per annum during the six-month period ended 30 June 2026 (in 2025: 1.91% per annum).
+* * *
+## VALUABLE PAPERS ISSUED
+As at 30 June 2026
+* * *
+Book value Par value VND million VND million Bonds From one-year to two-year bonds 25,849,503 25,850,000 Three-year bonds 5,369,727 5,370,000 Five-year bonds 5,016,055 5,020,000 Ten-year bonds 2,421,841 2,430,000 Certificates of deposit Less-than-one-year certificates of deposit 104,290,314 104,290,314 From one-year to two-year certificates of deposit 36,000,000 36,000,000 Three-year certificates of deposit 17,735,553 17,735,553 Five-year certificates of deposit 2,330,000 2,330,000 ────────── ────────── 199,012,993 199,025,867 ══════════ ══════════
+* * *
+As at 31 December 2025 Book value Par value VND million VND million Bonds From one-year to two-year bonds 39,849,045 39,850,000 Three-year bonds 5,369,637 5,370,000 Five-year bonds 4,715,768 4,720,000 Ten-year bonds 2,420,205 2,430,000 Certificates of deposit Less-than-one-year certificates of deposit 73,249,767 73,249,767 From one-year to two-year certificates of deposit 5,400,000 5,400,000 Three-year certificates of deposit 290,000 290,000 Five-year certificates of deposit 2,000,000 2,000,000 ────────── ────────── 133,294,422 133,309,767 ══════════ ══════════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 61
+* * *
+## OTHER LIABILITIES
+#### 31.12.2025
+VND million VND million
+* * *
+Internal payables 870,968 941,203 External payables 2,630,974 6,924,447Remittances in transit 284,263 385,590Tax payables to the State Budget (Note 33) 1,197,410 2,174,750Cash held on behalf and awaiting for settlement 480,548 790,590Amount awaiting settlement 445,367 2,914,186Other payables 223,386 659,331 Unearned revenue (i) 5,384,145 5,667,622 Bonus and welfare fund (ii) 900,563 817,424 Science and technology development fund (iii) 1,442,206 1,541,280 ─────── ─────── 11,228,856 15,891,976 ═══════ ═══════
+* * *
+(i) Included in unearned revenue as at 30 June 2026 was VND5,383,333 million (31.12.2025: VND5,666,666 million) of the unearned support fee from the Bank’s bancassurance activities.
+* * *
+(ii) Bonus and welfare fund
+* * *
+The six-month period ended 30.6.2026 The year ended 31.12.2025 VND million VND million
+* * *
+Opening balance 817,424 847,298 Addition during the period/year (Note 21.1) 100,000 100,000 Utilisation during the period/year (16,861) (129,874) ────── ────── Closing balance 900,563 817,424 ══════ ══════
+* * *
+(iii) At the meeting on 19 April 2018, the General Meeting of Shareholders resolved to establish the Science and technology development fund.
+2026-09-02 23:37:01,170 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:37:01,195 INFO agent.graph: Structure LLM call done in 6.85s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 4670, 'output_tokens': 2326, 'total_tokens': 6996, 'output_token_details': {'reasoning': 914}}
+2026-09-02 23:37:01,202 INFO agent.graph: Per-piece structure call 13/21 done
+2026-09-02 23:37:31,206 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+The movements of the Science and technology development fund during the period/year were as follows:
+* * *
+The six-month period ended 30.6.2026 The year ended 31.12.2025 VND million VND million
+* * *
+Opening balance 1,541,280 1,480,612 Addition during the period/year245,000 Utilisation during the period/year (26,131) (37,768) Depreciation of fixed assets funded by the Science and technology development fund during the period/year (72,829) (147,173) Other movements during the period/year (114) 609 ────── ────── Closing balance 1,442,206 1,541,280 ══════ ══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 62
+* * *
+## OWNERS’ EQUITY
+### Statement of changes in owners’ equity
+Charter
+* * *
+capital Share premium Other capital Reserve to supplement charter capital Financial reserve Other reserves (i) Foreign exchange revaluation reserve Retained profits Total VND million VND million VND million VND million VND million VND million VND million VND million VND million
+* * *
+As at 1 January 2025 44,666,579 271,7795,067,603 9,268,852 453,11323,733,752 83,461,678 Net profit for the period---8,559,425 8,559,425 Appropriation to bonus and welfare fund (Note 20(ii))--
+* * *
+- (100,000) (100,000) Share dividends (Note 21.3) 6,699,987--- (6,699,987) Cash dividends (Note 21.3)---(4,466,658) (4,466,658) Foreign exchange revaluation reserve--- (243,816)(243,816) ─────── ─────── ─────── ─────── ─────── ────── ────── ─────── ─────── As at 30 June 2025 51,366,566 271,7795,067,603 9,268,852 453,113 (243,816) 21,026,532 87,210,629 ─────── ─────── ─────── ─────── ─────── ────── ────── ─────── ─────── Net profit for the period---7,065,274 7,065,274 Appropriation to reserves-1,451,937 1,306,743 34,813(2,793,493) Foreign exchange revaluation reserve--- 243,816243,816 ─────── ─────── ─────── ─────── ─────── ────── ────── ─────── ─────── As at 31 December 2025 51,366,566 271,7796,519,540 10,575,595 487,92625,298,313 94,519,719 ─────── ─────── ─────── ─────── ─────── ────── ────── ─────── ─────── Net profit for the period---8,612,866 8,612,866 Appropriation to bonus and welfare fund (Note 20(ii))---(100,000) (100,000) Share dividends (Note 21.3)- 6,677,654-- (6,677,654) Cash dividends (Note 21.3)---(3,595,660) (3,595,660) Foreign exchange revaluation reserve--- (122,407)(122,407) ─────── ─────── ─────── ─────── ─────── ─────── ─────── ─────── ─────── As at 30 June 2026 51,366,566 271,779 6,677,654 6,519,540 10,575,595 487,926 (122,407) 23,537,865 99,314,518 ═══════ ═══════ ═══════ ═══════ ═══════ ═══════ ═══════ ═══════ ═══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 63
+* * *
+## OWNERS’ EQUITY (continued)
+### Statement of changes in owners’ equity (continued)
+(i) As at 30 June 2026, other reserves comprised:
+* * *
+ Reserve to supplement charter capital of subsidiaries: VND213,592 million (31.12.2025: VND213,592 million);  Financial reserve of subsidiaries: VND274,213 million (31.12.2025: VND274,213 million);  Capital expenditure fund of the Bank: VND121 million (31.12.2025: VND121 million).
+* * *
+### Shares
+(a) Number of shares
+* * *
+#### 31.12.2025
+Number of
+* * *
+shares Carrying value Number of shares Carrying value VND million VND million
+* * *
+Authorised share capital 5,804,421,957 58,044,220 5,136,656,599 51,366,566 Ordinary shares in circulation 5,804,421,957 58,044,220 5,136,656,599 51,366,566 ═════════ ═══════ ═════════ ═══════
+* * *
+(b) Movements of the share capital
+* * *
+Number of shares Share capital VND million
+* * *
+As at 1 January 2025 4,466,657,912 44,666,579 Shares issued during the year 669,998,687 6,699,987 ───────── ─────── As at 31 December 2025 5,136,656,599 51,366,566 Shares issued during the period 667,765,358 6,677,654 ───────── ─────── As at 30 June 2026 5,804,421,957 58,044,220 ═════════ ═══════
+* * *
+All ordinary shares have a par value of VND10,000. Each share is entitled to one vote at the General Meetings of Shareholders of the Bank. Shareholders are entitled to receive dividends as declared from time to time. All ordinary shares are ranked equally with regard to the Bank’s residual assets. In respect of shares bought back by the Bank, all rights are suspended until those shares are reissued.
+* * *
+### Dividends
+The General Meeting of Shareholders of the Bank on 9 April 2026 resolved to distribute share and
+* * *
+cash dividends at the distribution rate of 13% and 7% respectively (2025: 15% and 10% respectively) from VND10,273,314 million of retained profits of 2025 and previous years (2025: VND11,166,645 million of retained profits of 2024 and previous years). The Bank completed the issuance of shares for dividends during the period. On 18 June 2026, the Bank submitted the report on the results of the share issuance for dividend payment to the State Securities Commission of Vietnam (“the SSC”), under which 667,765,358 shares were distributed as share dividends. On 23 June 2026, the SSC issued Notification No. 5725/UBCK-QLCB confirming its receipt of the Bank’s report on the results of the share issuance for dividend payment.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 64
+* * *
+## OWNERS’ EQUITY (continued)
+### Dividends (continued)
+As at 30 June 2026, the SBV had not yet issued the Decision amending the Charter capital stated
+* * *
+in the its Establishment and Operation License for Commercial Bank relating to the increase in charter capital of the Bank. Accordingly, the Bank recognised the additional share capital amounting to VND6,677,654 million under Other capital in accordance with Circular No. 99/2025/TT-BTC issued by the Ministry of Finance on 27 October 2025, providing guidance on Vietnamese Accounting System for Enterprises. On 15 July 2026, the SBV issued Decision No. 1640/QD-NHNN approving the amendment to the Bank’s charter capital to VND58,044,219,570,000.
+2026-09-02 23:37:32,779 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-09-02 23:37:32,927 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-02 23:37:40,648 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 503 Service Unavailable"
+2026-09-02 23:37:42,737 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:37:42,749 INFO agent.graph: Structure LLM call done in 11.54s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 3947, 'output_tokens': 254, 'total_tokens': 4201}
+2026-09-02 23:37:42,754 INFO agent.graph: Per-piece structure call 14/21 done
+2026-09-02 23:38:12,802 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+Accordingly, the Bank recognised a decrease in Other capital and a corresponding increase in Charter capital with the amount of VND6,677,654 million.
+* * *
+## INTEREST AND SIMILAR INCOME
+The six-month period ended
+* * *
+30.6.2026 30.6.2025 VND million VND million
+* * *
+Interest income from deposits 3,221,424 2,311,759 Interest income from loans 29,319,165 21,997,501 Interest income from debt securities: 3,848,256 2,551,480Interest income from held-for-trading securities 42,539 3,350Interest income from investment securities 3,805,717 2,548,130 Income from guarantee services 261,625 198,814 Interest income from finance leasing 133,914 103,701 Other income from credit activities 516,116 462,746 ─────── ─────── 37,300,500 27,626,001 ═══════ ═══════
+* * *
+## INTEREST AND SIMILAR EXPENSES
+The six-month period ended
+* * *
+30.6.2026 30.6.2025 VND million VND million
+* * *
+Interest expenses on deposits 15,592,211 10,797,633 Interest expenses on borrowings 1,721,889 746,231 Interest expenses on valuable papers issued 5,181,279 2,571,621 Other expenses on credit activities 31,268 467,803 ─────── ─────── 22,526,647 14,583,288 ═══════ ═══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 65
+* * *
+## NET GAIN FROM TRADING OF FOREIGN CURRENCIES
+The six-month period ended
+* * *
+30.6.2026 30.6.2025 VND million VND million
+* * *
+Gains from trading of foreign currencies Currency spots 1,180,170 1,520,438 Gold trading 6,429 20,458 Currency derivatives 831,028 162,572
+* * *
+Losses on trading of foreign currencies Currency spots (305,462) (410,727) Gold trading (9,590) Currency derivatives (926,642) (147,146) ────── ────── 775,933 1,145,595 ══════ ══════
+* * *
+## NET GAIN FROM TRADING OF HELD-FOR-TRADING SECURITIES
+The six-month period ended
+* * *
+30.6.2026 30.6.2025 VND million VND million
+* * *
+Gains from trading of held-for-trading securities 365,141 218,552 Losses on trading of held-for-trading securities (129,873) (104,457) Addition to allowance for losses on held-for-trading securities (Note 7.4) (8,370) (53,706) ───── ────── 226,898 60,389 ═════ ══════
+* * *
+## NET (LOSS)/GAIN FROM TRADING OF INVESTMENT SECURITIES
+The six-month period ended
+* * *
+30.6.2026 30.6.2025 VND million VND million
+* * *
+Gains from trading of investment securities447,840 Losses on trading of investment securities (21,896) (3,244) ───── ───── (21,896) 444,596 ═════ ═════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 66
+* * *
+## NET OTHER INCOME
+The six-month period ended
+* * *
+30.6.2026 30.6.2025 VND million VND million
+* * *
+Other income Income from bad debt collection previously written-off 258,133 689,850 Income from other trading activities 385,989 451,724 Other income 65,790 306,307
+* * *
+Other expenses Expenses on other trading activities (236,065) (354,083) Other expenses (67,472) (98,690) ───── ───── 406,375 995,108 ═════ ═════
+* * *
+## INCOME FROM INVESTMENTS IN OTHER ENTITIES
+The six-month period ended
+* * *
+30.6.2026 30.6.2025 VND million VND million
+* * *
+Dividend income received during the periodFrom held-for-trading equity securities 43,587 32,291From investment equity securities 1,329 2,762From long-term investments 23,143 26,674 ───── ───── 68,059 61,727 ═════ ═════
+* * *
+## OPERATING EXPENSES
+The six-month period ended
+* * *
+30.6.2026 30.6.2025 VND million VND million
+* * *
+Tax, duties and fees 14,764 10,194 Salaries and related expenses 3,409,834 3,230,625Salaries and allowances 1,275,883 1,220,981Salary related contributions 263,096 251,105Subsidies 4,638 7,065Others 1,866,217 1,751,474 Expenses on assets 828,205 807,648Depreciation and amortisation expenses 217,038 210,440Others 611,167 597,208 Administrative expenses 1,033,135 1,061,195 Insurance for deposits from customers 334,071 316,124 Allowance expenses (i) (53,679) 2,266 ─────── ─────── 5,566,330 5,428,052 ═══════ ═══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 67
+* * *
+## OPERATING EXPENSES (continued)
+(i) Details of allowance expenses were as follows:
+* * *
+The six-month period ended 30.6.2026 30.6.2025 VND million VND million
+* * *
+Addition to allowance for diminution in value of long-term investments (Note 11.3) 388 50 (Reversal of)/addition to allowance for losses on other assets (Note 14.4) (54,067) 2,216 ───── ───── (53,679) 2,266 ═════ ═════
+* * *
+## ALLOWANCE EXPENSES FOR CREDIT LOSSES
+The six-month period ended
+* * *
+30.6.2026 30.6.2025 VND million VND million
+* * *
+Addition to general allowance for losses on loans to customers (Note 9.7) 418,853 383,393 Addition to specific allowance for losses on loans to customers (Note 9.7) 1,327,192 699,663 Addition to general allowance for receivables classified as credit -risk bearing assets (Note 14.4) 151 6,111 ────── ────── 1,746,196 1,089,167 ══════ ══════
+* * *
+## EARNINGS PER SHARE
+### Basic earnings per share
+The basic earnings per share was calculated by dividing the net profit attributable to ordinary
+* * *
+shareholders after deducting the bonus and welfare fund made during the period, by the weighted average number of ordinary shares outstanding during the period.
+* * *
+The six-month period ended 30.6.2026 30.6.2025
+* * *
+Net profit attributable to ordinary shareholders for the period (VND million) 8,612,866 8,559,425 Less: Appropriation to bonus and welfare fund (VND million) (Note 20(ii)) (100,000) (100,000) ───────── ───────── Profit used for calculation of earnings per share (VND million) 8,512,866 8,459,425 Weighted average of ordinary shares outstanding during the period (share) (i) 5,804,421,957 5,804,421,957 Earnings per share by weighted average of ordinary shares outstanding at the reporting date (VND/share) (ii) 1,467 1,457 ═════════ ═════════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 68
+* * *
+## EARNINGS PER SHARE (continued)
+### Basic earnings per share (continued)
+(i) Weighted average number of ordinary shares outstanding during the period:
+* * *
+The six-month period ended 30.6.2026 30.6.2025
+* * *
+Issued ordinary shares at the beginning of the period 5,136,656,599 4,466,657,912 Effect of share dividends issued in 2025669,998,687 Effect of share dividends issued in 2026 (ii) 667,765,358 667,765,358 ───────── ───────── Weighted average number of ordinary shares outstanding during the period 5,804,421,957 5,804,421,957 ═════════ ═════════
+* * *
+(ii) Earnings per share for the six-month period ended 30 June 2025 was retrospectively adjusted for the increase in ordinary shares due to share dividends issued in 2026.
+* * *
+### Diluted earnings per share
+During the period, the Bank did not have any dilutive potential ordinary shares.
+2026-09-02 23:38:15,876 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:38:15,917 INFO agent.graph: Structure LLM call done in 3.13s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 3258, 'output_tokens': 330, 'total_tokens': 3588, 'output_token_details': {'reasoning': 199}}
+2026-09-02 23:38:15,964 INFO agent.graph: Per-piece structure call 15/21 done
+2026-09-02 23:38:45,982 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+Accordingly, the
+* * *
+requirement for presentation of the diluted earnings per share was not applicable.
+* * *
+## CASH AND CASH EQUIVALENTS
+#### 30.6.2025
+VND million VND million
+* * *
+Cash on hand, gold and gemstones 6,151,699 6,666,091 Balances with the SBV 5,827,087 5,439,937 Deposits with other credit institutions (including demand deposits and term deposits with original terms of three months or less) 104,554,257 111,528,971 Securities with a term of redemption or maturity not exceeding three months from the date of purchase1,455,373 ──────── ──────── 116,533,043 125,090,372 ════════ ════════
+* * *
+## OBLIGATIONS TO THE STATE BUDGET
+Movements during the period
+* * *
+1.1.2026 Payable Paid 30.6.2026 VND million VND million VND million VND million
+* * *
+Value added tax 51,087 214,416 204,129 61,374 Corporate income tax 1,963,800 2,150,571 3,102,702 1,011,669 Other taxes 159,863 469,171 514,429 114,605 ────── ────── ────── ────── 2,174,750 2,834,158 3,821,260 1,187,648 ══════ ══════ ══════ ══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 69
+* * *
+## ASSETS, VALUABLE PAPERS MORTGAGED, PLEDGED, DISCOUNTED AND REDISCOUNTED
+### Assets, valuable papers mortgaged, pledged, discounted and rediscounted at the Group
+#### 31.12.2025
+VND million VND million
+* * *
+Assets, valuable papers of customers mortgaged, pledged and discounted at the Group Real estate 1,158,774,861 1,067,681,534 Inventories 4,422,434 3,508,908 Machinery and equipment 6,179,952 6,201,234 Valuable papers 120,466,781 115,564,606 In which:Valuable papers issued by enterprises 120,466,781 115,564,606 Other assets 60,992,571 53,360,504 ───────── ───────── 1,350,836,599 1,246,316,786 ───────── ───────── Assets, valuable papers of other credit institutions mortgaged, pledged, discounted and rediscounted at the Group Deposits from other credit institutions 39,015,460 50,250,000 ───────── ─────────
+* * *
+Total assets, valuable papers mortgaged, pledged, discounted and rediscounted at the Group 1,389,852,059 1,296,566,786 ═════════ ═════════
+* * *
+### The Group’s assets, valuable papers mortgaged, pledged, discounted and rediscounted
+#### 31.12.2025
+VND million VND million
+* * *
+Term deposits with other credit institutions (Note 6.1(i)) 10,229,921 14,868,385 Loans to other credit institutions (Note 6.1(i)) 2,000,000 Held-for-trading debt securities (Note 7.1(i)) 500,000 770,000 Investment securities (Note 10.1(i)) 44,956,364 50,024,232 ─────── ─────── 57,686,285 65,662,617 ═══════ ═══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 70
+* * *
+## CONTINGENT LIABILITIES AND COMMITMENTS
+### Off-balance sheet items
+30.6.2026 31.12.2025
+* * *
+VND million VND million
+* * *
+Borrowing guarantees 72,692 83,036
+* * *
+Commitments on foreign exchange transactions 209,313,359 165,444,063 Commitments on purchases of foreign currency 3,189,223 3,176,017 Commitments on sales of foreign currency 4,746,478 2,189,273 Commitments on swap transactions 201,377,658 160,078,773
+* * *
+Letters of credit 6,849,052 6,666,479 Letters of credit at sight 2,908,946 3,393,925 Deferred letters of credit 4,229,592 3,531,929 Less: margin deposits (289,486) (259,375)
+* * *
+Other guarantees 22,640,795 19,772,573 Payment guarantees 6,242,759 5,171,273 Performance guarantees 4,358,363 3,622,525 Bidding guarantees 650,575 633,343 Other guarantees 12,781,477 11,804,589 Less: margin deposits (1,392,379) (1,459,157)
+* * *
+Other commitments 38,183,409 25,031,882 ──────── ──────── 277,059,307 216,998,033 ════════ ════════
+* * *
+### Operating lease commitments
+The future minimum lease payments under non-cancellable operating leases were:
+* * *
+#### 31.12.2025
+VND million VND million
+* * *
+Within 1 year 437,685 402,512 Over 1 year to 5 years 1,626,587 1,567,234 Over 5 years 808,108 692,302 ─────── ─────── 2,872,380 2,662,048 ═══════ ═══════
+* * *
+### Capital commitments
+The capital commitments that have been approved but not yet provided for in the consolidated
+* * *
+statement of financial position as at 30 June 2026 amounted to VND159,425 million (31.12.2025: VND207,905 million).
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 71
+* * *
+## OVERDUE INTEREST AND FEE RECEIVABLE NOT COLLECTED YET
+#### 31.12.2025
+VND million VND million
+* * *
+Overdue interest of loans not collected yet 1,386,854 1,453,986 Overdue interest of securities not collected yet 136,873 136,873 Overdue interest of deposits not collected yet 12,629 12,629 ─────── ─────── 1,536,356 1,603,488 ═══════ ═══════
+* * *
+## WRITTEN-OFF BAD DEBTS
+#### 31.12.2025
+VND million VND million
+* * *
+Principal of written-off bad debts 6,825,579 5,780,056 Interest of written-off bad debts 3,236,686 2,835,244 Other written-off bad debts 3,143 3,143 ─────── ─────── 10,065,408 8,618,443 ═══════ ═══════
+* * *
+## ASSETS AND OTHER DOCUMENTS
+#### 31.12.2025
+VND million VND million
+* * *
+Precious metals, gemstones under custody services 945,809 1,128,169 Other assets under custody services 247,501 247,501 Lease assets (*) (*) Foreclosed assets waiting for settlement 2,107 2,107 Other valuable documents under safekeeping 46,330 829,818 ────── ─────── 1,241,747 2,207,595 ══════ ═══════
+* * *
+(*) The Group has not determined the value of lease assets because there is no guidance on determination of value of lease assets under current Vietnamese Accounting Standards, the Vietnamese Accounting System and the relevant statutory requirements on preparation and presentation of the interim financial statements applicable to credit institutions.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 72
+* * *
+## CONCENTRATION OF ASSETS, LIABILITIES AND OFF-BALANCE SHEET COMMITMENTS BY GEOGRAPHICAL AREA
+As at 30 June 2026
+* * *
+Deposits with and loans to other credit institutions Loans to customers Deposits and borrowings from other credit institutions Deposits from customers
+* * *
+Credit commitments Derivatives (i) Held-for trading and investment securities Total VND million VND million VND million VND million VND million VND million VND million VND million
+* * *
+Domestic 114,464,477 745,759,303 142,870,710 576,603,602 46,963,564 116,314,891 172,158,029 1,915,134,576 Overseas 8,976,8005,489,5086,889,559 33,600 64,346 21,453,813 ──────── ──────── ──────── ──────── ─────── ──────── ──────── ───────── 123,441,277 745,759,303 148,360,218 576,603,602 53,853,123 116,348,491 172,222,375 1,936,588,389 ════════ ════════ ════════ ════════ ═══════ ════════ ════════ ═════════
+* * *
+As at 31 December 2025 Deposits with and loans to other credit institutions Loans to customers Deposits and borrowings from other credit institutions Deposits from customers
+* * *
+Credit commitments Derivatives (i) Held-for trading and investment securities Total VND million VND million VND million VND million VND million VND million VND million VND million
+* * *
+Domestic 144,022,641 686,777,352 150,864,723 585,180,175 38,572,427 86,776,324 150,819,498 1,843,013,140 Overseas 5,968,0404,134,8167,571,383 8,172 64,226 17,746,637 ──────── ──────── ──────── ──────── ─────── ──────── ──────── ───────── 149,990,681 686,777,352 154,999,539 585,180,175 46,143,810 86,784,496 150,883,724 1,860,759,777 ════════ ════════ ════════ ════════ ═══════ ════════ ════════ ═════════
+* * *
+(i) Represented the total contract value at foreign exchange rate at the contract date.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 73
+* * *
+## SIGNIFICANT TRANSACTIONS WITH RELATED PARTIES
+(a) Transactions incurred during the period
+* * *
+During the period, there were the following transactions with related parties:
+* * *
+The six-month period ended 30.6.2026 30.6.2025 VND million VND million
+* * *
+Interest income from loans to other related parties (i) 15,172 10,138 Interest expenses on deposits from other related parties (i) 63,910 21,088 Dividend income from other related parties (i)26,174 Other expenses paid to other related parties (i) 14,070 ═════ ═════
+* * *
+Remuneration, salary, bonus and other benefits of the Board of Directors, the Supervisory Board and the Board of Management were as follows:
+* * *
+The six-month period ended 30.6.2026 30.6.2025 VND million VND million
+* * *
+Board of Directors 19,300 23,286 In which, remuneration:Mr. Tran Hung Huy – Chairman 4,480 4,200Mr. Nguyen Thanh Long – Vice Chairman 1,984 1,860Mr. Hiep Van Vo – Member 1,650 1,500Ms. Dinh Thi Hoa – Member 720 720Ms. Dang Thu Thuy – Member 1,152 1,080Mr. Dam Van Tuan – Member 1,188 1,080Mr. Do Minh Toan – Member 1,188 1,080Mr. Nguyen Van Hoa – Member 1,382 1,296Mr. Trinh Bao Quoc – Independent Member 1,152 1,080 Supervisory Board 5,260 6,356 Board of Management 62,860 63,533 In which:Salary of General Director 6,478 5,889 ═════ ═════
+* * *
+(b) Balances at the period-end/year-end
+* * *
+#### 31.12.2025
+VND million VND million
+* * *
+Loans to other related parties (i) 599,987 399,801 Deposits from other related parties (i) 1,456,206 1,130,927 Valuable papers issued to other related parties (i) 40,928 10,850 Interest receivables from loans to other related parties (i) 6,272 3,829 Interest payables on deposits from other related parties (i) 20,031 22,332 Interest payables on valuable papers issued to other related parties (i) 824 80 ══════ ══════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 74
+* * *
+## SIGNIFICANT TRANSACTIONS WITH RELATED PARTIES (continued)
+(i) Other related parties comprise key management personnel including members of the Board of
+* * *
+Directors, members of the Supervisory Board, members of the Board of Management, Chief Accountant and close members of the family of these individuals and companies which these individuals directly or indirectly hold significant voting right or have significant influence over.
+* * *
+## FINANCIAL RISK MANAGEMENT
+The Group implements risk management by establishing an overall risk management framework
+* * *
+and implementing risk components in accordance with regulatory requirements and the Group’s business strategies for a certain period of time. The risk management principles and risk appetite defined by the Board of Directors are established on the basis of assessing material risks and their tolerance.
+2026-09-02 23:38:51,399 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:38:51,422 INFO agent.graph: Structure LLM call done in 5.45s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 4479, 'output_tokens': 362, 'total_tokens': 4841, 'input_token_details': {'cache_read': 768}, 'output_token_details': {'reasoning': 231}}
+2026-09-02 23:38:51,445 INFO agent.graph: Per-piece structure call 16/21 done
+2026-09-02 23:39:21,449 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+The Board of Management is in charge of executing risk management into processes, regulations and limits to ensure all activities carried out by business units and function units in compliance with the given risk management framework and risk appetite.
+* * *
+Through the internal control system with three lines of defenses and complete risk management process (including identification, measurement, monitoring and risk control), risk management is owned and is managed by all units and employees across the Group in order to control, prevent, detect, timely handle risks and achieve the goals set by the Board of Directors.
+* * *
+The implementing, monitoring, evaluating of risk management activities and amending internal regulations are carried out periodically or when there are any changes in business environment, requirements from the SBV or the Group’s business strategy.
+* * *
+Among different types of the Group’s material risks, types of financial risks that affect the Group's financial instruments comprise credit risk, interest rate risk, currency risk and liquidity risk.
+* * *
+(a) Credit risk
+* * *
+Credit risk arises when customers or counterparties fail to perform or are unable to perform their partial or full obligations under agreements with the Group.
+* * *
+The Group establishes credit risk policies and applies them to its whole credit process including identifying target customers, credit granting activities, credit underwriting activities, credit approval activities, credit management, non-performing credit management to comply with regulatory requirements and align with the Group's business strategy, risk management strategy and risk appetite.
+* * *
+The Group uses a variety of tools to manage credit risk, such as: (i) setting credit limits by industries, economic sectors, products, collateral types, (ii) developing and applying the internal credit rating system, (iii) implementing software systems for credit management to monitor and to analyse non-performing credit, and early credit risk warning system. Credit data and credit management results are periodically reported to relevant management units, the Board of Directors, Risk Management Committee, General Director and Risk Committee in order to timely handle and control risks according to the Group's risk appetite and business strategy.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 75
+* * *
+## FINANCIAL RISK MANAGEMENT (continued)
+(a) Credit risk (continued)
+* * *
+Maximum exposure to credit risk before collaterals held or other credit enhancements
+* * *
+The maximum exposure to credit risk is the carrying amounts on the statement of financial position as well as off-balance sheet of financial instruments, without taking into account any collateral held or other credit enhancements. For contingent liabilities, the maximum exposure to credit risk is the maximum amount that the Group would have to pay if the obligations of the instruments issued are called upon. For off-balance sheet commitments, the maximum exposure to credit risk is the full amount of the undrawn credit facilities granted to customers. The table below shows the maximum exposure to credit risk of the Group:
+* * *
+Maximum exposure to credit risk 30.6.2026 31.12.2025 VND million VND million
+* * *
+Credit risk exposures relating to balance sheet assets: Balances with the State Bank of Vietnam 5,827,087 16,574,958 Deposits with and loans to other credit institutions 123,441,277 149,990,681 Held-for-trading debt securities 2,796,807 2,544,577 Derivatives 114,911 324,298 Loans to customers 745,759,303 686,777,352 Investment securities:Available-for-sale debt securities 154,846,878 132,714,613Held-to-maturity debt securities 11,377,195 11,396,527 Other financial assets 11,159,757 11,625,983 ───────── ───────── 1,055,323,215 1,011,948,989 ═════════ ═════════
+* * *
+Credit risk exposures relating to off-balance sheet items: Off-balance sheet commitments 53,853,123 46,143,810 ═════════ ═════════
+* * *
+The above table represents the worst case with the maximum level of loss of the Group as at 30 June 2026 and 31 December 2025, not taking into account any collateral held or other credit enhancements. Collaterals held as at 30 June 2026 and 31 December 2025 were described in Note 34.1.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 76
+* * *
+## FINANCIAL RISK MANAGEMENT (continued)
+(a) Credit risk (continued)
+* * *
+Credit quality
+* * *
+Financial assets exposed to credit risk were summarised as follows:
+* * *
+As at 30 June 2026
+* * *
+Balances with the State Bank of Vietnam Deposits with and loans to other credit institutions Held-for trading debt securities Derivatives Loans to customers Investment debt securities Other financial assets Total VND million VND million VND million VND million VND million VND million VND million VND million
+* * *
+Balances neither past due nor impaired 5,827,087 123,441,277 2,796,807 114,911 723,547,237 166,224,073 11,026,117 1,032,977,509 Balances past due but not impaired-- 9,615,290312
+* * *
+9,615,602 Balances past due and impaired-- 12,596,776133,328
+* * *
+12,730,104 Less: Allowance-- (8,065,344) (11,250) (129,299) (8,205,893) ─────── ──────── ────── ────── ──────── ──────── ─────── ───────── Net amount 5,827,087 123,441,277 2,796,807 114,911 737,693,959 166,212,823 11,030,458 1,047,117,322 ═══════ ════════ ══════ ══════ ════════ ════════ ═══════ ═════════ Allowance Specific allowance-- (2,546,765)- (2,546,765) General allowance-- (5,401,103) (11,250) (258) (5,412,611) Other allowance-- (117,476)(129,041) (246,517) ═══════ ════════ ══════ ══════ ════════ ════════ ═══════ ═════════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 77
+* * *
+## FINANCIAL RISK MANAGEMENT (continued)
+(a) Credit risk (continued)
+* * *
+Credit quality (continued)
+* * *
+As at 31 December 2025
+* * *
+Balances with the State Bank of Vietnam Deposits with and loans to other credit institutions Held-for trading debt securities Derivatives Loans to customers Investment debt securities Other financial assets Total VND million VND million VND million VND million VND million VND million VND million VND million
+* * *
+Balances neither past due nor impaired 16,574,958 149,990,681 2,544,577 324,298 675,491,067 144,111,140 11,437,772 1,000,474,493 Balances past due but not impaired-- 2,004,195307 2,004,502 Balances past due and impaired-- 9,282,090187,904 9,469,994
+* * *
+Less: Allowance-- (7,624,729) (11,250) (183,215) (7,819,194) ─────── ──────── ────── ────── ──────── ──────── ─────── ───────── Net amount 16,574,958 149,990,681 2,544,577 324,298 679,152,623 144,099,890 11,442,768 1,004,129,795 ═══════ ════════ ══════ ══════ ════════ ════════ ═══════ ═════════ Allowance Specific allowance-- (2,525,003)- (2,525,003) General allowance-- (4,982,250) (11,250) (107) (4,993,607) Other allowance-- (117,476)(183,108) (300,584) ═══════ ════════ ══════ ══════ ════════ ════════ ══════ ════════
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 78
+* * *
+## FINANCIAL RISK MANAGEMENT (continued)
+(b) Interest rate risk
+* * *
+Interest rate risk in the banking book (“IRRBB”) is the risk arising from adverse movements in interest rates that affect positions in the banking book, thereby impacting the Group’s income and equity. This risk arises in particular from contractual and/or repricing maturity mismatches; differences between the interest rates used to value assets and liabilities with the same remaining maturity; and the effects of option positions or embedded optionality in assets, liabilities and off‑balance sheet items, under which the Group or its customers may alter the value and timing of cash flows.
+* * *
+The Group has put into practice Basel III standards to improve the management of IRRBB according to international practices and in strict compliance with the regulations of the SBV. Accordingly, the Group balances the structure of proportions and terms of liabilities and assets in the banking book to reduce the negative impact of interest rate fluctuations on net interest income and the economic value of equity, especially in times of significant fluctuations in interest rates.
+* * *
+The implementation of high-quality interest rate risk management allows the Group to develop flexible business strategies that are suitable for market interest rate fluctuations; thereby helping the Group balance the goal of optimizing profits and minimizing losses, helping to manage capital buffers well to improve the ability to respond in stressful conditions of interest rates.
+* * *
+Stress testing of IRRBB is regularly conducted to identify the main economic risks that are likely to occur in stressful scenarios and the level of impact on the financial situation and own capital.
+2026-09-02 23:39:23,258 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:39:23,270 INFO agent.graph: Structure LLM call done in 1.82s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 3373, 'output_tokens': 340, 'total_tokens': 3713, 'output_token_details': {'reasoning': 209}}
+2026-09-02 23:39:23,278 INFO agent.graph: Per-piece structure call 17/21 done
+2026-09-02 23:39:53,285 INFO agent.graph: Raw content fed to LLM for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi
+Accordingly, the Group proactively assesses and implements effective risk management strategies and/or contingency actions and determines its own capital requirements in the Internal Capital Adequacy Assessment Procedure (ICAAP) and its ability to absorb the decline in profits.
+* * *
+In addition, the Group conducts reverse stress testing to determine the extent to which interest rate volatility would cause net interest income and the economic value of equity to change beyond current risk limits and appetite.
+* * *
+The following table shows the Group’s assets, liabilities and off-balance sheet items categorised by the repricing period at the reporting date.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 79
+* * *
+## FINANCIAL RISK MANAGEMENT (continued)
+(b) Interest rate risk (continued)
+* * *
+Unit: VND million
+* * *
+Overdue Non-interest bearing Under 1 month From 1 month to 3 months From over 3 months to 6 months From over 6 months to 12 months From over 1 year to 5 years Over 5 years Total As at 30 June 2026 Assets Cash on hand, gold and gemstones6,151,699--- 6,151,699 Balances with the State Bank of Vietnam5,827,087--- 5,827,087 Deposits with and loans to other credit institutions (*)- 81,697,446 23,749,650 8,474,646 7,837,770 1,681,765123,441,277 Held-for-trading securities (*)5,933,956--- 5,933,956 Derivatives and other financial assets114,911--- 114,911 Loans to customers (*) 19,056,78928,723,260 677,754,937 16,563,776 3,140,811 210,987 308,743 745,759,303 Investment securities (*)64,346-61,490,915 53,700,000 51,033,158 166,288,419 Long-term investments (*)233,739--- 233,739 Fixed assets5,698,923--- 5,698,923 Investment properties171,692--- 171,692 Other assets (*) 129,417 16,616,860 14,959--16,761,236 ─────── ─────── ──────── ──────── ─────── ─────── ─────── ─────── ──────── Total assets 19,186,206 40,813,213 110,435,665 701,504,587 25,038,422 72,469,496 55,592,752 51,341,901 1,076,382,242 ─────── ─────── ──────── ──────── ─────── ─────── ─────── ─────── ──────── Liabilities Due to the Government and the State Bank of Vietnam- 3,134,004 17,884,872-- 21,018,876 Deposits and borrowings from other credit institutions- 79,038,149 52,179,702 14,061,622 3,080,745- 148,360,218 Deposits from customers- 127,950,057 75,894,594 235,776,682 110,144,921 26,837,348576,603,602 Funds and entrusted investments received from the Government, international and other credit institutions-4,999-9,547 14,546 Valuable papers issued-4,999,957135,190,048 56,401,147 2,421,841 199,012,993 Other liabilities23,520,322--- 23,520,322 ─────── ─────── ──────── ──────── ──────── ──────── ──────── ─────── ──────── Total liabilities23,520,322 210,122,210 150,964,124 249,838,304 248,415,714 83,238,495 2,431,388 968,530,557 ─────── ─────── ──────── ──────── ──────── ──────── ──────── ─────── ──────── Interest sensitivity gap of balance sheet items 19,186,206 17,292,891 (99,686,545) 550,540,463 (224,799,882) (175,946,218) (27,645,743) 48,910,513 107,851,685 Interest sensitivity gap of off-balance sheet items (net)(2,530,917) 186 132,720 (239,324) 2,601,926 (5,099)(40,508) ─────── ─────── ──────── ──────── ──────── ──────── ──────── ─────── ──────── Total interest sensitivity gap 19,186,206 14,761,974 (99,686,359) 550,673,183 (225,039,206) (173,344,292) (27,650,842) 48,910,513 107,811,177 ═══════ ═══════ ════════ ════════ ════════ ════════ ════════ ═══════ ════════
+* * *
+(*) These items do not include the allowance.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 80
+* * *
+## FINANCIAL RISK MANAGEMENT (continued)
+(b) Interest rate risk (continued)
+* * *
+Unit: VND million
+* * *
+Overdue Non-interest bearing Under 1 month From 1 month to 3 months From over 3 months to 6 months From over 6 months to 12 months From over 1 year to 5 years Over 5 years Total As at 31 December 2025 Assets Cash on hand, gold and gemstones8,624,548--- 8,624,548 Balances with the State Bank of Vietnam16,574,958--- 16,574,958 Deposits with and loans to other credit institutions (*)- 110,119,224 27,895,062 1,909,879 8,021,868 2,044,648149,990,681 Held-for-trading securities (*)6,708,358--- 6,708,358 Derivatives and other financial assets324,298--- 324,298 Loans to customers (*) 8,908,14126,688,519 625,989,362 19,976,643 4,582,957 275,560 356,170 686,777,352 Investment securities (*)64,226-52,503,873 41,300,000 50,307,267 144,175,366 Long-term investments (*)233,739--- 233,739 Fixed assets5,438,550--- 5,438,550 Investment properties149,673--- 149,673 Other assets (*) 183,988 14,810,326--- 14,994,314 ─────── ─────── ─────── ──────── ─────── ─────── ─────── ─────── ───────── Total assets 9,092,129 52,928,676 136,807,743 653,884,424 21,886,522 65,108,698 43,620,208 50,663,437 1,033,991,837 ─────── ─────── ─────── ──────── ─────── ─────── ─────── ─────── ───────── Liabilities Due to the Government and the State Bank of Vietnam- 10,824,924 9,449,511 12,701,704-32,976,139 Deposits and borrowings from other credit institutions- 101,410,721 32,557,887 18,627,014 2,403,917- 154,999,539 Deposits from customers- 137,277,524 165,302,462 154,104,080 94,751,966 33,744,143585,180,175 Funds and entrusted investments received from the Government, international and other credit institutions-8,320-10,759 19,079 Valuable papers issued-4,999,896 3,400,000 73,749,729 48,724,592 2,420,205 133,294,422 Other liabilities24,861,054--- 24,861,054 ─────── ─────── ──────── ──────── ──────── ──────── ──────── ─────── ──────── Total liabilities24,861,054 249,513,169 212,318,076 188,832,798 170,905,612 82,468,735 2,430,964 931,330,408 ─────── ─────── ──────── ──────── ──────── ──────── ──────── ─────── ──────── Interest sensitivity gap of balance sheet items 9,092,129 28,067,622 (112,705,426) 441,566,348 (166,946,276) (105,796,914) (38,848,527) 48,232,473 102,661,429 Interest sensitivity gap of off-balance sheet items (net)62,699 258 (263,210) (61,498) 270,720 (3,386)5,583 ─────── ─────── ──────── ──────── ──────── ──────── ──────── ─────── ──────── Total interest sensitivity gap 9,092,129 28,130,321 (112,705,168) 441,303,138 (167,007,774) (105,526,194) (38,851,913) 48,232,473 102,667,012 ═══════ ═══════ ════════ ════════ ════════ ════════ ════════ ═══════ ════════ (*) These items do not include the allowance.
+* * *
+## ASIA COMMERCIAL JOINT STOCK BANK
+Form B05a/TCTD-HN
+* * *
+NOTES TO THE CONSOLIDATED INTERIM FINANCIAL STATEMENTS FOR THE SIX-MONTH PERIOD ENDED 30 JUNE 2026 81
+* * *
+## FINANCIAL RISK MANAGEMENT (continued)
+(c) Currency risk
+* * *
+Currency risk (also referred to as exchange rate risk) refers to the risk arising from adverse fluctuations in exchange rates and gold prices in the market when the Group holds foreign currency positions, including gold. The Group was established and operates in Vietnam and the accounting currency is VND. Major transactions of the Group are also in VND. The Group’s loans to customers were mainly denominated in VND and USD. However, some other assets of the Group are denominated in foreign currencies other than USD. The Group sets limits on the level of exposure by each currency, including gold.
+2026-09-02 23:39:54,155 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-02 23:39:54,184 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-02 23:39:57,271 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 503 Service Unavailable"
+2026-09-02 23:40:01,807 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-02 23:40:01,817 INFO agent.graph: Structure LLM call done in 8.53s for query: Extract ACB's quarterly quantitative benchmarks from the consolidated interim fi | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 4953, 'output_tokens': 865, 'total_tokens': 5818}
+2026-09-02 23:40:01,819 INFO agent.graph: Per-piece structure call 18/21 done

@@ -155,6 +155,7 @@ def _merge_runs(source_id: str, raw_by_id: dict, signals_by_id: dict) -> list:
             "gate_reason": rec.get("gate_reason"),
             "error": rec.get("error"),
             "result": rec.get("result"),
+            "token_usage": rec.get("token_usage"),
         })
     ordered = sorted(runs.items(), key=lambda kv: kv[1].get("triggered_at") or "", reverse=True)
     return [{"run_id": rid, **data} for rid, data in ordered]

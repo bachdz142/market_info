@@ -11,3 +11,6 @@ data/ocr_preview/
 # generator script is tracked, the output (which changes on every run and
 # can run 1-2MB) is not.
 review_dashboard.html
+# Same pattern for presentation.py — published to Artifacts, republished
+# from this file each time; the file itself is a build intermediate.
+presentation_fragment.html
