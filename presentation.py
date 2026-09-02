@@ -118,7 +118,7 @@ def _gather() -> dict:
 # down); the LLM fallback chain sits below both structure boxes; the
 # disabled search path is a separate dashed box under checkpoint_gate.
 ARCHITECTURE_SVG = """
-<svg viewBox="0 0 1080 400" role="img" aria-label="Pipeline architecture, horizontal" class="archsvg">
+<svg viewBox="0 0 1220 420" role="img" aria-label="Pipeline architecture, horizontal, two parallel lanes" class="archsvg">
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#888"></path>
@@ -135,78 +135,92 @@ ARCHITECTURE_SVG = """
     .box.dormant { fill: #f2f2f2; stroke-dasharray: 4 3; }
     .lbl { font-size: 12.5px; fill: #1a1f24; }
     .lbl.small { font-size: 10px; fill: #777; }
+    .lbl.ocrnote { font-size: 8px; fill: #a33; }
     .edge { stroke: #999; stroke-width: 1.3; fill: none; marker-end: url(#arrow); }
-    .edge.ocr { stroke: #a33; stroke-dasharray: 3 3; marker-end: url(#arrowocr); }
+    .edge.ocr-trig { stroke: #a33; marker-end: url(#arrowocr); }
+    .edge.ocr-ret { stroke: #a33; stroke-dasharray: 3 3; marker-end: url(#arrowocr); }
     .edge.dormant { stroke: #999; stroke-dasharray: 3 3; }
   </style>
 
-  <circle cx="30" cy="150" r="13" class="box gate"></circle>
-  <text x="30" y="154" text-anchor="middle" class="lbl">START</text>
+  <circle cx="30" cy="170" r="13" class="box gate"></circle>
+  <text x="30" y="174" text-anchor="middle" class="lbl">START</text>
 
-  <rect x="70" y="128" width="140" height="44" rx="5" class="box gate"></rect>
-  <text x="140" y="148" text-anchor="middle" class="lbl">checkpoint_gate</text>
-  <text x="140" y="161" text-anchor="middle" class="lbl small">validates the query</text>
-  <path d="M43,150 L70,150" class="edge"></path>
+  <rect x="70" y="148" width="140" height="44" rx="5" class="box gate"></rect>
+  <text x="140" y="168" text-anchor="middle" class="lbl">checkpoint_gate</text>
+  <text x="140" y="181" text-anchor="middle" class="lbl small">validates the query</text>
+  <path d="M43,170 L70,170" class="edge"></path>
 
-  <!-- top lane: single-fetch -->
-  <rect x="250" y="60" width="130" height="42" rx="5" class="box"></rect>
-  <text x="315" y="79" text-anchor="middle" class="lbl">crawl</text>
-  <text x="315" y="91" text-anchor="middle" class="lbl small">single-fetch source</text>
-  <path d="M210,140 L250,90" class="edge"></path>
+  <!-- top lane: single-fetch — y49-91 throughout, dedicated to this lane only -->
+  <rect x="280" y="49" width="130" height="42" rx="5" class="box"></rect>
+  <text x="345" y="68" text-anchor="middle" class="lbl">crawl</text>
+  <text x="345" y="80" text-anchor="middle" class="lbl small">single-fetch source</text>
+  <path d="M210,158 L280,70" class="edge"></path>
 
-  <rect x="420" y="60" width="150" height="42" rx="5" class="box gate"></rect>
-  <text x="495" y="79" text-anchor="middle" class="lbl">content_gate</text>
-  <text x="495" y="91" text-anchor="middle" class="lbl small">near-empty / block / scan</text>
-  <path d="M380,81 L420,81" class="edge"></path>
+  <rect x="460" y="49" width="150" height="42" rx="5" class="box gate"></rect>
+  <text x="535" y="68" text-anchor="middle" class="lbl">content_gate</text>
+  <text x="535" y="80" text-anchor="middle" class="lbl small">near-empty / block / scan</text>
+  <path d="M410,70 L460,70" class="edge"></path>
 
-  <rect x="620" y="60" width="130" height="42" rx="5" class="box"></rect>
-  <text x="685" y="79" text-anchor="middle" class="lbl">structure</text>
-  <text x="685" y="91" text-anchor="middle" class="lbl small">one LLM call</text>
-  <path d="M570,81 L620,81" class="edge"></path>
+  <!-- structure is pushed right of structure_multi's column so its straight
+       vertical drop to the fallback lane below has a clear channel past the
+       bottom lane's row (nothing else sits above x=790 down there) -->
+  <rect x="900" y="49" width="130" height="42" rx="5" class="box"></rect>
+  <text x="965" y="68" text-anchor="middle" class="lbl">structure</text>
+  <text x="965" y="80" text-anchor="middle" class="lbl small">one LLM call</text>
+  <path d="M610,70 L900,70" class="edge"></path>
 
-  <!-- bottom lane: multi-piece -->
-  <rect x="250" y="210" width="130" height="42" rx="5" class="box"></rect>
-  <text x="315" y="229" text-anchor="middle" class="lbl">crawl_multi</text>
-  <text x="315" y="241" text-anchor="middle" class="lbl small">chunked / multi_pdf</text>
-  <path d="M210,160 L250,225" class="edge"></path>
+  <!-- bottom lane: multi-piece — y249-291 throughout, dedicated to this lane only -->
+  <rect x="280" y="249" width="130" height="42" rx="5" class="box"></rect>
+  <text x="345" y="268" text-anchor="middle" class="lbl">crawl_multi</text>
+  <text x="345" y="280" text-anchor="middle" class="lbl small">chunked / multi_pdf</text>
+  <path d="M210,182 L280,270" class="edge"></path>
 
-  <rect x="420" y="210" width="150" height="42" rx="5" class="box gate"></rect>
-  <text x="495" y="229" text-anchor="middle" class="lbl">content_gate_multi</text>
-  <text x="495" y="241" text-anchor="middle" class="lbl small">per-piece, same checks</text>
-  <path d="M380,231 L420,231" class="edge"></path>
+  <rect x="460" y="249" width="150" height="42" rx="5" class="box gate"></rect>
+  <text x="535" y="268" text-anchor="middle" class="lbl">content_gate_multi</text>
+  <text x="535" y="280" text-anchor="middle" class="lbl small">per-piece, same checks</text>
+  <path d="M410,270 L460,270" class="edge"></path>
 
-  <rect x="620" y="210" width="130" height="42" rx="5" class="box"></rect>
-  <text x="685" y="229" text-anchor="middle" class="lbl">structure_multi</text>
-  <text x="685" y="241" text-anchor="middle" class="lbl small">per piece, merged</text>
-  <path d="M570,231 L620,231" class="edge"></path>
+  <rect x="660" y="249" width="130" height="42" rx="5" class="box"></rect>
+  <text x="725" y="268" text-anchor="middle" class="lbl">structure_multi</text>
+  <text x="725" y="280" text-anchor="middle" class="lbl small">per piece, merged</text>
+  <path d="M610,270 L660,270" class="edge"></path>
 
-  <!-- OCR fallback, above both gates -->
-  <rect x="420" y="0" width="330" height="40" rx="5" class="box ocr"></rect>
-  <text x="585" y="18" text-anchor="middle" class="lbl">ensure_ocr_text() — real, billed Mistral OCR</text>
-  <text x="585" y="31" text-anchor="middle" class="lbl small">cached per document</text>
-  <path d="M495,60 C 495,45 495,40 460,40" class="edge ocr"></path>
-  <path d="M495,210 C 495,190 495,42 720,40" class="edge ocr"></path>
-  <text x="785" y="24" class="lbl small" fill="#a33">recovered, re-checked</text>
+  <!-- ensure_ocr_text(): its own vertical lane, sandwiched directly between
+       content_gate (above) and content_gate_multi (below) — both arrows in,
+       both arrows out, are short, symmetric straight verticals -->
+  <rect x="460" y="150" width="150" height="40" rx="5" class="box ocr"></rect>
+  <text x="535" y="166" text-anchor="middle" class="lbl">ensure_ocr_text()</text>
+  <text x="535" y="178" text-anchor="middle" class="lbl small">billed Mistral OCR, cached/doc</text>
 
-  <!-- LLM fallback chain, below both structure boxes -->
-  <rect x="620" y="300" width="230" height="52" rx="5" class="box"></rect>
-  <text x="735" y="320" text-anchor="middle" class="lbl">Groq → Gemini → Mistral</text>
-  <text x="735" y="333" text-anchor="middle" class="lbl">→ OpenRouter</text>
-  <text x="735" y="346" text-anchor="middle" class="lbl small">first success wins</text>
-  <path d="M685,102 L735,300" class="edge"></path>
-  <path d="M685,252 L735,300" class="edge"></path>
+  <path d="M520,91 L520,150" class="edge ocr-trig"></path>
+  <path d="M550,150 L550,91" class="edge ocr-ret"></path>
+  <text x="558" y="122" class="lbl ocrnote">recovered, re-checked</text>
 
-  <rect x="800" y="60" width="150" height="42" rx="5" class="box"></rect>
-  <text x="875" y="79" text-anchor="middle" class="lbl">END</text>
-  <path d="M750,81 L800,81" class="edge"></path>
-  <path d="M750,231 L860,102" class="edge"></path>
+  <path d="M520,249 L520,190" class="edge ocr-trig"></path>
+  <path d="M550,190 L550,249" class="edge ocr-ret"></path>
+  <text x="558" y="224" class="lbl ocrnote">recovered, re-checked</text>
+
+  <!-- LLM fallback chain: own lane below both structure nodes. Straight
+       vertical drops from each (structure's is the long one, routed through
+       the clear channel right of structure_multi's box), one straight line
+       back up to END — no diagonal crossing through this zone. -->
+  <rect x="650" y="340" width="360" height="52" rx="5" class="box"></rect>
+  <text x="830" y="358" text-anchor="middle" class="lbl">Groq → Gemini → Mistral</text>
+  <text x="830" y="371" text-anchor="middle" class="lbl">→ OpenRouter</text>
+  <text x="830" y="384" text-anchor="middle" class="lbl small">first success wins</text>
+  <path d="M965,91 L965,340" class="edge"></path>
+  <path d="M725,291 L725,340" class="edge"></path>
+  <path d="M1010,366 L1060,180" class="edge"></path>
+
+  <rect x="1060" y="155" width="140" height="50" rx="5" class="box"></rect>
+  <text x="1130" y="185" text-anchor="middle" class="lbl">END</text>
 
   <!-- dormant search path -->
-  <rect x="70" y="230" width="150" height="56" rx="5" class="box dormant"></rect>
-  <text x="145" y="250" text-anchor="middle" class="lbl small">search (Tavily)</text>
-  <text x="145" y="263" text-anchor="middle" class="lbl small">build_graph()</text>
-  <text x="145" y="276" text-anchor="middle" class="lbl small">disabled: TOPICS=[]</text>
-  <path d="M140,172 L145,230" class="edge dormant"></path>
+  <rect x="70" y="300" width="150" height="56" rx="5" class="box dormant"></rect>
+  <text x="145" y="320" text-anchor="middle" class="lbl small">search (Tavily)</text>
+  <text x="145" y="333" text-anchor="middle" class="lbl small">build_graph()</text>
+  <text x="145" y="346" text-anchor="middle" class="lbl small">disabled: TOPICS=[]</text>
+  <path d="M140,192 L145,300" class="edge dormant"></path>
 </svg>
 """
 
