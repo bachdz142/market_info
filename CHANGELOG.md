@@ -5,6 +5,26 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — Presentation diagram layout + explicit UTF-8 encoding everywhere
+
+- Rebuilt `presentation.py`'s `ARCHITECTURE_SVG` coordinates to remove
+  crossing/overlapping edges (user-flagged): two lanes in fully separate
+  row bands, `ensure_ocr_text()` in its own lane between the two
+  content_gate boxes, LLM fallback chain in its own row below both
+  structure nodes with straight vertical drops (structure's box shifted
+  right of structure_multi's column for a clear channel). Visual only —
+  node content and the real graph are unchanged.
+- Added `encoding="utf-8"` to every `open()`/`write_text()`/`read_text()`
+  call across `agent/store.py`, `agent/llm_fallback.py`, `agent/ocr.py`,
+  `service.py`, `presentation.py`, `review_dashboard.py`, and the preview
+  scripts, plus `response.encoding="utf-8"` before reading Mistral's OCR
+  batch-download response — user-flagged mojibake report ("â€"" for an
+  em dash). Every one of these previously relied on Python's
+  locale-default encoding, which happened to be UTF-8 on this machine
+  already (no actual corruption found on direct byte inspection) but is
+  a real portability gap elsewhere. Round-trip verified Vietnamese
+  diacritics + em dash + arrow through the fixed functions.
+
 ## Unreleased — `mbbank_news` + `acb_promotions` click-through fixes (4th/5th user-found content bugs)
 
 Both found by the user re-checking their own already-"solved" v0.10
