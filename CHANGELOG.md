@@ -5,6 +5,29 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — VCB fee schedule fully resolved via real click simulation
+
+- Followed up on the correctness fix below by actually doing what should
+  have been done from the start: real Playwright click simulation
+  (ACB-style network capture), not guessing at filenames or relying on a
+  user-provided URL. Clicking each of VCB's 3 category tabs surfaced its
+  actual document-search API (Sitecore's
+  `sxa/FileDocumentApi/FileDocumentResults`) and each category's own
+  real PDFs.
+- Domestic transfer's own fee PDF (`BP-dich-vu-chuyen-tien-trong-
+  nuoc.pdf`, found via the click) turned out to have identical figures
+  to the URL a user had separately found on the live page — the same
+  document's Vietnamese/English twin, not a second document. Only one
+  is kept.
+- Remittance was also click-verified directly: its accordion panel has
+  only a "Biểu mẫu" (forms) heading (a withdrawal slip, a MoneyGram
+  receive form) and genuinely no "Biểu phí" (fee schedule) section —
+  consistent with VCB not charging a fee to *receive* a remittance.
+  This isn't a source we failed to find; it doesn't exist.
+- Net result: the existing 3-PDF list (international ×2, domestic ×1)
+  is confirmed complete, not partial. `VCB_FEE_PDF_URLS` and the source
+  comment updated to record how this was actually verified.
+
 ## Unreleased — VCB fee schedule correctness fix: dynamic scraper had a real data-integrity bug
 
 - Fixed `vcb_fee_schedule` (added in the previous entry below) after the

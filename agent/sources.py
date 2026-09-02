@@ -647,15 +647,19 @@ SOURCES = [
         # initial HTML — international transfer's PDFs under every
         # category heading, not each one's own documents; same failure
         # shape as BIDV's Layer 1 bug #6). This uses a hand-verified,
-        # explicit URL list instead: international transfer's 2 real PDFs
-        # (found via the accordion) and domestic transfer's 1 real PDF
-        # (given directly by the user from the live page). The third
-        # category (remittance) was not found — several plausible
-        # filename guesses in the same folder all 404'd — and is left out
-        # rather than guessed at further. Confirmed live: all 3 included
-        # documents are genuine, current, itemized fee schedules
-        # (percentages and USD/VND min/max amounts, split by counter vs.
-        # internet-banking channel).
+        # explicit URL list instead, built from real Playwright click
+        # simulation (ACB-style network capture) rather than guessing:
+        # international transfer's 2 real PDFs, and domestic transfer's 1
+        # real PDF (a user-provided URL turned out to be the same document
+        # in a different language, not a separate one — confirmed by
+        # click-verifying domestic's own Vietnamese PDF and comparing
+        # figures). Remittance was also click-verified directly: its panel
+        # has only a "Biểu mẫu" (forms) heading and genuinely no "Biểu phí"
+        # section — VCB doesn't charge a fee to *receive* a remittance, so
+        # there's no third document to find, not a gap. Confirmed live:
+        # all 3 included documents are genuine, current, itemized fee
+        # schedules (percentages and USD/VND min/max amounts, split by
+        # counter vs. internet-banking channel).
         "url": "https://www.vietcombank.com.vn/vi-VN/KHCN/Cong-cu-Tien-ich/KHCN---Bieu-mau-va-bieu-phi",
         "multi_pdf": True,
         "prompt": (

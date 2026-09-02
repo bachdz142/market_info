@@ -514,18 +514,22 @@ async def _fetch_vcb_promotions_text() -> str:
 # under every tab), except here scraping "whichever category's heading you
 # find" would silently mislabel international-transfer fees as domestic-
 # transfer or remittance fees — a real correctness risk, not just noise.
-# Each category's genuine distinct content likely only becomes available
-# after an actual user click (client-side state change), which would need
-# ACB-style network-capture of the resulting request to fetch properly —
-# not attempted here. Given that, this uses a hand-verified, explicit list
-# of the two categories confirmed correct instead of the unreliable
-# scraper: international transfer's 2 PDFs (found via the accordion) and
-# domestic transfer's 1 PDF (provided directly by the user from the live
-# page, verified live: a genuine, current, itemized fee schedule). The
-# third category (remittance) was not found — several real-looking
-# filename guesses in the same folder all 404'd — and is left out rather
-# than guessed at further. Revisit if VCB's per-category click behavior is
-# ever network-captured properly.
+# Each category's genuine distinct content only becomes available after an
+# actual user click (a real client-side state change) — confirmed by
+# ACB-style network capture of a real Playwright click, which surfaced
+# VCB's actual document-search API (Sitecore's
+# "sxa/FileDocumentApi/FileDocumentResults") and each category's own real
+# PDFs. Domestic transfer's own fee PDF (BP-dich-vu-chuyen-tien-trong-
+# nuoc.pdf) turned out to have identical figures to the one a user had
+# separately found on the live page and provided directly (a Vietnamese/
+# English twin of the same document, not a second document) — so only one
+# is kept. Remittance's category was also click-verified directly: its
+# accordion panel has only a "Biểu mẫu" (forms) heading — a withdrawal
+# slip, a MoneyGram receive form — and genuinely no "Biểu phí" (fee
+# schedule) section at all, consistent with VCB not charging a fee to
+# *receive* a remittance. So this list is complete, not a partial result:
+# international transfer's 2 real PDFs, domestic transfer's 1 real PDF,
+# and no PDF for remittance because none exists.
 VCB_FEE_URL = "https://www.vietcombank.com.vn/vi-VN/KHCN/Cong-cu-Tien-ich/KHCN---Bieu-mau-va-bieu-phi"
 VCB_FEE_PDF_URLS = [
     "https://www.vietcombank.com.vn/-/media/Project/VCB-Sites/VCB/KHCN/Bieu-mau-Bieu-phi-KHCN/Update-30062026/BP-dich-vu-chuyen-tien-nuoc-ngoai.pdf",
