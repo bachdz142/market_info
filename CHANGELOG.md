@@ -5,6 +5,28 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — NSO GDP figures via PxWeb (real click simulation)
+
+- Closes the PxWeb gap left open in the previous NSO entry. Added
+  `nso_gdp_key_indicators` — real GDP figures via NSO's genuine PxWeb
+  statistical-database UI (classic ASP.NET WebForms), not a plain HTML
+  page.
+- Two gotchas: (1) the "Continue" button looks like a plain link, but
+  a raw JS-level `.click()` resets the selection to 0 cells instead of
+  submitting — ASP.NET's postback needs the listbox's real selection
+  state set via Playwright's `select_option` (fires a proper `change`
+  event), not just a DOM click; (2) the resulting table URL's `rxid`
+  is a server-side session id, not a stable link — a fresh session
+  just redirects back to the form, so the table text is read from the
+  live session that just submitted it, not fetched again afterward.
+- New `_fetch_nso_gdp_table_text` uses crawl4ai's
+  `on_page_context_created` hook to get a real Playwright `page`
+  handle — the only fetch function in this file needing it (every
+  other custom fetch only needs `js_code`).
+- `nso_data_and_statistics_official`'s prompt updated to exclude GDP
+  (now covered by the dedicated source) alongside the existing CPI
+  exclusion.
+
 ## Unreleased — App-store release notes, all 6 named apps (Google Play dead end found)
 
 - Google Play's app detail page no longer has a public "What's New"

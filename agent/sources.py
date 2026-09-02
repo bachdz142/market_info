@@ -324,8 +324,8 @@ SOURCES = [
         # scoped to one category, so most entries will be off-topic.
         "url": "https://www.nso.gov.vn/en/data-and-statistics/",
         "prompt": (
-            "Extract concrete GDP, household income/expenditure (VHLSS), "
-            "or labor/employment figures from the statistical releases "
+            "Extract concrete household income/expenditure (VHLSS) or "
+            "labor/employment figures from the statistical releases "
             "below — including the reference period each figure covers "
             "and the date of issue. This is a general feed of all NSO "
             "releases (industrial production, trade, prices, agriculture, "
@@ -333,8 +333,44 @@ SOURCES = [
             "only report genuinely relevant ones; if none are relevant, "
             "return an empty signals list rather than reporting unrelated "
             "figures. Do not report CPI/inflation figures here even if "
-            "present — those are covered by a separate source. "
-            "source_code for these signals is \"NSO\"."
+            "present — those are covered by a separate source. Do not "
+            "report GDP figures here either — those are covered by a "
+            "dedicated source (nso_gdp_key_indicators). source_code for "
+            "these signals is \"NSO\"."
+        ),
+    },
+    {
+        "id": "nso_gdp_key_indicators",
+        "kind": "quant",
+        "role": "citable",
+        # NSO's GDP data lives behind a genuine PxWeb statistical-database
+        # UI (classic ASP.NET WebForms), not a plain HTML page — see
+        # NSO_GDP_KEY_INDICATORS_URL's own comment in agent/crawler.py for
+        # the full discovery story (a raw JS click resets the selection to
+        # 0 cells instead of submitting; real Playwright select_option
+        # calls are needed; the resulting table URL's rxid is a
+        # server-side session id, not a stable link, so the table text is
+        # read from the live session that just submitted the form, not
+        # re-fetched afterward). Confirmed live: real, current "Key
+        # indicators on national accounts" table — GDP at current prices,
+        # per-capita GDP, growth rate, gross capital formation, and more,
+        # for the 3 latest available years (2022, 2023, 2024 Prel. as of
+        # writing).
+        "url": "https://pxweb.nso.gov.vn/pxweb/en/National%20Accounts%20and%20State%20budget/National%20Accounts%20and%20State%20budget/E03.01.px/",
+        "prompt": (
+            "This is NSO's (Vietnam National Statistics Office) 'Key "
+            "indicators on national accounts' table, covering the 3 most "
+            "recent available years. Extract each concrete figure as its "
+            "own signal — GDP at current prices, per-capita GDP, GDP "
+            "growth rate, gross capital formation, final consumption, "
+            "exports/imports, gross national income, and the "
+            "percent-of-GDP breakdowns — with the exact year each figure "
+            "covers as reference_period. Note when a year is marked "
+            "'Prel.' (preliminary, not yet finalized) in the summary. "
+            "data_basis is \"not_applicable\". actual_proxy_forecast is "
+            "\"actual\" for every figure here — these are NSO's own "
+            "official statistics, not forecasts. source_code for these "
+            "signals is \"NSO\"."
         ),
     },
     {
