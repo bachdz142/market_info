@@ -13,6 +13,7 @@ DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 SIGNALS_FILE = DATA_DIR / "signals.jsonl"
 SIGNALS_CSV = DATA_DIR / "signals.csv"
 RAW_CONTENT_CSV = DATA_DIR / "raw_content.csv"
+OCR_JOBS_FILE = DATA_DIR / "ocr_jobs.jsonl"
 
 CSV_HEADERS = [
     "run_id",
@@ -138,6 +139,21 @@ def append_topic_csv(triggered_at: str, run_id: str, topic_result: dict) -> None
                     result.get("generated_at", ""),
                 ]
             )
+
+
+def append_ocr_job(record: dict) -> None:
+    """Append-only log of Mistral OCR batch job submissions/completions —
+    same pattern as append_topic_jsonl() (this project's storage is flat
+    append-only files, not a database, so a job's lifecycle is a sequence
+    of lines — e.g. one on submission, another once polling finds it
+    done — rather than a row updated in place). Expected record shape:
+    {"job_id", "source_id", "pdf_name", "event" ("submitted"/"completed"/
+    "failed"), "timestamp", and, once known, "page_count"/
+    "estimated_cost_usd"/"status"} — callers decide exactly which fields
+    apply to a given event; this just appends whatever dict it's given."""
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    with OCR_JOBS_FILE.open("a") as f:
+        f.write(json.dumps(record) + "\n")
 
 
 def append_raw_content(triggered_at: str, run_id: str, topic_result: dict) -> None:

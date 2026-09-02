@@ -6,3 +6,4 @@ __pycache__/
 .idea/
 #data/
 data/fetch_preview/
+data/ocr_preview/

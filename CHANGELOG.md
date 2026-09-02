@@ -5,6 +5,36 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — OCR fallback for scan-only PDFs (Mistral, Batch mode, POC)
+
+- Added `agent/ocr.py`, a new isolated module (mirrors `agent/llm_
+  fallback.py`) wrapping Mistral's OCR product in Batch mode, using the
+  raw `mistralai` SDK (not `langchain-mistralai`, confirmed live to only
+  expose `ChatMistralAI`/`MistralAIEmbeddings` — OCR/Batch/Files are
+  outside LangChain's chat-model abstraction entirely). Gotcha: `mistralai`
+  2.9.4's top-level package has no `__init__.py` — the real import is
+  `from mistralai.client import Mistral`, not `from mistralai import
+  Mistral`.
+- Flow: upload PDF (`purpose="ocr"`) -> signed URL -> 1-line Batch JSONL
+  request -> upload that (`purpose="batch"`) -> create batch job against
+  `/v1/ocr` -> poll -> download + parse result into markdown (table
+  structure preserved).
+- New `ocr_preview.py` CLI (mirrors `fetch_preview.py`) is the *only* way
+  an OCR job gets submitted right now — deliberately not auto-wired into
+  the live graph, so a routine `/trigger` never silently spends real,
+  billed OCR money on a known-scan-only source.
+- `agent/store.py` gains `append_ocr_job()` + `data/ocr_jobs.jsonl` (same
+  append-only pattern as every other log here, no SQLite introduced).
+  Logs submission/completion/failure, with a page-count-based cost
+  estimate (~$2/1,000 pages, Mistral's Batch pricing) on completion.
+- No schema change — OCR-derived signals reuse the source's own id and
+  the existing `confidence` field.
+- New `tests/test_ocr.py` (5 tests, fully offline) covers the pure
+  batch-result-line parsing logic and job logging — the real network
+  calls are deliberately untested, same precedent as `fetch_preview.py`.
+- Designed via `/grill-with-docs` + `/to-spec` —
+  `.scratch/ocr-scan-fallback/spec.md`.
+
 ## Unreleased — VHLSS household income/expenditure (same PxWeb mechanism)
 
 - Added `nso_vhlss_income` and `nso_vhlss_expenditure` — found on the
