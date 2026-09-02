@@ -4,9 +4,11 @@ import asyncio
 import json
 import logging
 import re
+import tempfile
 import time
 import urllib.request
 from datetime import datetime
+from pathlib import Path
 from typing import Any, Iterator, List, Optional, Tuple
 from urllib.parse import urljoin, urlparse
 
@@ -15,6 +17,7 @@ from bs4 import BeautifulSoup
 from crawl4ai import AsyncWebCrawler, CacheMode, CrawlerRunConfig
 from crawl4ai.async_crawler_strategy import AsyncHTTPCrawlerStrategy
 from crawl4ai.processors.pdf import PDFContentScrapingStrategy, PDFCrawlerStrategy
+from crawl4ai.processors.pdf.processor import NaivePDFProcessorStrategy
 
 logger = logging.getLogger(__name__)
 
@@ -521,6 +524,47 @@ async def _fetch_vcb_promotions_text() -> str:
     return "\n\n".join(parts)
 
 
+# SSI's own sector-reports listing page (khach-hang-ca-nhan/bao-cao-nganh)
+# never exposes real per-report links even after a JS wait — its report
+# rows aren't real <a> elements in the rendered DOM, confirmed live across
+# multiple attempts. This is a single hand-verified PDF instead (same
+# "explicit URL, not a scraper" approach as VCB_FEE_PDF_URLS above), found
+# via web search rather than the listing page. Its own host
+# (ftp2.ssi.com.vn) 403s crawl4ai's PDFCrawlerStrategy specifically — a
+# crawl4ai-side quirk, not a real site block: confirmed live that plain
+# curl with no special headers gets a clean 200 on the same URL. Fetched
+# via urllib directly instead, then handed to crawl4ai's own PDF text
+# extractor (NaivePDFProcessorStrategy) so no new PDF-parsing dependency is
+# introduced. Event-driven per source_plan_mvp0.md §5 — needs periodic
+# manual re-discovery when a newer sector report is published, same as
+# every other hand-verified URL list in this file.
+SSI_BANKING_SECTOR_REPORT_URL = (
+    "https://ftp2.ssi.com.vn/Customers/GDDT/Analyst_Report/Sector%20Report/"
+    "Cap%20nhat%20nganh%20Ngan%20hang_Thong%20tu%2022_2026.05.05_SSIResearch.pdf"
+)
+
+
+async def _fetch_ssi_report_text(url: str) -> str:
+    _throttle(_domain(url))
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        data = resp.read()
+
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
+        f.write(data)
+        path = Path(f.name)
+
+    try:
+        # extract_images=False: only page.markdown is read below, so the
+        # default image-decoding pass (per-page /XObject extraction +
+        # base64 encoding) would just be wasted CPU/memory on a multi-page
+        # PDF for no functional benefit.
+        result = NaivePDFProcessorStrategy(extract_images=False).process_batch(path)
+        return "\n".join(page.markdown for page in result.pages)
+    finally:
+        path.unlink(missing_ok=True)
+
+
 # VCB's fee-schedule page was originally judged "needs OCR, not a crawling
 # problem" after seeing a banner image and no fee data in one fetch — that
 # conclusion turned out to be wrong. The real cause: this page's fee
@@ -808,6 +852,8 @@ async def _crawl_async(url: str) -> str:
         return await _fetch_mbbank_fee_text()
     if url == MBBANK_NEWS_URL:
         return await _fetch_mbbank_news_text()
+    if url == SSI_BANKING_SECTOR_REPORT_URL:
+        return await _fetch_ssi_report_text(url)
     if url in VIETSTOCK_FALLBACK_TICKERS:
         return await _fetch_vietstock_statement_text(VIETSTOCK_FALLBACK_TICKERS[url])
 

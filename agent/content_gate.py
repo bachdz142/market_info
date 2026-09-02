@@ -39,7 +39,7 @@ BLOCK_PAGE_MARKERS = [
 MAX_CORRUPTED_TOKEN_RATIO = 0.05
 
 
-URL_RE = re.compile(r"https?://\S+")
+URL_RE = re.compile(r"(?:https?|data):\S+")
 
 
 def _corrupted_token_ratio(text: str) -> float:
@@ -52,6 +52,13 @@ def _corrupted_token_ratio(text: str) -> float:
     # scored 0.054 (just over threshold, a false rejection) purely from
     # its embedded image URLs; the same text scored 0.003 with URLs
     # stripped.
+    #
+    # Also covers inline data: URIs (`data:image/svg+xml;utf8,<svg...>`),
+    # the same noise source under a different scheme — confirmed live
+    # (2026-09-02, ssi.com.vn's sector-reports page) an SVG-icon-heavy nav
+    # menu inlined as base64/percent-encoded data: URIs scored 0.074 (a
+    # false rejection) purely from that encoded markup, not real corrupted
+    # text.
     text = URL_RE.sub(" ", text)
     tokens = re.findall(r"\b\w+\b", text)
     if not tokens:

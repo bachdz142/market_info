@@ -98,6 +98,24 @@ def test_accepts_content_with_many_cdn_image_urls():
     assert result["usable"] is True
 
 
+def test_accepts_content_with_inline_data_uri_icons():
+    """Regression guard for a real false positive (2026-09-02,
+    ssi.com.vn/khach-hang-ca-nhan/bao-cao-nganh): nav-menu icons inlined as
+    base64/percent-encoded `data:image/svg+xml;utf8,<svg...>` URIs mix
+    lowercase letters and digits just like real OCR corruption does, but
+    they're markup noise, not prose — same failure mode as the CDN-URL
+    case above, different URL scheme."""
+    text = (
+        "[Đăng nhập](data:image/svg+xml;utf8,<svg%20xmlns='http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'"
+        "%20viewBox='0%200%20153.37%20166'><path%20d='M111.63%2082.16a3.9%203.9%200%200%200-1.19-2.8'/>"
+        "<%2Fsvg>)\n\n"
+        "Ngân hàng TMCP Kỹ Thương Việt Nam (TCB) công bố báo cáo tài chính Quý 2/2026, "
+        "lợi nhuận trước thuế tăng 15,9% so với cùng kỳ năm trước."
+    )
+    result = check_content_usable(text)
+    assert result["usable"] is True
+
+
 def test_accepts_legit_financial_period_codes():
     """Regression guard: Q2/H1/FY2025/9M2025/3M26 mix letters and digits but
     must never be flagged as corrupted — this is exactly the false-positive

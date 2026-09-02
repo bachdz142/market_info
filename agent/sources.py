@@ -902,4 +902,121 @@ SOURCES = [
             "for these signals is \"SBV\"."
         ),
     },
+
+    # ------------------------------------------------------------------
+    # Layer 3/6.3 — Tier 2 sources (securities-firm research §5, consumer
+    # research §6.3), the two rows unblocked by the tier2-fact-opinion-field
+    # work (.scratch/tier2-fact-opinion-field/spec.md). role stays
+    # "citable" (both rows are "Citable (Tier 2)" per source_plan_mvp0.md,
+    # not "aggregator" — these are each firm's own published research, not
+    # a third-party aggregator); "tier": "tier_2" is what actually matters
+    # at runtime, leaving fact_or_opinion to the model's own per-signal
+    # judgment (agent/graph.py's _finalize_payload only forces "fact" for
+    # tier_1). Each prompt below spells out the fact/opinion boundary
+    # explicitly, since these documents genuinely mix both in one place.
+    #
+    # Of the plan's 4 named securities firms, only SSI is included here:
+    # VNDirect (vndirect.com.vn) is skipped — its robots.txt has a
+    # dedicated "User-agent: ClaudeBot / Disallow: /" block, the same
+    # pattern already found on thuvienphapluat.vn (see
+    # agent/sources.py's Layer 4 legal-document comment above). VCBS and
+    # BSC were both investigated live and found genuinely blocked by
+    # design, not by a simple selector/JS-wait fix: VCBS's report list
+    # itself only resolves after clicking its "Báo cáo ngành" tab (its
+    # real Banking Sector Report 2026 does surface, tickers MBB/BID/STB/
+    # CTG/HDB/VPB confirmed), but the individual report's own link isn't a
+    # real navigable element — clicking it does nothing (same URL, no new
+    # content) — reverse-engineering its SPA's actual API is a
+    # disproportionate investment for one row. BSC's specific report
+    # detail page (chi-tiet-bao-cao/714250, "Báo cáo phân tích ngành Ngân
+    # Hàng") renders the exact same generic stock-ticker dashboard content
+    # regardless of URL or JS wait — the report body itself never loads
+    # via a plain page visit. Documented here rather than silently
+    # dropped, matching this project's own "blocked-by-design, not
+    # evaded" convention.
+    #
+    # Of the plan's 3 named consumer-research firms, Cimigo is skipped:
+    # its only freely-fetchable retail-banking content (both its 2022 PDF
+    # and its "evergreen" trends page, which republishes the same 2022
+    # figures under a non-dated URL) is confirmed stale — its 2024 report
+    # is email-gated, its old landing page now 404s, and no 2025/2026
+    # retail-banking-specific report exists yet. Decision Lab and Q&Me
+    # both cover this row's real content need (Gen X/Y/Z lifestyle/
+    # banking behavior, satisfaction rankings) with current data.
+    {
+        "id": "ssi_banking_sector_report",
+        "kind": "qualitative",
+        "role": "citable",
+        "tier": "tier_2",
+        # See SSI_BANKING_SECTOR_REPORT_URL's own comment in
+        # agent/crawler.py for the full discovery story (listing page
+        # never exposes real report links; this hand-verified PDF found
+        # via web search instead; ftp2.ssi.com.vn 403s crawl4ai's own PDF
+        # downloader specifically — a crawl4ai quirk, not a real site
+        # block, confirmed live that plain curl gets a clean 200 — fetched
+        # via direct urllib instead). 19.5K chars, real content: SSI
+        # Research's analysis of NHNN's draft circular replacing Circular
+        # 22/2019/TT-NHNN (Basel III-aligned prudential ratios).
+        "url": "https://ftp2.ssi.com.vn/Customers/GDDT/Analyst_Report/Sector%20Report/Cap%20nhat%20nganh%20Ngan%20hang_Thong%20tu%2022_2026.05.05_SSIResearch.pdf",
+        "prompt": (
+            "This is an SSI Research (SSI Securities) banking-sector "
+            "analyst report. Extract concrete signals — both directly "
+            "reported facts (e.g. what a regulator has proposed or "
+            "disclosed) and SSI's own analyst views (e.g. forecasts, "
+            "sector comparisons, expected impact on specific banks). Tag "
+            "each signal's fact_or_opinion carefully: \"fact\" only for a "
+            "directly disclosed/reported development (e.g. a regulator's "
+            "own draft circular or a bank's own disclosed figure quoted in "
+            "the report); \"opinion\" for SSI's own analysis, "
+            "interpretation, forecast, or expected-impact assessment — "
+            "this report contains plenty of both, so do not default "
+            "everything to one value. Any forecast figure must have "
+            "actual_proxy_forecast set to \"forecast\" with forecast_org "
+            "set to \"SSI Research\". source_code for these signals is "
+            "\"SSI\"."
+        ),
+    },
+    {
+        "id": "decisionlab_bank_satisfaction_rankings",
+        "kind": "qualitative",
+        "role": "citable",
+        "tier": "tier_2",
+        # Confirmed live: real, current (2026 rankings, published 2026)
+        # content, no login/email gate — a public blog post, not a
+        # downloadable report.
+        "url": "https://www.decisionlab.co/blog/bank-satisfaction-rankings-2026-vietcombank-returns-to-the-top-spot-as-competition-tightens-amongst-top-players",
+        "prompt": (
+            "This is Decision Lab's Bank Satisfaction Rankings 2026 "
+            "(drawn from YouGov BrandIndex daily consumer research). "
+            "Extract concrete signals — each bank's Net Satisfaction "
+            "Score and ranking position, and any named driver of a "
+            "bank's rise or fall. Since these rankings are Decision Lab's "
+            "own survey-based measurement of customer sentiment, not an "
+            "official disclosure, tag every signal's fact_or_opinion as "
+            "\"opinion\" and note the survey basis (YouGov BrandIndex) in "
+            "the summary. data_basis is \"not_applicable\". source_code "
+            "for these signals is \"DECISIONLAB\"."
+        ),
+    },
+    {
+        "id": "qandme_online_banking_usage",
+        "kind": "qualitative",
+        "role": "citable",
+        "tier": "tier_2",
+        # Confirmed live: real, substantive report-summary content (91%
+        # weekly online-banking-app usage, 52% security concern figure),
+        # no login/email gate.
+        "url": "https://qandme.net/en/report/Vietnamese-usage-of-online-banking-services.html",
+        "prompt": (
+            "This is a Q&Me market-research report on Vietnamese usage of "
+            "online banking services. Extract concrete survey findings — "
+            "usage rates, frequency, and stated concerns (e.g. security) "
+            "by demographic group where given. Since these are Q&Me's own "
+            "survey findings, not an official disclosure, tag every "
+            "signal's fact_or_opinion as \"opinion\" and note the survey "
+            "sample/method in the summary if the page states it. "
+            "data_basis is \"not_applicable\". source_code for these "
+            "signals is \"QANDME\"."
+        ),
+    },
 ]
