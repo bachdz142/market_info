@@ -1285,6 +1285,165 @@ SOURCES = [
         ),
     },
     {
+        "id": "vietcombank_annual_report",
+        "kind": "qualitative",
+        "role": "citable",
+        "tier": "tier_1",
+        "multi_pdf": True,
+        # Second of the 5-bank Layer 3 annual-report row. VCB's own
+        # domain has a genuine, confirmed Akamai wall for Layer 1
+        # quantitative filings (per source_plan_mvp0.md §8, routed to
+        # manual ingestion, not attempted here) — but this PDF, served
+        # from the same www.vietcombank.com.vn media path already proven
+        # for VCB's Layer 2 fee-schedule/promotions sources, is reachable
+        # directly. Confirmed live: 106 pages, real extractable text. Its
+        # own IR portal (portal.vietcombank.com.vn) times out; a guessed
+        # 2025-dated URL at this same path returned an HTML error page
+        # (not a real PDF, despite a 200 status) — 2024 is the newest
+        # edition confirmed to actually exist. No dedicated "Technology"
+        # chapter exists in this report (unlike Techcombank's) — scoped
+        # instead to "Vietcombank Profile" (Chairman/CEO messages) and
+        # "Report of the Board of Directors" (business performance +
+        # 2025 business orientation, the closest match to strategic
+        # direction in this report's own structure) — see
+        # agent/crawler.py's _fetch_vietcombank_annual_report_parts().
+        "url": "https://www.vietcombank.com.vn/-/media/Project/VCB-Sites/VCB/Nha-Dau-tu/Files/BC-dinh-ky/BC-thuong-nien/2024/EN_VCB-Annual-Report-2024_Full_250426_FN_compressed.pdf",
+        "prompt": (
+            "This is an excerpt from Vietcombank's 2024 Annual Report — "
+            "specifically the Chairman's/CEO's messages, general bank "
+            "profile, and the Board of Directors' report on business "
+            "performance and 2025 business orientation. Extract concrete "
+            "strategic signals: leadership's stated strategic priorities "
+            "and outlook, named business/technology initiatives, and any "
+            "concrete figures given (financial performance figures, "
+            "shareholding structure, customer/business metrics). Since "
+            "this is the bank's own official disclosure, tag a directly "
+            "stated fact as \"fact\" and a forward-looking strategic "
+            "statement or leadership opinion as \"opinion\" — don't "
+            "default everything to one value. source_code for these "
+            "signals is \"VCB\"."
+        ),
+    },
+    {
+        "id": "bidv_annual_report",
+        "kind": "qualitative",
+        "role": "citable",
+        "tier": "tier_1",
+        "multi_pdf": True,
+        # Third of the 5-bank Layer 3 annual-report row. Unlike BIDV's
+        # Layer 1 financial-STATEMENT filings (confirmed elsewhere in
+        # this project to be scan-only, needing the OCR fallback), this
+        # specific annual report PDF is a real, extractable text layer —
+        # confirmed live: 91 pages, 387K chars, 89/91 non-empty pages.
+        # Scoped to Chapter 1 (Chairman's message), the "Digital Banking
+        # operations" section specifically (real content on BIDV's B.One
+        # internal-governance platform and B.Cash vault-management
+        # system — directly matching this source's "technology
+        # disclosures" target), and Chapter 5 "Management's Report"
+        # (macroeconomic/banking situation + 2025 business orientation)
+        # — see agent/crawler.py's _fetch_bidv_annual_report_parts() for
+        # the real page ranges and why the much larger BIDV-overview/
+        # governance/risk and Directors'-Report chapters are excluded.
+        "url": "https://bidv.com.vn/wps/wcm/connect/2961231d-3291-4326-89b6-7350d04c496c/Annual+Report+BIDV+2024.ENG.pdf?MOD=AJPERES&CACHEID=ROOTWORKSPACE-2961231d-3291-4326-89b6-7350d04c496c-ppNyUwB",
+        "prompt": (
+            "This is an excerpt from BIDV's 2024 Annual Report — "
+            "specifically the Chairman's message, the Digital Banking "
+            "operations section, and the Management's Report (macro/"
+            "banking situation and 2025 business orientation). Extract "
+            "concrete strategic signals: named technology initiatives "
+            "(digital platforms, internal-governance systems, "
+            "cash/vault-management digitization), leadership's stated "
+            "strategic priorities and outlook, and any concrete figures "
+            "given (digitization rates, financial performance figures). "
+            "Since this is the bank's own official disclosure, tag a "
+            "directly stated fact as \"fact\" and a forward-looking "
+            "strategic statement or leadership opinion as \"opinion\" — "
+            "don't default everything to one value. source_code for "
+            "these signals is \"BIDV\"."
+        ),
+    },
+    {
+        "id": "mbbank_annual_report",
+        "kind": "qualitative",
+        "role": "citable",
+        "tier": "tier_1",
+        "multi_pdf": True,
+        # Fourth of the 5-bank Layer 3 annual-report row. MBBank's own
+        # domain (mbbank.com.vn) is Akamai-walled site-wide — already
+        # confirmed elsewhere in this project — so this uses Vietstock's
+        # static document CDN, same aggregator convention already
+        # established for mbb_financial_statements (this citation URL
+        # still points at the real document, not Vietstock's own site).
+        # Confirmed live: 184 pages, 674K chars, 174/184 non-empty pages.
+        # Scoped to the Chairman/CEO messages, the "Strategic direction"
+        # section, and the "Project investment and implementation"
+        # section (real content on MB's ~USD 50M/year IT investment and
+        # RPA/AI/ML/OCR applications — directly matching this source's
+        # "technology disclosures" target) — see agent/crawler.py's
+        # _fetch_mbbank_annual_report_parts() for the real page ranges
+        # and why the much larger general-information/governance/risk
+        # and financial-performance chapters are excluded.
+        "url": "https://static2.vietstock.vn/vietstock/2025/4/25/20250423_mbb_250423_annual_report_2024.pdf",
+        "prompt": (
+            "This is an excerpt from MB Bank's 2024 Annual Report — "
+            "specifically the Chairman's/CEO's messages, the Strategic "
+            "direction section, and the Project investment and "
+            "implementation section. Extract concrete strategic signals: "
+            "named technology initiatives (IT infrastructure investment, "
+            "AI/RPA/machine-learning applications, digital platforms), "
+            "leadership's stated strategic priorities and outlook, and "
+            "any concrete figures given (investment amounts, IT "
+            "headcount, business performance figures). Since this is "
+            "the bank's own official disclosure, tag a directly stated "
+            "fact as \"fact\" and a forward-looking strategic statement "
+            "or leadership opinion as \"opinion\" — don't default "
+            "everything to one value. source_code for these signals is "
+            "\"MBB\"."
+        ),
+    },
+    {
+        "id": "acb_annual_report",
+        "kind": "qualitative",
+        "role": "citable",
+        "tier": "tier_1",
+        "multi_pdf": True,
+        # Fifth and last of the 5-bank Layer 3 annual-report row. ACB's
+        # own investors page is client-side API-rendered like its other
+        # Layer 1/2 pages and didn't surface a direct PDF on a plain
+        # fetch — used Vietstock's static document CDN instead (same
+        # aggregator convention as MBBank above). Confirmed live: 89
+        # pages, 157K chars, 88/89 non-empty — a real text layer (though
+        # noisier extraction than the other 4 banks', with visible
+        # OCR/ligature artifacts). Filed 24 March 2025 covering fiscal
+        # year 2024. No dedicated Technology chapter exists here either —
+        # scoped to the Chairman's Message, the "1.4 Development
+        # strategy" section (2025 financial targets plus an explicit
+        # digital-transformation commitment), and the Board of
+        # Directors' 2025 business-plans/vision section (includes a
+        # digitalization commitment) — see agent/crawler.py's
+        # _fetch_acb_annual_report_parts() for the real page ranges.
+        # Smallest of the 5 banks' selections (~13K chars) since ACB's
+        # report dedicates less space to technology specifics than the
+        # other 4 banks' reports do.
+        "url": "https://static2.vietstock.vn/vietstock/2025/3/26/20250325_acb_250325_annual_report_2025.pdf",
+        "prompt": (
+            "This is an excerpt from ACB's 2024 Annual Report — "
+            "specifically the Chairman's Message, the Development "
+            "Strategy section, and the Board of Directors' 2025 "
+            "business plans and vision section. Extract concrete "
+            "strategic signals: leadership's stated strategic priorities "
+            "and outlook, named 2025 financial targets, and any "
+            "digital-transformation or technology commitments mentioned. "
+            "Since this is the bank's own official disclosure, tag a "
+            "directly stated fact as \"fact\" and a forward-looking "
+            "strategic statement or leadership opinion as \"opinion\" — "
+            "don't default everything to one value. Any explicit 2025 "
+            "target figure must have actual_proxy_forecast set to "
+            "\"forecast\" with forecast_org set to \"ACB\". source_code "
+            "for these signals is \"ACB\"."
+        ),
+    },
+    {
         "id": "decisionlab_bank_satisfaction_rankings",
         "kind": "qualitative",
         "role": "citable",

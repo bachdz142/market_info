@@ -62,6 +62,7 @@ _LAYERS = [
         "vcbs_banking_sector_report", "bsc_mbb_report", "decisionlab_bank_satisfaction_rankings",
         "qandme_online_banking_usage", "cimigo_consumer_trends", "decisionlab_connected_consumer",
         "decisionlab_genz_behavior", "decisionlab_fintech_ewallet_behavior", "techcombank_annual_report",
+        "vietcombank_annual_report", "bidv_annual_report", "mbbank_annual_report", "acb_annual_report",
     ]),
     ("Layer 4 — Macro, government & PEST", [
         "vietnam_cpi_official", "sbv_press_releases_official", "sbv_legal_directives_official",

@@ -1127,14 +1127,20 @@ TECHCOMBANK_ANNUAL_REPORT_URL = "https://techcombank.com/content/dam/techcombank
 TECHCOMBANK_ANNUAL_REPORT_PAGE_RANGES = [(4, 11), (50, 71)]  # 0-indexed, inclusive
 
 
-async def _fetch_techcombank_annual_report_parts() -> Tuple[str, List[Tuple[str, str]]]:
-    _throttle(_domain(TECHCOMBANK_ANNUAL_REPORT_URL))
-    response = requests.get(TECHCOMBANK_ANNUAL_REPORT_URL, timeout=60)
+async def _fetch_annual_report_page_ranges(
+    url: str, page_ranges: List[Tuple[int, int]], bank_name: str
+) -> Tuple[str, List[Tuple[str, str]]]:
+    """Shared by every bank's annual-report source: download the PDF,
+    extract only the given 0-indexed inclusive page ranges (hand-found
+    per bank — see each bank's own URL/page-range comment above), chunk
+    the result through the existing generic mechanism."""
+    _throttle(_domain(url))
+    response = requests.get(url, timeout=60)
     response.raise_for_status()
     reader = PdfReader(BytesIO(response.content))
 
     parts = []
-    for start, end in TECHCOMBANK_ANNUAL_REPORT_PAGE_RANGES:
+    for start, end in page_ranges:
         text = "\n".join(
             (reader.pages[i].extract_text() or "") for i in range(start, min(end + 1, len(reader.pages)))
         ).strip()
@@ -1142,11 +1148,138 @@ async def _fetch_techcombank_annual_report_parts() -> Tuple[str, List[Tuple[str,
             parts.append(text)
 
     if not parts:
-        raise ValueError("No real text extracted from Techcombank's annual report — check page ranges still match the current PDF")
+        raise ValueError(f"No real text extracted from {bank_name}'s annual report — check page ranges still match the current PDF")
 
     combined = "\n\n".join(parts)
     chunks = _chunk_text(combined, MAX_CHUNK_CHARS)
-    return "", [(TECHCOMBANK_ANNUAL_REPORT_URL, chunk) for chunk in chunks]
+    return "", [(url, chunk) for chunk in chunks]
+
+
+async def _fetch_techcombank_annual_report_parts() -> Tuple[str, List[Tuple[str, str]]]:
+    return await _fetch_annual_report_page_ranges(
+        TECHCOMBANK_ANNUAL_REPORT_URL, TECHCOMBANK_ANNUAL_REPORT_PAGE_RANGES, "Techcombank"
+    )
+
+
+# Vietcombank's own domain has a genuine, confirmed Akamai wall for Layer 1
+# quantitative filings (source_plan_mvp0.md §8 — routed to manual ingestion,
+# not attempted here either) — but this specific PDF, served from the
+# same www.vietcombank.com.vn media path already proven for VCB's Layer 2
+# fee-schedule/promotions sources, is reachable directly. Confirmed live:
+# 106 pages, real extractable text, not a scan. This is VCB's 2024 annual
+# report — its own IR site (portal.vietcombank.com.vn) times out and a
+# guessed 2025-dated URL at the same path returned an HTML error page
+# (not a real PDF, despite a 200 status) — 2024 is the newest one
+# confirmed to actually exist and work.
+#
+# No dedicated "Technology" chapter exists in this report's own table of
+# contents (unlike Techcombank's) — real chapter boundaries found the same
+# way (direct text search for each TOC entry's actual page, not the
+# printed page numbers, which don't map cleanly to PDF page index here).
+# Scoped to "Vietcombank Profile" (Chairman/CEO messages, general profile
+# — PDF pages 2-13) and "Report of the Board of Directors" (business
+# performance assessment + 2025 business orientation — the closest match
+# to strategic-direction content in this report's structure — PDF pages
+# 14-26), excluding Organization/HR, Corporate Governance/Risk Management,
+# Sustainable Development, and the financial-statements chapter. ~73K
+# real chars, ~7 chunks.
+VIETCOMBANK_ANNUAL_REPORT_URL = "https://www.vietcombank.com.vn/-/media/Project/VCB-Sites/VCB/Nha-Dau-tu/Files/BC-dinh-ky/BC-thuong-nien/2024/EN_VCB-Annual-Report-2024_Full_250426_FN_compressed.pdf"
+VIETCOMBANK_ANNUAL_REPORT_PAGE_RANGES = [(2, 26)]  # 0-indexed, inclusive
+
+
+async def _fetch_vietcombank_annual_report_parts() -> Tuple[str, List[Tuple[str, str]]]:
+    return await _fetch_annual_report_page_ranges(
+        VIETCOMBANK_ANNUAL_REPORT_URL, VIETCOMBANK_ANNUAL_REPORT_PAGE_RANGES, "Vietcombank"
+    )
+
+
+# Third of the 5-bank Layer 3 annual-report row. Unlike BIDV's Layer 1
+# financial-STATEMENT filings (confirmed elsewhere in this project to be
+# scan-only, needing the OCR fallback), this specific annual report PDF —
+# found via its own investors page — is a real, extractable text layer:
+# confirmed live, 91 pages, 387K chars, 89/91 non-empty pages. Real
+# chapter boundaries found the same way (direct text search for each
+# TOC entry's actual content page, since printed page numbers use a
+# 2-page-spread layout here too). Scoped to Chapter 1 (Chairman's
+# message — PDF pages 3-6), the "Digital Banking operations" section
+# specifically (PDF page 14 — real content on BIDV's B.One internal
+# governance platform and B.Cash vault-management system, directly
+# matching the spec's "technology disclosures" target), and Chapter 5
+# "Management's Report" (macroeconomic/banking situation + 2025 business
+# orientation — PDF pages 48-51), excluding the much larger Chapter 2
+# (BIDV Overview — business-line descriptions, governance/risk, mostly
+# boilerplate outside the one digital-banking page already pulled out)
+# and Chapter 4 (Directors' Report — BOD activity logs). ~41K real
+# chars, ~4 chunks.
+BIDV_ANNUAL_REPORT_URL = "https://bidv.com.vn/wps/wcm/connect/2961231d-3291-4326-89b6-7350d04c496c/Annual+Report+BIDV+2024.ENG.pdf?MOD=AJPERES&CACHEID=ROOTWORKSPACE-2961231d-3291-4326-89b6-7350d04c496c-ppNyUwB"
+BIDV_ANNUAL_REPORT_PAGE_RANGES = [(3, 6), (14, 14), (48, 51)]  # 0-indexed, inclusive
+
+
+async def _fetch_bidv_annual_report_parts() -> Tuple[str, List[Tuple[str, str]]]:
+    return await _fetch_annual_report_page_ranges(
+        BIDV_ANNUAL_REPORT_URL, BIDV_ANNUAL_REPORT_PAGE_RANGES, "BIDV"
+    )
+
+
+# Fourth of the 5-bank Layer 3 annual-report row. MBBank's own domain
+# (mbbank.com.vn) is Akamai-walled site-wide — already confirmed elsewhere
+# in this project for its Layer 1/Layer 2 sources — so this uses
+# Vietstock's static document CDN as the fallback aggregator, same
+# convention already established for mbb_financial_statements (the
+# citation URL still points at this real document, not Vietstock's own
+# site chrome). Confirmed live: 184 pages, 674K chars, 174/184 non-empty
+# — a real text layer. Real chapter boundaries found the same way (direct
+# text search; another 2-printed-page-per-PDF-page spread, confirmed via
+# "Business Performance" listed at printed page 68 landing on real PDF
+# page 34). Scoped to the Chairman/CEO messages (PDF pages 4-6), the real
+# "Strategic direction" section (PDF pages 24-26), and the "Project
+# investment and implementation" section (PDF page 46 — real content on
+# MB's ~USD 50M/year IT investment, RPA/AI/ML/OCR applications, directly
+# matching this source's "technology disclosures" target) — excluding the
+# much larger general-information/governance/risk-management and
+# financial-performance chapters. ~27K real chars, ~3 chunks.
+MBBANK_ANNUAL_REPORT_URL = "https://static2.vietstock.vn/vietstock/2025/4/25/20250423_mbb_250423_annual_report_2024.pdf"
+MBBANK_ANNUAL_REPORT_PAGE_RANGES = [(4, 6), (24, 26), (46, 46)]  # 0-indexed, inclusive
+
+
+async def _fetch_mbbank_annual_report_parts() -> Tuple[str, List[Tuple[str, str]]]:
+    return await _fetch_annual_report_page_ranges(
+        MBBANK_ANNUAL_REPORT_URL, MBBANK_ANNUAL_REPORT_PAGE_RANGES, "MBBank"
+    )
+
+
+# Fifth and last of the 5-bank Layer 3 annual-report row. ACB's own
+# investors page (acb.com.vn/en/investors/annual-report-2024) is
+# client-side API-rendered like its other Layer 1/2 pages and didn't
+# surface a direct PDF link on a plain fetch — used Vietstock's static
+# document CDN instead (same aggregator convention as MBBank above).
+# Confirmed live: 89 pages, 157K chars, 88/89 non-empty — a real text
+# layer, filed 24 March 2025 covering fiscal year 2024 (the "2025" in
+# the filename is the filing/disclosure year, not the fiscal year covered
+# — same convention as MBBank's own "20250423"-dated 2024 report).
+# Real section boundaries found the same way (direct text search): no
+# dedicated Technology chapter exists here either (this report's own
+# extraction is noisier than the other 4 banks' — visible OCR/ligature
+# artifacts like "l.l" for "1.1" — but still real, readable text).
+# Scoped to the Chairman's Message (PDF pages 6-7), the "1.4 Development
+# strategy" section (PDF pages 16-17 — 2025 financial targets plus an
+# explicit "significant change in digital transformation" commitment),
+# and the Board of Directors' 2025 business-plans/vision section (PDF
+# pages 51-52 — includes a "boosting the digitization process" and
+# "continue the digitalization of banking services" commitment) —
+# excluding the much larger general-information/governance/risk,
+# business-performance, and financial-statements chapters. ~13K real
+# chars, ~1-2 chunks — the smallest of the 5 banks' selections, since
+# ACB's report doesn't dedicate as much space to technology specifics as
+# Techcombank/BIDV/MBBank's reports do.
+ACB_ANNUAL_REPORT_URL = "https://static2.vietstock.vn/vietstock/2025/3/26/20250325_acb_250325_annual_report_2025.pdf"
+ACB_ANNUAL_REPORT_PAGE_RANGES = [(6, 7), (16, 17), (51, 52)]  # 0-indexed, inclusive
+
+
+async def _fetch_acb_annual_report_parts() -> Tuple[str, List[Tuple[str, str]]]:
+    return await _fetch_annual_report_page_ranges(
+        ACB_ANNUAL_REPORT_URL, ACB_ANNUAL_REPORT_PAGE_RANGES, "ACB"
+    )
 
 
 # Vietstock's static CDN serves each bank's filed financial statement at a
@@ -1285,6 +1418,14 @@ async def _crawl_parts_async(url: str) -> Tuple[str, List[Tuple[str, str]]]:
         return await _fetch_decisionlab_fintech_ewallet_parts()
     if url == TECHCOMBANK_ANNUAL_REPORT_URL:
         return await _fetch_techcombank_annual_report_parts()
+    if url == VIETCOMBANK_ANNUAL_REPORT_URL:
+        return await _fetch_vietcombank_annual_report_parts()
+    if url == BIDV_ANNUAL_REPORT_URL:
+        return await _fetch_bidv_annual_report_parts()
+    if url == MBBANK_ANNUAL_REPORT_URL:
+        return await _fetch_mbbank_annual_report_parts()
+    if url == ACB_ANNUAL_REPORT_URL:
+        return await _fetch_acb_annual_report_parts()
 
     config = _resolve_site_config(url)
     html, generic_text = await _fetch_html(url, config["needs_js"], config["wait_selector"])
