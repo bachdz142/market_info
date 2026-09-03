@@ -5,6 +5,26 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — Retry transient PDF-fetch blocks (`sbv_press_releases_official`), now confirmed live
+
+User-flagged: "you only read the article title not clicking actual
+press". Investigation found the mechanism does click into and extract
+real PDF content, but the one real logged production run had 0/3 PDFs
+succeed due to sbv.gov.vn's known intermittent anti-bot block, silently
+falling back to title-only content — real tokens spent for 0 signals,
+nothing distinguishing that from a genuinely empty source.
+`_fetch_selected_pdfs()` now retries a near-empty PDF extraction up to
+3 attempts with a 10s pause before giving up.
+
+First live re-verification attempt landed mid-block (my own repeated
+testing had just tripped sbv.gov.vn's rate limit) — `content_gate`
+correctly rejected it, 0 tokens spent. Re-verified ~5 hours later once
+the block cleared: `gate_passed=True`, 30 real signals (exact VCB
+buying/selling exchange rates, interbank VND/USD transaction volumes
+and rates, mobilization/lending rate ranges by term) — the retry logic
+itself confirmed working live (one of the 3 PDFs needed a retry mid-run
+and succeeded on it).
+
 ## Unreleased — First Layer 3 annual-report source: `techcombank_annual_report`
 
 Picked back up `.scratch/layer3-annual-reports/spec.md`, parked earlier

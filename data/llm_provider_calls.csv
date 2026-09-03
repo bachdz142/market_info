@@ -379,3 +379,8 @@ timestamp,provider,model,success,query_preview,error
 2026-09-03T15:18:53.953236+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,
 2026-09-03T15:19:06.458629+07:00,mistral,mistral-small-2603,True,This is an excerpt from BIDV's 2024 Annual Report — specifically the Chairman's ,
 2026-09-03T15:19:29.609304+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,
+2026-09-03T15:20:06.558541+07:00,mistral,mistral-small-2603,True,This is an excerpt from BIDV's 2024 Annual Report — specifically the Chairman's ,
+2026-09-03T15:20:11.142273+07:00,mistral,mistral-small-2603,True,Extract concrete market signals from the full press release content below — spec,
+2026-09-03T15:20:55.329822+07:00,mistral,mistral-small-2603,True,This is an excerpt from BIDV's 2024 Annual Report — specifically the Chairman's ,
+2026-09-03T15:21:24.955179+07:00,mistral,mistral-small-2603,True,This is an excerpt from MB Bank's 2024 Annual Report — specifically the Chairman,
+2026-09-03T15:22:00.279859+07:00,groq,openai/gpt-oss-120b,True,This is an excerpt from MB Bank's 2024 Annual Report — specifically the Chairman,
