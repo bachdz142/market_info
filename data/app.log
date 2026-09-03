@@ -50645,3 +50645,8 @@ today
 2026-09-03 02:03:28,107 INFO agent.graph: Structure LLM call done in 7.08s for query: These are 4 Decision Lab articles on Vietnamese Gen Z/Gen X consumer behavior. E | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 1953, 'output_tokens': 719, 'total_tokens': 2672}
 2026-09-03 02:03:28,110 INFO agent.graph: Per-piece structure call 4/4 done
 2026-09-03 02:03:28,149 INFO service: [3/3] decisionlab_genz_behavior done in 130.15s (gate_passed=True, error=None)
+2026-09-03 10:11:41,626 INFO agent.gate: Gate passed: Extract concrete market signals from the full press release content below — spec
+2026-09-03 10:11:42,943 INFO agent.graph: Multi-crawl done in 1.31s for url: https://sbv.gov.vn/en/press-release (0 documents)
+2026-09-03 10:11:43,503 WARNING agent.content_gate: Content gate rejected: Content matches a known block-page marker: 'the requested url was rejected'.
+2026-09-03 10:11:43,503 WARNING agent.graph: Content gate rejected https://sbv.gov.vn/en/press-release: Content matches a known block-page marker: 'the requested url was rejected'.
+2026-09-03 10:11:43,504 INFO service: [1/1] sbv_press_releases_official done in 1.88s (gate_passed=False, error=None)

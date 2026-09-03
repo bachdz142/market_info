@@ -1155,6 +1155,15 @@ def _select_content(html: str, config: dict) -> Optional[Tuple[Any, str]]:
     return node, node.get_text(separator="\n", strip=True)
 
 
+# A near-empty PDF extraction is often a transient anti-bot/rate-limit
+# block (an HTML error page served instead of the PDF), not a permanently
+# dead link — confirmed live for sbv_press_releases_official: fetching the
+# exact same URL twice in a row got 3/3 real PDFs the first time, 2/3 the
+# second. 3 attempts with a short pause gives that a real chance to clear.
+PDF_FETCH_MAX_ATTEMPTS = 3
+PDF_FETCH_RETRY_DELAY_SECONDS = 10
+
+
 async def _fetch_selected_pdfs(url: str, node: Any, config: dict) -> List[Tuple[str, str]]:
     """Fetch the PDFs linked from node per config's pdf_link_selector/limit.
     Returns [(pdf_url, pdf_text), ...] — one bad PDF (blocked, malformed,
@@ -1175,12 +1184,33 @@ async def _fetch_selected_pdfs(url: str, node: Any, config: dict) -> List[Tuple[
         for link in links:
             pdf_url = urljoin(url, link["href"])
             logger.info("Fetching PDF for %s -> %s", url, pdf_url)
-            try:
-                pdf_text = await _fetch_pdf_text(crawler, pdf_url)
-            except Exception:
-                logger.exception("Failed to fetch PDF %s, skipping", pdf_url)
-                continue
-            documents.append((pdf_url, pdf_text))
+            pdf_text = None
+            for attempt in range(1, PDF_FETCH_MAX_ATTEMPTS + 1):
+                try:
+                    pdf_text = await _fetch_pdf_text(crawler, pdf_url)
+                    break
+                except Exception:
+                    if attempt < PDF_FETCH_MAX_ATTEMPTS:
+                        # User-reported (2026-09-03, sbv_press_releases_official):
+                        # this exact failure — an intermittent anti-bot/rate-limit
+                        # block that returns an HTML error page instead of the
+                        # PDF — confirmed live to be transient (back-to-back
+                        # fetches of the same URL: one run got all 3 PDFs, the
+                        # next got 2/3 with the 3rd blocked). A silent skip
+                        # (previous behavior) meant one bad moment produced a
+                        # title-only fallback that still spent real LLM tokens
+                        # for 0 signals, with nothing distinguishing that from a
+                        # genuinely empty source. Retrying gives the transient
+                        # block a real chance to clear before giving up.
+                        logger.info(
+                            "PDF fetch failed for %s (attempt %d/%d), retrying in %ds",
+                            pdf_url, attempt, PDF_FETCH_MAX_ATTEMPTS, PDF_FETCH_RETRY_DELAY_SECONDS,
+                        )
+                        await asyncio.sleep(PDF_FETCH_RETRY_DELAY_SECONDS)
+                    else:
+                        logger.exception("Failed to fetch PDF %s after %d attempts, skipping", pdf_url, PDF_FETCH_MAX_ATTEMPTS)
+            if pdf_text is not None:
+                documents.append((pdf_url, pdf_text))
     return documents
 
 
