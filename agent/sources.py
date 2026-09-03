@@ -1333,28 +1333,30 @@ SOURCES = [
         # Third of the 5-bank Layer 3 annual-report row. Unlike BIDV's
         # Layer 1 financial-STATEMENT filings (confirmed elsewhere in
         # this project to be scan-only, needing the OCR fallback), this
-        # specific annual report PDF is a real, extractable text layer —
-        # confirmed live: 91 pages, 387K chars, 89/91 non-empty pages.
-        # Scoped to Chapter 1 (Chairman's message), the "Digital Banking
-        # operations" section specifically (real content on BIDV's B.One
-        # internal-governance platform and B.Cash vault-management
-        # system — directly matching this source's "technology
-        # disclosures" target), and Chapter 5 "Management's Report"
-        # (macroeconomic/banking situation + 2025 business orientation)
-        # — see agent/crawler.py's _fetch_bidv_annual_report_parts() for
-        # the real page ranges and why the much larger BIDV-overview/
-        # governance/risk and Directors'-Report chapters are excluded.
-        "url": "https://bidv.com.vn/wps/wcm/connect/2961231d-3291-4326-89b6-7350d04c496c/Annual+Report+BIDV+2024.ENG.pdf?MOD=AJPERES&CACHEID=ROOTWORKSPACE-2961231d-3291-4326-89b6-7350d04c496c-ppNyUwB",
+        # specific annual report PDF is a real, extractable text layer.
+        # Updated 2026-09-03 to the FY2025 edition (user-supplied the
+        # real page URL) — confirmed live: 95 pages, 402K chars, 94/95
+        # non-empty. This year's report restructured — no standalone
+        # "Digital Banking operations" section exists anymore (last
+        # year's edition had one); technology content is now woven into
+        # the Management's Report chapter instead. Scoped to the
+        # Chairman's message and 4 pages of the Management's Report
+        # chapter (Board's operational assessment, assessment of Board
+        # of Management activities, an executive-management assessment
+        # that includes real IT-operations detail, and the 2026 business
+        # orientation) — see agent/crawler.py's
+        # _fetch_bidv_annual_report_parts() for the real page ranges.
+        "url": "https://bidv.com.vn/wps/wcm/connect/f6519b5f-3abf-4694-a32c-d3057f8d75bc/BIDV_BCTN_2025_EN_%28Interactive%29.pdf?MOD=AJPERES&CACHEID=ROOTWORKSPACE-f6519b5f-3abf-4694-a32c-d3057f8d75bc-pYsQuS-",
         "prompt": (
-            "This is an excerpt from BIDV's 2024 Annual Report — "
-            "specifically the Chairman's message, the Digital Banking "
-            "operations section, and the Management's Report (macro/"
-            "banking situation and 2025 business orientation). Extract "
-            "concrete strategic signals: named technology initiatives "
-            "(digital platforms, internal-governance systems, "
-            "cash/vault-management digitization), leadership's stated "
-            "strategic priorities and outlook, and any concrete figures "
-            "given (digitization rates, financial performance figures). "
+            "This is an excerpt from BIDV's 2025 Annual Report — "
+            "specifically the Chairman's message and the Management's "
+            "Report chapter (Board of Directors' operational assessment, "
+            "assessment of Board of Management activities, an "
+            "executive-management assessment, and 2026 business "
+            "orientation). Extract concrete strategic signals: named "
+            "technology/IT initiatives, leadership's stated strategic "
+            "priorities and outlook, and any concrete figures given "
+            "(IT/operational metrics, financial performance figures). "
             "Since this is the bank's own official disclosure, tag a "
             "directly stated fact as \"fact\" and a forward-looking "
             "strategic statement or leadership opinion as \"opinion\" — "
@@ -1368,35 +1370,37 @@ SOURCES = [
         "role": "citable",
         "tier": "tier_1",
         "multi_pdf": True,
-        # Fourth of the 5-bank Layer 3 annual-report row. MBBank's own
-        # domain (mbbank.com.vn) is Akamai-walled site-wide — already
-        # confirmed elsewhere in this project — so this uses Vietstock's
-        # static document CDN, same aggregator convention already
-        # established for mbb_financial_statements (this citation URL
-        # still points at the real document, not Vietstock's own site).
-        # Confirmed live: 184 pages, 674K chars, 174/184 non-empty pages.
-        # Scoped to the Chairman/CEO messages, the "Strategic direction"
-        # section, and the "Project investment and implementation"
-        # section (real content on MB's ~USD 50M/year IT investment and
-        # RPA/AI/ML/OCR applications — directly matching this source's
-        # "technology disclosures" target) — see agent/crawler.py's
-        # _fetch_mbbank_annual_report_parts() for the real page ranges
-        # and why the much larger general-information/governance/risk
-        # and financial-performance chapters are excluded.
-        "url": "https://static2.vietstock.vn/vietstock/2025/4/25/20250423_mbb_250423_annual_report_2024.pdf",
+        # Fourth of the 5-bank Layer 3 annual-report row. Updated
+        # 2026-09-03 to the FY2025 edition (user-supplied the real page
+        # URL) — turned out reachable directly on mbbank.com.vn itself
+        # (its own JS-rendered PDF link), not needing the Vietstock
+        # aggregator fallback the 2024 edition used. This edition is
+        # Vietnamese-only — no English variant found — the LLM handles
+        # Vietnamese content natively throughout this pipeline. Confirmed
+        # live: 186 pages, 738K chars, 184/186 non-empty pages. Scoped to
+        # the Chairman/CEO messages, the real "Chiến lược và định hướng
+        # phát triển" (Strategy and development orientation) section, and
+        # "Tình hình đầu tư và thực hiện các dự án" (Project investment
+        # and implementation — real content on MB's 2,500+ IT staff and
+        # RPA/AI/Machine Learning/OCR applications, directly matching
+        # this source's "technology disclosures" target) — see
+        # agent/crawler.py's _fetch_mbbank_annual_report_parts() for the
+        # real page ranges.
+        "url": "https://www.mbbank.com.vn/resources/files/NhaDauTu/2026/DHCD-2026/20260330---mbb---bao-cao-thuong-nien-2025.pdf",
         "prompt": (
-            "This is an excerpt from MB Bank's 2024 Annual Report — "
-            "specifically the Chairman's/CEO's messages, the Strategic "
-            "direction section, and the Project investment and "
-            "implementation section. Extract concrete strategic signals: "
-            "named technology initiatives (IT infrastructure investment, "
-            "AI/RPA/machine-learning applications, digital platforms), "
-            "leadership's stated strategic priorities and outlook, and "
-            "any concrete figures given (investment amounts, IT "
-            "headcount, business performance figures). Since this is "
-            "the bank's own official disclosure, tag a directly stated "
-            "fact as \"fact\" and a forward-looking strategic statement "
-            "or leadership opinion as \"opinion\" — don't default "
+            "This is an excerpt from MB Bank's 2025 Annual Report "
+            "(Vietnamese) — specifically the Chairman's/CEO's messages, "
+            "the Strategy and development orientation section, and the "
+            "Project investment and implementation section. Extract "
+            "concrete strategic signals: named technology initiatives "
+            "(IT infrastructure investment, AI/RPA/machine-learning "
+            "applications, digital platforms), leadership's stated "
+            "strategic priorities and outlook, and any concrete figures "
+            "given (investment amounts, IT headcount, business "
+            "performance figures). Since this is the bank's own "
+            "official disclosure, tag a directly stated fact as "
+            "\"fact\" and a forward-looking strategic statement or "
+            "leadership opinion as \"opinion\" — don't default "
             "everything to one value. source_code for these signals is "
             "\"MBB\"."
         ),

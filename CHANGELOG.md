@@ -5,6 +5,42 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — Remaining 4 banks of the Layer 3 annual-report row (VCB, BIDV, MBBank, ACB)
+
+Closes `.scratch/layer3-annual-reports/spec.md` entirely. Same method
+as Techcombank for each: find the real PDF, verify real text (not a
+scan), find real chapter boundaries by direct text search, scope to
+leadership + technology + strategic-direction content, exclude the
+much larger boilerplate/governance/financial-statements chapters.
+
+- `vietcombank_annual_report` — VCB's own domain is Akamai-walled for
+  Layer 1 filings, but this PDF (same media path as VCB's Layer 2
+  sources) is reachable directly. 2024 confirmed newest (a guessed 2025
+  URL was a fake-200 dead link). ~73K chars, 8 chunks.
+- `bidv_annual_report` — real text layer, unlike BIDV's scan-only
+  Layer 1 filings. Added on FY2024, **refreshed to FY2025 same session**
+  once the user supplied the real page URL directly (a follow-up
+  question — "why MB bank and bidv only have annual report from
+  2024?" — caught that a fresher edition hadn't been checked for
+  consistently). FY2025's report restructured (no more standalone
+  Digital Banking chapter); rescoped to the Chairman's message +
+  Management's Report. ~48K chars, ~5 chunks.
+- `mbbank_annual_report` — added via Vietstock (mbbank.com.vn is
+  Akamai-walled site-wide) on FY2024, **refreshed to FY2025** the same
+  way — this edition turned out reachable directly on mbbank.com.vn
+  itself. Vietnamese-only, no issue (the LLM handles Vietnamese
+  natively throughout this pipeline). ~29K chars, 3 chunks.
+- `acb_annual_report` — ACB's own investors page is client-side
+  API-rendered with no direct PDF on a plain fetch, uses Vietstock.
+  ~13K chars, 2 chunks — smallest of the 5.
+- New shared `_fetch_annual_report_page_ranges()` helper in
+  `agent/crawler.py` — all 5 banks' fetch functions are thin wrappers
+  around it.
+
+Live-verified, all 5 (using each bank's freshest edition):
+Techcombank 156, Vietcombank 165, BIDV 91, MBBank 60, ACB 18 —
+**490 real signals total**.
+
 ## Unreleased — Retry transient PDF-fetch blocks (`sbv_press_releases_official`), now confirmed live
 
 User-flagged: "you only read the article title not clicking actual

@@ -1196,23 +1196,25 @@ async def _fetch_vietcombank_annual_report_parts() -> Tuple[str, List[Tuple[str,
 # Third of the 5-bank Layer 3 annual-report row. Unlike BIDV's Layer 1
 # financial-STATEMENT filings (confirmed elsewhere in this project to be
 # scan-only, needing the OCR fallback), this specific annual report PDF —
-# found via its own investors page — is a real, extractable text layer:
-# confirmed live, 91 pages, 387K chars, 89/91 non-empty pages. Real
-# chapter boundaries found the same way (direct text search for each
-# TOC entry's actual content page, since printed page numbers use a
-# 2-page-spread layout here too). Scoped to Chapter 1 (Chairman's
-# message — PDF pages 3-6), the "Digital Banking operations" section
-# specifically (PDF page 14 — real content on BIDV's B.One internal
-# governance platform and B.Cash vault-management system, directly
-# matching the spec's "technology disclosures" target), and Chapter 5
-# "Management's Report" (macroeconomic/banking situation + 2025 business
-# orientation — PDF pages 48-51), excluding the much larger Chapter 2
-# (BIDV Overview — business-line descriptions, governance/risk, mostly
-# boilerplate outside the one digital-banking page already pulled out)
-# and Chapter 4 (Directors' Report — BOD activity logs). ~41K real
-# chars, ~4 chunks.
-BIDV_ANNUAL_REPORT_URL = "https://bidv.com.vn/wps/wcm/connect/2961231d-3291-4326-89b6-7350d04c496c/Annual+Report+BIDV+2024.ENG.pdf?MOD=AJPERES&CACHEID=ROOTWORKSPACE-2961231d-3291-4326-89b6-7350d04c496c-ppNyUwB"
-BIDV_ANNUAL_REPORT_PAGE_RANGES = [(3, 6), (14, 14), (48, 51)]  # 0-indexed, inclusive
+# found via its own investors page — is a real, extractable text layer.
+# Updated 2026-09-03 to the FY2025 edition (user-supplied real page URL:
+# bidv.com.vn/bidv_en/quan-he-nha-dau-tu/bao-cao-va-tai-lieu/annualreport/
+# 2026/bctn+2025 — the 2024 edition originally used here was only what a
+# first web search surfaced, not confirmed to be the newest available;
+# checking for a fresher one wasn't done consistently across all 5 banks
+# the first time). Confirmed live: 95 pages, 402K chars, 94/95 non-empty.
+# This year's report restructured — no standalone "Digital Banking
+# operations" section exists anymore (last year's did); technology
+# content is now woven into the Management's Report chapter instead.
+# Scoped to the Chairman's message (PDF pages 4-5) and 4 pages of the
+# Management's Report chapter (PDF pages 44, 46, 49-50 — the Board's
+# operational assessment, its assessment of Board of Management
+# activities, an executive-management assessment that includes real IT-
+# operations detail, and the 2026 business orientation) — excluding the
+# much larger BIDV-overview/governance/risk and subsidiaries/investments
+# chapters. ~48K real chars, ~4-5 chunks.
+BIDV_ANNUAL_REPORT_URL = "https://bidv.com.vn/wps/wcm/connect/f6519b5f-3abf-4694-a32c-d3057f8d75bc/BIDV_BCTN_2025_EN_%28Interactive%29.pdf?MOD=AJPERES&CACHEID=ROOTWORKSPACE-f6519b5f-3abf-4694-a32c-d3057f8d75bc-pYsQuS-"
+BIDV_ANNUAL_REPORT_PAGE_RANGES = [(4, 5), (44, 44), (46, 46), (49, 50)]  # 0-indexed, inclusive
 
 
 async def _fetch_bidv_annual_report_parts() -> Tuple[str, List[Tuple[str, str]]]:
@@ -1221,25 +1223,30 @@ async def _fetch_bidv_annual_report_parts() -> Tuple[str, List[Tuple[str, str]]]
     )
 
 
-# Fourth of the 5-bank Layer 3 annual-report row. MBBank's own domain
-# (mbbank.com.vn) is Akamai-walled site-wide — already confirmed elsewhere
-# in this project for its Layer 1/Layer 2 sources — so this uses
-# Vietstock's static document CDN as the fallback aggregator, same
-# convention already established for mbb_financial_statements (the
-# citation URL still points at this real document, not Vietstock's own
-# site chrome). Confirmed live: 184 pages, 674K chars, 174/184 non-empty
-# — a real text layer. Real chapter boundaries found the same way (direct
-# text search; another 2-printed-page-per-PDF-page spread, confirmed via
-# "Business Performance" listed at printed page 68 landing on real PDF
-# page 34). Scoped to the Chairman/CEO messages (PDF pages 4-6), the real
-# "Strategic direction" section (PDF pages 24-26), and the "Project
-# investment and implementation" section (PDF page 46 — real content on
-# MB's ~USD 50M/year IT investment, RPA/AI/ML/OCR applications, directly
-# matching this source's "technology disclosures" target) — excluding the
-# much larger general-information/governance/risk-management and
-# financial-performance chapters. ~27K real chars, ~3 chunks.
-MBBANK_ANNUAL_REPORT_URL = "https://static2.vietstock.vn/vietstock/2025/4/25/20250423_mbb_250423_annual_report_2024.pdf"
-MBBANK_ANNUAL_REPORT_PAGE_RANGES = [(4, 6), (24, 26), (46, 46)]  # 0-indexed, inclusive
+# Fourth of the 5-bank Layer 3 annual-report row. Updated 2026-09-03 to
+# the FY2025 edition (user-supplied real page URL:
+# mbbank.com.vn/chi-tiet/thong-bao/bao-cao-thuong-nien-2025-... — found
+# via that page's own JS-rendered PDF link, not a direct static fetch;
+# the earlier 2024 edition used here came from Vietstock's aggregator
+# since MBBank's own domain was known Akamai-walled, but this specific
+# announcement-detail page turned out reachable directly on
+# mbbank.com.vn itself, matching the "www subdomain vs. bare domain"
+# pattern already established for this bank's other sources). This
+# edition is Vietnamese-only — no English variant found on the same
+# page — the LLM handles Vietnamese content natively throughout this
+# pipeline, so no issue. Confirmed live: 186 pages, 738K chars, 184/186
+# non-empty. Real chapter boundaries found the same way (direct text
+# search on the Vietnamese section titles). Scoped to the Chairman/CEO
+# messages (PDF pages 4-5), the real "Chiến lược và định hướng phát
+# triển" / Strategy and development orientation section (PDF pages
+# 17-19), and "Tình hình đầu tư và thực hiện các dự án" / Project
+# investment and implementation (PDF page 39 — real content on MB's
+# 2,500+ IT staff and RPA/AI/Machine Learning/OCR applications, directly
+# matching this source's "technology disclosures" target) — excluding
+# the much larger general-information/governance/risk-management and
+# financial-performance chapters. ~29K real chars, ~3 chunks.
+MBBANK_ANNUAL_REPORT_URL = "https://www.mbbank.com.vn/resources/files/NhaDauTu/2026/DHCD-2026/20260330---mbb---bao-cao-thuong-nien-2025.pdf"
+MBBANK_ANNUAL_REPORT_PAGE_RANGES = [(4, 5), (17, 19), (39, 39)]  # 0-indexed, inclusive
 
 
 async def _fetch_mbbank_annual_report_parts() -> Tuple[str, List[Tuple[str, str]]]:
