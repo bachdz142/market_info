@@ -1293,35 +1293,43 @@ SOURCES = [
         # Second of the 5-bank Layer 3 annual-report row. VCB's own
         # domain has a genuine, confirmed Akamai wall for Layer 1
         # quantitative filings (per source_plan_mvp0.md §8, routed to
-        # manual ingestion, not attempted here) — but this PDF, served
-        # from the same www.vietcombank.com.vn media path already proven
-        # for VCB's Layer 2 fee-schedule/promotions sources, is reachable
-        # directly. Confirmed live: 106 pages, real extractable text. Its
-        # own IR portal (portal.vietcombank.com.vn) times out; a guessed
-        # 2025-dated URL at this same path returned an HTML error page
-        # (not a real PDF, despite a 200 status) — 2024 is the newest
-        # edition confirmed to actually exist. No dedicated "Technology"
-        # chapter exists in this report (unlike Techcombank's) — scoped
-        # instead to "Vietcombank Profile" (Chairman/CEO messages) and
-        # "Report of the Board of Directors" (business performance +
-        # 2025 business orientation, the closest match to strategic
-        # direction in this report's own structure) — see
-        # agent/crawler.py's _fetch_vietcombank_annual_report_parts().
-        "url": "https://www.vietcombank.com.vn/-/media/Project/VCB-Sites/VCB/Nha-Dau-tu/Files/BC-dinh-ky/BC-thuong-nien/2024/EN_VCB-Annual-Report-2024_Full_250426_FN_compressed.pdf",
+        # manual ingestion, not attempted here). Updated 2026-09-03 to
+        # the FY2025 edition — the original "2025 doesn't exist yet"
+        # conclusion was a lazy filename guess, not a real search (caught
+        # by a user follow-up after the same gap had already been found
+        # for BIDV/MBBank). Found via a real Vietstock disclosure-filing
+        # article (needs a browser User-Agent — a plain `requests` GET
+        # with no headers gets a 403 from vietstock.vn's own site).
+        # Confirmed live: 113 pages, 419K chars, 111/113 non-empty,
+        # Vietnamese-only (no English variant found — the LLM handles
+        # Vietnamese natively throughout this pipeline). No dedicated
+        # "Technology" chapter exists in this report — scoped to the
+        # Chairman/CEO leadership message and the "Report of the Board
+        # of Directors - Executive Board" chapter (investment/project
+        # situation, 2025 business-results assessment — including real
+        # content on the VCB CashUp Mobile / VCB Tablet digital
+        # products, 2026 business orientation, and the BOD's own
+        # activity assessment) — see agent/crawler.py's
+        # _fetch_vietcombank_annual_report_parts().
+        "url": "https://static2.vietstock.vn/vietstock/2026/4/17/20260416___vcb___bao_cao_thuong_nien_nam_2025.pdf",
         "prompt": (
-            "This is an excerpt from Vietcombank's 2024 Annual Report — "
-            "specifically the Chairman's/CEO's messages, general bank "
-            "profile, and the Board of Directors' report on business "
-            "performance and 2025 business orientation. Extract concrete "
-            "strategic signals: leadership's stated strategic priorities "
-            "and outlook, named business/technology initiatives, and any "
-            "concrete figures given (financial performance figures, "
-            "shareholding structure, customer/business metrics). Since "
-            "this is the bank's own official disclosure, tag a directly "
-            "stated fact as \"fact\" and a forward-looking strategic "
-            "statement or leadership opinion as \"opinion\" — don't "
-            "default everything to one value. source_code for these "
-            "signals is \"VCB\"."
+            "This is an excerpt from Vietcombank's 2025 Annual Report "
+            "(Vietnamese) — specifically the Chairman's/CEO's leadership "
+            "message and the Report of the Board of Directors - "
+            "Executive Board chapter (investment/project situation, "
+            "2025 business-results assessment, 2026 business "
+            "orientation, and the Board's own activity assessment). "
+            "Extract concrete strategic signals: leadership's stated "
+            "strategic priorities and outlook, named business/"
+            "technology initiatives (digital products, digital "
+            "platforms), and any concrete figures given (financial "
+            "performance figures, shareholding structure, "
+            "customer/business metrics). Since this is the bank's own "
+            "official disclosure, tag a directly stated fact as "
+            "\"fact\" and a forward-looking strategic statement or "
+            "leadership opinion as \"opinion\" — don't default "
+            "everything to one value. source_code for these signals is "
+            "\"VCB\"."
         ),
     },
     {

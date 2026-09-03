@@ -14,9 +14,13 @@ leadership + technology + strategic-direction content, exclude the
 much larger boilerplate/governance/financial-statements chapters.
 
 - `vietcombank_annual_report` — VCB's own domain is Akamai-walled for
-  Layer 1 filings, but this PDF (same media path as VCB's Layer 2
-  sources) is reachable directly. 2024 confirmed newest (a guessed 2025
-  URL was a fake-200 dead link). ~73K chars, 8 chunks.
+  Layer 1 filings. Added on FY2024 (~73K chars, 8 chunks), then
+  **refreshed to FY2025** after a user follow-up ("bruh vcb is
+  2024???") caught that the original "2025 doesn't exist yet"
+  conclusion was a lazy filename guess, not a real search. Found via a
+  real Vietstock disclosure-filing article (needs a browser
+  User-Agent — vietstock.vn 403s a plain `requests` GET). Vietnamese-
+  only, ~38K chars, 4 chunks.
 - `bidv_annual_report` — real text layer, unlike BIDV's scan-only
   Layer 1 filings. Added on FY2024, **refreshed to FY2025 same session**
   once the user supplied the real page URL directly (a follow-up
@@ -32,14 +36,18 @@ much larger boilerplate/governance/financial-statements chapters.
   natively throughout this pipeline). ~29K chars, 3 chunks.
 - `acb_annual_report` — ACB's own investors page is client-side
   API-rendered with no direct PDF on a plain fetch, uses Vietstock.
-  ~13K chars, 2 chunks — smallest of the 5.
+  ~13K chars, 2 chunks — smallest of the 5. A real FY2025 filing does
+  exist but is a genuine scan (0 extractable chars across all 182
+  pages) — kept on the FY2024 text edition rather than swap to an
+  unusable scan.
 - New shared `_fetch_annual_report_page_ranges()` helper in
   `agent/crawler.py` — all 5 banks' fetch functions are thin wrappers
   around it.
 
-Live-verified, all 5 (using each bank's freshest edition):
-Techcombank 156, Vietcombank 165, BIDV 91, MBBank 60, ACB 18 —
-**490 real signals total**.
+Live-verified, all 5 (using each bank's freshest usable edition):
+Techcombank 156, Vietcombank 81 (FY2025, down from 165 on FY2024 --
+proportional to a smaller scope, not a red flag), BIDV 91, MBBank 60,
+ACB 18 — **406 real signals total**.
 
 ## Unreleased — Retry transient PDF-fetch blocks (`sbv_press_releases_official`), now confirmed live
 

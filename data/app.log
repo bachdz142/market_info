@@ -60075,3 +60075,1054 @@ BÁO CÁO THƯỜNG NIÊN • 2025 BÁO CÁO THƯỜNG NIÊN • 2025
 2026-09-03 16:01:57,640 INFO agent.graph: Structure LLM call done in 16.53s for query: This is an excerpt from MB Bank's 2025 Annual Report (Vietnamese) — specifically | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 3245, 'output_tokens': 2099, 'total_tokens': 5344}
 2026-09-03 16:01:57,646 INFO agent.graph: Per-piece structure call 4/4 done
 2026-09-03 16:01:57,653 INFO service: [2/2] mbbank_annual_report done in 322.21s (gate_passed=True, error=None)
+2026-09-03 16:13:54,739 INFO agent.gate: Gate passed: This is an excerpt from Vietcombank's 2025 Annual Report (Vietnamese) — specific
+2026-09-03 16:14:00,785 INFO agent.graph: Multi-crawl done in 6.04s for url: https://static2.vietstock.vn/vietstock/2026/4/17/20260416___vcb___bao_cao_thuong_nien_nam_2025.pdf (4 documents)
+2026-09-03 16:14:01,176 INFO agent.graph: Raw content fed to LLM for query: This is an excerpt from Vietcombank's 2025 Annual Report (Vietnamese) — specific
+Giới thiệu Vietcombank Giới thiệu VietcombankCHƯƠNG 1
+6 7
+CHƯƠNG 1
+THÔNG ĐIỆP CỦA
+BAN LÃNH ĐẠO
+VIETCOMBANK
+Năm 2025 tiếp tục là một năm nhiều biến 
+động đối với kinh tế toàn cầu. Chính sách 
+tiền tệ tại nhiều nền kinh tế lớn vẫn trong 
+giai đoạn điều chỉnh sau chu kỳ thắt chặt 
+kéo dài, trong khi những căng thẳng địa 
+chính trị và sự tái cấu trúc của chuỗi cung 
+ứng toàn cầu tiếp tục tác động đến thương 
+mại và dòng vốn quốc tế. Những yếu tố 
+này tạo ra môi trường kinh doanh phức tạp 
+và nhiều thách thức đối với các định chế tài 
+chính trên toàn thế giới.
+Đối với Vietcombank, năm 2025 là một 
+dấu mốc đặc biệt khi Ngân hàng hoàn 
+thành Chiến lược phát triển giai đoạn 2021 
+- 2025. T rong năm, Vietcombank đã hoàn 
+thành xuất sắc mục tiêu kép: vừa đạt các 
+chỉ tiêu kinh doanh được giao, vừa thực 
+hiện nhiệm vụ mang ý nghĩa chính sách khi 
+tham gia tiếp nhận chuyển giao bắt buộc tổ 
+chức tín dụng yếu kém, qua đó đóng góp 
+tích cực vào quá trình tái cấu trúc hệ thống 
+ngân hàng theo hướng minh bạch, an toàn 
+và hiệu quả hơn.
+15.000
+DƯỚI 1%
+T rên
+tỷ lệ nợ xấu được kiểm soát
+tỷ
+đồng
+Đóng góp lớn nhất cho
+Ngân sách nhà nước 
+tỷ lệ bao phủ nợ xấu tiếp tục nằm 
+trong nhóm dẫn đầu thị trường.
+Nhờ sự đồng lòng và nỗ lực của hơn 20.000 
+cán bộ nhân viên trên toàn hệ thống, cùng 
+với môi trường kinh tế vĩ mô ổn định và sự 
+điều hành quyết liệt của Chính phủ và các 
+cơ quan quản lý, Vietcombank tiếp tục đạt 
+được những kết quả kinh doanh nổi bật 
+trong năm 2025. Ngân hàng giữ vững vị trí 
+quán quân về lợi nhuận trong ngành ngân 
+hàng, đồng thời đóng góp trên 15.000 tỷ 
+đồng cho ngân sách Nhà nước, tiếp tục 
+nằm trong nhóm các doanh nghiệp đóng 
+góp lớn nhất cả nước. Các chỉ số sinh lời 
+ROA và ROE duy trì ở mức cao; tỷ lệ nợ 
+xấu được kiểm soát ở mức thấp dưới 1%; 
+tỷ lệ bao phủ nợ xấu tiếp tục nằm trong 
+nhóm dẫn đầu thị trường.
+Uy tín và giá trị thương hiệu của 
+Vietcombank tiếp tục được khẳng định khi 
+Ngân hàng là tổ chức tín dụng duy nhất tại 
+Việt Nam được cả ba tổ chức xếp hạng tín 
+nhiệm quốc tế lớn nhất đánh giá ở mức 
+ngang bằng với trần tín nhiệm quốc gia 
+của Việt Nam. T rong lĩnh vực quản trị rủi ro, 
+Chủ tịch HĐQT
+Nguyễn Thanh T ùng
+Vietcombank thể hiện vai trò tiên phong 
+khi là một trong những ngân hàng đầu 
+tiên đăng ký áp dụng Thông tư 14/2025 
+về tính tỷ lệ an toàn vốn theo Basel III 
+ngay tại thời điểm quy định có hiệu lực, 
+và là ngân hàng thương mại lớn đầu tiên 
+chính thức áp dụng phương pháp tiêu 
+chuẩn theo Basel III từ tháng 03/2026. 
+T rong năm 2025, Vietcombank cũng được 
+tổ chức quốc tế uy tín (Asian Banking and 
+Finance Awards) vinh danh cho các sáng 
+kiến ứng dụng công nghệ, chuyển đổi số 
+vào công tác quản lý rủi ro. Kết quả này 
+phản ánh niềm tin của thị trường và nhà 
+đầu tư đối với năng lực quản trị, mức độ 
+an toàn và định hướng phát triển bền vững 
+của Vietcombank.
+Song song với kết quả kinh doanh tích cực, 
+Vietcombank tiếp tục thực hiện trách nhiệm 
+xã hội thông qua các chương trình hỗ trợ 
+người dân và doanh nghiệp với mặt bằng 
+lãi suất cạnh tranh nhằm thúc đẩy hoạt 
+động đầu tư, sản xuất kinh doanh. T ổng 
+số tiền miễn giảm và hỗ trợ lãi suất trong 
+năm 2025 lên tới hàng nghìn tỷ đồng. 
+Ngân hàng cũng cam kết tài trợ hàng trăm 
+tỷ đồng cho các chương trình an sinh xã 
+hội tại nhiều địa phương trên cả nước, góp 
+phần hỗ trợ cộng đồng khắc phục hậu quả 
+thiên tai và cải thiện đời sống xã hội.
+Giới thiệu Vietcombank Giới thiệu VietcombankCHƯƠNG 1
+8 9
+CHƯƠNG 1
+THÔNG ĐIỆP CỦA
+BAN LÃNH ĐẠO
+VIETCOMBANK
+Những kết quả đạt được trong năm 2025 
+không chỉ thể hiện qua các chỉ tiêu tăng 
+trưởng mà còn khẳng định bản lĩnh và 
+năng lực thích ứng của Vietcombank 
+trước những biến động của thị trường. 
+Vietcombank tiếp tục duy trì vị thế là ngân 
+hàng thương mại hàng đầu Việt Nam về 
+chất lượng và hiệu quả hoạt động, là ngân 
+hàng niêm yết có quy mô vốn hóa lớn nhất 
+trên thị trường chứng khoán Việt Nam, 
+đồng thời nhiều năm liên tiếp được vinh 
+danh là ngân hàng có môi trường làm việc 
+tốt nhất Việt Nam và doanh nghiệp tiêu 
+biểu vì người lao động.
+Bước sang năm 2026 - năm khởi đầu 
+triển khai Chiến lược phát triển VCB giai 
+đoạn tiếp theo, với yêu cầu đổi mới mạnh 
+mẽ hơn, hiệu quả cao hơn và phát triển 
+bền vững hơn, Vietcombank xác định 
+đây là chặng đường đòi hỏi tư duy mới, 
+cách làm mới nhưng vẫn kiên định những 
+giá trị cốt lõi đã làm nên vị thế số 1 của 
+Vietcombank hôm nay. Trong bối cảnh 
+môi trường kinh doanh tiếp tục biến động 
+nhanh, cạnh tranh gay gắt và yêu cầu 
+chuẩn mực ngày càng cao, định hướng 
+xuyên suốt của Vietcombank là phát triển 
+an toàn - hiệu quả - bền vững, gắn tăng 
+trưởng với chất lượng hoạt động. T ổng Giám đốc
+Lê Quang Vinh
+Vietcombank - chung niềm tin - vững tương lai.
+TOP 100
+Hiện thực hóa mục tiêu năm 2030
+ngân hàng lớn nhất châu Á
+Trọng tâm lớn của năm 2026 là đổi mới 
+mô hình tăng trưởng gắn với chuyển dịch 
+cơ cấu hoạt động, phát huy sức mạnh tổng 
+thể của hệ sinh thái Vietcombank. Đồng 
+thời tiếp tục tập trung nâng cao chất lượng 
+nguồn nhân lực, đặc biệt là nguồn nhân 
+lực thích ứng với chuyển đổi số; khuyến 
+khích đổi mới sáng tạo, tích hợp trí tuệ 
+nhân tạo, dữ liệu lớn và các mô hình dự 
+báo hiện đại vào quản trị, kinh doanh và 
+quản trị rủi ro.
+Với nền tảng tài chính vững chắc, định 
+hướng phát triển rõ ràng và sự đồng hành 
+của Quý cổ đông, khách hàng và đối tác, 
+Vietcombank sẽ tiếp tục duy trì đà tăng 
+trưởng ổn định, giữ vững vị thế ngân hàng 
+số 1 Việt Nam - đồng thời từng bước hiện 
+thực hóa khát vọng trở thành một trong 
+100 ngân hàng lớn nhất châu Á vào năm 
+2030. Phía trước là chặng đường đầy cơ 
+hội, và Vietcombank sẵn sàng với tất cả 
+sức mạnh, bản lĩnh và niềm tin vào một 
+Việt Nam đang vươn mình ra thế giới.
+“ Với nền tảng tài chính vững chắc, 
+định hướng phát triển rõ ràng và sự 
+đồng hành của Quý cổ đông, khách 
+hàng và đối tác, Vietcombank sẽ 
+tiếp tục duy trì đà tăng trưởng ổn 
+định, giữ vững vị thế ngân hàng số 
+1 Việt Nam - đồng thời từng bước 
+hiện thực hóa khát vọng trở thành 
+một trong 100 ngân hàng lớn nhất 
+châu Á vào năm 2030. Phía trước 
+là chặng đường đầy cơ hội, và 
+Vietcombank sẵn sàng với tất cả sức 
+mạnh, bản lĩnh và niềm tin 
+vào một Việt Nam đang 
+vươn mình ra thế giới.”
+2026-09-03 16:14:07,628 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-09-03 16:14:07,721 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 16:14:07,722 WARNING google_genai.models: Direct use of automatic function calling (AFC) in Models.generate_content is not recommended. Instead, we recommend to use AFC in Chat.send_message. Similarly, direct use of AFC in Models.generate_content_stream is not recommended. Instead, we recommend to use AFC in Chat.send_message_stream.
+2026-09-03 16:14:13,300 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 503 Service Unavailable"
+2026-09-03 16:14:22,154 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 16:14:22,173 INFO agent.graph: Structure LLM call done in 21.0s for query: This is an excerpt from Vietcombank's 2025 Annual Report (Vietnamese) — specific | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 3491, 'output_tokens': 1559, 'total_tokens': 5050}
+2026-09-03 16:14:22,177 INFO agent.graph: Per-piece structure call 1/4 done
+2026-09-03 16:14:52,183 INFO agent.graph: Raw content fed to LLM for query: This is an excerpt from Vietcombank's 2025 Annual Report (Vietnamese) — specific
+CÁC CHỈ SỐ
+TÀI CHÍNH CƠ BẢN
+Tình hình tài chính 2024 2025
+A Tình hình tài chính 
+1 T ổng tài sản 2.085.874 2.442.279
+2 Doanh thu 121.925 134.227
+3 Thuế và các khoản phải nộp (số đã nộp trong kỳ) 12.045 12.508
+4 Lợi nhuận trước thuế 42.236 44.020
+5 Lợi nhuận sau thuế 33.853 35.198
+B Các chỉ tiêu tài chính chủ yếu
+1 Quy mô vốn   
+1.1 Vốn điều lệ 55.891 83.557
+1.2 T ỷ lệ an toàn vốn 12,16% 11,56%
+2 Kết quả hoạt động kinh doanh   
+2.1 Doanh số huy động tiền gửi 40.284.323 48.016.210
+2.2 Doanh số cho vay 2.987.096 3.523.744
+2.3 Doanh số thu nợ 2.811.195 3.301.420
+2.4 Nợ xấu 14.143 16.283
+2.5 T ỷ lệ tín dụng (bao gồm TPDN)/
+tổng huy động vốn thị trường 1 (quy VND)
+95,64% 99,91%
+2.6 T ỷ lệ cho vay so với tổng tiền gửi theo quy định của NHNN(*) 80,4% 81,8%
+2.7 T ỷ lệ nợ xấu/T ổng dư nợ tín dụng thị trường 1 0,97% 0,97%
+3 Khả năng thanh toán (*)   
+3.1 T ỷ lệ dự trữ thanh khoản 18,1% 22,2%
+3.2 T ỷ lệ khả năng chi trả trong 30 ngày   
+- VND 121,2% 75,7%
+- Ngoại tệ quy USD 128,9% 180,4%
+Ghi chú:
+- Số liệu trình bày theo BCTC hợp nhất đã kiểm toán
+- (*) Các tỷ lệ được tính toán theo quy định của Thông tư 22/2019/TT-NHNN, tại ngày 31/12/2024 và 31/12/2025 và chỉ theo dõi, tính toán cho riêng ngân 
+hàng, không thực hiện tính toán số liệu hợp nhất. T rong đó, các tỷ lệ về khả năng thanh toán năm 2024 được trình bày lại theo số liệu sau kiểm toán
+Giới thiệu VietcombankCHƯƠNG 2
+T ổng tài sản Doanh Thu Lợi nhuận trước thuế
+tăng ~17% 134.227
+tỷ
+đồng tăng ~4,2%
+2024 2024 20242025 2025 2025
+Đơn vị: T ỷ đồng
+Giới thiệu Vietcombank
+Đơn vị: tỷ đồng
+2.085.874
+121.925
+2.442.279
+134.227
+42.236
+44.020
+Giới thiệu VietcombankCHƯƠNG 2
+Báo cáo của Hội đồng Quản trị - Ban điều hànhCHƯƠNG 2
+28
+CƠ CẤU CỔ ĐÔNG, THAY ĐỔI VỐN ĐẦU TƯ 
+CỦA CHỦ SỞ HỮU 
+Cổ phần Danh sách cổ đông có số cổ phần bị hạn chế chuyển nhượng
+Cơ cấu cổ đông
+T ổng số cổ phần Loại cổ phần Số lượng cổ phần chuyển 
+nhượng tự do
+Số lượng cổ phần hạn chế 
+chuyển nhượng
+8.355.675.094 Cổ phần phổ thông 851.969.981 7.503.705.113
+ 
+TT T ên cổ đông T ổng số cổ phần sở hữu T ỷ lệ sở hữu Số lượng cổ đông
+I Ngân hàng Nhà nước Việt Nam 
+(đại diện sở hữu vốn Nhà nước)
+6.250.338.579 74,8% 1
+II Cổ đông chiến lược nước ngoài 
+Mizuho Bank Ltd
+1.253.366.534 15,0% 1
+III Cổ đông khác 851.969.981 10,2% 73.353
+1 Cổ đông là cá nhân trong nước 242.063.444 2,9% 71.279
+2 Cổ đông là tổ chức trong nước 96.969.967 1,1% 218
+3 Cổ đông là cá nhân nước ngoài 5.538.550 0,1% 1.622
+4 Cổ đông là tổ chức nước ngoài 507.398.020 6,1% 234
+T ổng 8.355.675.094 100,00% 73.355
+Danh sách cổ đông lớn 
+TT T ên cổ đông Địa chỉ Số cổ phần sở hữu T ỷ lệ sở hữu
+1 NGÂN HÀNG NHÀ NƯỚC VIỆT NAM 47-49 Lý Thái T ổ, Hoàn Kiếm, Hà Nội 6.250.338.579 74,8%
+2 MIZUHO BANK. LTD 1-5-5 Otemachi, Chiyoda-ku, T okyo, Japan 1.253.366.534 15,0%
+TT T ên cổ đông T ổng số cổ phần sở hữu Số cổ phần bị hạn chế 
+chuyển nhượng
+Thời gian bị hạn chế 
+chuyển nhượng
+1 Ngân hàng Nhà nước Việt Nam 
+(đại diện sở hữu vốn Nhà nước)
+6.250.338.579 6.250.338.579 Theo Quy định của 
+Nhà nước
+2 Cổ đông nội bộ 108.414 47.088 Theo quy định tại khoản 
+1 Điều 64 Luật Các TCTD 
+số 32/2024/QH15: “Cổ 
+đông là cá nhân, cổ đông 
+là tổ chức có người đại diện 
+phần vốn góp tại tổ chức 
+tín dụng là thành viên Hội 
+đồng quản trị, thành viên 
+Ban kiểm soát, T ổng giám 
+đốc (Giám đốc) của tổ 
+chức tín dụng không được 
+chuyển nhượng cổ phần 
+của mình trong thời gian 
+đảm nhiệm chức vụ”
+2.1 Hội đồng Quản trị 34.913 34.913
+2.2 Ban Điều hành 61.326 0
+2.3 Ban Kiểm soát 12.175 12.175
+3 Cổ đông chiến lược nước ngoài 
+Mizuho Bank Ltd.
+1.253.366.534 1.253.366.534 Theo cam kết giữa 2 bên 
+và theo quy định
+T ổng 7.503.813.527 7.503.752.201
+SỐ LƯỢNG 
+CỔ ĐÔNG
+73.355
+74,8%
+Cổ đông chiến lược nước 
+ngoài Mizuho Bank Ltd
+Cổ đông khác Ngân hàng Nhà nước
+Việt Nam (đại diện sở hữu
+vốn Nhà nước)
+10,2%
+15,0%
+(Nguồn: Danh sách cổ đông VCB chốt tại ngày 31/12/2025 do T ổng công ty Lưu ký và Bù trừ chứng khoán - VSDC cung cấp)
+Báo cáo của Hội đồng Quản trị - Ban điều hành Báo cáo của Hội đồng Quản trị - Ban điều hànhCHƯƠNG 2 CHƯƠNG 2
+30 31
+TÌNH HÌNH ĐẦU TƯ, TÌNH HÌNH THỰC HIỆN 
+CÁC DỰ ÁN
+T óm tắt về hoạt động và tình hình tài chính của công ty con
+Các khoản đầu tư/thoái vốn thực hiện trong năm 2025
+Công ty con, liên doanh - liên kết
+Thông tin chung công ty con
+T rong năm 2025, Vietcombank đã thực hiện quyền mua cổ phiếu phát hành thêm tại T ổng Công ty Hàng không Việt Nam.
+Đơn vị: tỷ đồng
+Stt T ên đơn vị Vốn đầu tư
+31/12/2025
+Vốn đầu tư 
+31/12/2024
+T ăng vốn
+1 T ổng Công ty Hàng không Việt Nam   308,94  248,77  60,17
+ 
+Tê n T ên viết tắt Giấy phép hoạt động Lĩnh vực Vốn đầu tư 
+31/12/2025
+T ỷ lệ 
+sở hữu
+Công ty TNHH 
+Chứng khoán 
+Vietcombank
+VCBS Giấy phép hoạt động số 09/GPHDKD ngày 
+24/04/2002 và theo giấy phép điều chỉnh 
+lần gần đây nhất 03/GPĐC-UBCK ngày 
+16/09/2025 do Ủy ban Chứng khoán Nhà 
+nước cấp.
+Chứng khoán  1.734,82 100%
+Công ty TNHH MTV 
+Cho thuê T ài chính 
+Vietcombank
+VCBL Giấy phép hoạt động số 66/GP-NHNN ngày 
+31/10/2017 do Ngân hàng Nhà nước cấp
+Cho thuê tài 
+chính
+500,00 100%
+Công ty TNHH MTV 
+Kiều hối Vietcombank
+VCBR Giấy chứng nhận đăng ký doanh nghiệp số 
+0314633162 ngày 20/09/2017 và sửa đổi 
+lần gần nhất ngày 15/09/2025 do Sở T ài 
+chính Thành phố Hồ Chí Minh cấp
+Chi trả Kiều 
+hối
+30,00 100%
+Ngân hàng TNHH 
+Ngoại thương 
+Việt Nam tại Lào
+VCB Lào Giấy phép hoạt động số 88/BOL ngày 
+25/05/2018 do Ngân hàng T rung ương Lào 
+cấp
+Ngân hàng 1.820,40 100%
+Công ty tài chính 
+Việt Nam tại 
+Hồng Kông
+VFC Giấp phép hoạt động số 58327 ngày 
+10/02/1978 do Ủy ban Ngân hàng Hồng 
+Kông cấp
+Dịch vụ T ài 
+chính
+ 235,22 100%
+Công ty Chuyển tiền 
+Vietcombank
+VCBM Giấy Đăng ký kinh doanh số 
+E0321392009_6 ngày 15/06/2009 do 
+chính quyền bang Nevada, Hoa kỳ cấp
+Chuyển tiền 
+kiều hối
+204,98   87,5%
+Công ty TNHH Cao Ốc 
+Vietcombank 198
+VCBT Giấy phép đầu tư số 1578/GP ngày 
+30/05/1996 và sửa đổi lần gần đây nhất 
+ngày 01/07/2025 do Sở T ài chính Thành 
+phố Hà Nội cấp
+Cho thuê văn 
+phòng
+ 70,00 70%
+ 
+~637
+tỷ
+đồng  
+VCBL là Công ty do Vietcombank sở hữu 100% vốn, hoạt động 
+trong lĩnh vực cho thuê tài chính. Năm 2025, Công ty tiếp tục hoạt 
+động ổn định và hiệu quả. Dư nợ cho thuê tài chính đạt ~ 8.345 
+tỷ đồng, tăng trưởng ~18% so với năm 2024, doanh thu đạt ~637 
+tỷ đồng, tăng trưởng ~15% so với năm trước.
+VCBL
+Công ty TNHH MTV Cho thuê 
+T ài chính Vietcombank
+Doanh thu năm 2025
+2,87
+triệu 
+HKD
+VFC là công ty con do Vietcombank sở hữu 100% vốn, hoạt động 
+trong lĩnh lực tài chính tại thị trường Hong Kong. Công ty vẫn duy 
+trì kết quả kinh doanh ổn định trong năm 2025. Lợi nhuận trước 
+thuế năm 2025 đạt 2,87 triệu HKD. 
+VFC
+Công ty tài chính Việt Nam tại
+Hồng Kông
+Lợi nhuận trước thuế năm 2025
+75,72
+tỷ
+đồng
+VCBT là công ty liên doanh giữa Vietcombank và Công ty FELS 
+Property Holdings Pte, Ltd. của Singapore với tỷ lệ vốn góp là 
+70:30, hoạt động trong lĩnh vực cho thuê văn phòng tại T òa nhà 
+Vietcombank T ower, địa chỉ số 198 T rần Quang Khải, Hoàn Kiếm, 
+Hà Nội. Công ty vẫn duy trì kết quả kinh doanh ổn định trong năm 
+2025 với tỷ lệ cho thuê đạt 100%. Lợi nhuận trước thuế năm 2025 
+đạt 75,72 tỷ đồng.
+VCBT
+Công ty TNHH
+Cao Ốc Vietcombank 198
+Lợi nhuận trước thuế năm 2025
+40,01
+tỷ
+LAK
+VCB Lào là ngân hàng con do Vietcombank sở hữu 100% vốn, 
+hoạt động trong lĩnh vực tài chính ngân hàng tại thị trường Lào. 
+Mặc dù thị trường có nhiều biến động trong năm 2025 nhưng 
+VCB Lào vẫn duy trì kết quả kinh doanh ổn định. Lợi nhuận trước 
+thuế năm 2025 đạt 40,01 tỷ LAK.
+VCB Lào
+Ngân hàng TNHH Ngoại
+thương Việt Nam tại Lào
+Lợi nhuận trước thuế năm 2025
+740,52 
+tỷ
+đồng  
+VCBS là công ty do Vietcombank sở hữu 100% vốn, hoạt động trong 
+lĩnh vực chứng khoán. Mặc dù thị trường chứng khoán năm 2025 có 
+nhiều khó khăn với sự cạnh tranh khốc liệt của các công ty chứng 
+khoán khác nhưng Công ty vẫn duy trì kết quả kinh doanh ổn định. 
+Lợi nhuận trước thuế năm 2025 đạt 740,52 tỷ đồng.
+VCBS
+Công ty TNHH Chứng khoán
+Vietcombank
+Lợi nhuận trước thuế năm 2025
+41,08 
+tỷ
+đồng  
+VCBR là công ty con do Vietcombank sở hữu 100% vốn, hoạt động 
+trong lĩnh vực nhận kiều hối từ đối tác nước ngoài và thực hiện chi, 
+trả cho người thụ hưởng tại Việt Nam. Công ty vẫn duy trì kết quả 
+kinh doanh ổn định trong năm 2025. Lợi nhuận trước thuế năm 
+2025 đạt 41,08 tỷ đồng.
+VCBR
+Công ty TNHH MTV Kiều hối
+Vietcombank
+Lợi nhuận trước thuế năm 2025
+673.564
+USD
+VCBM là công ty con do Vietcombank nắm giữ 87,5% vốn điều lệ, 
+hoạt động trong lĩnh vực chuyển tiền kiều hối tại Mỹ và chuyển về 
+Việt Nam thông qua các đối tác chi trả trong nước. Công ty vẫn duy 
+trì kết quả kinh doanh ổn định trong năm 2025. Lợi nhuận trước 
+thuế năm 2025 đạt 673.564 USD.
+VCBM
+Công ty Chuyển tiền
+Vietcombank
+Lợi nhuận trước thuế năm 2025
+Báo cáo của Hội đồng Quản trị - Ban điều hành Báo cáo của Hội đồng Quản trị - Ban điều hànhCHƯƠNG 2 CHƯƠNG 2
+32 33
+Thông tin chung công ty liên doanh - liên kết
+T óm tắt về hoạt động và tình hình tài chính của công ty liên 
+doanh - liên kết
+Tê n T ên viết tắt Giấy phép hoạt động Lĩnh vực Vốn đầu tư 
+31/12/2025
+T ỷ lệ sở hữu
+Công ty Liên doanh 
+TNHH Vietcombank  
+Bonday Benthanh
+VBB Số 2458/GP ngày 07/02/2005 
+và giấy phép điều chỉnh lần gần 
+đây nhất số 9803297175 ngày 
+03/12/2018 do Bộ Kế hoạch và 
+Đầu tư cấp
+Cho thuê 
+văn phòng
+ 410,36 52%
+Công ty liên doanh 
+Quản lý Quỹ đầu 
+tư chứng khoán 
+Vietcombank
+VCBF Số 06/UBCK-GPHĐQLQ ngày 
+02/12/2005 và theo giấy phép 
+điều chỉnh lần gần đây nhất số 32/
+GPĐC-UBCK ngày 14/05/2024 do 
+Ủy ban Chứng khoán Nhà nước cấp
+Quản lý quỹ 
+đầu tư
+ 135,15 51%
+Công ty Liên doanh 
+Hữu hạn Vietcombank 
+- Bonday
+VCBB Số 283/GP ngày 05/12/1991 và 
+theo giấy phép điều chỉnh lần gần 
+đây nhất số 283/GPĐC4 ngày 
+04/03/2002 do Bộ KH&ĐT cấp
+Cho thuê 
+văn phòng
+ 11,11 16%
+320,36
+tỷ
+đồng
+VBB là công ty liên doanh giữa Vietcombank với Công ty CP 
+DVTM TP.HCM (Setra Corp.) và đối tác Bonday Investments 
+Ltd. (Hongkong) với tỷ lệ góp vốn lần lượt là 52%; 18% và 30%. 
+VBB hoạt động trong lĩnh vực cho thuê văn phòng tại T òa nhà 
+Vietcombank, địa chỉ số 5 Công trường Mê Linh, Quận I, Thành 
+phố Hồ Chí Minh. Công ty vẫn duy trì kết quả kinh doanh ổn định 
+trong năm 2025 với tỷ lệ cho thuê đạt 94,1%. Lợi nhuận trước thuế 
+năm 2025 đạt 320,36 tỷ đồng.
+VBB
+Công ty Liên doanh TNHH
+Vietcombank-Bonday-Benthanh
+Lợi nhuận trước thuế năm 2025
+53,08
+tỷ
+đồng
+VCBB là Công ty Liên doanh giữa Vietcombank, T ổng Công ty 
+Địa ốc Sài Gòn, và đối tác Bonday Investments Ltd., Hồng Kông. 
+Công ty hoạt động trong lĩnh vực cho thuê văn phòng tại T òa nhà 
+Harbour View địa chỉ số 35 Nguyễn Huệ, Quận 1, Thành phố Hồ 
+Chí Minh. Công ty vẫn duy trì kết quả kinh doanh ổn định trong 
+năm 2025 với tỷ lệ cho thuê đạt trên 90%. Lợi nhuận trước thuế 
+năm 2025 đạt 53,08 tỷ đồng.
+VCBB
+Công ty Liên doanh Hữu hạn
+Vietcombank - Bonday
+Lợi nhuận trước thuế năm 2025
+57 ,4 
+tỷ
+đồng
+VCBF là công ty liên doanh giữa Vietcombank và Franklin 
+T empleton với tỷ lệ vốn góp tương ứng là 51% và 49%, hoạt động 
+trong các lĩnh vực: thành lập và quản lý quỹ đầu tư chứng khoán; 
+quản lý danh mục đầu tư chứng khoán. Công ty vẫn duy trì kết quả 
+kinh doanh ổn định trong năm 2025. Lợi nhuận trước thuế năm 
+2025 đạt 57,4 tỷ đồng.
+VCBF 
+Công ty liên doanh Quản lý Quỹ đầu tư 
+chứng khoán Vietcombank
+Lợi nhuận trước thuế năm 2025
+Đơn vị: tỷ đồng
+Báo cáo của Hội đồng Quản trị - Ban điều hành Báo cáo của Hội đồng Quản trị - Ban điều hànhCHƯƠNG 2 CHƯƠNG 2
+34 35
+ĐÁNH GIÁ KẾT QUẢ HOẠT ĐỘNG NĂM 2025 
+CỦA VIETCOMBANK
+Kết quả kinh doanh 
+năm 2025
+Năm 2025, kinh tế thế giới tiếp tục đối mặt 
+với nhiều biến động phức tạp và khó lường: 
+chính sách thuế quan đối ứng của Hoa 
+Kỳ tái định hình chuỗi cung ứng toàn cầu; 
+xung đột địa chính trị kéo dài; các rủi ro 
+môi trường và biến đổi khí hậu ngày càng 
+gia tăng.
+2026-09-03 16:14:52,534 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 16:14:52,540 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 16:14:57,754 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 503 Service Unavailable"
+2026-09-03 16:15:15,611 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 16:15:15,626 INFO agent.graph: Structure LLM call done in 23.44s for query: This is an excerpt from Vietcombank's 2025 Annual Report (Vietnamese) — specific | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 6711, 'output_tokens': 3656, 'total_tokens': 10367}
+2026-09-03 16:15:15,628 INFO agent.graph: Per-piece structure call 2/4 done
+2026-09-03 16:15:45,634 INFO agent.graph: Raw content fed to LLM for query: This is an excerpt from Vietcombank's 2025 Annual Report (Vietnamese) — specific
+T rong bối cảnh đó, ngay từ đầu 
+năm, bám sát chỉ đạo của Chính phủ, Ngân 
+hàng Nhà nước (NHNN), quán triệt phương 
+châm hành động “Đổi mới, hiệu quả, bền 
+vững” và quan điểm “T rách nhiệm – Kỷ 
+cương – Kết nối – Sáng tạo” trong chỉ 
+đạo điều hành, toàn hệ thống Vietcombank 
+đã nỗ lực quyết tâm triển khai thành công 
+“nhiệm vụ kép” là hoàn thành tất các mục 
+tiêu, kế hoạch kinh doanh do NHNN và 
+ĐHĐCĐ giao; tiếp tục giữ vai trò là “đầu 
+tàu” trong thực thi các giải pháp, chính sách 
+hỗ trợ cho các doanh nghiệp và người dân; 
+đồng thời thực hiện hiệu quả Phương án 
+nhận chuyển giao bắt buộc Ngân hàng 
+Xây dựng (nay đã đổi tên thành VCBNeo). 
+T rong năm 2025, hoạt động kinh doanh 
+của hệ thống Vietcombank tiếp tục tăng 
+trưởng cao về quy mô, chuyển dịch đúng 
+định hướng, chất lượng được kiểm soát và 
+duy trì hiệu quả kinh doanh bền vững:
+Đến cuối năm 2025, Vietcombank đã đạt được kết quả tích cực trong việc 
+triển khai các sáng kiến, chiến lược, định hướng hoạt động Vietcombank đến 
+năm 2025, tầm nhìn 2030, Phương án cơ cấu lại gắn với xử lý nợ xấu giai 
+đoạn 2021 - 2025… trong đó hoàn thành ở tất cả các chỉ tiêu quan trọng về 
+an toàn, xếp hạng tín nhiệm, môi trường làm việc, chuyển đổi số và ESG; đặc 
+biệt một số chỉ tiêu đo lường mục tiêu “Dẫn đầu về chuyển đổi số” đã vượt 
+xa kế hoạch năm 2025 và vượt kế hoạch năm 2030 (tỷ lệ giao dịch khách 
+hàng qua kênh số, tỷ lệ giao dịch STP). 
+2,44 
+T ổng tài sản của Vietcombank đạt hơn 
+tăng 17% so với cuối năm 2024. 
+triệu tỷ 
+đồng
+~1,7 
+T ổng dư nợ cấp tín dụng đối với nền 
+kinh tế đạt
+tăng 15%(1) so với cuối năm 2024.
+triệu
+tỷ đồng
+44
+Lợi nhuận trước thuế với quy mô 
+đạt trên
+tăng trưởng 4,2% so với năm 2024
+nghìn
+tỷ đồng
+0,97%
+T ỷ lệ nợ xấu ở mức
+~1,7 
+Huy động vốn thị trường I đạt
+tăng 10,4% so với cuối năm 2024. 
+triệu 
+tỷ đồng
+Các chỉ số hiệu quả sinh lời ROA, ROE của 
+Vietcombank tiếp tục ở mức cao, lần lượt đạt
+1,55%; 16,73%
+(1) Dư nợ không bao gồm nợ đã bán và nhận ủy thác VCBNeo.
+Báo cáo của Hội đồng Quản trị - Ban điều hành Báo cáo của Hội đồng Quản trị - Ban điều hànhCHƯƠNG 2 CHƯƠNG 2
+36 37
+VCB CashUp Mobile và VCB T ablet T rong 
+đó, VCB T ablet là 1 trong 3 giải pháp xuất 
+sắc nhất, đồng thời là sản phẩm duy nhất 
+của Việt Nam lọt vào vòng chung kết hạng 
+mục Digital innovation (Đổi mới sáng tạo 
+số) tại ASEAN Digital Awards 2026.
+ • Đẩy mạnh sắp xếp bộ máy theo hướng 
+“Tinh – gọn – mạnh – hiệu năng – hiệu 
+lực – hiệu quả” và theo đúng tinh thần 
+Nghị quyết 18-NQ/TW của T rung ương. 
+T rong đó, đã từng bước tái cấu trúc mô 
+hình tổ chức của Chi nhánh, thu hẹp quy 
+mô với các Chi nhánh hoạt động không 
+hiệu quả; rà soát, sắp xếp bộ máy, kiện 
+toàn mô hình tổ chức và mạng lưới của 
+các đơn vị T rụ sở chính theo hướng tinh 
+giản, sáp nhập một số đơn vị có chức 
+năng nhiệm vụ tương đồng nhằm hạn 
+chế chồng chéo và nâng cao hiệu quả 
+hoạt động.
+ • Hoàn thiện thủ tục kiện toàn, bổ sung 
+nhân sự lãnh đạo cấp cao: Thành viên 
+Hội đồng quản trị kiêm T ổng Giám đốc 
+Vietcombank, các Thành viên Hội đồng 
+quản trị, Phó T ổng Giám đốc, Thành viên 
+Ban Kiểm soát.
+ • Xây dựng môi trường làm việc chuyên 
+nghiệp, gắn kết. T ại giải thưởng HR Asia 
+Awards, Vietcombank xuất sắc nhận được 
+cả 05/05 hạng mục trao giải của Ban 
+T ổ chức, gồm 01 giải thưởng chính “Nơi 
+làm việc tốt nhất Châu Á”. Năm 2025 
+cũng đánh dấu cột mốc 10 năm liên tiếp 
+Vietcombank được vinh danh “Nơi làm 
+việc tốt nhất Việt Nam” theo Bảng xếp 
+hạng của Công ty Anphabe.
+ • T ập trung triển khai đồng loạt các giải pháp 
+hỗ trợ toàn diện đối với mọi mặt hoạt 
+động của VCBNeo, vượt kế hoạch được 
+phê duyệt tại phương án chuyển giao.
+ •
+ • Tích cực thúc đẩy tài chính xanh, triển khai 
+các chương trình tín dụng xanh và dự án 
+hiệu quả năng lượng; dư nợ tín dụng xanh 
+năm 2025 đạt gần 43 nghìn tỷ đồng, 
+đồng thời phát hành thành công trái phiếu 
+bền vững quy mô 2 nghìn tỷ đồng để tài 
+trợ các dự án bảo vệ môi trường.
+ • Năm 2025, Vietcombank tiếp tục khẳng 
+định vai trò ngân hàng chủ lực trong thu 
+xếp vốn cho các dự án trọng điểm quốc 
+gia, tiêu biểu là hợp đồng tín dụng hơn 1 tỷ 
+USD cho chuỗi dự án khí – điện Lô B – Ô 
+Môn, hướng đến đảm bảo an ninh năng 
+lượng và phát triển hạ tầng điện dài hạn.
+ • Vietcombank đứng đầu ngành ngân hàng 
+và là một trong những doanh nghiệp đóng 
+góp lớn nhất cho NSNN với mức nộp 
+NSNN năm 2025 trên 15,3 nghìn tỷ đồng.
+Kết quả công tác 
+quản trị điều hành 
+năm 2025
+Để thực hiện thành công 
+phương châm hành động 
+“Đổi mới, hiệu quả, bền 
+vững”, Ban Điều hành 
+đã chỉ đạo xuyên suốt 
+“T rách nhiệm – Kỷ cương 
+– Kết nối – Sáng tạo”. 
+Một số điểm nổi bật 
+trong công tác quản trị 
+điều hành năm 2025 
+của Vietcombank:
+ • T riển khai các giải pháp chuyển dịch 
+cơ cấu hoạt động kinh doanh, gia tăng 
+nguồn thu dịch vụ và tiền gửi không kỳ 
+hạn thông qua phát triển sản phẩm, dịch 
+vụ trên nền tảng số; tăng trưởng tín dụng 
+đúng định hướng, hạn chế phân bổ vốn 
+vào các lĩnh vực tiềm ẩn rủi ro cao, tập 
+trung cho các lĩnh vực ưu tiên theo định 
+hướng của Chính phủ; điều hành nguồn 
+vốn linh hoạt, kịp thời, góp phần ổn định 
+mặt bằng lãi suất, hỗ trợ tăng trưởng kinh 
+tế và bảo đảm an toàn hệ thống. 
+ • Quản trị, giám sát chặt chẽ các chỉ tiêu an 
+toàn hoạt động ngân hàng, tỷ lệ an toàn 
+vốn (CAR) tại 31/12/2025 đạt 11,56%, cao 
+hơn mức quy định của NHNN và vượt 
+ngưỡng khẩu vị rủi ro của Vietcombank, 
+đồng thời chuẩn bị các điều kiện cần thiết 
+để chính thức áp dụng việc tính vốn theo 
+phương pháp tiêu chuẩn (Standardizied 
+Approach – SA) từ 01/03/2026; tiếp 
+tục khẳng định năng lực quản trị rủi ro 
+khi là ngân hàng duy nhất của Việt Nam 
+nhận giải thưởng “Sáng kiến Quản lý rủi 
+ro của năm” do T ạp chí Asian Banking 
+and Finance trao tặng. Vietcombank luôn 
+được S&P, Moody’s và Fitch xếp hạng 
+tín nhiệm cao nhất Việt Nam, trong đó 
+S&P đã nâng xếp hạng nhà phát hành dài 
+hạn lên BB+, triển vọng Ổn định – ngang 
+mức tín nhiệm quốc gia – khẳng định nền 
+tảng tài chính vững chắc, chất lượng tài 
+sản cao và mức độ minh bạch hàng đầu 
+hệ thống.
+ • Tiên phong phối hợp với C06 – Bộ Công 
+an triển khai xác thực điện tử qua VNeID 
+và căn cước công dân gắn chip trên đa 
+kênh; hoàn thiện xác thực sinh trắc học 
+cho hơn 14,7 triệu khách hàng cá nhân 
+và đối chiếu thông tin sinh trắc học cho 
+hơn 242 nghìn hồ sơ khách hàng tổ chức.
+ • Đẩy mạnh phát triển hệ sinh thái số: triển 
+khai ký số trực tiếp trên Digibank; tiên 
+phong triển khai giải pháp giải ngân trực 
+tuyến VCB Online Lending  với hơn 6.000 
+khách hàng đã giải ngân online và tổng số 
+món vay được thực hiện giải ngân online 
+đạt ~ 36.500 món trong năm 2025; 
+triển khai giải pháp số hóa tại gần 600 
+bệnh viện và là một trong những ngân 
+hàng đầu tiên triển khai VietQRGlobal 
+thanh toán song phương Việt – T rung; 
+hoàn thành 05 mục tiêu chuyển đổi số 
+ngành ngân hàng theo Quyết định 810/
+QĐ-NHNN; khẳng định vị thế tiên phong 
+trong chuyển đổi số với 05 giải pháp đạt 
+giải thưởng Sao Khuê 2025 gồm: VCB 
+Digibank, VCB iCare, VCB Online Lending, 
+Báo cáo của Hội đồng Quản trị - Ban điều hành Báo cáo của Hội đồng Quản trị - Ban điều hànhCHƯƠNG 2 CHƯƠNG 2
+38 39
+ĐỊNH HƯỚNG HOẠT ĐỘNG KINH DOANH 
+NĂM 2026
+Quán triệt theo phương châm hành động: “Đột phá 
+– Phát triển – Hiệu quả - Bền vững”, quan điểm 
+chỉ đạo, điều hành “Sáng tạo – Quyết liệt – T rách 
+nhiệm – Kỷ cương”,  triển khai thành công các 
+mục tiêu kinh doanh năm 2026.  
+Bám sát các định hướng chỉ đạo của Chính phủ và NHNN, toàn hệ thống Vietcombank 
+quyết tâm thực hiện định hướng chuyển dịch cơ cấu kinh doanh gắn với các trọng tâm 
+lớn sau:
+ • Huy động vốn: T riển khai chính sách huy động linh hoạt, bám sát thị trường; bảo đảm 
+an toàn thanh khoản, đa dạng hóa nguồn vốn nhằm sẵn sàng cho tăng trưởng tín 
+dụng và tối ưu chi phí vốn tổng thể; đẩy mạnh huy động vốn với chi phí tối ưu, và cải 
+thiện các dịch vụ thị trường vốn, đặc biệt là sản phẩm dịch vụ trên kênh số.
+ • Tín dụng: Chuyển dịch cơ cấu tín dụng và quản trị danh mục theo định hướng hiệu 
+quả, bền vững, kiểm soát rủi ro; tăng trưởng có chọn lọc, tập trung vào các lĩnh vực 
+ưu tiên và sản xuất kinh doanh.
+ • Dịch vụ: Phát triển đa dạng các mảng thu dịch vụ, phấn đấu cải thiện tỷ trọng thu dịch 
+vụ trong tổng thu nhập; đẩy mạnh bán chéo sản phẩm; coi kết nối và mở rộng hệ sinh 
+thái của VCB với các hệ sinh thái đối tác là nhiệm vụ trọng tâm. T ăng thu dịch vụ nhờ 
+chuyển đổi số toàn trình và khai thác hiệu quả các cơ chế hợp tác trong hệ sinh thái.
+Về chỉ đạo hoạt động 
+kinh doanh
+ • Xây dựng dữ liệu nền tảng và thúc đẩy chuyển đổi số thực chất, coi dữ liệu là tài sản 
+chiến lược, công nghệ lõi là hạ tầng thiết yếu và chuyển đổi số là công cụ trực tiếp 
+phục vụ tăng trưởng kinh doanh và nâng cao năng lực quản trị.
+ • T ăng cường công tác quản trị rủi ro và đảm bảo an toàn hệ thống. Đẩy mạnh tổ chức 
+triển khai công tác tự rà soát để đảm bảo an toàn và phát hiện sớm các rủi ro có thể 
+xảy ra.
+ • Tiếp tục triển khai tinh gọn tổ chức, sắp xếp mạng lưới, cơ cấu nhân sự nhằm tối ưu 
+hóa nguồn lực, nâng cao năng suất, hiệu quả.
+Về chỉ đạo quản trị 
+nội bộ
+Nhiệm vụ trọng tâm 
+năm 2026
+8,5%
+T ổng tài sản T ăng
+Huy động vốn TT1 T ăng phù hợp với tốc độ tăng 
+trưởng tín dụng
+Một số chỉ tiêu 
+kinh doanh chính
+Chỉ tiêu Kế hoạch 2026
+10% 
+3,5%
+< 1,5%
+Tín dụng 
+Lợi nhuận sau thuế 
+Tỉ lệ nợ xấu TT31
+T ăng
+T ăng
+và không vượt hạn mức 13%
+so với năm 2025
+so với năm 2025
+Chỉ tiêu chính thức sẽ do Đại hội đồng cổ đông và cơ quan thẩm quyền phê duyệt
+Báo cáo của Hội đồng Quản trị - Ban điều hành Báo cáo của Hội đồng Quản trị - Ban điều hànhCHƯƠNG 2 CHƯƠNG 2
+40 41
+ĐÁNH GIÁ CỦA HỘI ĐỒNG QUẢN TRỊ VỀ 
+HOẠT ĐỘNG CỦA VCB 
+Tính độc lập của 
+thành viên Hội 
+đồng quản trị
+Đánh giá của 
+Hội đồng 
+Quản trị về các 
+mặt hoạt động
+HĐQT có 01 Thành viên độc lập HĐQT có đủ các tiêu chuẩn, điều kiện quy định tại Điều 
+lệ Ngân hàng và các tiêu chuẩn, điều kiện sau đây:
+Không phải là người đang làm việc cho chính Ngân hàng hoặc công ty con của Ngân 
+hàng hoặc đã làm việc cho Ngân hàng hoặc công ty con của Ngân hàng trong 03 (ba) 
+năm liền kề trước đó;
+Không phải là người hưởng lương, thù lao thường xuyên của Ngân hàng ngoài những 
+khoản phụ cấp của thành viên Hội đồng quản trị được hưởng;
+Không phải là người có vợ, chồng, cha, mẹ, con, anh, chị, em và vợ, chồng của những 
+người này là cổ đông lớn của Ngân hàng, người quản lý hoặc thành viên Ban kiểm soát 
+của Ngân hàng hoặc công ty con của Ngân hàng;
+Không đại diện sở hữu cổ phần của Ngân hàng; không cùng với người có liên quan sở 
+hữu trực tiếp, gián tiếp từ 01% vốn điều lệ hoặc vốn cổ phần có quyền biểu quyết trở lên 
+của Ngân hàng;
+Không phải là người quản lý, thành viên Ban kiểm soát của Ngân hàng tại bất kỳ thời điểm 
+nào trong 05 năm liền kề trước đó.
+Hàng năm tại Đại hội đồng cổ đông, Thành viên độc lập HĐQT có báo cáo đánh giá 
+hoạt động của HĐQT. 
+Năm 2025, kinh tế thế giới tiếp tục đối mặt với nhiều biến động phức tạp và khó lường 
+như chính sách thuế quan đối ứng của Hoa Kỳ tái định hình chuỗi cung ứng toàn cầu; 
+xung đột địa chính trị kéo dài; các rủi ro môi trường và biến đổi khí hậu ngày càng gia 
+tăng. T uy nhiên, với sự chỉ đạo điều hành quyết liệt, chủ động, linh hoạt của Ban lãnh đạo 
+cùng định hướng tăng trưởng an toàn, hiệu quả, bền vững, VCB đã hoàn thành toàn diện 
+các nhiệm vụ, chỉ tiêu kế hoạch được giao, giữ vững vị thế của một Ngân hàng chủ lực 
+và vai trò dẫn dắt nền kinh tế, đảm bảo mục tiêu ổn định, an toàn của thị trường tiền tệ 
+và ngành ngân hàng. 
+T rong năm 2025, VCB tiếp tục đẩy mạnh phương châm hành động “Đổi mới, Hiệu quả, 
+Bền vững” và quan điểm chỉ đạo, điều hành: “T rách nhiệm – Kỷ cương – Kết nối - Sáng 
+tạo”. Đến 31/12/2025, các chỉ tiêu hoạt động kinh doanh cơ bản hoàn thành kế hoạch 
+được ĐHĐCĐ và NHNN giao, cụ thể như sau.
+(1) Dư nợ không bao gồm nợ đã bán và nhận ủy thác VCBNeo.
+ • T ổng tài sản đạt trên 2,4 triệu tỷ đồng, tăng 17% so với cuối năm 2024.
+ • Huy động vốn tăng trưởng phù hợp với sử dụng vốn, trong đó huy động từ mảng bán 
+lẻ tiếp tục là động lực tăng trưởng chính.
+2026-09-03 16:15:45,992 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 16:15:45,998 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 16:15:46,295 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 16:16:00,773 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 16:16:00,782 INFO agent.graph: Structure LLM call done in 15.15s for query: This is an excerpt from Vietcombank's 2025 Annual Report (Vietnamese) — specific | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 5577, 'output_tokens': 2689, 'total_tokens': 8266}
+2026-09-03 16:16:00,786 INFO agent.graph: Per-piece structure call 3/4 done
+2026-09-03 16:16:30,789 INFO agent.graph: Raw content fed to LLM for query: This is an excerpt from Vietcombank's 2025 Annual Report (Vietnamese) — specific
+T ổng huy động vốn thị trường I đạt ~ 1,7 
+triệu tỷ đồng, tăng 10,4% so với cuối năm 2024, hoàn thành 100% kế hoạch. T rong 
+đó, huy động vốn không kỳ hạn tăng trưởng tốt, đạt trên 13,5%. 
+ • T ổng dư nợ tín dụng đạt ~1,7 triệu tỷ đồng, tăng 15%(1)  so với cuối năm 2024. T ăng 
+trưởng tín dụng được kiểm soát trong hạn mức NHNN giao, cơ cấu tín dụng chuyển 
+dịch theo hướng an toàn, hiệu quả. Tín dụng từ bán buôn và bán lẻ đều đạt kết quả 
+tăng trưởng tốt, trong đó, tín dụng bán lẻ chiếm ~51% tổng dư nợ tín dụng.
+ • Chất lượng tín dụng được kiểm soát chặt chẽ. T ỷ lệ nợ xấu dưới 1%, thấp hơn đáng kể 
+so với kế hoạch được giao, tỷ lệ dự phòng bao phủ nợ xấu ở mức tốt nhất trong các 
+TCTD quy mô lớn tại Việt Nam.
+ • Tính đến hết năm 2025, Vietcombank tiếp tục là một trong những doanh nghiệp đóng 
+góp lớn nhất cho ngân sách Nhà nước, đạt trên 15.000 tỷ đồng.
+ • LNTT với quy mô hợp nhất đạt trên 44 nghìn tỷ đồng, tăng trưởng 4,2% so với năm 
+2024, là ngân hàng có quy mô lợi nhuận đứng đầu thị trường. Chỉ số chi phí trên thu 
+nhập (CIR) được kiểm soát ổn định, duy trì ở mức thấp so với các TCTD lớn.
+ • Các tỷ lệ an toàn của VCB luôn đảm bảo tuân thủ đúng quy định của pháp luật và 
+đáp ứng tiêu chuẩn của Basel II. T ỷ lệ an toàn vốn (CAR) tại 31/12/2025 đạt 11,56%, 
+cao hơn mức quy định của NHNN (8%), và trên ngưỡng khẩu vị rủi ro (9%) của 
+Vietcombank.
+ • Với những kết quả đã đạt được, VCB duy trì vị thế là NHTM dẫn đầu về chất lượng, 
+hiệu quả hoạt động; tiếp tục đứng đầu ngành ngân hàng và là một trong những doanh 
+nghiệp đóng góp lớn nhất cho NSNN. Ngân hàng tiếp tục giữ vững vị thế dẫn đầu 
+trên thị trường trong nước và quốc tế: là doanh nghiệp niêm yết có quy mô vốn hóa 
+lớn nhất thị trường và nằm trong nhóm 100 ngân hàng niêm yết có quy mô vốn hóa 
+lớn nhất toàn cầu. VCB còn vinh dự là doanh nghiệp có thương hiệu giá trị nhất Việt 
+Nam theo Forbes cùng nhiều giải thưởng danh giá khác trong công tác quản trị rủi ro 
+và phát triển nguồn nhân lực.
+Kết quả hoạt động 
+kinh doanh 
+Báo cáo của Hội đồng Quản trị - Ban điều hành Báo cáo của Hội đồng Quản trị - Ban điều hànhCHƯƠNG 2 CHƯƠNG 2
+42 43
+Công tác chỉ đạo,
+quản trị, điều hành
+T ập trung triển khai 04 “trọng tâm”, 06 “đột 
+phá” kinh doanh trong năm 2025, cụ thể 
+như sau:
+ • Thực hiện có hiệu quả các giải pháp đổi 
+mới mô hình tăng trưởng gắn với chuyển 
+dịch cơ cấu hoạt động kinh doanh trong 4 
+trụ cột trọng tâm (1) Chuyển dịch cơ cấu 
+tín dụng theo hướng hiệu quả, bền vững, 
+đảm bảo chất lượng; (2) Cải thiện tỷ trọng 
+thu dịch vụ trong tổng thu nhập hoạt động 
+kinh doanh; (3) Gia tăng hiệu quả công 
+tác quản lý vốn; (4) Tiếp tục tập trung 
+tăng cường công tác quản trị rủi ro thanh 
+khoản, rủi ro tín dụng và rủi ro hoạt động.
+ • Công tác huy động vốn: Điều hành công 
+tác huy động vốn linh hoạt, phù hợp với 
+tình hình sử dụng vốn và diễn biến của 
+thị trường. 
+ • Công tác tín dụng: T rong năm 2025, VCB 
+đã thực hiện các giải pháp tăng trưởng tín 
+dụng an toàn, hiệu quả trên cơ sở đảm 
+bảo thanh khoản và các chỉ số an toàn, 
+tăng trưởng vào các lĩnh vực sản xuất, lĩnh 
+vực ưu tiên, là động lực tăng trưởng kinh 
+tế theo chủ trương của Chính phủ. Tính 
+đến 31/12/2025, dư nợ tín dụng các lĩnh 
+vực ưu tiên của VCB tăng ~12,3% so với 
+cuối năm 2024, chiếm 32% tổng quy mô 
+tín dụng của toàn ngân hàng.
+ • Tiên phong giảm lãi suất để hỗ trợ khách 
+hàng theo chủ trương của Chính phủ và 
+NHNN. T rong năm 2025, VCB đã triển 
+khai tới 28 chương trình/ chính sách lãi 
+suất cho vay ưu đãi cho cả khoản vay 
+ngắn hạn và trung dài hạn với mức lãi suất 
+thấp hơn từ 0,5% tới 2% so với lãi suất 
+bình quân để hỗ trợ khách hàng; đồng 
+thời duy trì lãi suất cho vay với mức thấp 
+để hỗ trợ doanh nghiệp và người dân. Bên 
+cạnh đó, VCB triển khai chính sách giảm 
+lãi suất hỗ trợ khách hàng chịu thiệt hại bởi 
+bão lũ năm 2025 với mức giảm lên tới 2% 
+lãi suất cho vay khách hàng đang áp dụng.
+ • Kiểm soát chặt chẽ chất lượng dư nợ tín 
+dụng, dư nợ cơ cấu, đảm bảo kiểm soát tỷ 
+lệ nợ xấu dưới 1,5%.
+ • Về hoạt động công nghệ thông tin (CNTT), 
+VCB tiếp tục thực hiện các giải pháp nâng 
+cấp kiến trúc và hạ tầng CNTT, đầu tư mở 
+rộng khả năng lưu trữ và xử lý dữ liệu lớn, 
+đảm bảo an toàn hệ thống CNTT; đồng 
+thời, hiện đại hóa hệ thống thanh toán, 
+nâng cao chất lượng dịch vụ khách hàng. 
+ • Đẩy mạnh triển khai Kế hoạch hành động 
+chuyển đổi và đạt được những kết quả 
+tích cực.
+ • Thực hiện việc kiện toàn nhân sự cấp 
+cao, đảm bảo sự lãnh đạo, chỉ đạo xuyên 
+suốt của Ban lãnh đạo VCB. T rong năm 
+2025, ngân hàng đã thành lập Khối Dữ 
+liệu nhằm quy hoạch, khai thác hiệu quả 
+và chuyển hóa dữ liệu thành giá trị kinh 
+doanh thực chất, hướng tới mục tiêu trở 
+thành ngân hàng số một bền vững tại Việt 
+Nam và vươn tầm quốc tế; 
+ • T ổ chức thành công Đại hội đồng cổ đông 
+(ĐHĐCĐ) bất thường tháng 3/2025 và 
+ĐHĐCĐ thường niên năm 2025.
+ • Về tăng cường năng lực tài chính, trong 
+năm 2025, VCB đã hoàn thành việc tăng 
+vốn điều lệ từ nguồn lợi nhuận để lại, 
+nâng vốn điều lệ của ngân hàng lên mức 
+83,6 nghìn tỷ - cao nhất trong hệ thống. 
+ • VCB luôn thể hiện vai trò tiên phong trong 
+việc thực hiện các chủ trương, định hướng 
+lớn của Chính phủ, NHNN. Đặc biệt, trong 
+năm 2025, VCB đã hoàn thành xuất sắc 
+mục tiêu kép: vừa hoàn thành các mục 
+tiêu, kế hoạch kinh doanh do NHNN và 
+ĐHĐCĐ giao, đồng thời vừa thực hiện 
+hiệu quả Phương án nhận chuyển giao 
+bắt buộc Ngân hàng Xây dựng (nay là 
+VCBNeo).
+T rong năm 2025, Hội đồng quản trị đã định hướng 
+Ban Điều hành tập trung lãnh đạo, chỉ đạo thực hiện 
+tốt công tác quản trị điều hành, nhất quán phương 
+châm hành động “Đổi mới, Hiệu quả, Bền vững” và 
+quan điểm chỉ đạo, điều hành “T rách nhiệm – Kỷ 
+cương – Kết nối - Sáng tạo”
+Môi trường và xã hội
+ • T rong tháng 12/2025, VCB đã phát 
+hành thành công 2.000 tỷ đồng trái 
+phiếu bền vững. Nguồn vốn huy động 
+từ trái phiếu sẽ sử dụng để tài trợ dự 
+án theo tiêu chí tại Khung T rái phiếu 
+bền vững, được xây dựng trên cơ sở 
+các tiêu chí của danh mục phân loại 
+xanh theo Quyết định số 21/2025/
+QĐ-TTg của Thủ tướng Chính phủ ngày 
+04/07/2025 và tự nguyện tuân thủ các 
+tiêu chuẩn quốc tế như Hướng dẫn T rái 
+phiếu bền vững năm 2021 của Hiệp hội 
+Thị trường Vốn Quốc tế (ICMA), với sự 
+hỗ trợ tích cực từ Viện T ăng trưởng Xanh 
+T oàn cầu (GGGI).
+ • Đối với lĩnh vực tín dụng xanh: VCB tiên 
+phong trong việc ưu tiên định hướng 
+tín dụng cho các ngành phát triển bền 
+vững. Tính tới hết 31/12/2025, dư nợ tín 
+dụng xanh tại VCB đạt 43 nghìn tỷ đồng 
+(~3% dư nợ tín dụng).
+ • Năm 2025, VCB tiếp tục được vinh 
+danh trong nhóm 20 cổ phiếu thuộc 
+danh mục chỉ số phát triển bền vững 
+VNSI cao nhất thị trường, khẳng định vị 
+thế dẫn đầu của ngân hàng với những 
+bước tiến quan trọng trong tài chính bền 
+vững, quản trị doanh nghiệp và trách 
+nhiệm xã hội. Ngay từ đầu năm, VCB 
+đã triển khai đồng bộ các giải pháp 
+nhằm cải thiện thực hành theo Bộ chỉ 
+số phát triển bền vững VNSI, đồng thời 
+xây dựng và tổ chức thực hiện kế hoạch 
+phát triển sản phẩm, dịch vụ tài chính 
+bền vững và hoàn thiện cấu phần ESG 
+trong khung quản lý rủi ro của Ngân 
+hàng. T rong năm 2025, Ngân hàng 
+cũng đã phát hành Báo cáo phát triển 
+bền vững độc lập – một bước tiến quan 
+trọng nhằm nâng cao tính minh bạch 
+thông tin trong thực hành ESG.
+ • Bên cạnh hoạt động kinh doanh, VCB 
+cũng chú trọng các chương trình an sinh 
+xã hội, đóng góp cho sự phát triển của 
+cộng đồng, thể hiện rõ trách nhiệm xã 
+hội của một DNNN lớn. Năm 2025, 
+Vietcombank cam kết dành ~651,712 tỷ 
+đồng cho công tác an sinh xã hội.
+VCB tiếp tục chú trọng xây dựng chiến lược toàn diện 
+về phát triển bền vững và thực hành ESG, khẳng định 
+vị thế của một tổ chức tài chính xanh bền vững.
+Báo cáo của Hội đồng Quản trị - Ban điều hành Báo cáo của Hội đồng Quản trị - Ban điều hànhCHƯƠNG 2 CHƯƠNG 2
+44 45
+2026-09-03 16:16:31,207 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-09-03 16:16:31,213 INFO google_genai.models: AFC is enabled with max remote calls: 10.
+2026-09-03 16:16:31,691 INFO httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-09-03 16:16:46,882 INFO httpx: HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-03 16:16:46,894 INFO agent.graph: Structure LLM call done in 16.1s for query: This is an excerpt from Vietcombank's 2025 Annual Report (Vietnamese) — specific | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 4116, 'output_tokens': 2692, 'total_tokens': 6808}
+2026-09-03 16:16:46,898 INFO agent.graph: Per-piece structure call 4/4 done
+2026-09-03 16:16:46,904 INFO service: [1/1] vietcombank_annual_report done in 172.17s (gate_passed=True, error=None)

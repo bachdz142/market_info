@@ -1163,28 +1163,36 @@ async def _fetch_techcombank_annual_report_parts() -> Tuple[str, List[Tuple[str,
 
 # Vietcombank's own domain has a genuine, confirmed Akamai wall for Layer 1
 # quantitative filings (source_plan_mvp0.md §8 — routed to manual ingestion,
-# not attempted here either) — but this specific PDF, served from the
-# same www.vietcombank.com.vn media path already proven for VCB's Layer 2
-# fee-schedule/promotions sources, is reachable directly. Confirmed live:
-# 106 pages, real extractable text, not a scan. This is VCB's 2024 annual
-# report — its own IR site (portal.vietcombank.com.vn) times out and a
-# guessed 2025-dated URL at the same path returned an HTML error page
-# (not a real PDF, despite a 200 status) — 2024 is the newest one
-# confirmed to actually exist and work.
+# not attempted here either) — but the FY2024 PDF originally used here was
+# served from the same www.vietcombank.com.vn media path already proven
+# for VCB's Layer 2 fee-schedule/promotions sources, reachable directly.
+#
+# Updated 2026-09-03 to the FY2025 edition. The first check for a newer
+# edition (a guessed 2025-dated URL at the same www.vietcombank.com.vn
+# path — a fake-200 HTML error page, not a real PDF) was a lazy filename
+# guess, not a real search — a user follow-up ("bruh vcb is 2024???",
+# after the same gap had already been caught for BIDV/MBBank) prompted
+# doing this properly: found via a real Vietstock disclosure-filing
+# article (vietstock.vn's own site needs a browser User-Agent — a plain
+# `requests` GET with no headers gets a 403), not vietcombank.com.vn
+# itself. Confirmed live: 113 pages, 419K chars, 111/113 non-empty — a
+# real text layer, Vietnamese-only (no English variant found at this
+# path — same non-issue as MBBank's Vietnamese-only FY2025 edition).
 #
 # No dedicated "Technology" chapter exists in this report's own table of
 # contents (unlike Techcombank's) — real chapter boundaries found the same
 # way (direct text search for each TOC entry's actual page, not the
-# printed page numbers, which don't map cleanly to PDF page index here).
-# Scoped to "Vietcombank Profile" (Chairman/CEO messages, general profile
-# — PDF pages 2-13) and "Report of the Board of Directors" (business
-# performance assessment + 2025 business orientation — the closest match
-# to strategic-direction content in this report's structure — PDF pages
-# 14-26), excluding Organization/HR, Corporate Governance/Risk Management,
-# Sustainable Development, and the financial-statements chapter. ~73K
-# real chars, ~7 chunks.
-VIETCOMBANK_ANNUAL_REPORT_URL = "https://www.vietcombank.com.vn/-/media/Project/VCB-Sites/VCB/Nha-Dau-tu/Files/BC-dinh-ky/BC-thuong-nien/2024/EN_VCB-Annual-Report-2024_Full_250426_FN_compressed.pdf"
-VIETCOMBANK_ANNUAL_REPORT_PAGE_RANGES = [(2, 26)]  # 0-indexed, inclusive
+# printed page numbers). Scoped to the Chairman/CEO leadership message
+# (PDF pages 4-5) and the "Báo cáo của Hội đồng Quản trị - Ban điều hành"
+# (Report of the Board of Directors - Executive Board) chapter (PDF pages
+# 15-23 — investment/project situation, 2025 business-results assessment
+# — including real content on the VCB CashUp Mobile / VCB Tablet digital
+# products, 2026 business orientation, and the BOD's own activity
+# assessment), excluding Organization/HR, Corporate Governance/Risk
+# Management, Sustainable Development, and the financial-statements
+# chapter. ~38K real chars, ~4 chunks.
+VIETCOMBANK_ANNUAL_REPORT_URL = "https://static2.vietstock.vn/vietstock/2026/4/17/20260416___vcb___bao_cao_thuong_nien_nam_2025.pdf"
+VIETCOMBANK_ANNUAL_REPORT_PAGE_RANGES = [(4, 5), (15, 23)]  # 0-indexed, inclusive
 
 
 async def _fetch_vietcombank_annual_report_parts() -> Tuple[str, List[Tuple[str, str]]]:

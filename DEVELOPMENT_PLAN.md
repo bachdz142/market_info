@@ -596,14 +596,14 @@ Closes out `.scratch/layer3-annual-reports/spec.md` entirely. Same method as Tec
 ### Verification
 - [x] All 4 crawl-verified live before writing any prompt (real chunk counts, real content previews, zero fetch failures).
 - [x] Live end-to-end LLM verification, all 4: `gate_passed=True` for every one, zero errors.
-  - `vietcombank_annual_report`: **165 real signals** — the richest single-source result this session (beating Techcombank's own 156) — including VND 2+ quadrillion total assets, a green-bond first-in-Vietnam claim, and the 2025-2030 "Innovation, Efficiency, Sustainability" strategic focus.
+  - `vietcombank_annual_report`: 165 real signals on the FY2024 edition — including VND 2+ quadrillion total assets, a green-bond first-in-Vietnam claim, and the 2025-2030 "Innovation, Efficiency, Sustainability" strategic focus — **81 on the refreshed FY2025 edition** (a smaller scope, ~38K chars vs. ~73K, so a proportionally smaller signal count is expected, not a red flag).
   - `bidv_annual_report`: 80 real signals on the FY2024 edition, **91 on the refreshed FY2025 edition** — including real IT-operations detail from the executive-management assessment and the 2026 business orientation.
   - `mbbank_annual_report`: 57 real signals on the FY2024 edition, **60 on the refreshed FY2025 edition** — including the exact 2,500+ IT-staff figure and named RPA/AI/Machine Learning/OCR applications.
   - `acb_annual_report`: 18 real signals — smallest of the 5, matching its deliberately narrower scope. Not yet checked for a fresher edition (unlike VCB/BIDV/MBBank, no direct evidence checked either way).
-  - **Total across all 5 banks (using each bank's freshest verified edition): 156 + 165 + 91 + 60 + 18 = 490 real signals.**
+  - **Total across all 5 banks (using each bank's freshest verified edition): 156 (TCB) + 81 (VCB) + 91 (BIDV) + 60 (MBB) + 18 (ACB) = 406 real signals.**
 
 ### Out of Scope
-- This closes the Layer 3 annual-report/AGM row named in `source_plan_mvp0.md` for all 5 peer banks. One open item: `acb_annual_report` hasn't been checked for a fresher-than-2024 edition the way VCB (checked, confirmed 2024 is genuinely newest — a guessed 2025 URL was a fake-200 dead link) and BIDV/MBBank (checked, real 2025 editions found and swapped in) were.
+- This closes the Layer 3 annual-report/AGM row named in `source_plan_mvp0.md` for all 5 peer banks, all 5 now checked for a fresher-than-2024 edition: VCB and MBBank/BIDV had real FY2025 text-layer editions found and swapped in (via a real Vietstock disclosure-filing search, not a filename guess — the original "VCB 2025 doesn't exist" conclusion was a lazy guess, caught by a user follow-up). `acb_annual_report` does have a real FY2025 filing too, but it's a genuine scan (0 extractable chars across all 182 pages checked) — same class of problem as BIDV/VCB's known scan-only financial-statement filings elsewhere in this project. Kept on the FY2024 edition (real text) rather than swap to an unusable scan.
 
 ## Maintenance fixes
 
