@@ -27,6 +27,7 @@ that interprets and acts on them.
 | v0.10 — Layer 2 (CVP/offerings), first sources + 3 real bugs found and fixed | ✅ Done — all 10 bank news/fee sources solved (BIDV news+fee, ACB promo+fee, VPBank news+fee, VCB promo+fee, MBBank news+fee) |
 | v0.23 — `mbbank_news` + `acb_promotions` click-through fixes (4th/5th user-found content bugs) | ✅ Done — verified live, real signals now surface article/detail-page-only content (prize amounts, cashback terms) |
 | v0.24 — 4 new Layer 3 sources: cimigo + decisionlab x3 (consumer behavior, not banking-labeled) | ✅ Done — crawl-verified all 4, live LLM-verified one |
+| v0.25 — First Layer 3 annual-report source: `techcombank_annual_report` | ✅ Done — solved the chapter-slicing blocker, live-verified: 156 real signals |
 
 ## Known temporary state (fix before a real full run)
 
@@ -563,6 +564,23 @@ User-directed: *"cimigo.com (has free retail banking reports); decisionlab.co; q
 
 ### Out of Scope
 - qandme.net (86 real candidate reports found via its own sitemap, including one with a directly useful "91% weekly online-banking-app usage" stat) and Decision Lab's recurring EuroCham Business Confidence Index series — both surfaced during this pass but deliberately not added; user chose to keep this pass to the 4 sources above.
+
+## v0.25 — First of the 5-bank Layer 3 annual-report/AGM row: `techcombank_annual_report` (✅ done, verified live)
+
+Picked back up `.scratch/layer3-annual-reports/spec.md` (ready-for-agent, parked mid-discovery in an earlier session on exactly this source's own chunking problem — user: *"okay let pick up the annual report from layer 3"*).
+
+- [x] **Found Techcombank's real 2025 annual report PDF** directly linked from its investors page — confirmed live: 196 pages, ~804K chars of real extractable text, not a scan.
+- [x] **Solved the "chapter-boundary slicing not yet solved" blocker.** Blindly chunking the whole 804K-char document at `MAX_CHUNK_CHARS` (12,000) would produce ~67 pieces — impractical (ACB's own 21-piece financial statement was already flagged elsewhere as slow purely from per-piece pacing). Found the document's real chapter boundaries by hand from its own table of contents plus a page-by-page scan: it's laid out as a 2-printed-page spread per PDF page (confirmed by cross-checking the TOC's "Glossary, page 386" against a direct page scan — lands exactly on PDF page 193, i.e. 386 ÷ 2). Scoped `techcombank_annual_report` to just the two chapters matching the spec's actual target content — PDF pages 4-11 (Chapter 1: Chairman's message, CEO Report) and 50-71 (Chapter 4: Data & Analytics / Digital Office / Technology(IT) / Talent(HR)) — deliberately excluding Chapter 2 (About Us/brand history, generic), Chapter 5 (Governance/Risk/Culture/Sustainability, lower priority per the spec and very large), and Chapter 6 (audited financial statements, redundant with the existing `techcombank_vas_statements` Layer 1 source). Combined: ~104K real chars, 10 chunks — a deliberate, targeted reduction, not an arbitrary shortcut.
+- [x] New `agent/crawler.py`: `_fetch_techcombank_annual_report_parts()` — downloads the PDF via `requests` (not crawl4ai's PDF strategy, which has no page-range slicing), extracts only the two target page ranges via `pypdf`, then reuses the existing `_chunk_text()`/`MAX_CHUNK_CHARS` mechanism unchanged. `multi_pdf: True`, same shape as every other multi-document source this session.
+
+### Verification
+- [x] Crawl-only verified before writing any prompt: 10 real chunks, 104,439 total chars, zero fetch failures.
+- [x] Full offline-safe suite (46/46, excluding `test_sources.py`'s real-network/real-LLM tests) passing after the change.
+- [x] Live end-to-end LLM verification: `gate_passed=True`, **156 real signals** — the richest single-source result this session — including concrete figures (18 million customers, 55+ AI models in production, 12,705 employees, VND 26.0 trillion 2025 profit after tax) and named strategic initiatives (the "Data Brain" platform, cloud-first core-banking migration, the 2026-2030 five-year strategy).
+
+### Out of Scope
+- The remaining 4 banks in this Layer 3 row (Vietcombank, BIDV, MBBank, ACB) — per the spec's own note, VCB's real annual-report link was previously found behind a non-deterministic AJAX tab, not yet re-extracted; BIDV/MBBank/ACB not yet (re-)investigated this pass.
+- Chapters 2 (About Us), 5 (Governance/Risk/ESG), and 6 (financial statements) of Techcombank's own report — deliberately excluded as lower-priority/redundant, not a fetch failure.
 
 ## Maintenance fixes
 

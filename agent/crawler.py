@@ -8,11 +8,14 @@ import tempfile
 import time
 import urllib.request
 from datetime import datetime
+from io import BytesIO
 from pathlib import Path
 from typing import Any, Iterator, List, Optional, Tuple
 from urllib.parse import urljoin, urlparse
 
+import requests
 from bs4 import BeautifulSoup
+from pypdf import PdfReader
 
 from crawl4ai import AsyncWebCrawler, CacheMode, CrawlerRunConfig
 from crawl4ai.async_crawler_strategy import AsyncHTTPCrawlerStrategy
@@ -1093,6 +1096,59 @@ async def _fetch_decisionlab_fintech_ewallet_parts() -> Tuple[str, List[Tuple[st
     return await _fetch_decisionlab_article_parts(DECISIONLAB_FINTECH_EWALLET_URLS)
 
 
+# Layer 3 annual report/AGM work (.scratch/layer3-annual-reports/spec.md) —
+# parked mid-discovery in an earlier session on exactly this problem:
+# Techcombank's own investors page links directly to its full 2025 annual
+# report PDF (confirmed live: 196 pages, ~804K chars of real extractable
+# text, not a scan). Blindly chunking the whole thing at MAX_CHUNK_CHARS
+# would produce ~67 pieces — the "chapter-boundary slicing not yet solved"
+# problem this was parked on. Most of that text is either generic
+# boilerplate (brand history, About Us) or a full audited
+# financial-statements appendix that duplicates techcombank_vas_statements
+# (Layer 1) almost entirely.
+#
+# Found the real chapter boundaries by hand (2026-09-03): the PDF's own
+# table of contents (page 1) lists page numbers for each chapter, but the
+# document is laid out as a 2-printed-page spread per PDF page — confirmed
+# by cross-checking the TOC's "Glossary, page 386" against a page-by-page
+# scan, which lands it exactly on PDF page 193 (386 / 2). Scoped to the
+# two chapters that match this source's actual target content (leadership
+# statements, technology disclosures — per the spec's own priority list):
+# PDF pages 4-11 (Chapter 1 — Chairman's message, CEO Report) and 50-71
+# (Chapter 4 — Data & Analytics / Digital Office / Technology(IT) /
+# Talent(HR), i.e. the transformation/technology disclosures). Chapter 2
+# (About Us — generic brand history), Chapter 5 (Governance/Risk/
+# Culture/Sustainability — lower priority per the spec, and large), and
+# Chapter 6 (audited financial statements — redundant with Layer 1) are
+# deliberately excluded. Combined: ~104K real chars, ~9 chunks at
+# MAX_CHUNK_CHARS — a real, deliberate reduction, not an arbitrary
+# shortcut, and small enough to actually run in reasonable time.
+TECHCOMBANK_ANNUAL_REPORT_URL = "https://techcombank.com/content/dam/techcombank/public-site/documents/techcombank-2025-annual-report-eng-vf.pdf"
+TECHCOMBANK_ANNUAL_REPORT_PAGE_RANGES = [(4, 11), (50, 71)]  # 0-indexed, inclusive
+
+
+async def _fetch_techcombank_annual_report_parts() -> Tuple[str, List[Tuple[str, str]]]:
+    _throttle(_domain(TECHCOMBANK_ANNUAL_REPORT_URL))
+    response = requests.get(TECHCOMBANK_ANNUAL_REPORT_URL, timeout=60)
+    response.raise_for_status()
+    reader = PdfReader(BytesIO(response.content))
+
+    parts = []
+    for start, end in TECHCOMBANK_ANNUAL_REPORT_PAGE_RANGES:
+        text = "\n".join(
+            (reader.pages[i].extract_text() or "") for i in range(start, min(end + 1, len(reader.pages)))
+        ).strip()
+        if text:
+            parts.append(text)
+
+    if not parts:
+        raise ValueError("No real text extracted from Techcombank's annual report — check page ranges still match the current PDF")
+
+    combined = "\n\n".join(parts)
+    chunks = _chunk_text(combined, MAX_CHUNK_CHARS)
+    return "", [(TECHCOMBANK_ANNUAL_REPORT_URL, chunk) for chunk in chunks]
+
+
 # Vietstock's static CDN serves each bank's filed financial statement at a
 # direct, predictable URL — confirmed live to sit outside whatever wall
 # blocks finance.vietstock.vn's JS-rendered document table (never rendered
@@ -1227,6 +1283,8 @@ async def _crawl_parts_async(url: str) -> Tuple[str, List[Tuple[str, str]]]:
         return await _fetch_decisionlab_genz_behavior_parts()
     if url == DECISIONLAB_FINTECH_EWALLET_URLS[0]:
         return await _fetch_decisionlab_fintech_ewallet_parts()
+    if url == TECHCOMBANK_ANNUAL_REPORT_URL:
+        return await _fetch_techcombank_annual_report_parts()
 
     config = _resolve_site_config(url)
     html, generic_text = await _fetch_html(url, config["needs_js"], config["wait_selector"])

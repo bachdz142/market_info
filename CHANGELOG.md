@@ -5,6 +5,30 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — First Layer 3 annual-report source: `techcombank_annual_report`
+
+Picked back up `.scratch/layer3-annual-reports/spec.md`, parked earlier
+on exactly this problem: Techcombank's real 2025 annual report PDF is
+196 pages / ~804K chars — blind chunking at `MAX_CHUNK_CHARS` would
+produce ~67 pieces, impractical. Found the document's real chapter
+boundaries by hand (it's a 2-printed-page-per-PDF-page spread, confirmed
+via its own TOC page numbers vs. a direct page scan) and scoped to just
+Chapter 1 (Chairman/CEO messages) and Chapter 4 (Data/Digital/IT/Talent
+transformation) — ~104K chars, 10 chunks, excluding About-Us boilerplate,
+Governance/Risk/ESG, and the audited financial statements (redundant
+with `techcombank_vas_statements`). New `_fetch_techcombank_annual_
+report_parts()` (downloads via `requests`, slices via `pypdf`, reuses
+the existing `_chunk_text()` mechanism unchanged).
+
+Live-verified: `gate_passed=True`, 156 real signals — the richest
+single-source result this session (18M customers, 55+ production AI
+models, VND 26.0T 2025 profit after tax, the "Data Brain" platform,
+the 2026-2030 five-year strategy). 46/46 offline-safe tests still
+passing (excluding `test_sources.py`'s real-network/real-LLM suite).
+
+Remaining 4 banks in this Layer 3 row (VCB, BIDV, MBBank, ACB) not yet
+(re-)investigated this pass.
+
 ## Unreleased — Presentation diagram layout + explicit UTF-8 encoding everywhere
 
 - Rebuilt `presentation.py`'s `ARCHITECTURE_SVG` coordinates to remove

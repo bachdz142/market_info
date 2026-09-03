@@ -1249,6 +1249,42 @@ SOURCES = [
         ),
     },
     {
+        "id": "techcombank_annual_report",
+        "kind": "qualitative",
+        "role": "citable",
+        "tier": "tier_1",
+        "multi_pdf": True,
+        # First of source_plan_mvp0.md's 5-bank Layer 3 annual-report/AGM
+        # row (.scratch/layer3-annual-reports/spec.md, ready-for-agent,
+        # parked mid-discovery in an earlier session on exactly this
+        # source's own chunking problem). Techcombank's investors page
+        # links directly to its real 2025 annual report PDF — confirmed
+        # live: 196 pages, real extractable text, not a scan. Scoped to
+        # just Chapter 1 (Chairman's message / CEO Report) and Chapter 4
+        # (Data & Analytics / Digital Office / Technology(IT) / Talent(HR)
+        # transformation) by real page range — see agent/crawler.py's
+        # _fetch_techcombank_annual_report_parts() for exactly how those
+        # boundaries were found and why the rest (About Us boilerplate,
+        # Governance/Risk/ESG, and the audited financial statements —
+        # redundant with techcombank_vas_statements) is excluded.
+        "url": "https://techcombank.com/content/dam/techcombank/public-site/documents/techcombank-2025-annual-report-eng-vf.pdf",
+        "prompt": (
+            "This is an excerpt from Techcombank's 2025 Annual Report — "
+            "specifically the Chairman's/CEO's messages and the "
+            "technology-transformation chapter (Data & Analytics, Digital "
+            "Office, Technology/IT, Talent). Extract concrete strategic "
+            "signals: named technology initiatives (core banking, open "
+            "API, digital platforms, AI/data capabilities), leadership's "
+            "stated strategic priorities and outlook, and any concrete "
+            "figures given (customer counts, digital adoption rates, "
+            "headcount/talent figures). Since this is the bank's own "
+            "official disclosure, tag a directly stated fact as \"fact\" "
+            "and a forward-looking strategic statement or leadership "
+            "opinion as \"opinion\" — don't default everything to one "
+            "value. source_code for these signals is \"TCB\"."
+        ),
+    },
+    {
         "id": "decisionlab_bank_satisfaction_rankings",
         "kind": "qualitative",
         "role": "citable",
