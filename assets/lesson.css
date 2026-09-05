@@ -1,0 +1,147 @@
+/* Shared stylesheet for all lessons and reference docs — Tufte-inspired:
+   generous margins, serif reading type, quiet color, sidenotes for asides. */
+
+:root {
+  --ink: #1a1a1a;
+  --paper: #fdfdfb;
+  --rule: #d8d3c4;
+  --accent: #8a5a2f;
+  --muted: #6b6558;
+  --code-bg: #f2efe6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  font-size: 19px;
+  line-height: 1.55;
+}
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 0.3em;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 2.2em 0 0.6em;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.3em;
+}
+
+h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 1.6em 0 0.4em;
+  color: var(--accent);
+}
+
+p { margin: 0.9em 0; }
+
+.subtitle {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin-top: 0;
+  font-style: italic;
+}
+
+a { color: var(--accent); }
+a:hover { color: var(--ink); }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.2em 0;
+  font-size: 0.95rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.5em 0.8em;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+
+th {
+  font-weight: 600;
+  border-bottom: 2px solid var(--ink);
+}
+
+code {
+  font-family: "SF Mono", Menlo, monospace;
+  font-size: 0.85em;
+  background: var(--code-bg);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+.callout {
+  border-left: 3px solid var(--accent);
+  padding: 0.2em 1.2em;
+  margin: 1.4em 0;
+  background: var(--code-bg);
+  border-radius: 0 4px 4px 0;
+}
+
+.callout p { margin: 0.6em 0; }
+
+.source {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.quiz {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.4em 1.6em;
+  margin: 1.6em 0;
+}
+
+.quiz .q { font-weight: 600; margin-bottom: 0.4em; }
+
+.quiz details {
+  margin: 0.5em 0 1em;
+}
+
+.quiz summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 0.92rem;
+}
+
+.quiz .answer {
+  margin-top: 0.5em;
+  padding: 0.6em 0.9em;
+  background: var(--code-bg);
+  border-radius: 4px;
+}
+
+.nav {
+  margin-top: 3.5em;
+  padding-top: 1.2em;
+  border-top: 1px solid var(--rule);
+  font-size: 0.9rem;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-note {
+  margin-top: 2.5em;
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-style: italic;
+}

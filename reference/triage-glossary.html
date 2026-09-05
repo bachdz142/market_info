@@ -1,0 +1,57 @@
+<title>Triage Glossary</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<div class="page">
+  <h1>Triage — Reference</h1>
+  <p class="subtitle">Quick-reference for the <code>triage</code> skill's vocabulary. Print this one out.</p>
+
+  <h2>What it is</h2>
+  <p><code>triage</code> moves <strong>externally-reported</strong> issues (bug reports, feature requests, unannounced PRs) through a small state machine, ending in an agent-ready brief, a question for the reporter, or a closed issue with a recorded reason. It never touches issues you wrote yourself via <code>to-tickets</code> — those are already agent-ready.</p>
+
+  <h2>The two category roles</h2>
+  <table>
+    <tr><th>Role</th><th>Means</th></tr>
+    <tr><td><code>bug</code></td><td>Something is broken</td></tr>
+    <tr><td><code>enhancement</code></td><td>New feature or improvement</td></tr>
+  </table>
+
+  <h2>The five state roles</h2>
+  <p>Every triaged item carries <strong>exactly one</strong> category role and <strong>exactly one</strong> state role — never zero, never two at once.</p>
+  <table>
+    <tr><th>State</th><th>Means</th></tr>
+    <tr><td><code>needs-triage</code></td><td>You need to evaluate it — the default landing spot</td></tr>
+    <tr><td><code>needs-info</code></td><td>Waiting on the reporter; returns to <code>needs-triage</code> on reply</td></tr>
+    <tr><td><code>ready-for-agent</code></td><td>Fully specified, brief attached — an AFK agent can take it</td></tr>
+    <tr><td><code>ready-for-human</code></td><td>Same brief, plus why it can't be delegated (judgment / external access / manual testing)</td></tr>
+    <tr><td><code>wontfix</code></td><td>Closed, reason recorded</td></tr>
+  </table>
+
+  <h3>The three <code>wontfix</code> flavors</h3>
+  <table>
+    <tr><th>Reason</th><th>What happens</th></tr>
+    <tr><td>Already implemented</td><td>Comment pointing at where it lives — nothing written to <code>.out-of-scope/</code></td></tr>
+    <tr><td>Rejected bug</td><td>Polite explanation, then close</td></tr>
+    <tr><td>Rejected enhancement</td><td>A file in <code>.out-of-scope/</code> (one per rejected <em>concept</em>, not per issue), then close</td></tr>
+  </table>
+
+  <h2>Before any brief: verify</h2>
+  <p>Bug → reproduce from the reporter's steps. PR → check out the branch, run tests. Outcome is one of: <strong>confirmed</strong> (with code path), <strong>failed to reproduce</strong>, or <strong>not enough detail to try</strong> (→ strongest <code>needs-info</code> signal). Also checks: <strong>redundancy</strong> (already built?) and <strong>prior rejection</strong> (does <code>.out-of-scope/</code> already say no, matched by concept not keyword?).</p>
+
+  <h2>The agent brief</h2>
+  <p>Durable, not precise: names types, signatures, behavioural contracts — <strong>never file paths or line numbers</strong>, because the code moves underneath it while it waits.</p>
+
+  <h2>Where it sits among the other skills</h2>
+  <table>
+    <tr><th>You have</th><th>Reach for</th></tr>
+    <tr><td>A tracker full of raw reports from other people</td><td><code>/triage</code></td></tr>
+    <tr><td>A rough idea of your own, nothing written down</td><td><code>grill-with-docs</code></td></tr>
+    <tr><td>A settled conversation to turn into a spec</td><td><code>to-spec</code></td></tr>
+    <tr><td>A spec to split into agent-ready tickets</td><td><code>to-tickets</code></td></tr>
+    <tr><td>A confirmed bug that needs a root cause, not a label</td><td><code>diagnosing-bugs</code></td></tr>
+  </table>
+  <p><code>triage</code> is the <strong>on-ramp</strong> for inbound work, not a step in the main authoring chain (grill → spec → tickets → implement → review). Both lanes merge at <code>ready-for-agent</code>.</p>
+
+  <h2>Invocation</h2>
+  <p>Type <code>/triage</code> plus plain language — it never runs on its own. E.g. "show me anything that needs my attention", "let's look at #42", "move #42 to ready-for-agent".</p>
+
+  <p class="source">Source: <code>docs/engineering/triage.md</code>, mattpocock-skills plugin v1.2.3.</p>
+</div>

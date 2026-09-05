@@ -1,0 +1,70 @@
+<title>Lesson 1 — What Is Triage?</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+<div class="page">
+  <h1>What Is <code>triage</code>?</h1>
+  <p class="subtitle">Lesson 1 · tied to: deciding how to configure this repo's engineering skills</p>
+
+  <div class="callout">
+    <p><strong>Why this lesson exists:</strong> you're mid-way through <code>setup-matt-pocock-skills</code>, and the tool skipped the triage-labels section because <code>triage</code> isn't installed. Before deciding whether to install it, you should know what it actually does.</p>
+  </div>
+
+  <h2>The one-line version</h2>
+  <p><code>triage</code> works through issues <strong>you didn't create</strong> — raw bug reports, feature requests, an unannounced external PR — and moves each one through a small state machine, ending in an agent-ready brief, a specific question for the reporter, or a closed issue with a reason recorded.</p>
+
+  <p>That "you didn't create" clause is the whole boundary. Issues that came out of your own planning (via <code>to-spec</code> → <code>to-tickets</code>) are already agent-ready by construction — running <code>triage</code> over them is wasted work. <code>triage</code> is the front door for work that arrived from <em>outside</em>.</p>
+
+  <h2>It recommends and waits</h2>
+  <p>This is the detail that separates it from labelling issues by hand: it tells you its category and state call, with reasoning, plus what it found in the codebase — and applies nothing until you direct it. Before any recommendation, it actually checks the claim: reproduces a bug from the reporter's steps, or checks out a PR's branch and runs the tests. The outcome is always one of three things — <strong>confirmed</strong>, <strong>failed to reproduce</strong>, or <strong>not enough detail to try</strong>.</p>
+
+  <h2>The state machine</h2>
+  <p>Every triaged item ends up with <strong>exactly one</strong> category role and <strong>exactly one</strong> state role — never zero, never two in conflict. Full table lives in the <a href="../reference/triage-glossary.html">reference glossary</a>; the shape to remember is:</p>
+  <table>
+    <tr><th>State</th><th>Means</th></tr>
+    <tr><td><code>needs-triage</code></td><td>Default landing spot — you need to evaluate it</td></tr>
+    <tr><td><code>needs-info</code></td><td>Waiting on the reporter</td></tr>
+    <tr><td><code>ready-for-agent</code></td><td>Fully specified, brief attached</td></tr>
+    <tr><td><code>ready-for-human</code></td><td>Same brief, plus why a human must do this one</td></tr>
+    <tr><td><code>wontfix</code></td><td>Closed, reason recorded</td></tr>
+  </table>
+
+  <p><code>wontfix</code> is the one with texture: it splits into <em>already implemented</em> (comment only), <em>rejected bug</em> (polite close), and <em>rejected enhancement</em> (written to <code>.out-of-scope/</code> — one file per rejected <em>concept</em>, so a future "night theme" request matches an existing <code>dark-mode.md</code> instead of starting the argument over).</p>
+
+  <h2>Where it sits among the other skills</h2>
+  <p>This is the part most people get wrong at first — <code>triage</code> is an <strong>on-ramp</strong>, not a step in the main chain. The main chain is work you originated: grill → spec → tickets → implement → review. <code>triage</code> is the parallel lane for work that arrived instead. Both lanes merge at the same place: an issue labelled <code>ready-for-agent</code>.</p>
+  <table>
+    <tr><th>You have</th><th>Reach for</th></tr>
+    <tr><td>A tracker full of raw reports from other people</td><td><code>/triage</code></td></tr>
+    <tr><td>A rough idea of your own, nothing written down</td><td><code>grill-with-docs</code></td></tr>
+    <tr><td>A settled conversation ready to become a spec</td><td><code>to-spec</code></td></tr>
+    <tr><td>A confirmed bug needing a root cause, not a label</td><td><code>diagnosing-bugs</code></td></tr>
+  </table>
+
+  <h2>One thing worth sitting with, given your repo</h2>
+  <p>Market Insight Agent is currently a solo project. <code>triage</code>'s entire reason for existing is inbound reports from <em>other people</em>. If nothing lands in your tracker except your own planning, you would rarely open it — the doc says this outright: "if everything in your tracker came out of your own planning, you will rarely open it." Worth keeping in mind as you finish the setup flow.</p>
+
+  <div class="quiz">
+    <p><strong>Retrieval practice</strong> — answer from memory before revealing.</p>
+
+    <p class="q">1. How many state roles can one triaged issue carry at once?</p>
+    <details><summary>Reveal</summary><div class="answer">Exactly one, always.</div></details>
+
+    <p class="q">2. Of the three <code>wontfix</code> reasons, which one writes to <code>.out-of-scope/</code>?</p>
+    <details><summary>Reveal</summary><div class="answer">Only the rejected enhancement.</div></details>
+
+    <p class="q">3. Should you run <code>triage</code> over tickets that came out of your own <code>to-tickets</code> run?</p>
+    <details><summary>Reveal</summary><div class="answer">No — they're already agent-ready.</div></details>
+
+    <p class="q">4. What does <code>triage</code> do before recommending anything?</p>
+    <details><summary>Reveal</summary><div class="answer">Verifies the claim actually holds.</div></details>
+  </div>
+
+  <h2>Primary source</h2>
+  <p class="source">Read the full doc: <code>docs/engineering/triage.md</code> (mattpocock-skills plugin, local at <code>~/.claude/plugins/cache/claude-plugins-official/mattpocock-skills/1.2.3/docs/engineering/triage.md</code>). It also covers PR support, cross-tracker behavior (Linear/GitLab/local-markdown), and open bugs/gaps — good material for a second lesson if you want to go deeper.</p>
+
+  <p class="footer-note">Something unclear, or want to go deeper on any part of this? Just ask me — I'm your teacher here, not just the author of this page.</p>
+
+  <div class="nav">
+    <span>&larr; Lesson 1 of 1</span>
+    <span><a href="../reference/triage-glossary.html">Reference: triage glossary</a></span>
+  </div>
+</div>
