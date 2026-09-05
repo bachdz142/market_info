@@ -409,3 +409,7 @@ timestamp,provider,model,success,query_preview,error
 2026-09-05T17:40:31.455043+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,
 2026-09-05T17:41:05.665803+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,
 2026-09-05T17:44:17.898151+07:00,groq,openai/gpt-oss-120b,True,Extract concrete promotional offers from the content below — the specific offer ,
+2026-09-05T17:48:01.041052+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,
+2026-09-05T17:48:36.528795+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,
+2026-09-05T17:49:10.687645+07:00,groq,openai/gpt-oss-120b,True,Extract concrete market signals from the full press release content below — spec,
+2026-09-05T17:49:46.686218+07:00,groq,openai/gpt-oss-120b,True,Extract the most recent Vietnam Consumer Price Index (CPI) report from this page,

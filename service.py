@@ -15,6 +15,7 @@ from tqdm import tqdm
 
 load_dotenv()
 
+import review_dashboard
 from agent.graph import build_crawl_graph, build_graph, build_multi_pdf_graph
 from agent.logging_config import setup_logging
 from agent.sources import SOURCES
@@ -229,6 +230,18 @@ def trigger(source_ids: Optional[str] = None) -> dict:
     for r in errored:
         logger.error("ERRORED %s: %s", r["id"], r["error"])
     logger.info("Full run summary written to %s", run_file)
+
+    # Keep review_dashboard.html in sync with every real run automatically
+    # — previously a manual "python review_dashboard.py" step, easy to
+    # forget after a /trigger call. Rebuilds from the signals.jsonl/
+    # raw_content.csv this run just appended to; a failure here doesn't
+    # fail the request, since the run's own data is already safely
+    # persisted above regardless of whether the dashboard renders.
+    try:
+        review_dashboard.OUT_PATH.write_text(review_dashboard.build(), encoding="utf-8")
+        logger.info("Refreshed %s", review_dashboard.OUT_PATH)
+    except Exception:
+        logger.exception("Failed to refresh review_dashboard.html after this trigger run")
 
     return run_summary
 

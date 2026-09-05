@@ -61923,7 +61923,104 @@ today
     }
   ],
   &quot;generated_at&quot;: &quot;2026-09-03T01:53:49.912343+07:00&quot;
-}</pre></details></div></div></div></div></section><h2 id='layer-3'>Layer 4 — Macro, government & PEST</h2><section class='source' id='vietnam_cpi_official'><div class='src-head'><code class='sid'>vietnam_cpi_official</code><a class='badge link' href='https://www.nso.gov.vn/en/cpi/' target='_blank' rel='noopener'>↗ link</a><span class='badge desc'>Layer 4 · quant · www.nso.gov.vn</span><span class='badge kind'>quant</span><span class='badge runs'>3 runs</span><select class='runpicker' onchange="selectRun('vietnam_cpi_official', this.value)"><option value='0' selected>2026-09-02T22:15:02.949632+07:00 (latest)</option><option value='1'>2026-08-25T09:29:27.138542+00:00</option><option value='2'>2026-08-25T09:03:24.864502+00:00</option></select></div><div class='runpanel' data-idx='0'><div class='panel'><div class='cols'><div class='col'><h4>Raw (pre-LLM)</h4><details open><summary>2,452 chars &middot; 628 tokens</summary><pre class='rawbox'>Consumer Price Index, Gold Price Index and US Dollar Price Index in July and the first seven months of 2026
+}</pre></details></div></div></div></div></section><h2 id='layer-3'>Layer 4 — Macro, government & PEST</h2><section class='source' id='vietnam_cpi_official'><div class='src-head'><code class='sid'>vietnam_cpi_official</code><a class='badge link' href='https://www.nso.gov.vn/en/cpi/' target='_blank' rel='noopener'>↗ link</a><span class='badge desc'>Layer 4 · quant · www.nso.gov.vn</span><span class='badge kind'>quant</span><span class='badge runs'>4 runs</span><select class='runpicker' onchange="selectRun('vietnam_cpi_official', this.value)"><option value='0' selected>2026-09-05T17:49:39.662932+07:00 (latest)</option><option value='1'>2026-09-02T22:15:02.949632+07:00</option><option value='2'>2026-08-25T09:29:27.138542+00:00</option><option value='3'>2026-08-25T09:03:24.864502+00:00</option></select></div><div class='runpanel' data-idx='0'><div class='panel'><div class='cols'><div class='col'><h4>Raw (pre-LLM)</h4><details open><summary>2,422 chars &middot; 630 tokens</summary><pre class='rawbox'>Consumer Price Index, Gold Price Index and US Dollar Price Index in August and eight months of 2026
+Consumer Price Index (CPI) in August increased by 0.47% compared with the previous month; increased by 3.57% compared with December 2025 and increased by 4.89% compared with the same period of the previous year. On average, in the first eight months of 2026, the CPI increased by 4.45% compared with the same period of the previous year; core inflation increased by 4.24%.
+Date of issue: 03/09/2026
+Reference period: 8/2026
+Consumer Price Index, Gold Price Index and US Dollar Price Index in July and the first seven months of 2026
+The Consumer Price Index (CPI) decreased by 0.12% in July 2026 compared to the previous month, mainly due to lower gasoline and oil prices following the decline in global fuel prices, as well as lower food prices resulting from abundant supply. Compared to December 2025, the CPI increased by 3.08%, and it rose by 4.45% compared to the same period last year.
+Date of issue: 03/08/2026
+Reference period: 7/2026
+Consumer Price Index, Gold Price Index, and US Dollar Price Index in June 2026, Q2 2026, and the first six months of 2026
+The Consumer Price Index (CPI) in June 2026 recorded a month-on-month decrease of 0.39%, mainly attributable to a decline in gasoline and oil prices in
+Date of issue: 03/07/2026
+Reference period: 6/2026
+Consumer Price Index, Gold Price Index, and USD Price Index for May and the first five months of 2026.
+Rising electricity and water prices due to high demand during hot weather, along with increases in construction materials, rental housing, and gasoline prices, are the main reasons for the 0.29% increase in the Consumer Price Index (CPI) in May 2026 compared to the previous month. Compared to December 2025, the CPI in May increased by 3.61% and by 5.6% compared to the same period last year.
+Date of issue: 03/06/2026
+Reference period: May 2026
+Next release: 03/07/2026
+Consumer price index, gold price index and USD price index for April and the first four months of 2026
+The Consumer Price Index (CPI) in April increased by 0.84% ​​compared to the previous month, mainly due to rising domestic gas prices following world fuel prices, increased prices for dining out, and higher construction material costs due to increased input costs and transportation.
+Date of issue: 03/05/2026
+Reference period: April 2026
+Next release: 03/06/2026
+1
+2
+3
+…
+52
+»</pre></details></div><div class='col'><h4>Prompt (per-source)</h4><details open><summary>276 chars &middot; 59 tokens</summary><pre class='promptbox'>Extract the most recent Vietnam Consumer Price Index (CPI) report from this page: the month-on-month change, the change compared to December of the previous year, and the year-on-year change, plus the reference period and date of issue. source_code for these signals is &quot;GSO&quot;.</pre></details></div><div class='col'><h4>Extracted</h4><table class='sigtable'><thead><tr><th>Type</th><th>Summary</th><th>reference_period</th><th>fact_or_opinion</th><th>confidence</th></tr></thead><tbody><tr><td class='sigtype'>price_change</td><td>Vietnam CPI month‑on‑month change +0.47% in August 2026.</td><td>8/2026</td><td>fact</td><td>high</td></tr><tr><td class='sigtype'>price_change</td><td>Vietnam CPI increased 3.57% compared with December 2025 in August 2026.</td><td>8/2026</td><td>fact</td><td>high</td></tr><tr><td class='sigtype'>price_change</td><td>Vietnam CPI year‑on‑year increase of 4.89% in August 2026.</td><td>8/2026</td><td>fact</td><td>high</td></tr><tr><td class='sigtype'>other</td><td>Reference period for the CPI report is August 2026.</td><td>8/2026</td><td>fact</td><td>high</td></tr><tr><td class='sigtype'>other</td><td>Date of issue for the CPI report is 03/09/2026.</td><td>8/2026</td><td>fact</td><td>high</td></tr></tbody></table><details class='fulljson'><summary>Full JSON</summary><pre>{
+  &quot;query&quot;: &quot;Extract the most recent Vietnam Consumer Price Index (CPI) report from this page: the month-on-month change, the change compared to December of the previous year, and the year-on-year change, plus the reference period and date of issue. source_code for these signals is \&quot;GSO\&quot;.&quot;,
+  &quot;signals&quot;: [
+    {
+      &quot;signal_type&quot;: &quot;price_change&quot;,
+      &quot;summary&quot;: &quot;Vietnam CPI month‑on‑month change +0.47% in August 2026.&quot;,
+      &quot;source_url&quot;: &quot;https://www.nso.gov.vn/en/cpi/&quot;,
+      &quot;observed_at&quot;: &quot;03/09/2026&quot;,
+      &quot;confidence&quot;: &quot;high&quot;,
+      &quot;source_code&quot;: &quot;GSO&quot;,
+      &quot;reference_period&quot;: &quot;8/2026&quot;,
+      &quot;data_basis&quot;: &quot;not_applicable&quot;,
+      &quot;actual_proxy_forecast&quot;: &quot;actual&quot;,
+      &quot;forecast_org&quot;: null,
+      &quot;fact_or_opinion&quot;: &quot;fact&quot;
+    },
+    {
+      &quot;signal_type&quot;: &quot;price_change&quot;,
+      &quot;summary&quot;: &quot;Vietnam CPI increased 3.57% compared with December 2025 in August 2026.&quot;,
+      &quot;source_url&quot;: &quot;https://www.nso.gov.vn/en/cpi/&quot;,
+      &quot;observed_at&quot;: &quot;03/09/2026&quot;,
+      &quot;confidence&quot;: &quot;high&quot;,
+      &quot;source_code&quot;: &quot;GSO&quot;,
+      &quot;reference_period&quot;: &quot;8/2026&quot;,
+      &quot;data_basis&quot;: &quot;not_applicable&quot;,
+      &quot;actual_proxy_forecast&quot;: &quot;actual&quot;,
+      &quot;forecast_org&quot;: null,
+      &quot;fact_or_opinion&quot;: &quot;fact&quot;
+    },
+    {
+      &quot;signal_type&quot;: &quot;price_change&quot;,
+      &quot;summary&quot;: &quot;Vietnam CPI year‑on‑year increase of 4.89% in August 2026.&quot;,
+      &quot;source_url&quot;: &quot;https://www.nso.gov.vn/en/cpi/&quot;,
+      &quot;observed_at&quot;: &quot;03/09/2026&quot;,
+      &quot;confidence&quot;: &quot;high&quot;,
+      &quot;source_code&quot;: &quot;GSO&quot;,
+      &quot;reference_period&quot;: &quot;8/2026&quot;,
+      &quot;data_basis&quot;: &quot;not_applicable&quot;,
+      &quot;actual_proxy_forecast&quot;: &quot;actual&quot;,
+      &quot;forecast_org&quot;: null,
+      &quot;fact_or_opinion&quot;: &quot;fact&quot;
+    },
+    {
+      &quot;signal_type&quot;: &quot;other&quot;,
+      &quot;summary&quot;: &quot;Reference period for the CPI report is August 2026.&quot;,
+      &quot;source_url&quot;: &quot;https://www.nso.gov.vn/en/cpi/&quot;,
+      &quot;observed_at&quot;: &quot;03/09/2026&quot;,
+      &quot;confidence&quot;: &quot;high&quot;,
+      &quot;source_code&quot;: &quot;GSO&quot;,
+      &quot;reference_period&quot;: &quot;8/2026&quot;,
+      &quot;data_basis&quot;: &quot;not_applicable&quot;,
+      &quot;actual_proxy_forecast&quot;: &quot;actual&quot;,
+      &quot;forecast_org&quot;: null,
+      &quot;fact_or_opinion&quot;: &quot;fact&quot;
+    },
+    {
+      &quot;signal_type&quot;: &quot;other&quot;,
+      &quot;summary&quot;: &quot;Date of issue for the CPI report is 03/09/2026.&quot;,
+      &quot;source_url&quot;: &quot;https://www.nso.gov.vn/en/cpi/&quot;,
+      &quot;observed_at&quot;: &quot;03/09/2026&quot;,
+      &quot;confidence&quot;: &quot;high&quot;,
+      &quot;source_code&quot;: &quot;GSO&quot;,
+      &quot;reference_period&quot;: &quot;8/2026&quot;,
+      &quot;data_basis&quot;: &quot;not_applicable&quot;,
+      &quot;actual_proxy_forecast&quot;: &quot;actual&quot;,
+      &quot;forecast_org&quot;: null,
+      &quot;fact_or_opinion&quot;: &quot;fact&quot;
+    }
+  ],
+  &quot;generated_at&quot;: &quot;2026-09-05T17:49:46.690616+07:00&quot;
+}</pre></details></div></div></div></div><div class='runpanel' data-idx='1' hidden><div class='panel'><div class='cols'><div class='col'><h4>Raw (pre-LLM)</h4><details open><summary>2,452 chars &middot; 628 tokens</summary><pre class='rawbox'>Consumer Price Index, Gold Price Index and US Dollar Price Index in July and the first seven months of 2026
 The Consumer Price Index (CPI) decreased by 0.12% in July 2026 compared to the previous month, mainly due to lower gasoline and oil prices following the decline in global fuel prices, as well as lower food prices resulting from abundant supply. Compared to December 2025, the CPI increased by 3.08%, and it rose by 4.45% compared to the same period last year.
 Date of issue: 03/08/2026
 Reference period: 7/2026
@@ -62021,7 +62118,7 @@ Next release: 03/05/2026
     }
   ],
   &quot;generated_at&quot;: &quot;2026-09-02T22:15:09.318239+07:00&quot;
-}</pre></details></div></div></div></div><div class='runpanel' data-idx='1' hidden><div class='panel'><div class='cols'><div class='col'><h4>Raw (pre-LLM)</h4><p class='empty'>No raw content logged for this run.</p></div><div class='col'><h4>Prompt (per-source)</h4><details open><summary>276 chars &middot; 59 tokens</summary><pre class='promptbox'>Extract the most recent Vietnam Consumer Price Index (CPI) report from this page: the month-on-month change, the change compared to December of the previous year, and the year-on-year change, plus the reference period and date of issue. source_code for these signals is &quot;GSO&quot;.</pre></details></div><div class='col'><h4>Extracted</h4><table class='sigtable'><thead><tr><th>Type</th><th>Summary</th><th>reference_period</th><th>fact_or_opinion</th><th>confidence</th></tr></thead><tbody><tr><td class='sigtype'>price_change</td><td>Vietnam CPI decreased by 0.12% in July 2026 compared to the previous month.</td><td></td><td></td><td>high</td></tr><tr><td class='sigtype'>price_change</td><td>Vietnam CPI increased by 3.08% in July 2026 compared to December 2025.</td><td></td><td></td><td>high</td></tr><tr><td class='sigtype'>price_change</td><td>Vietnam CPI rose by 4.45% in July 2026 compared to the same month in the previous year.</td><td></td><td></td><td>high</td></tr><tr><td class='sigtype'>other</td><td>Reference period for the CPI report is July 2026; date of issue is 03/08/2026.</td><td></td><td></td><td>high</td></tr></tbody></table><details class='fulljson'><summary>Full JSON</summary><pre>{
+}</pre></details></div></div></div></div><div class='runpanel' data-idx='2' hidden><div class='panel'><div class='cols'><div class='col'><h4>Raw (pre-LLM)</h4><p class='empty'>No raw content logged for this run.</p></div><div class='col'><h4>Prompt (per-source)</h4><details open><summary>276 chars &middot; 59 tokens</summary><pre class='promptbox'>Extract the most recent Vietnam Consumer Price Index (CPI) report from this page: the month-on-month change, the change compared to December of the previous year, and the year-on-year change, plus the reference period and date of issue. source_code for these signals is &quot;GSO&quot;.</pre></details></div><div class='col'><h4>Extracted</h4><table class='sigtable'><thead><tr><th>Type</th><th>Summary</th><th>reference_period</th><th>fact_or_opinion</th><th>confidence</th></tr></thead><tbody><tr><td class='sigtype'>price_change</td><td>Vietnam CPI decreased by 0.12% in July 2026 compared to the previous month.</td><td></td><td></td><td>high</td></tr><tr><td class='sigtype'>price_change</td><td>Vietnam CPI increased by 3.08% in July 2026 compared to December 2025.</td><td></td><td></td><td>high</td></tr><tr><td class='sigtype'>price_change</td><td>Vietnam CPI rose by 4.45% in July 2026 compared to the same month in the previous year.</td><td></td><td></td><td>high</td></tr><tr><td class='sigtype'>other</td><td>Reference period for the CPI report is July 2026; date of issue is 03/08/2026.</td><td></td><td></td><td>high</td></tr></tbody></table><details class='fulljson'><summary>Full JSON</summary><pre>{
   &quot;query&quot;: &quot;Extract the most recent Vietnam Consumer Price Index (CPI) report from this page: the month-on-month change, the change compared to December of the previous year, and the year-on-year change, plus the reference period and date of issue.&quot;,
   &quot;signals&quot;: [
     {
@@ -62054,7 +62151,7 @@ Next release: 03/05/2026
     }
   ],
   &quot;generated_at&quot;: &quot;2026-08-25T09:30:41.824167+00:00&quot;
-}</pre></details></div></div></div></div><div class='runpanel' data-idx='2' hidden><div class='panel'><div class='cols'><div class='col'><h4>Raw (pre-LLM)</h4><p class='empty'>No raw content logged for this run.</p></div><div class='col'><h4>Prompt (per-source)</h4><details open><summary>276 chars &middot; 59 tokens</summary><pre class='promptbox'>Extract the most recent Vietnam Consumer Price Index (CPI) report from this page: the month-on-month change, the change compared to December of the previous year, and the year-on-year change, plus the reference period and date of issue. source_code for these signals is &quot;GSO&quot;.</pre></details></div><div class='col'><h4>Extracted</h4><table class='sigtable'><thead><tr><th>Type</th><th>Summary</th><th>reference_period</th><th>fact_or_opinion</th><th>confidence</th></tr></thead><tbody><tr><td class='sigtype'>price_change</td><td>Month-on-month CPI change: decreased by 0.12% in July 2026 compared to the previous month.</td><td></td><td></td><td>high</td></tr><tr><td class='sigtype'>price_change</td><td>CPI change compared to December 2025: increased by 3.08%.</td><td></td><td></td><td>high</td></tr><tr><td class='sigtype'>price_change</td><td>Year-on-year CPI change: rose by 4.45% compared to July 2025.</td><td></td><td></td><td>high</td></tr><tr><td class='sigtype'>other</td><td>Reference period: July 2026; Date of issue: 03/08/2026.</td><td></td><td></td><td>high</td></tr></tbody></table><details class='fulljson'><summary>Full JSON</summary><pre>{
+}</pre></details></div></div></div></div><div class='runpanel' data-idx='3' hidden><div class='panel'><div class='cols'><div class='col'><h4>Raw (pre-LLM)</h4><p class='empty'>No raw content logged for this run.</p></div><div class='col'><h4>Prompt (per-source)</h4><details open><summary>276 chars &middot; 59 tokens</summary><pre class='promptbox'>Extract the most recent Vietnam Consumer Price Index (CPI) report from this page: the month-on-month change, the change compared to December of the previous year, and the year-on-year change, plus the reference period and date of issue. source_code for these signals is &quot;GSO&quot;.</pre></details></div><div class='col'><h4>Extracted</h4><table class='sigtable'><thead><tr><th>Type</th><th>Summary</th><th>reference_period</th><th>fact_or_opinion</th><th>confidence</th></tr></thead><tbody><tr><td class='sigtype'>price_change</td><td>Month-on-month CPI change: decreased by 0.12% in July 2026 compared to the previous month.</td><td></td><td></td><td>high</td></tr><tr><td class='sigtype'>price_change</td><td>CPI change compared to December 2025: increased by 3.08%.</td><td></td><td></td><td>high</td></tr><tr><td class='sigtype'>price_change</td><td>Year-on-year CPI change: rose by 4.45% compared to July 2025.</td><td></td><td></td><td>high</td></tr><tr><td class='sigtype'>other</td><td>Reference period: July 2026; Date of issue: 03/08/2026.</td><td></td><td></td><td>high</td></tr></tbody></table><details class='fulljson'><summary>Full JSON</summary><pre>{
   &quot;query&quot;: &quot;Extract the most recent Vietnam Consumer Price Index (CPI) report from this page: the month-on-month change, the change compared to December of the previous year, and the year-on-year change, plus the reference period and date of issue.&quot;,
   &quot;signals&quot;: [
     {

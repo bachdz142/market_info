@@ -61213,3 +61213,41 @@ However, the total cashback received by each customer across both phases must no
 2026-09-05 17:44:17,907 INFO __main__: [1/1] vcb_promotions done in 22.78s (gate_passed=True, error=None)
 2026-09-05 17:44:17,921 INFO __main__: Trigger finished in 22.81s: 1/1 ok, 0 gate-rejected, 0 errored
 2026-09-05 17:44:17,921 INFO __main__: Full run summary written to /Users/dangngocbach/PycharmProjects/Market insight test/data/trigger_run_9b193c30-5604-4f46-9c43-0079b37dd6ce.json
+2026-09-05 17:49:39,662 INFO __main__: Trigger started (run_id=57433264-5dfc-49e9-b3d4-86b4efbae924): 0 topics, 1 sources (filtered to 1 requested ids)
+2026-09-05 17:49:39,688 INFO agent.gate: Gate passed: Extract the most recent Vietnam Consumer Price Index (CPI) report from this page
+2026-09-05 17:49:42,203 INFO agent.graph: Crawl done in 2.51s for url: https://www.nso.gov.vn/en/cpi/
+2026-09-05 17:49:42,206 INFO agent.graph: Raw content fed to LLM for query: Extract the most recent Vietnam Consumer Price Index (CPI) report from this page
+Consumer Price Index, Gold Price Index and US Dollar Price Index in August and eight months of 2026
+Consumer Price Index (CPI) in August increased by 0.47% compared with the previous month; increased by 3.57% compared with December 2025 and increased by 4.89% compared with the same period of the previous year. On average, in the first eight months of 2026, the CPI increased by 4.45% compared with the same period of the previous year; core inflation increased by 4.24%.
+Date of issue: 03/09/2026
+Reference period: 8/2026
+Consumer Price Index, Gold Price Index and US Dollar Price Index in July and the first seven months of 2026
+The Consumer Price Index (CPI) decreased by 0.12% in July 2026 compared to the previous month, mainly due to lower gasoline and oil prices following the decline in global fuel prices, as well as lower food prices resulting from abundant supply. Compared to December 2025, the CPI increased by 3.08%, and it rose by 4.45% compared to the same period last year.
+Date of issue: 03/08/2026
+Reference period: 7/2026
+Consumer Price Index, Gold Price Index, and US Dollar Price Index in June 2026, Q2 2026, and the first six months of 2026
+The Consumer Price Index (CPI) in June 2026 recorded a month-on-month decrease of 0.39%, mainly attributable to a decline in gasoline and oil prices in
+Date of issue: 03/07/2026
+Reference period: 6/2026
+Consumer Price Index, Gold Price Index, and USD Price Index for May and the first five months of 2026.
+Rising electricity and water prices due to high demand during hot weather, along with increases in construction materials, rental housing, and gasoline prices, are the main reasons for the 0.29% increase in the Consumer Price Index (CPI) in May 2026 compared to the previous month. Compared to December 2025, the CPI in May increased by 3.61% and by 5.6% compared to the same period last year.
+Date of issue: 03/06/2026
+Reference period: May 2026
+Next release: 03/07/2026
+Consumer price index, gold price index and USD price index for April and the first four months of 2026
+The Consumer Price Index (CPI) in April increased by 0.84% ​​compared to the previous month, mainly due to rising domestic gas prices following world fuel prices, increased prices for dining out, and higher construction material costs due to increased input costs and transportation.
+Date of issue: 03/05/2026
+Reference period: April 2026
+Next release: 03/06/2026
+1
+2
+3
+…
+52
+»
+2026-09-05 17:49:46,649 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-05 17:49:46,685 INFO agent.graph: Structure LLM call done in 4.48s for query: Extract the most recent Vietnam Consumer Price Index (CPI) report from this page | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 1626, 'output_tokens': 1043, 'total_tokens': 2669, 'output_token_details': {'reasoning': 364}}
+2026-09-05 17:49:46,692 INFO __main__: [1/1] vietnam_cpi_official done in 7.01s (gate_passed=True, error=None)
+2026-09-05 17:49:46,703 INFO __main__: Trigger finished in 7.04s: 1/1 ok, 0 gate-rejected, 0 errored
+2026-09-05 17:49:46,703 INFO __main__: Full run summary written to /Users/dangngocbach/PycharmProjects/Market insight test/data/trigger_run_57433264-5dfc-49e9-b3d4-86b4efbae924.json
+2026-09-05 17:49:47,465 INFO __main__: Refreshed /Users/dangngocbach/PycharmProjects/Market insight test/review_dashboard.html

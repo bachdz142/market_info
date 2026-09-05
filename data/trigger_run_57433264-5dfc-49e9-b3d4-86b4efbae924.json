@@ -1,0 +1,95 @@
+{
+  "run_id": "57433264-5dfc-49e9-b3d4-86b4efbae924",
+  "triggered_at": "2026-09-05T17:49:39.662932+07:00",
+  "run_seconds": 7.04,
+  "topics": [
+    {
+      "id": "vietnam_cpi_official",
+      "kind": "quant",
+      "gate_passed": true,
+      "gate_reason": null,
+      "result": {
+        "query": "Extract the most recent Vietnam Consumer Price Index (CPI) report from this page: the month-on-month change, the change compared to December of the previous year, and the year-on-year change, plus the reference period and date of issue. source_code for these signals is \"GSO\".",
+        "signals": [
+          {
+            "signal_type": "price_change",
+            "summary": "Vietnam CPI month‑on‑month change +0.47% in August 2026.",
+            "source_url": "https://www.nso.gov.vn/en/cpi/",
+            "observed_at": "03/09/2026",
+            "confidence": "high",
+            "source_code": "GSO",
+            "reference_period": "8/2026",
+            "data_basis": "not_applicable",
+            "actual_proxy_forecast": "actual",
+            "forecast_org": null,
+            "fact_or_opinion": "fact"
+          },
+          {
+            "signal_type": "price_change",
+            "summary": "Vietnam CPI increased 3.57% compared with December 2025 in August 2026.",
+            "source_url": "https://www.nso.gov.vn/en/cpi/",
+            "observed_at": "03/09/2026",
+            "confidence": "high",
+            "source_code": "GSO",
+            "reference_period": "8/2026",
+            "data_basis": "not_applicable",
+            "actual_proxy_forecast": "actual",
+            "forecast_org": null,
+            "fact_or_opinion": "fact"
+          },
+          {
+            "signal_type": "price_change",
+            "summary": "Vietnam CPI year‑on‑year increase of 4.89% in August 2026.",
+            "source_url": "https://www.nso.gov.vn/en/cpi/",
+            "observed_at": "03/09/2026",
+            "confidence": "high",
+            "source_code": "GSO",
+            "reference_period": "8/2026",
+            "data_basis": "not_applicable",
+            "actual_proxy_forecast": "actual",
+            "forecast_org": null,
+            "fact_or_opinion": "fact"
+          },
+          {
+            "signal_type": "other",
+            "summary": "Reference period for the CPI report is August 2026.",
+            "source_url": "https://www.nso.gov.vn/en/cpi/",
+            "observed_at": "03/09/2026",
+            "confidence": "high",
+            "source_code": "GSO",
+            "reference_period": "8/2026",
+            "data_basis": "not_applicable",
+            "actual_proxy_forecast": "actual",
+            "forecast_org": null,
+            "fact_or_opinion": "fact"
+          },
+          {
+            "signal_type": "other",
+            "summary": "Date of issue for the CPI report is 03/09/2026.",
+            "source_url": "https://www.nso.gov.vn/en/cpi/",
+            "observed_at": "03/09/2026",
+            "confidence": "high",
+            "source_code": "GSO",
+            "reference_period": "8/2026",
+            "data_basis": "not_applicable",
+            "actual_proxy_forecast": "actual",
+            "forecast_org": null,
+            "fact_or_opinion": "fact"
+          }
+        ],
+        "generated_at": "2026-09-05T17:49:46.690616+07:00"
+      },
+      "token_usage": {
+        "input_tokens": 1626,
+        "output_tokens": 1043,
+        "total_tokens": 2669,
+        "output_token_details": {
+          "reasoning": 364
+        }
+      },
+      "raw_content": "Consumer Price Index, Gold Price Index and US Dollar Price Index in August and eight months of 2026\nConsumer Price Index (CPI) in August increased by 0.47% compared with the previous month; increased by 3.57% compared with December 2025 and increased by 4.89% compared with the same period of the previous year. On average, in the first eight months of 2026, the CPI increased by 4.45% compared with the same period of the previous year; core inflation increased by 4.24%.\nDate of issue: 03/09/2026\nReference period: 8/2026\nConsumer Price Index, Gold Price Index and US Dollar Price Index in July and the first seven months of 2026\nThe Consumer Price Index (CPI) decreased by 0.12% in July 2026 compared to the previous month, mainly due to lower gasoline and oil prices following the decline in global fuel prices, as well as lower food prices resulting from abundant supply. Compared to December 2025, the CPI increased by 3.08%, and it rose by 4.45% compared to the same period last year.\nDate of issue: 03/08/2026\nReference period: 7/2026\nConsumer Price Index, Gold Price Index, and US Dollar Price Index in June 2026, Q2 2026, and the first six months of 2026\nThe Consumer Price Index (CPI) in June 2026 recorded a month-on-month decrease of 0.39%, mainly attributable to a decline in gasoline and oil prices in\nDate of issue: 03/07/2026\nReference period: 6/2026\nConsumer Price Index, Gold Price Index, and USD Price Index for May and the first five months of 2026.\nRising electricity and water prices due to high demand during hot weather, along with increases in construction materials, rental housing, and gasoline prices, are the main reasons for the 0.29% increase in the Consumer Price Index (CPI) in May 2026 compared to the previous month. Compared to December 2025, the CPI in May increased by 3.61% and by 5.6% compared to the same period last year.\nDate of issue: 03/06/2026\nReference period: May 2026\nNext release: 03/07/2026\nConsumer price index, gold price index and USD price index for April and the first four months of 2026\nThe Consumer Price Index (CPI) in April increased by 0.84% ​​compared to the previous month, mainly due to rising domestic gas prices following world fuel prices, increased prices for dining out, and higher construction material costs due to increased input costs and transportation.\nDate of issue: 03/05/2026\nReference period: April 2026\nNext release: 03/06/2026\n1\n2\n3\n…\n52\n»",
+      "error": null,
+      "topic_seconds": 7.01
+    }
+  ]
+}

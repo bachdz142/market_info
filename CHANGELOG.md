@@ -5,6 +5,18 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — Auto-refresh review_dashboard.html after every /trigger run
+
+Previously a manual `python review_dashboard.py` step after a real run —
+easy to forget, and this session hit that exact gap re-checking
+vcb_promotions after its fetcher fix. `service.py`'s `trigger()` now
+rebuilds it automatically (`review_dashboard.build()` +
+`review_dashboard.OUT_PATH.write_text(...)`) right after writing the
+per-run summary file, wrapped in its own try/except so a dashboard-render
+failure can't fail the request or mask the run's own already-persisted
+data. Verified live: a real `/trigger?source_ids=vietnam_cpi_official`
+call updated `review_dashboard.html`'s mtime with no manual step.
+
 ## Unreleased — Fix vcb_promotions: revert sitemap discovery, use the listing page directly
 
 A real /trigger run (2026-09-05) on vcb_promotions only captured 1 of 3
