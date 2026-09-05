@@ -5,6 +5,56 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — Source/fetcher architecture refactor
+
+Closes `.scratch/source-fetcher-refactor/spec.md`. Purely internal —
+`from agent.sources import SOURCES` and `agent.crawler`'s 4 public
+functions (`crawl`, `crawl_parts`, `crawl_chunked`, `crawl_with_pdf_urls`)
+keep their exact names/signatures/behavior; every other caller in the repo
+needed zero changes.
+
+- `agent/sources.py` (1723 lines, 56 sources) split into `agent/sources/`
+  — `layer1.py`..`layer4.py` per source's own content Layer, reassembled
+  by `__init__.py` into the same `SOURCES` list (same 56 ids, same
+  per-source content — only the top-level list order changed, grouped by
+  Layer instead of interleaved; nothing reads that order).
+- `agent/crawler.py`'s 27 custom per-site fetch functions moved into
+  `agent/fetchers/` (one file per site — acb, bidv, decisionlab, iav,
+  mbbank, nso, ssi, techcombank, vcbs, vietcombank, vpbank), each
+  registered via a new `agent/fetcher_registry.py` decorator
+  (`@register_fetcher(url, shape)`) instead of a manual `if url == X:`
+  branch duplicated across `_crawl_async`/`_crawl_parts_async`. Both
+  dispatchers now do one `CUSTOM_FETCHERS.get(url)` lookup, falling
+  through to `SITE_CONFIGS`/generic extraction unchanged when there's no
+  match. `crawler.py` itself drops from 1625 to ~660 lines — now just
+  `SITE_CONFIGS`/dispatch/shared utilities
+  (`_fetch_html`/`_fetch_pdf_text`/`_fetch_annual_report_page_ranges`/
+  `_fetch_vietstock_statement_text`/`_chunk_text`/etc.).
+- Fixed a real, latent instance of exactly the bug class this refactor
+  exists to prevent while migrating: `mbbank_news`'s old
+  `_fetch_mbbank_news_text` (a stale single-shape fetcher, superseded by
+  `_fetch_mbbank_news_parts` when the click-through fix shipped) was
+  still wired into `_crawl_async`'s dispatch chain even though the source
+  is `multi_pdf` and only ever runs through `_crawl_parts_async` in
+  practice — dead code, never actually reachable, but exactly the kind of
+  silent double-registration the registry's duplicate-URL guard now makes
+  impossible. Deleted.
+- New `tests/test_fetcher_registry.py` (fast, offline, no network) checks
+  the source list has no duplicate/dropped ids, every registered URL
+  matches a real source, and every registration's `shape` matches its
+  source's own `multi_pdf` flag — confirmed live that it actually catches
+  the bug class (injected a shape mismatch, test failed with a clear
+  message, reverted).
+- New `docs/adding-a-source.md` and two `CONTEXT.md` glossary terms
+  (**custom fetcher** vs **config-driven source**) for collaborators
+  adding their own sources.
+- Verified: crawl-only spot checks (no LLM spend) across all three
+  processing categories — a plain `SITE_CONFIGS` source (vnba.org.vn), a
+  custom single-shape fetcher (ACB financial statements, 194,421 chars,
+  matching the pre-refactor figure exactly), and a custom parts-shape
+  fetcher (IAV, 3/3 real articles) — all identical to pre-refactor
+  behavior. Full offline test suite (49 tests) passes.
+
 ## Unreleased — Remaining 4 banks of the Layer 3 annual-report row (VCB, BIDV, MBBank, ACB)
 
 Closes `.scratch/layer3-annual-reports/spec.md` entirely. Same method

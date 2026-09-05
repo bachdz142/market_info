@@ -30,3 +30,7 @@ _Avoid_: "the gate" (ambiguous which one), validation gate
 **Watchlist document**:
 A specific, named legal/regulatory document (identified by its own reference number, e.g. "Circular 08/2026/TT-NHNN") that Layer 4 tracks by direct lookup rather than by reading a source's general page content — distinct from an ordinary Layer 4 source, which is fetched and read as-is with no specific document identity known in advance.
 _Avoid_: tracked document, monitored circular
+
+**Custom fetcher** vs **config-driven source**:
+A source's `url` needs one of two fetch mechanisms, never both. A custom fetcher is a site-specific `agent/fetchers/<site>.py` function, registered via `@register_fetcher(url, shape)` (`agent/fetcher_registry.py`), used when `SITE_CONFIGS`' generic selector-based extraction genuinely can't express what the site needs — an authenticated/AJAX API call, a click-through interaction, PDF page-range slicing. A config-driven source is fully handled by a `SITE_CONFIGS` entry (or falls through to `DEFAULT_CONFIG`) plus `agent/crawler.py`'s generic extraction — no custom code at all. Resolved 2026-09-05 designing the source/fetcher-registry refactor (`.scratch/source-fetcher-refactor/spec.md`) — the distinction previously existed in practice but had no settled name, which is part of why a fetcher could go silently unwired into the wrong dispatch path.
+_Avoid_: custom source, special-cased source
