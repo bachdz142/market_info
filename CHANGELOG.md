@@ -5,6 +5,28 @@ semver — this is an internal MVP0 demo, versioned by milestone rather than
 package release. For plain-English progress tracking see
 `DEVELOPMENT_PLAN.md`; for architecture/design rationale see `MVP0_PLAN.md`.
 
+## Unreleased — Fix vcb_promotions: revert sitemap discovery, use the listing page directly
+
+A real /trigger run (2026-09-05) on vcb_promotions only captured 1 of 3
+sitemap-discovered promo URLs — 2 were dead, one 302-redirecting to VCB's
+own soft-404 (Error-404 page returning HTTP 200). Investigating why the
+listing page itself wasn't used for discovery (the original 2026-09-01
+comment claimed zero real links exist in its raw HTML, requiring the
+sitemap workaround) found that claim was stale: live-verified 4 back-to-
+back fetches of the listing page, 3 of 4 returned 8 real, followable promo
+links directly (`<a class="newest-promotion__title" href="...">`), the 4th
+an empty widget — the same non-deterministic render/caching race already
+documented for bidv.com.vn's Layer 1 page, previously uncaught here. The
+original investigation apparently hit that empty case once and concluded
+no discovery path existed at all.
+
+`_fetch_vcb_promotions_text` reverted to reading the listing page directly
+(deduping each promo's 2 duplicate links — one per category-chip query
+string), with a 3-attempt retry on an empty widget. Verified live: 3/3 full
+runs captured all 3 promos, vs. the sitemap approach's 1/3 in the same-day
+real run. `VCB_SITEMAP_URL`/`VCB_PROMOTION_RE`/the sitemap-parsing code
+path removed entirely.
+
 ## Unreleased — Source/fetcher architecture refactor
 
 Closes `.scratch/source-fetcher-refactor/spec.md`. Purely internal —

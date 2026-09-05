@@ -1,7 +1,7 @@
+import asyncio
 import logging
-import re
-import urllib.request
 from typing import List, Tuple
+from urllib.parse import urljoin
 
 from agent.crawler import (
     _fetch_annual_report_page_ranges,
@@ -17,48 +17,77 @@ from crawl4ai.processors.pdf import PDFCrawlerStrategy
 
 logger = logging.getLogger(__name__)
 
-# Vietcombank's promotions listing page is a different kind of problem than
-# ACB/VPBank's AJAX-gap: its homepage showed *zero* fetch/XHR calls under
-# JS-injection capture (confirmed live, 2026-09-01) — this site is mostly
-# server-rendered, not a client-side SPA, so the listing's real links are
-# most likely populated via a WebCenter/Liferay-style portlet postback, not
-# a plain client-side call this technique can see. But individual promo
-# article pages ARE real and fully extractable (confirmed live: detailed,
-# dated promo terms with real VND figures) — the sitemap is the discovery
-# mechanism instead of the listing page, using its real <lastmod> dates to
-# pick the most recent few. crawl4ai's own fetch fails on this specific
-# sitemap's XML encoding declaration ("Unicode strings with encoding
-# declaration are not supported"); raw urllib works fine and is used only
-# for this one bootstrap step — every actual promo page fetch still goes
-# through crawl4ai normally.
+# Vietcombank's promotions listing page renders a "newest promotions"
+# widget with real, followable <a href> links straight in the raw HTML
+# (e.g. class="newest-promotion__title") — confirmed live, 3 of 4 fetches
+# in a row returned 8 real promo links each. The 4th came back with the
+# widget empty (a non-deterministic render/caching race, the same class
+# already documented for bidv.com.vn's Layer 1 page and VCB's own
+# fee-schedule page). A prior investigation (2026-09-01) apparently hit
+# that empty case, concluded the listing had *zero* real client-side/XHR
+# discovery path at all, and switched to reading sitemap.xml's <lastmod>
+# dates instead — but that was solving a problem that mostly doesn't
+# exist, while adding a real cost of its own: confirmed live (2026-09-05)
+# that 2 of the sitemap's 3 "newest" URLs were dead (one 302-redirected to
+# VCB's own soft-404). Reverted to the listing page directly, with a
+# retry for the empty-widget race, since a plain-fetch-with-retry is both
+# simpler and more reliable than the sitemap route turned out to be.
+#
+# Each real link appears twice in the raw HTML with a different query
+# string (once per category chip, e.g. ?promotion-type=... and
+# ?promotion-product-type=...) — same underlying page either way, so
+# _vcb_promotion_urls() dedupes by path, ignoring the query string. The
+# widget's own name ("newest-promotion...") and every fetch's link order
+# matching real recency confirm it's already newest-first, same
+# "listing is already sorted" assumption already used elsewhere in this
+# file (IAV, decisionlab).
 VCB_PROMOTIONS_URL = "https://www.vietcombank.com.vn/KHCN/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai"
-VCB_SITEMAP_URL = "https://www.vietcombank.com.vn/sitemap.xml"
 VCB_PROMOTIONS_LIMIT = 3
-VCB_PROMOTION_RE = re.compile(
-    r"<url>\s*<loc>(https?://www\.vietcombank\.com\.vn/KHCN/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai/[^<]+)</loc>\s*<lastmod>([^<]+)</lastmod>"
-)
+VCB_PROMOTIONS_LINK_SELECTOR = "a[href*='Danh-sach-uu-dai/']"
+VCB_PROMOTIONS_LISTING_MAX_ATTEMPTS = 3
+VCB_PROMOTIONS_LISTING_RETRY_DELAY_SECONDS = 5
 
 
-def _vcb_promotion_urls() -> List[str]:
-    req = urllib.request.Request(VCB_SITEMAP_URL, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        raw = resp.read().decode("utf-8", errors="replace")
-    pairs = VCB_PROMOTION_RE.findall(raw)
-    pairs.sort(key=lambda pair: pair[1], reverse=True)
-    # The sitemap lists these as plain http:// — confirmed live that
-    # fetching over http specifically (not https) trips a genuine
-    # net::ERR_HTTP2_PROTOCOL_ERROR against this domain, so normalize to
-    # https first.
-    return [url.replace("http://", "https://", 1) for url, _ in pairs[:VCB_PROMOTIONS_LIMIT]]
+def _vcb_promotion_urls(html: str) -> List[str]:
+    soup = BeautifulSoup(html, "lxml")
+    seen = set()
+    urls: List[str] = []
+    for a in soup.select(VCB_PROMOTIONS_LINK_SELECTOR):
+        href = a.get("href")
+        if not href:
+            continue
+        path = href.split("?", 1)[0]
+        full_url = urljoin(VCB_PROMOTIONS_URL, path)
+        if full_url in seen:
+            continue
+        seen.add(full_url)
+        urls.append(full_url)
+        if len(urls) >= VCB_PROMOTIONS_LIMIT:
+            break
+    return urls
 
 
 async def _fetch_vcb_promotions_text() -> str:
-    urls = _vcb_promotion_urls()
-    if not urls:
-        raise ValueError("No VCB promotion URLs found in sitemap")
-
-    parts = []
+    _throttle(_domain(VCB_PROMOTIONS_URL))
+    urls: List[str] = []
     async with AsyncWebCrawler() as crawler:
+        for attempt in range(1, VCB_PROMOTIONS_LISTING_MAX_ATTEMPTS + 1):
+            listing = await crawler.arun(url=VCB_PROMOTIONS_URL, config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS))
+            if listing.success:
+                urls = _vcb_promotion_urls(listing.html)
+                if urls:
+                    break
+            if attempt < VCB_PROMOTIONS_LISTING_MAX_ATTEMPTS:
+                logger.info(
+                    "VCB promotions listing had no real promo links (attempt %d/%d), retrying in %ds",
+                    attempt, VCB_PROMOTIONS_LISTING_MAX_ATTEMPTS, VCB_PROMOTIONS_LISTING_RETRY_DELAY_SECONDS,
+                )
+                await asyncio.sleep(VCB_PROMOTIONS_LISTING_RETRY_DELAY_SECONDS)
+
+        if not urls:
+            raise ValueError("VCB promotions listing had no real promo links after retries")
+
+        parts = []
         for url in urls:
             _throttle(_domain(url))
             result = await crawler.arun(url=url, config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS))

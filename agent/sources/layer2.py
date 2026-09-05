@@ -147,20 +147,22 @@ LAYER2_SOURCES = [
         "id": "vcb_promotions",
         "kind": "qualitative",
         "role": "citable",
-        # Different problem than ACB/VPBank's AJAX-gap: VCB's homepage
-        # showed zero fetch/XHR calls under JS-injection capture (confirmed
-        # live, 2026-09-01) — mostly server-rendered, not a client-side SPA,
-        # so the listing's real links are likely populated via a
-        # WebCenter/Liferay-style portlet postback this technique can't see.
-        # Individual promo article pages ARE real and fully extractable
-        # (confirmed live: detailed, dated terms with real VND figures) —
-        # see agent/fetchers/vietcombank.py's _fetch_vcb_promotions_text(): uses the
-        # sitemap's real <lastmod> dates to pick the 3 most recent, since
-        # the listing page itself never surfaces them. VCB's separate fee
-        # schedule page is NOT solved this way — its fee table is an
-        # embedded image, not JS-gapped content, so no amount of crawling
-        # fixes it; needs OCR (same category as BIDV's/VCB's own Layer 1
-        # scan-only filings).
+        # The listing page's "newest promotions" widget has real,
+        # followable links straight in its raw HTML — but non-
+        # deterministically: confirmed live (2026-09-05) 3 of 4 fetches
+        # returned 8 real links, the 4th an empty widget (a caching/render
+        # race, same class as bidv.com.vn's Layer 1 page). See
+        # agent/fetchers/vietcombank.py's _fetch_vcb_promotions_text():
+        # retries the listing fetch on an empty widget, then follows the 3
+        # newest real links directly — reverted from an earlier sitemap.xml
+        # <lastmod>-based discovery mechanism (2026-09-01) that turned out
+        # to be solving a problem that mostly didn't exist while adding a
+        # real cost: 2 of the sitemap's 3 "newest" entries were dead when
+        # live-checked, one 302-redirecting to VCB's own soft-404. VCB's
+        # separate fee schedule page is NOT solved this way — its fee
+        # table is an embedded image, not JS-gapped content, so no amount
+        # of crawling fixes it; needs OCR (same category as BIDV's/VCB's
+        # own Layer 1 scan-only filings).
         "url": "https://www.vietcombank.com.vn/KHCN/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai",
         "prompt": (
             "Extract concrete promotional offers from the content below — "

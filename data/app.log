@@ -61126,3 +61126,90 @@ Báo cáo của Hội đồng Quản trị - Ban điều hành Báo cáo của H
 2026-09-03 16:16:46,894 INFO agent.graph: Structure LLM call done in 16.1s for query: This is an excerpt from Vietcombank's 2025 Annual Report (Vietnamese) — specific | provider: mistral/mistral-small-2603 | tokens: {'input_tokens': 4116, 'output_tokens': 2692, 'total_tokens': 6808}
 2026-09-03 16:16:46,898 INFO agent.graph: Per-piece structure call 4/4 done
 2026-09-03 16:16:46,904 INFO service: [1/1] vietcombank_annual_report done in 172.17s (gate_passed=True, error=None)
+2026-09-05 17:25:25,940 INFO __main__: Trigger started (run_id=8f240f51-70ce-4d0e-a581-fcfe1fb7c93e): 0 topics, 1 sources (filtered to 1 requested ids)
+2026-09-05 17:25:25,985 INFO agent.gate: Gate passed: Extract concrete promotional offers from the content below — the specific offer 
+2026-09-05 17:25:30,235 INFO agent.fetchers.vietcombank: Failed to fetch VCB promotion https://www.vietcombank.com.vn/KHCN/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai/KHCN---2608---Visa-Crossborder, skipping
+2026-09-05 17:25:30,236 INFO agent.crawler: Throttling request to vietcombank.com.vn, waiting 4.5s
+2026-09-05 17:25:34,901 INFO agent.fetchers.vietcombank: Failed to fetch VCB promotion https://www.vietcombank.com.vn/KHCN/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai/KHCN---So-luong-tron-doi, skipping
+2026-09-05 17:25:34,901 INFO agent.crawler: Throttling request to vietcombank.com.vn, waiting 4.8s
+2026-09-05 17:25:41,656 INFO agent.graph: Crawl done in 15.67s for url: https://www.vietcombank.com.vn/KHCN/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai
+2026-09-05 17:25:41,661 INFO agent.graph: Raw content fed to LLM for query: Extract concrete promotional offers from the content below — the specific offer 
+--- https://www.vietcombank.com.vn/KHCN/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai/Cung-VN-tien-buoc-2026 ---
+1. Thời gian khuyến mại
+: Từ ngày 18/08/2026 đến hết ngày 02/09/2026.
+2. Khách hàng của chương trình
+: Khách hàng cá nhân đáp ứng đồng thời các điều kiện sau:
+•	Đăng ký tham gia chương trình thông qua trang Landing Page của chương trình:
+https://cungvietnamtienbuoc.nhandan.vn/
+;
+•	Là khách hàng lần đầu đăng ký và kích hoạt thành công dịch vụ VCB Digibank thông qua trang Landing Page của chương trình trong thời gian khuyến mại;
+•	Duy trì một tài khoản thanh toán VND trên VCB Digibank ở trạng thái hoạt động, đã được xác thực eKYC (không bị chặn);
+3. Sản phẩm áp dụng
+: Dịch vụ Ngân hàng số VCB Digibank dành cho khách hàng cá nhân.
+4. Địa bàn (phạm vi) khuyến mại
+: Toàn quốc.
+5. Quà tặng
+: 100.000 VND, được cộng vào tài khoản thanh toán Vietcombank của khách hàng đủ điều kiện. Khách hàng có thể lựa chọn đóng góp khoản thưởng cho Quỹ Bảo trợ Trẻ em Việt Nam.
+Chi tiết thể lệ chương trình:
+Tại đây
+2026-09-05 17:25:44,816 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-05 17:25:44,852 INFO agent.graph: Structure LLM call done in 3.19s for query: Extract concrete promotional offers from the content below — the specific offer  | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 1301, 'output_tokens': 533, 'total_tokens': 1834, 'output_token_details': {'reasoning': 224}}
+2026-09-05 17:25:44,863 INFO __main__: [1/1] vcb_promotions done in 18.89s (gate_passed=True, error=None)
+2026-09-05 17:25:44,870 INFO __main__: Trigger finished in 18.93s: 1/1 ok, 0 gate-rejected, 0 errored
+2026-09-05 17:25:44,870 INFO __main__: Full run summary written to /Users/dangngocbach/PycharmProjects/Market insight test/data/trigger_run_8f240f51-70ce-4d0e-a581-fcfe1fb7c93e.json
+2026-09-05 17:43:55,106 INFO __main__: Trigger started (run_id=9b193c30-5604-4f46-9c43-0079b37dd6ce): 0 topics, 1 sources (filtered to 1 requested ids)
+2026-09-05 17:43:55,145 INFO agent.gate: Gate passed: Extract concrete promotional offers from the content below — the specific offer 
+2026-09-05 17:43:59,823 INFO agent.crawler: Throttling request to vietcombank.com.vn, waiting 1.3s
+2026-09-05 17:44:02,784 INFO agent.crawler: Throttling request to vietcombank.com.vn, waiting 3.3s
+2026-09-05 17:44:07,762 INFO agent.crawler: Throttling request to vietcombank.com.vn, waiting 3.3s
+2026-09-05 17:44:12,836 INFO agent.graph: Crawl done in 17.69s for url: https://www.vietcombank.com.vn/KHCN/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai
+2026-09-05 17:44:12,842 INFO agent.graph: Raw content fed to LLM for query: Extract concrete promotional offers from the content below — the specific offer 
+--- https://www.vietcombank.com.vn/en/Personal/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai/Manh-tay-vit-ads-hoan-tien-dam-sau ---
+Vietcombank offers up to VND 15 million cashback when you apply for a VCB DigiAds card and spend on advertising.
+1.	Special Offer for New VCB DigiAds Cardholders
+​
+Customers who establish a new banking relationship with Vietcombank and successfully issue a VCB DigiAds card during the promotion period will receive VND 500,000 Cashback when achieving a minimum of VND 20 million in eligible advertising spend during the promotion period.
+2.	Spend More on Advertising, Earn Bigger Rewards
+​
+VCB DigiAds cardholders can earn rewards based on their cumulative eligible advertising spend throughout the promotion period:
+Eligible Advertising Spend
+Cashback Reward
+From VND 100 million
+VND 800,000
+From VND 300 million
+VND 3,000,000
+From VND 800 million
+VND 8,000,000
+From VND 1.5 billion
+VND 15,000,000
+Notes:
+•	Customers who qualify for the New Customer Offer may continue to participate in Offer 2 – Increase Your Advertising Spend.
+•	Customers are eligible to receive only one reward, corresponding to the highest reward tier achieved during the promotion period.
+•	Each customer is eligible for a maximum reward of VND 15,000,000 throughout the entire promotion program.
+
+--- https://www.vietcombank.com.vn/en/Personal/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai/KHCN---11082026---Hoan-tien-chi-tieu-quang-cao-VCB-Visa ---
+From August 15, 2028, to September 30, 2026, Vietcombank Visa credit and debit cardholders who make advertising-related transactions (MCC: 7311, 5960, 5962, 5964, 5965, 5966, 5967, 5968, 5969) will be eligible for cashback. The total cashback amount can reach up to VND 10,000,000 per customer during the program
+period.This
+program applies to all forms of Vietcombank Visa card payments for Metro tickets, including:
+Notes:
+Eligible customers are determined by Vietcombank and will receive program notifications through official channels (OTT/Email).
+The program does not apply to customers who do not receive the notification.
+The program may end earlier if the budget is exhausted.
+
+--- https://www.vietcombank.com.vn/en/Personal/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai/30072026---Chi-tieu-quoc-te-hoan-tien-xung-tam ---
+Get a 100% refund on foreign currency transaction processing fees for overseas POS purchases made with Vietcombank Visa Signature cards:
+Maximum cashback: VND 1,500,000 per customer.
+Eligible transactions: Overseas purchases with a transaction value of VND 2,000,000 or more.
+Payment channel: POS terminals.
+Total programme budget: VND 3,129,909,090.
+Important notes:
+​
+For customers who participated in Phase 1 of the programme, from 6 June 2026 to 31 July 2026, and received cashback:
+Customers who received the maximum cashback amount of VND 1,500,000 per CIF will not be eligible for cashback in Phase 2.
+Customers who received less than VND 1,500,000 per CIF will remain eligible for cashback consideration in Phase 2.
+However, the total cashback received by each customer across both phases must not exceed VND 1,500,000 per CIF.
+2026-09-05 17:44:17,853 INFO httpx: HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-09-05 17:44:17,897 INFO agent.graph: Structure LLM call done in 5.05s for query: Extract concrete promotional offers from the content below — the specific offer  | provider: groq/openai/gpt-oss-120b | tokens: {'input_tokens': 1780, 'output_tokens': 1346, 'total_tokens': 3126, 'output_token_details': {'reasoning': 415}}
+2026-09-05 17:44:17,907 INFO __main__: [1/1] vcb_promotions done in 22.78s (gate_passed=True, error=None)
+2026-09-05 17:44:17,921 INFO __main__: Trigger finished in 22.81s: 1/1 ok, 0 gate-rejected, 0 errored
+2026-09-05 17:44:17,921 INFO __main__: Full run summary written to /Users/dangngocbach/PycharmProjects/Market insight test/data/trigger_run_9b193c30-5604-4f46-9c43-0079b37dd6ce.json

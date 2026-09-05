@@ -1,0 +1,43 @@
+{
+  "run_id": "8f240f51-70ce-4d0e-a581-fcfe1fb7c93e",
+  "triggered_at": "2026-09-05T17:25:25.940220+07:00",
+  "run_seconds": 18.93,
+  "topics": [
+    {
+      "id": "vcb_promotions",
+      "kind": "qualitative",
+      "gate_passed": true,
+      "gate_reason": null,
+      "result": {
+        "query": "Extract concrete promotional offers from the content below — the specific offer or campaign, the product/card it applies to, the benefit or discount amount, and the validity dates where stated. source_code for these signals is \"VCB\".",
+        "signals": [
+          {
+            "signal_type": "other",
+            "summary": "Cung VN Tiền Bước 2026 promotion offers a VND 100,000 reward credited to eligible customers' Vietcombank payment accounts for first-time registration and successful activation of VCB Digibank digital banking service via the program landing page, valid from 18 August 2026 to 2 September 2026.",
+            "source_url": "https://www.vietcombank.com.vn/KHCN/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai",
+            "observed_at": "unknown",
+            "confidence": "high",
+            "source_code": "VCB",
+            "reference_period": "18/08/2026-02/09/2026",
+            "data_basis": "not_applicable",
+            "actual_proxy_forecast": "actual",
+            "forecast_org": null,
+            "fact_or_opinion": "fact"
+          }
+        ],
+        "generated_at": "2026-09-05T17:25:44.860165+07:00"
+      },
+      "token_usage": {
+        "input_tokens": 1301,
+        "output_tokens": 533,
+        "total_tokens": 1834,
+        "output_token_details": {
+          "reasoning": 224
+        }
+      },
+      "raw_content": "--- https://www.vietcombank.com.vn/KHCN/Truy-cap-nhanh/KHCN---Danh-sach-uu-dai/Cung-VN-tien-buoc-2026 ---\n1. Thời gian khuyến mại\n: Từ ngày 18/08/2026 đến hết ngày 02/09/2026.\n2. Khách hàng của chương trình\n: Khách hàng cá nhân đáp ứng đồng thời các điều kiện sau:\n•\tĐăng ký tham gia chương trình thông qua trang Landing Page của chương trình:\nhttps://cungvietnamtienbuoc.nhandan.vn/\n;\n•\tLà khách hàng lần đầu đăng ký và kích hoạt thành công dịch vụ VCB Digibank thông qua trang Landing Page của chương trình trong thời gian khuyến mại;\n•\tDuy trì một tài khoản thanh toán VND trên VCB Digibank ở trạng thái hoạt động, đã được xác thực eKYC (không bị chặn);\n3. Sản phẩm áp dụng\n: Dịch vụ Ngân hàng số VCB Digibank dành cho khách hàng cá nhân.\n4. Địa bàn (phạm vi) khuyến mại\n: Toàn quốc.\n5. Quà tặng\n: 100.000 VND, được cộng vào tài khoản thanh toán Vietcombank của khách hàng đủ điều kiện. Khách hàng có thể lựa chọn đóng góp khoản thưởng cho Quỹ Bảo trợ Trẻ em Việt Nam.\nChi tiết thể lệ chương trình:\nTại đây",
+      "error": null,
+      "topic_seconds": 18.89
+    }
+  ]
+}
